@@ -1,0 +1,40 @@
+
+.mod-login {
+    position: relative;
+}
+
+.mod-login .expandable {
+    visibility: hidden;
+    width: 250px;
+}
+
+.mod-login .expandable {
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    z-index: 65535;
+    background-color: #fff;
+    border: 5px solid #EBEFF1;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.mod-login #form-login-remember {
+    float: left;
+    margin: 4px 0 0;
+}
+
+.mod-login ul {
+    float:left;
+}
+
+.mod-login ul li {
+    list-style:none none outside;
+    text-align: left;
+}
+
+.mod-login .registration {
+    margin-top: 12px;
+    float: right;
+}
