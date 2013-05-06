@@ -60,17 +60,11 @@
 
         this.manager = options.manager;
 
-        $(this.node).draggable({
-            drag: function(ev){
+        yo.drag.create(this.node, {
+            dragmove: function(ev){
                 _this.setSize();
             }
         });
-
-//        yo.drag.create(this.node, {
-//            dragmove: function(ev){
-//                _this.setSize();
-//            }
-//        });
 
 //        new yo.drag($(this.node).draggable({
 //            drag: function(ev){

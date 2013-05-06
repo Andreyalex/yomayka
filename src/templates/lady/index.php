@@ -6,6 +6,73 @@ $app = JFactory::getApplication();
 
 JHtml::_('behavior.framework', true);
 
+
+
+$this->deviceMode = null;
+
+// Let's find WURFL...
+define('WURFL_BASE_PATH', JPATH_LIBRARIES . '/wurfl');
+if (file_exists(WURFL_BASE_PATH . '/wurfl_config_standard.php')) {
+    
+    $wurflDir = WURFL_BASE_PATH . '/WURFL';
+    $resourcesDir = WURFL_BASE_PATH . '/resources';
+
+    require_once WURFL_BASE_PATH.'/WURFL/Application.php';
+
+    $persistenceDir = $resourcesDir.'/storage/persistence';
+    $cacheDir = $resourcesDir.'/storage/cache';
+
+    // Create WURFL Configuration
+    $wurflConfig = new WURFL_Configuration_InMemoryConfig();
+
+    // Set location of the WURFL File
+    $wurflConfig->wurflFile($resourcesDir.'/wurfl.zip');
+
+    // Set the match mode for the API ('performance' or 'accuracy')
+    $wurflConfig->matchMode('performance');
+
+    // Setup WURFL Persistence
+    $wurflConfig->persistence('file', array('dir' => $persistenceDir));
+
+    // Setup Caching
+    $wurflConfig->cache('file', array('dir' => $cacheDir, 'expiration' => 36000));
+
+    // Create a WURFL Manager Factory from the WURFL Configuration
+    $wurflManagerFactory = new WURFL_WURFLManagerFactory($wurflConfig);
+
+    // Create a WURFL Manager
+    /* @var $wurflManager WURFL_WURFLManager */
+    $wurflManager = $wurflManagerFactory->create();
+	$requestingDevice = $wurflManager->getDeviceForHttpRequest($_SERVER);
+    
+    $is_wireless = ($requestingDevice->getCapability('is_wireless_device') == 'true');
+    $is_tablet = ($requestingDevice->getCapability('is_tablet') == 'true');
+
+    if ($is_wireless) {
+        $deviceClass = $is_tablet? 20 : 10;
+    } else {
+        $deviceClass = 30;
+    }
+
+    $maxResolution = max(array($requestingDevice->getCapability('resolution_width'), $requestingDevice->getCapability('resolution_height')));
+    
+    if ($maxResolution > 0 && $maxResolution < 768) {
+        $deviceClass = 10;
+    }
+
+    if ($maxResolution >= 768 && $deviceClass < 20) {
+        $deviceClass = 20;
+    }
+
+    if ($maxResolution >= 980 && $deviceClass < 30) {
+        $deviceClass = 30;
+    }
+    
+    $this->deviceClass = 
+         ($deviceClass <= 10)? 'phone' :
+        (($deviceClass <= 20)? 'tablet' : 'desktop');
+}
+
 $option = JRequest::getVar('option', null);
 
 $bodyClass = '';
@@ -68,7 +135,6 @@ if($apexFixed) {
 
     <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/jquery.js"></script>
     <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js"></script>
-    <!--<script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/jquery-ui/js/jquery-ui-touch-punch.js"></script>-->
     <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/bootstrap.js"></script>
     <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/bootstrap-collapse.js"></script>
     <?php // Release $ sign for Mootools ?>
@@ -111,11 +177,9 @@ if($apexFixed) {
             <?php if ($this->countModules('apex-top')): ?>
             <div id="pos-apex-top" class="layout-case">
                 <div class="container">
-                    <!--<div class="container-inner">-->
-                        <div class="row-fluid">
-                            <jdoc:include type="modules" name="apex-top" style="standard"/>
-                        </div>    
-                    <!--</div>-->    
+                    <div class="row-fluid">
+                        <jdoc:include type="modules" name="apex-top" style="standard"/>
+                    </div>    
                 </div>	
             </div>
             <?php endif; ?>
@@ -123,11 +187,9 @@ if($apexFixed) {
             <?php if ($this->countModules('apex-middle')): ?>
             <div id="pos-apex-middle" class="layout-case">
                 <div class="container">
-                    <!--<div class="container-inner">-->
-                        <div class="row-fluid">
-                            <jdoc:include type="modules" name="apex-middle" style="standard" />
-                        </div>    
-                    <!--</div>-->    
+                    <div class="row-fluid">
+                        <jdoc:include type="modules" name="apex-middle" style="standard" />
+                    </div>    
                 </div>
             </div>    
             <?php endif; ?>
@@ -135,11 +197,9 @@ if($apexFixed) {
             <?php if ($this->countModules('apex-bottom')): ?>
             <div id="pos-apex-bottom" class="layout-case">
                 <div class="container">
-                    <!--<div class="container-inner">-->
-                        <div class="row-fluid">
-                            <jdoc:include type="modules" name="apex-middle" style="standard" />
-                        </div>    
-                    <!--</div>-->    
+                    <div class="row-fluid">
+                        <jdoc:include type="modules" name="apex-middle" style="standard" />
+                    </div>    
                 </div>
             </div>	
             <?php endif; ?>
@@ -163,11 +223,9 @@ if($apexFixed) {
 			<?php if ($countModuleHeaderTop): ?>
             <div id="header-top_bar" class="layout-case">
                 <div class="container">
-                    <div class="container-inner">
-                        <div id="header-top">
-                            <jdoc:include type="modules" name="header-top" />
-                        </div>
-                    </div>    
+					<div id="header-top">
+						<jdoc:include type="modules" name="header-top" />
+					</div>
                 </div>    
             </div>    
             <?php endif; ?>
@@ -175,8 +233,6 @@ if($apexFixed) {
 			<?php if ($countModuleLogo || $countModuleToolbar): ?>
 			<div id="logo_bar" class="layout-case">
 				<div class="container">
-                    <div class="container-inner">
-                    
 					
 					<?php if ($countModuleLogo): ?>
 					<div id="logo_place" class="pull-left">
@@ -190,7 +246,6 @@ if($apexFixed) {
 					</div><!--toolbar_place-->
 					<?php endif; ?>
 				
-                    </div>
 				</div>
 			</div><!--logo_bar-->
 			<?php endif; ?>
@@ -200,8 +255,6 @@ if($apexFixed) {
 			<?php if ($countModuleMenu|| $countModuleSearch): ?>
 			<div id="menu_bar" class="layout-case">
 				<div class="container">
-                    <div class="container-inner">
-                    
 
 					<?php if ($countModuleMenu): ?>
 					<div id="menu_place" class="pull-left">
@@ -215,7 +268,6 @@ if($apexFixed) {
 					</div><!--search_place-->
 					<?php endif; ?>
 
-                    </div>
 				</div>	
 			</div><!--menu_bar-->
 			<?php endif; ?>
@@ -223,11 +275,9 @@ if($apexFixed) {
             <?php if ($countModuleHeaderTop): ?>
             <div id="header-bottom_bar" class="layout-case">
                 <div class="container">
-                    <div class="container-inner">
-                        <div id="header-bottom" class="pull-left">
-                            <jdoc:include type="modules" name="header-bottom" />
-                        </div>
-                    </div>    
+					<div id="header-bottom" class="pull-left">
+						<jdoc:include type="modules" name="header-bottom" />
+					</div>
                 </div>    
             </div>    
             <?php endif; ?>
@@ -236,9 +286,7 @@ if($apexFixed) {
 			<?php if ($countModuleBreadcrumbsTop): ?>
 			<div id="breadcrumbs_bar" class="layout-case">
 				<div class="container">
-                    <div class="container-inner">
-    					<jdoc:include type="modules" name="breadcrumbs_top" />
-                    </div>    
+					<jdoc:include type="modules" name="breadcrumbs_top" />
 				</div>	
 			</div><!--breadcrumbs_bar-->
 			<?php endif; ?>
@@ -248,9 +296,7 @@ if($apexFixed) {
 			<?php if ($countModuleTop): ?>
 			<div id="top_bar" class="group layout-case">
 				<div class="container">
-                    <div class="container-inner">
-    					<jdoc:include type="modules" name="top" style="standard" />
-                    </div>    
+					<jdoc:include type="modules" name="top" style="standard" />
 				</div>	
 			</div><!--top_bar-->
 			<?php endif; ?>
@@ -260,9 +306,7 @@ if($apexFixed) {
 			<?php if ($countModuleLeft || $countModuleRight || $isShowCenter):?>
 			<div id="main_place" class="layout-case">
 				<div class="container">
-                    <div class="container-inner">
-                    
-					<div class="row-fluid">
+					<div class="row">
 					
 						<?php if ($countModuleLeft): ?>
 						<div id="left_bar" class="span3 pull-left">
@@ -355,8 +399,7 @@ if($apexFixed) {
 						</div><!--all_right_bar-->
 						<?php endif; ?>
 						
-					</div>
-                    </div>
+					</div>	
 				</div>
 			</div><!--main_place-->
 			<?php endif; ?>
@@ -364,8 +407,6 @@ if($apexFixed) {
 			<?php if ($countModuleBottom): ?>
 			<div id="bottom_bar" class="group layout-case">
 				<div class="container">
-                    <div class="container-inner">
-                    
 					<jdoc:include type="modules" name="bottom" style="standard" />
 				</div>	
 			</div><!--bottom_bar-->
@@ -376,8 +417,6 @@ if($apexFixed) {
                 <?php if ($countModuleFooterTop || $countModuleFooterMiddle): ?>
                 <div id="footer" class="layout-case">
                         <div id="footer_bar" class="container">
-                            <div class="container-inner">
-                            
 
                             <?php if ($countModuleFooterTop): ?>
                             <div class="row">

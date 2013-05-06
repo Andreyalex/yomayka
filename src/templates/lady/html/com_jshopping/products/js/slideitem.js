@@ -69,7 +69,7 @@
             // SLIDEITEM draggable
             ev.currentTarget = _this.node;
             ev.delegateTarget = _this.node;
-            ev.type = 'dragstart';
+            ev.type = 'customdragstart';
             ev.mousedownCoords = mc;
             ev.currentCoords = cc;
             $(this).trigger(ev);

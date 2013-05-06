@@ -11,7 +11,7 @@
     
     <?php include(dirname(__FILE__)."/ratingandhits.php");?>
         
-    <div class="product-preinfo">
+    <div class="span5">
         <?php print $this->_tmp_product_html_before_image;?>            
         <?php if ($product->label_id){?>
             <div class="product_label">
@@ -207,7 +207,8 @@
     
     <?php if (!$this->hide_buy && $this->product->_display_price) { ?>                         
         <?php print $this->_tmp_product_html_before_buttons;?>
-        <div class="prod_buttons">
+        <div class="row prod_buttons">
+            <div class="span12">
                 <hr/>
                 <div class = "buttons pull-right">            
 
@@ -224,6 +225,7 @@
                     <?php print $this->_tmp_product_html_buttons;?>
                 </div>
                 <div id = "jshop_image_loading" style = "display:none"></div>
+            </div>
         </div>
         <?php print $this->_tmp_product_html_after_buttons;?>
     <?php }?>

@@ -1,20 +1,4 @@
 <div class="jshop">
-    <?php 
-        $devdetector = JRegistry::getInstance('devicedetector')->get('entity');
-        if ($devdetector && $devdetector->deviceMode == 'desktop') {
-        ?> 
-<!--            <div class="scenemode-list">
-                <a class="btn btn-mini btn-warning" href="<?php echo JUri::current() . '?scenemode=desktop'; ?>">
-                    <span class="icon-move icon-white"></span>
-                </a>
-            </div> -->
-        <?php    
-            
-        }
-    
-    
-    ?>
-    
 <?php if ($this->header){?>
 <h1 class="listproduct<?php print $this->prefix;?>"><?php print $this->header?></h1>
 <?php }?>

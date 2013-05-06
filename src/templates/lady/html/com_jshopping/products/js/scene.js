@@ -34,9 +34,8 @@
 
             // Adjust position for new steneitem
             var offset = node.offset();
-            $('#loggg').html(offset.top + '-' + offset.left);
-            //offset.top += (ev.currentCoords.y - ev.mousedownCoords.y);
-            //offset.left += (ev.currentCoords.x - ev.mousedownCoords.x);
+            offset.top += (ev.currentCoords.y - ev.mousedownCoords.y);
+            offset.left += (ev.currentCoords.x - ev.mousedownCoords.x);
             
 
             // Save link to each oter
@@ -56,11 +55,7 @@
 
             // Programmaticaly re-trigger mousedown event
             // to start DND for new element of scene.
-            ev.currentTarget = slideItemNode;
-            ev.delegateTarget = slideItemNode;
-            ev.type = 'mousedown';
-            $(slideItemNode).trigger(ev);
-
+            yo.drag.start(slideItemNode);
 
             return slideItemNode;
         }
@@ -134,14 +129,12 @@
             widget.setSize(_this.skin.scale)
             // If drop area is exist then adjust draggable's position
             // If no then remove this item
-                console.log('widgettarget', widget.target);
             if (widget.target != null) {
                 var droppable = $(widget.target);
                 var dropOffset = droppable.offset();
                 var dropHeight = droppable.height();
                 var dragOffset = draggable.offset();
                 var dragHeight = draggable.height();
-                console.log(dropOffset, dropHeight, dragOffset, dragHeight)
                 draggable.offset({
                     top: dropOffset.top + dropHeight - dragHeight, 
                     left: dragOffset.left
@@ -174,7 +167,7 @@
 
             // Process items list
             $.each(_this.sources, function(idx, item){
-                $(item).bind('dragstart', _this.onSlideitemDragstart)
+                $(item).bind('customdragstart', _this.onSlideitemDragstart)
             }); 
 
             var container = $(_this.node).find('.skin-container');

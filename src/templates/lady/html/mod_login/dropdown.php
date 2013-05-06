@@ -15,7 +15,7 @@ JHtml::_('behavior.keepalive');
 	<?php if ($params->get('greeting')) : ?>
     
     <div class="btn-group">
-         <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <?php if($params->get('name') == 0) : {
                 echo JText::_($user->get('name'));
             } else : {
@@ -45,7 +45,7 @@ JHtml::_('behavior.keepalive');
 
 <?php else : ?>
     <div class="btn-group">
-      <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         <?php echo JText::_('JLOGIN') ?>
         <span class="caret"></span>
       </a>
