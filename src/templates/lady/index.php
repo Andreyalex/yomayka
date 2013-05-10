@@ -118,7 +118,7 @@ $innerCenterWidth = 12;
 $innerCenterWidth -= $countModuleInnerLeft? 3 : 0;
 $innerCenterWidth -= $countModuleInnerRight? 3 : 0;
 
-$apexFixed = $this->countModules('apex-top') || $this->countModules('apex-middle') || $this->countModules('apex-bottom');
+$apexFixed = $this->countModules('apex-top') || $this->countModules('apex-left') || $this->countModules('apex-right') || $this->countModules('apex-bottom');
 
 if($apexFixed) {
     $bodyClass .= ' apex-present';
@@ -144,7 +144,10 @@ if($apexFixed) {
 
     <?php // If there is other jQuery has been loaded then revert to our first one ?>
     <script type="text/javascript">window.jQCustom = jQuery.noConflict(true);</script>
-    
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap-responsive.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/template.css" type="text/css" media="screen" />
@@ -184,11 +187,16 @@ if($apexFixed) {
             </div>
             <?php endif; ?>
             
-            <?php if ($this->countModules('apex-middle')): ?>
+            <?php if ($this->countModules('apex-left') || $this->countModules('apex-right')): ?>
             <div id="pos-apex-middle" class="layout-case">
                 <div class="container">
                     <div class="row-fluid">
-                        <jdoc:include type="modules" name="apex-middle" style="standard" />
+                        <div id="pos-apex-left" class="pull-left">    
+                            <jdoc:include type="modules" name="apex-left" style="standard" />
+                        </div>    
+                        <div id="pos-apex-right" class="pull-right">    
+                            <jdoc:include type="modules" name="apex-right" style="standard" />
+                        </div>    
                     </div>    
                 </div>
             </div>    
@@ -198,7 +206,7 @@ if($apexFixed) {
             <div id="pos-apex-bottom" class="layout-case">
                 <div class="container">
                     <div class="row-fluid">
-                        <jdoc:include type="modules" name="apex-middle" style="standard" />
+                        <jdoc:include type="modules" name="apex-bottom" style="standard" />
                     </div>    
                 </div>
             </div>	

@@ -1,3 +1,5 @@
+
+
 <?php if ($this->display_list_products) { ?>
 <div class="jshop_list_product">    
 

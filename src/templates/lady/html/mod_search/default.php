@@ -8,7 +8,15 @@
 
 // no direct access
 defined('_JEXEC') or die;
+
+    if (($button_pos && $button)) {
+        $params->set('_moduleContainerClass', 
+                $params->get('_moduleContainerClass') . ' modvariant-button' . $button_pos 
+        );
+    }
 ?>
+
+
 
 <form action="<?php echo JRoute::_('index.php');?>" method="post" class="form-search">
 	<div class="search-module">
@@ -34,11 +42,11 @@ defined('_JEXEC') or die;
 					$output = $output.$button;
 					break;
 
-				case 'right' :
+				case 'left' :
 					$output = $output.$button;
 					break;
 
-				case 'left' :
+				case 'right' :
 				default :
 					$output = $button.$output;
 					break;

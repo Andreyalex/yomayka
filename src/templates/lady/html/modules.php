@@ -29,7 +29,7 @@ function modChrome_standard($module, $params, $attribs) {
     
     // Determine if title is on or off and add class
     // Output module
-    echo '<div class="moduletable module-column' . $moduleUniqueClass . $moduleClassSfx . $moduleType . $containerClass . ' ' . $moduleLayout . ' clearfix">' . "\n";
+    echo '<div class="moduletable module-column' . $moduleUniqueClass . $moduleClassSfx . $moduleType . ' ' . $moduleLayout . ' ' . $containerClass . '">' . "\n";
     echo '<div class="module-block">' . "\n";
 
     if ($module->showtitle == 1) {
