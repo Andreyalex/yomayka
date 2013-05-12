@@ -1,73 +1,54 @@
-<?php 
-    $doc = JFactory::getDocument(); 
-    $doc->addScript(JUri::root() . 'templates/lady/assets/js/yo.js');
-    $doc->addScript(JUri::root() . 'templates/lady/assets/js/yo/drag.js');
-    $doc->addScript(JUri::root() . 'templates/lady/html/com_jshopping/products/js/scene.js');
-    $doc->addScript(JUri::root() . 'templates/lady/html/com_jshopping/products/js/sceneitem.js');
-    $doc->addScript(JUri::root() . 'templates/lady/html/com_jshopping/products/js/slideitem.js');
+<div class="jshop-topbar">
 
-    $this->sceneSkin = array(
-        'scale' => 0.8,
-        'background' => JUri::root() . 'templates/lady/assets/img/scene/divan-blue.png',
-        'droppable' => array(
-            'top' => 155,
-            'left' => 180,
-            'width' => 400,
-            'height' => 150
-        )
-    );
+    <div class="submenu">
+        <?php 
+            $modules = JModuleHelper::getModules('jshopping-submenu');
+            echo JModuleHelper::renderModule($modules[0]);
+        ?>
+    </div>
     
+    <?php 
+    $currentMenu = JFactory::getApplication()->getMenu()->getActive(); 
     ?>
-
-<div class="jshop scenemode">
-
-    <div class="listproduct" data-role="items-container">
-
-            <div class="context-menu">
-                <ul>
-                    <li><a >Подробнее</a></li>
-                </ul>
-                <div class="caret"></div>
-            </div>    
-        
-
-        <?php foreach ($this->rows as $k=>$product): ?>
-        <div class="product" data-role="item">
-            <a href="<?php echo $product->product_link; ?>" class="image">
-                <img src="<?php echo $product->image; ?>" />
-            </a>    
-        </div>
-        <?php endforeach; ?>    
-        
-    </div>
-
-    <div class="scene" data-role="scene-container">
-        <div class="prev"></div>
-        <div class="next"></div>
-        <div class="skin-container"></div>
-    </div>
     
+    <a class="category-title menuitem alias-<?php echo $currentMenu->alias; ?>" onclick="jQuery('.jshop-topbar').toggleClass('open');">
+        <span class="icon"></span>
+        <h2 class="content"><?php echo $currentMenu->title; ?></h2>
+        <!--<span class="nonlink iconfont control" ></span>-->
+    </a>
 </div>
+    
+<div id="jshop-products-list">    
+    <?php if (count($this->rows)) { 
+        $i=0;
+        foreach ($this->rows as $k=>$product){ ?>
+        <div class="item grid-2col-item<?php echo $i % 2; ?> grid-3col-item<?php echo $i % 3; ?>">
 
-<script type="text/javascript">
-    
-    
-    
-    jQuery(document).ready(function($){
-        console.log(this, arguments);
-        
-        var items = $('[data-role="items-container"] [data-role="item"]');
-        
-        /* Init items in the slide panel */
-        $.each(items, function(idx, node){
-            $(node).data('widget', new yo.models.SlideItem(node));
-        });
-        
-        /* Init scene widget */
-        new yo.models.Scene($('[data-role="scene-container"]')[0], {
-            sources: items,
-            skin: <?php echo json_encode($this->sceneSkin); ?>
-        });
-        
-    });
-</script>
+            <a class="nonlink" href="<?php print $product->product_link; ?>">
+                <img class="image" src="<?php print $product->image; ?>" alt="<?php print htmlspecialchars($product->name); ?>" />
+            </a>    
+
+            <h2 class="title">
+                <a class="nonlink" href="<?php print $product->product_link; ?>">
+                    <?php print $product->name; ?>
+                </a>    
+            </h2>
+
+            <div class="thin-line"></div>
+            <p class="description-short">
+                <?php echo $product->short_description; ?>
+            </p>
+            <?php if ($product->_display_price){?>
+            <p class="price">
+                <span class="value">
+                    <?php if ($this->config->product_list_show_price_description) print _JSHOP_PRICE.": ";?>
+                    <?php if ($product->show_price_from) print _JSHOP_FROM." ";?>
+                    <?php print formatprice($product->product_price);?>
+                </span>     
+            </p>
+            <?php }?>
+        </div>
+        <?php 
+            $i++; 
+        } } ?>
+</div>

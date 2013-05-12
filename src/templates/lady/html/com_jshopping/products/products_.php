@@ -1,8 +1,8 @@
 <?php 
+
 $doc = JFactory::getDocument(); 
     $doc->addScript(JUri::root() . 'templates/lady/assets/js/yo.js');
     $doc->addScript(JUri::root() . 'templates/lady/assets/js/yo/drag.js');
-    $doc->addScript(JUri::root() . 'templates/lady/html/com_jshopping/products/js/slide.js');
     $doc->addScript(JUri::root() . 'templates/lady/html/com_jshopping/products/js/scene.js');
     $doc->addScript(JUri::root() . 'templates/lady/html/com_jshopping/products/js/sceneitem.js');
     $doc->addScript(JUri::root() . 'templates/lady/html/com_jshopping/products/js/slideitem.js');
@@ -19,38 +19,27 @@ $doc = JFactory::getDocument();
     );
     
     ?>
+
 <div class="jshop scenemode">
 
-    <div class="scenemode-list">
-        <a class="btn btn-mini btn-warning" href="<?php echo JUri::current() . '?scenemode=thumbs'; ?>">
-            <span class="icon-th-large icon-white"></span>
-        </a>
-    </div>    
-    
     <div class="listproduct" data-role="items-container">
 
-        <div class="items">
-            <?php foreach ($this->rows as $k=>$product): ?>
-            <div class="product" data-role="item">
-                <a href="<?php echo $product->product_link; ?>" class="image">
-                    <img src="<?php echo $product->image; ?>" />
-                </a>    
-            </div>
-            <?php endforeach; ?>    
-            <?php foreach ($this->rows as $k=>$product): ?>
-            <div class="product" data-role="item">
-                <a href="<?php echo $product->product_link; ?>" class="image">
-                    <img src="<?php echo $product->image; ?>" />
-                </a>    
-            </div>
-            <?php endforeach; ?>    
-        </div>    
+            <div class="context-menu">
+                <ul>
+                    <li><a >Подробнее</a></li>
+                </ul>
+                <div class="caret"></div>
+            </div>    
+        
 
-        <div class="edge-left"></div>
-        <div class="edge-right"></div>
-
-        <a href="#" class="prev"></a>
-        <a href="#" class="next"></a>
+        <?php foreach ($this->rows as $k=>$product): ?>
+        <div class="product" data-role="item">
+            <a href="<?php echo $product->product_link; ?>" class="image">
+                <img src="<?php echo $product->image; ?>" />
+            </a>    
+        </div>
+        <?php endforeach; ?>    
+        
     </div>
 
     <div class="scene" data-role="scene-container">
@@ -66,11 +55,10 @@ $doc = JFactory::getDocument();
     
     
     jQuery(document).ready(function($){
+        console.log(this, arguments);
         
         var items = $('[data-role="items-container"] [data-role="item"]');
-
-        new yo.models.Slide($('.listproduct')[0], {items: items});
-
+        
         /* Init items in the slide panel */
         $.each(items, function(idx, node){
             $(node).data('widget', new yo.models.SlideItem(node));
