@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.0 11.12.2011
+* @version      3.10.1 24.08.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -20,12 +20,12 @@ class jshopConfig extends JTableAvto {
             $this->pdf_parameters = implode(":",$this->pdf_parameters);
         }
     }
-    
+
     function loadCurrencyValue(){
-        $session =& JFactory::getSession();
+        $session = JFactory::getSession();
         $id_currency_session = $session->get('js_id_currency');
         $id_currency = JRequest::getInt('id_currency');
-        $main_currency = $this->mainCurrency;        
+        $main_currency = $this->mainCurrency;
         if ($this->default_frontend_currency) $main_currency = $this->default_frontend_currency;
         
         if ($session->get('js_id_currency_orig') && $session->get('js_id_currency_orig')!=$main_currency) {
@@ -45,7 +45,7 @@ class jshopConfig extends JTableAvto {
             $this->cur_currency = $main_currency;
         }
         $session->set('js_id_currency', $this->cur_currency);
-        $all_currency = &JSFactory::getAllCurrency();
+        $all_currency = JSFactory::getAllCurrency();
         $current_currency = $all_currency[$this->cur_currency];
         if (!$current_currency->currency_value) $current_currency->currency_value = 1;
         $this->currency_value = $current_currency->currency_value;
@@ -55,19 +55,19 @@ class jshopConfig extends JTableAvto {
     
     function getDisplayPriceFront(){
         $display_price = $this->display_price_front;
-        
+
         if ($this->use_extend_display_price_rule > 0){
-            $adv_user = &JSFactory::getUserShop();
+            $adv_user = JSFactory::getUserShop();
             $country_id = $adv_user->country;
             $client_type = $adv_user->client_type;
             if (!$country_id){
-                $adv_user = &JSFactory::getUserShopGuest();
+                $adv_user = JSFactory::getUserShopGuest();
                 $country_id = $adv_user->country;
                 $client_type = $adv_user->client_type;
             }    
             if ($country_id){
-                $configDisplayPrice = &JTable::getInstance('configDisplayPrice', 'jshop');
-                $rows = $configDisplayPrice->getList();        
+                $configDisplayPrice = JTable::getInstance('configDisplayPrice', 'jshop');
+                $rows = $configDisplayPrice->getList();
                 foreach($rows as $v){
                     if (in_array($country_id, $v->countries)){
                         if ($client_type==2){
@@ -90,6 +90,16 @@ class jshopConfig extends JTableAvto {
         }
     }
     
+    function getEnableDeliveryFiledRegistration($type='address'){
+        $tmp_fields = $this->getListFieldsRegister();
+        $config_fields = $tmp_fields[$type];
+        $count = 0;
+        foreach($config_fields as $k=>$v){
+            if (substr($k, 0, 2)=="d_" && $v['display']==1) $count++;
+        }
+    return ($count>0);
+    }
+    
     function getProductListDisplayExtraFields(){
         if ($this->product_list_display_extra_fields!=""){
             return unserialize($this->product_list_display_extra_fields);
@@ -97,7 +107,7 @@ class jshopConfig extends JTableAvto {
             return array();
         }
     }
-    
+
     function setProductListDisplayExtraFields($data){
         if (is_array($data)){
             $this->product_list_display_extra_fields = serialize($data);
@@ -105,7 +115,7 @@ class jshopConfig extends JTableAvto {
             $this->product_list_display_extra_fields = serialize(array());
         }
     }
-    
+
     function getFilterDisplayExtraFields(){
         if ($this->filter_display_extra_fields!=""){
             return unserialize($this->filter_display_extra_fields);
@@ -138,12 +148,41 @@ class jshopConfig extends JTableAvto {
         }
     }
     
+    function getCartDisplayExtraFields(){
+        if ($this->cart_display_extra_fields!=""){
+            return unserialize($this->cart_display_extra_fields);
+        }else{
+            return array();
+        }
+    }
+    
+    function setCartDisplayExtraFields($data){
+        if (is_array($data)){
+            $this->cart_display_extra_fields = serialize($data);
+        }else{
+            $this->cart_display_extra_fields = serialize(array());
+        }
+    }
+    
     function updateNextOrderNumber(){
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = "update `#__jshopping_config` set next_order_number=next_order_number+1";
         $db->setQuery($query);
         $db->query();    
     }
     
+    function loadOtherConfig(){
+        if ($this->other_config!=""){
+            $tmp = unserialize($this->other_config);
+            foreach($tmp as $k=>$v){
+                $this->$k = $v;
+            }
+        }
+    }
+	
+	function getVersion(){       
+        $data = JApplicationHelper::parseXMLInstallFile($this->admin_path."jshopping.xml");
+        return $data['version'];
+    }
 }
 ?>

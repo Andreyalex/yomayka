@@ -1,14 +1,20 @@
 <?php
-echo $pane->startPanel(_JSHOP_PRODUCT_VIDEOS, 'product_videos');
+	defined('_JEXEC') or die();
+	echo $pane->startPanel(_JSHOP_PRODUCT_VIDEOS, 'product_videos');
 ?>
    <table><tr>
     <?php foreach ($lists['videos'] as $video){ 
-        if (!$video->video_preview) $video->video_preview = "video.gif";
+		if (!$video->video_preview) $video->video_preview = "video.gif";
+		$show_video_code = ($video->video_code != '') ? 1 : 0;
     ?>
         <td style="padding-right:5px;">
         <div id="video_product_<?php print $video->video_id?>">
             <div style="padding-bottom:5px;">
+				<?php if ($show_video_code) { ?>
+				<a target="_blank" href="index.php?option=com_jshopping&controller=products&task=getvideocode&video_id=<?php print $video->video_id?>">
+				<?php } else { ?>
                 <a target="_blank" href="<?php echo $jshopConfig->video_product_live_path."/".$video->video_name;?>">
+				<?php } ?>
                     <img width="80" src = "<?php echo $jshopConfig->video_product_live_path."/".$video->video_preview ?>" border="0" />
                 </a>
             </div>
@@ -22,7 +28,12 @@ echo $pane->startPanel(_JSHOP_PRODUCT_VIDEOS, 'product_videos');
         <?php for ($i = 0; $i < $jshopConfig->product_video_upload_count; $i++){?>
         <tr>
             <td class="key" style="width:250px;"><?php print _JSHOP_UPLOAD_VIDEO?></td>
-            <td><input type = "file" name = "product_video_<?php print $i;?>" /></td>
+            <td>
+            <input type = "file" name = "product_video_<?php print $i;?>" /><textarea rows="5" cols="22" name = "product_video_code_<?php print $i;?>" style="display: none;"></textarea>
+			<?php if ($jshopConfig->show_insert_code_in_product_video) { ?>
+            <div style="padding-top:3px;"><input type="checkbox" value="1" name="product_insert_code_<?php print $i;?>" id="product_insert_code_<?php print $i;?>" onclick="changeVideoFileField(this);"/><label for="product_insert_code_<?php print $i;?>"><?php print _JSHOP_INSERT_CODE?></label></div>
+			<?php } ?>
+            </td>
         </tr>
         <tr>
             <td class="key"><?php print _JSHOP_UPLOAD_VIDEO_IMAGE?></td>
@@ -33,6 +44,11 @@ echo $pane->startPanel(_JSHOP_PRODUCT_VIDEOS, 'product_videos');
         </tr>
         <?php }?>
     </table>
+	<?php if ($jshopConfig->show_insert_code_in_product_video) { ?>
+	<script type="text/javascript">
+		updateAllVideoFileField();
+	</script>
+	<?php } ?>
     </div>
     <div class="clr"></div>
     <br/>

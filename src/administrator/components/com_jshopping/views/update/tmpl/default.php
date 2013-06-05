@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <fieldset class="uploadform">
 <legend><?php echo JText::_('COM_INSTALLER_UPLOAD_PACKAGE_FILE'); ?></legend>
 <form enctype="multipart/form-data" action="index.php?option=com_jshopping&controller=update&task=update" method="post" name="adminForm">
@@ -14,8 +15,8 @@
 </tr>
 <?php $pkey = "etemplatevar1";if ($this->$pkey){print $this->$pkey;}?>
 </table>
-</fieldset>
-</form>    
+</form>
+</fieldset>   
 
 <form enctype="multipart/form-data" action="index.php?option=com_jshopping&controller=update&task=update" method="post" name="adminForm">
 <fieldset class="uploadform">

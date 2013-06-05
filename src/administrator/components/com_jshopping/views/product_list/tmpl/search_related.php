@@ -1,8 +1,9 @@
 <?php
-$start = intval(JRequest::getInt("start")/$this->limit)+1;
+	defined('_JEXEC') or die();
+	$start = intval(JRequest::getInt("start")/$this->limit)+1;
 
-foreach ($this->rows as $row){
-    if (!$row->image) $row->image = "noimage.gif";
+	foreach ($this->rows as $row){
+		if (!$row->image) $row->image = $this->config->noimage;
 ?>      
 <div class="block_related" id="serched_product_<?php print $row->product_id;?>">
     <div class="block_related_inner">

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.0 31.10.2011
+* @version      3.14.0 31.10.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -162,7 +162,6 @@ define('_JSHOP_LIST_TAXES_EXT', 'List of tax rules');
 define('_JSHOP_EDIT_TAX_EXT', 'Edit rule Tax');
 define('_JSHOP_NEW_TAX_EXT', 'New rule Tax');
 
-
 // Messages
 define('_JSHOP_WRITE_PRODUCTS_ROW','Enter amount of products in row');
 define('_JSHOP_WRITE_PRODUCTS_PAGE','Enter amount of products on page');
@@ -295,6 +294,7 @@ define('_JSHOP_VIDEO_PRODUCT_WIDTH','Product video width');
 define('_JSHOP_VIDEO_PRODUCT_HEIGHT','Product video height');
 define('_JSHOP_SHOW_BAY_BUT_IN_CAT','Show buy button in a product list');
 define('_JSHOP_ORDER_EMAIL_DESCR','Description of the order for the customer (in email)');
+define('_JSHOP_ORDER_EMAIL_DESCR_END','Description of the order for the customer (in email, end)');
 define('_JSHOP_USER_AS_CATALOG','Use as catalog');
 define('_JSHOP_SHOW_TAX','Show tax');
 define('_JSHOP_SHOW_TAX_IN_CART','Show product tax in cart');
@@ -356,7 +356,6 @@ define('_JSHOP_SHOW_RETURN_POLICY_IN_EMAIL_ORDER', 'Show "return policy" in emai
 define('_JSHOP_CLIENT_ALLOW_CANCEL_ORDER', 'Customer may cancel an order');
 define('_JSHOP_MEYBY_SKIP_REGISTRATION', 'Maybe skip the registration');
 define('_JSHOP_WITHOUT_REGISTRATION', 'Without registration');
-define('_JSHOP_WITHOUT_REGISTRATION', 'Without registration');
 define('_JSHOP_INFO_SECURITYKEY', 'Used to configure the automatic import or export');
 define('_JSHOP_NOT_REDIRECT_IN_CART_AFTER_BUY', 'Not redirect in cart after buy');
 define('_JSHOP_CHANGE_COUNTS_PROD_ROWS_FOR_ALL_CATS', 'Change "products on page" and "products in row" for all category');
@@ -391,6 +390,7 @@ define('_JSHOP_ERROR_COUPON_CODE', 'Error coupon code');
 define('_JSHOP_ERROR_COUPON_VALUE', 'Error coupon value');
 
 // Payments
+define('_JSHOP_PAYMENT','Payment');
 define('_JSHOP_PAYMENTS','Payments');
 define('_JSHOP_LIST_PAYMENTS','Payment list');
 define('_JSHOP_ALIAS_PAYMENT_INFO','A unique payment alias');
@@ -596,6 +596,7 @@ define('_JSHOP_USERGROUPS','Usergroups');
 define('_JSHOP_USERGROUP_NAME','Usergroup');
 define('_JSHOP_USERGROUP_DISCOUNT','Discount');
 define('_JSHOP_EDIT_USERGROUP','Edit usergroup');
+define('_JSHOP_NEW_USERGROUP','New usergroup');
 define('_JSHOP_USERGROUP_IS_DEFAULT','Is default');
 define('_JSHOP_USERGROUP_IS_DEFAULT_DESCRIPTION', 'User belongs to this usergroup after registration');
 
@@ -858,6 +859,7 @@ define('_JSHP_SEOPAGE_labelproducts',"Label products");
 define('_JSHP_SEOPAGE_topratingproducts',"Top rating products");
 define('_JSHP_SEOPAGE_tophitsproducts',"Top hits products");
 define('_JSHP_SEOPAGE_all-products',"All products");
+define('_JSHP_SEOPAGE_content-privacy_statement',"Privacy statement");
 
 //static text
 define('_JSHP_STPAGE_home', "Main page (main category)");
@@ -865,15 +867,18 @@ define('_JSHP_STPAGE_manufacturer', "Manufacturer");
 define('_JSHP_STPAGE_agb', "Terms of Service");
 define('_JSHP_STPAGE_return_policy', "Return policy");
 define('_JSHP_STPAGE_order_email_descr', "Description of the order for the customer (in email)");
+define('_JSHP_STPAGE_order_email_descr_end', "Description of the order for the customer (in email end)");
 define('_JSHP_STPAGE_INFO_order_email_descr', "allowed use vars {name}, {family}, {email}");
+define('_JSHP_STPAGE_INFO_order_email_descr_end', "allowed use vars {name}, {family}, {email}");
 define('_JSHP_STPAGE_order_finish_descr', 'Page "Order finish"');
 define('_JSHP_STPAGE_shipping', "Shipping description");
 define('_JSHP_STPAGE_INFO_shipping', 'For the product option: Show "plus shipping"');
+define('_JSHP_STPAGE_privacy_statement',"Privacy statement");
 
 define('_JSHOP_ATTRIBUTE_EXTEND_PARAMS','Additional values');
-define('_JSHOP_SHOW_DEFAULT_PRICE','Show price without discount');
+define('_JSHOP_SHOW_DEFAULT_PRICE','Show Price for Basic members');
 define('_JSHOP_QTY_IN_STOCK','Quantity in stock');
-define('_JSHOP_TYPE','Typ');
+define('_JSHOP_TYPE','Type');
 define('_JSHOP_LIST','List');
 define('_JSHOP_TEXT','Text');
 define('_JSHOP_ACCESS','Access');
@@ -898,5 +903,81 @@ define('_JSHOP_FINISHED', 'Finished');
 define('_JSHOP_SAVE_ALIAS_AUTOMATICAL', 'Automatically save alias');
 define('_JSHOP_WE_ALWAYS_SEND_ORDER', 'Always send order');
 define('_JSHOP_UPLOAD_FILE_VIA_FTP', 'Name file. Need upload file via FTP');
+define('_JSHOP_ORDER_DETAILS','Order details');
+define('_JSHOP_FINISH_ORDER','Finish order');
+define('_JSHOP_ORDER_FINISHED','Order finished');
+define('_JSHOP_ADDONS','Addons');
+define('_JSHOP_VERSION','Version');
+define('_JSHOP_LOAD','Load');
+
+define('_JSHOP_OC', 'Other config');
+define('_JSHOP_OC_cart_back_to_shop', 'Back to shop (link in cart)');
+define('_JSHOP_OC_cart_back_to_shop_INFO', 'product / list / shop');
+define('_JSHOP_OC_product_button_back_use_end_list', 'Product button back (use end list)');
+define('_JSHOP_OC_display_tax_id_in_pdf', 'Display tax ID in PDF');
+define('_JSHOP_OC_image_quality', 'Image quality');
+define('_JSHOP_OC_image_fill_color', 'Image fill color');
+define('_JSHOP_OC_product_price_qty_discount', 'Product price qty discount');
+define('_JSHOP_OC_product_price_qty_discount_INFO', '1 - price, 2 - percent');
+define('_JSHOP_OC_rating_starparts', 'Rating star parts');
+define('_JSHOP_OC_rating_starparts_INFO', 'star is divided to {2} part');
+define('_JSHOP_OC_show_list_price_shipping_weight', 'Show list price shipping weight');
+define('_JSHOP_OC_product_price_precision', 'Product price precision');
+define('_JSHOP_OC_cart_decimal_qty_precision', 'Cart decimal qty precision');
+define('_JSHOP_OC_default_frontend_currency', 'Default frontend currency ID');
+define('_JSHOP_OC_product_file_upload_via_ftp', 'Product file upload (via ftp)');
+define('_JSHOP_OC_product_file_upload_via_ftp_INFO', '0 - upload file, 1- set name file, 2- {0,1}');
+define('_JSHOP_OC_product_file_upload_count', 'Product file upload count');
+define('_JSHOP_OC_product_image_upload_count', 'Product image upload count');
+define('_JSHOP_OC_product_video_upload_count', 'Product video upload count');
+define('_JSHOP_OC_show_insert_code_in_product_video', 'Product video (possibility of insert code)');
+define('_JSHOP_OC_max_number_download_sale_file', 'Max total of download sale file');
+define('_JSHOP_OC_max_number_download_sale_file_INFO', '0 - unlimited');
+define('_JSHOP_OC_max_day_download_sale_file', 'Max total of day sale file');
+define('_JSHOP_OC_max_day_download_sale_file_INFO', '0 - unlimited');
+define('_JSHOP_OC_order_display_new_digital_products', 'Display new digital products (order)');
+define('_JSHOP_OC_display_user_groups_info', 'Show user groups info');
+define('_JSHOP_OC_display_user_group', 'Show user group');
+define('_JSHOP_OC_display_delivery_time_for_product_in_order_mail', 'Show delivery time for product in order (e-mail)');
+define('_JSHOP_OC_load_jquery', 'Load jQuery');
+define('_JSHOP_OC_load_jquery_version', 'jQuery version');
+define('_JSHOP_OC_load_jquery_lightbox', 'Load Lightbox');
+define('_JSHOP_OC_load_css', 'Load css');
+define('_JSHOP_OC_load_javascript','Load javascript');
+define('_JSHOP_OC_tax_on_delivery_address','Tax on delivery address');
+
+define('_JSHOP_SHOW_EXTRA_FIELDS_CART','Show Characteristics in cart');
+define('_JSHOP_OVERRIDING_ADDRESSES','Overriding Addresses');
+define('_JSHOP_DELIVERY_ORDER_DEPENDS_DELIVERY_PRODUCT','Delivery of order depends on delivery of product');
+define('_JSHOP_DAYS','Days');
+define('_JSHOP_ORDER_FINISH', 'Confirm order');
+define('_JSHOP_INSERT_CODE', 'Insert code');
+define('_JSHOP_UPDATE_ARE_AVAILABLE', 'Update to %s are available!');
+define('_JSHOP_MULTI_LIST','Multiple List');
+
+define('_JSHOP_SHOW_WEIGHT_IN_INVOICE','Weight in invoice');
+define('_JSHOP_SHOW_SHIPPING_IN_INVOICE','Shipping in invoice');
+define('_JSHOP_SHOW_PAYMENT_IN_INVOICE','Payment in invoice');
+define('_JSHOP_INVOICE_DATE','Invoice Date');
+define('_JSHOP_FIELD_PRIVACY_STATEMENT','Privacy Statement');
+define('_JSHOP_DELETE_ALL_DATA','All data will be deleted. Delete?');
+define('_JSHOP_NUMERIC','Numeric');
+define('_JSHOP_PRODUCT_TAX_RATE','Tax rate product');
+define('_JSHOP_PACKAGE_TAX', 'Package Tax');
+define('_JSHOP_USE_OLD_VALUE_PRICE', 'Use old value of price');
+define('_JSHOP_SHOW_DELIVERY_DATE', 'Show "Delivery date"');
+define('_JSHOP_DELIVERY_DATE','Delivery date');
+define('_JSHOP_STOCK','Stock');
+define('_JSHOP_ITEM_ALREADY_USE','"%s" is already in use');
+define('_JSHOP_SHORT_DESCR_MULTILINE','Short description multiline');
+define('_JSHOP_COUNT_DOWNLOAD', 'Number of downloaded');
+define('_JSHOP_CLEAR', 'Clear');
+define('_JSHOP_SEND_MAIL', 'Send mail');
+define('_JSHOP_MAIL_HAS_BEEN_SENT', 'Email has been sent');
+define('_JSHOP_SENT_INVOICE_MANUALLY', 'Send invoice manually');
+define('_JSHOP_FIELD_M_NAME', 'Middle name');
+define('_JSHOP_FIELD_BIRTHDAY', 'Birthday');
+define('_JSHOP_M_NAME', 'Middle name');
+define('_JSHOP_BIRTHDAY', 'Birthday');
 
 ?>

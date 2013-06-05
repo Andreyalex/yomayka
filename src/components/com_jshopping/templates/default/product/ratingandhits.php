@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <?php if ($this->allow_review || $this->config->show_hits){?>
 <div style="height:22px;">
 <table align="right">

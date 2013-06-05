@@ -1,4 +1,5 @@
-
+<?php defined('_JEXEC') or die(); ?>
+<div class="jshop">
 <table class = "jshop cart">
   <tr>
     <th width = "20%">
@@ -32,12 +33,17 @@
         <img src = "<?php print $this->image_product_path ?>/<?php if ($prod['thumb_image']) print $prod['thumb_image']; else print $this->no_image; ?>" alt = "<?php print htmlspecialchars($prod['product_name']);?>" class = "jshop_img" />
       </a>
     </td>
-    <td style="text-align:left"> 
-        <?php print $prod['product_name']; ?>
-        <?php if ($this->config->show_product_code_in_cart) print "<span class='jshop_code_prod'>(".$prod['ean'].")</span>";?>
-        
+    <td class="product_name">
+        <a href="<?php print $prod['href']?>"><?php print $prod['product_name']?></a>
+        <?php if ($this->config->show_product_code_in_cart){?>
+        <span class="jshop_code_prod">(<?php print $prod['ean']?>)</span>
+        <?php }?>
+        <?php if ($prod['manufacturer']!=''){?>
+        <div class="manufacturer"><?php print _JSHOP_MANUFACTURER?>: <span><?php print $prod['manufacturer']?></span></div>
+        <?php }?>
         <?php print sprintAtributeInCart($prod['attributes_value']);?>
         <?php print sprintFreeAtributeInCart($prod['free_attributes_value']);?>
+        <?php print sprintFreeExtraFiledsInCart($prod['extra_fields']);?>
         <?php print $prod['_ext_attribute_html']?>        
     </td>    
     <td>
@@ -85,3 +91,4 @@
     </td>
   </tr>
 </table>
+</div>

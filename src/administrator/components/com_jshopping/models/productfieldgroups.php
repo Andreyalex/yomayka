@@ -13,8 +13,8 @@ jimport( 'joomla.application.component.model');
 class JshoppingModelProductFieldGroups extends JModel{ 
 
     function getList(){
-        $db =& JFactory::getDBO();
-        $lang = &JSFactory::getLang(); 
+        $db = JFactory::getDBO();
+        $lang = JSFactory::getLang(); 
         $query = "SELECT id, `".$lang->get("name")."` as name, ordering FROM `#__jshopping_products_extra_field_groups` order by ordering";
         $db->setQuery($query);
         return $db->loadObjectList();

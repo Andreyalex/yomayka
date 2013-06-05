@@ -13,7 +13,7 @@ jimport( 'joomla.application.component.model');
 class JshoppingModelConfigDisplayPrice extends JModel{ 
 
     function getList() {
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $query = "SELECT * FROM `#__jshopping_config_display_prices`";
         $db->setQuery($query);
         return $db->loadObjectList();

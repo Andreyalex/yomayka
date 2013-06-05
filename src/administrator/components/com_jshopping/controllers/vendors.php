@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 12.12.2011
+* @version      3.13.0 12.12.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,22 +14,20 @@ class JshoppingControllerVendors extends JController{
     
     function __construct( $config = array() ){
         parent::__construct( $config );
-
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
         checkAccessController("vendors");
         addSubmenu("other");
     }	
 
-    function display(){       
-        $mainframe =& JFactory::getApplication();
-                
+    function display($cachable = false, $urlparams = false){       
+        $mainframe = JFactory::getApplication();
         $context = "jshopping.list.admin.vendors";
         $limit = $mainframe->getUserStateFromRequest( $context.'limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
         $limitstart = $mainframe->getUserStateFromRequest( $context.'limitstart', 'limitstart', 0, 'int' );
         $text_search = $mainframe->getUserStateFromRequest( $context.'text_search', 'text_search', '' );
         
-        $vendors = &$this->getModel("vendors");
+        $vendors = $this->getModel("vendors");
         
         $total = $vendors->getCountAllVendors($text_search);		
 		        
@@ -37,46 +35,49 @@ class JshoppingControllerVendors extends JController{
         $pageNav = new JPagination($total, $limitstart, $limit);        
         $rows = $vendors->getAllVendors($pageNav->limitstart, $pageNav->limit, $text_search);
         
-        $view=&$this->getView("vendors", 'html');
+        $view=$this->getView("vendors", 'html');
         $view->setLayout("list");
         $view->assign('rows', $rows);        
         $view->assign('pageNav', $pageNav);
-        $view->assign('text_search', $text_search);         
+        $view->assign('text_search', $text_search);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayVendors', array(&$view));
         $view->displayList();
     }
     
     function edit(){
-        $mainframe =& JFactory::getApplication();
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
+        $mainframe = JFactory::getApplication();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         $id = JRequest::getInt("id");
-        $vendor = &JTable::getInstance('vendor', 'jshop');
+        $vendor = JTable::getInstance('vendor', 'jshop');
         $vendor->load($id);
         if (!$id){
             $vendor->publish = 1;
         }
-        $_countries = &$this->getModel("countries");
+        $_countries = $this->getModel("countries");
         $countries = $_countries->getAllCountries(0);
         $lists['country'] = JHTML::_('select.genericlist', $countries,'country','class = "inputbox" size = "1"','country_id','name', $vendor->country);
         
         $nofilter = array();
         JFilterOutput::objectHTMLSafe( $vendor, ENT_QUOTES, $nofilter);
         
-        $view=&$this->getView("vendors", 'html');
+        $view=$this->getView("vendors", 'html');
         $view->setLayout("edit");
         $view->assign('vendor', $vendor);  
         $view->assign('lists', $lists);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditVendors', array(&$view));
         $view->displayEdit();        
     }
     
-    function save() {
+    function save(){
         $apply = JRequest::getVar("apply");
-        $vendor = &JTable::getInstance('vendor', 'jshop');
+        $vendor = JTable::getInstance('vendor', 'jshop');
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
 
         $id = JRequest::getInt("id");
         $vendor->load($id);
@@ -85,7 +86,7 @@ class JshoppingControllerVendors extends JController{
             $_POST['publish'] = 0;
         }
         $post = JRequest::get("post");
-        $dispatcher->trigger( 'onBeforeSaveVendor', array(&$post) );
+        $dispatcher->trigger('onBeforeSaveVendor', array(&$post) );
         $vendor->bind($post);
         
         JSFactory::loadLanguageFile();
@@ -102,7 +103,7 @@ class JshoppingControllerVendors extends JController{
             return 0;
         }
         
-        $dispatcher->trigger( 'onAfterSaveVendor', array(&$vendor) );
+        $dispatcher->trigger('onAfterSaveVendor', array(&$vendor) );
         
         if ($this->getTask()=='apply'){        
             $this->setRedirect("index.php?option=com_jshopping&controller=vendors&task=edit&id=".$vendor->id);
@@ -112,21 +113,29 @@ class JshoppingControllerVendors extends JController{
     }
     
     function remove(){
-        $mainframe =& JFactory::getApplication();
+        $mainframe = JFactory::getApplication();
+        $vendor = JTable::getInstance('vendor', 'jshop');
         $cid = JRequest::getVar( 'cid', array(), '', 'array' );
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeRemoveVendor', array(&$cid) );
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeRemoveVendor', array(&$cid));
         foreach($cid as $id){
-            $query = "delete from `#__jshopping_vendors` where id='".$db->getEscaped($id)."' and main=0";
+            $query = "select count(*) from `#__jshopping_products` where `vendor_id`=".intval($id);
             $db->setQuery($query);
-            $db->query();
+            $cp = $db->loadResult();
+            if (!$cp){
+                $query = "delete from `#__jshopping_vendors` where id='".$db->escape($id)."' and main=0";
+                $db->setQuery($query);
+                $db->query();
+            }else{
+                $vendor->load($id);
+                JError::raiseWarning("",sprintf(_JSHOP_ITEM_ALREADY_USE, $vendor->f_name." ".$vendor->l_name));
+            }
         }
-        $dispatcher->trigger( 'onAfterRemoveVendor', array(&$cid) );
+        $dispatcher->trigger('onAfterRemoveVendor', array(&$cid));
         
         $this->setRedirect("index.php?option=com_jshopping&controller=vendors");
-    }    
-    
+    }
 }
 ?>

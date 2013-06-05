@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.2 22.01.2012
+* @version      3.14.0 22.01.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -80,6 +80,7 @@ define('_JSHOP_REGWARN_STREET', 'Please enter a street.');
 define('_JSHOP_REGWARN_HOME', 'Please enter a home.');
 define('_JSHOP_REGWARN_APARTMENT', 'Please enter a apartment.');
 define('_JSHOP_REGWARN_ZIP', 'Please enter a valid postal code');
+define('_JSHOP_REGWARN_CITY', 'Please enter city');
 define('_JSHOP_REGWARN_STATE', 'Please enter a state');
 define('_JSHOP_REGWARN_COUNTRY', 'Please select a country');
 define('_JSHOP_REGWARN_TITLE', 'Please select a title');
@@ -191,8 +192,6 @@ define('_JSHOP_ACCOUNT_NUMBER', 'Account number');
 define('_JSHOP_BIC', 'Bank identifier code');
 define('_JSHOP_BANK', 'Bank');
 define('_JSHOP_ERROR_PAYMENT', 'Payment method error');
-define('_JSHOP_ERROR_PAYMENT_INFO', 'Order number: %s. Error: %s');  
-define('_JSHOP_ERROR_PAYMENT_DEBIT', 'You entered incorrect info');
 define('_JSHOP_ORDER_FINISH', 'Confirm order');
 define('_JSHOP_ERROR_PAYMENT_DATA', 'Please enter correct payment information');
 
@@ -204,20 +203,15 @@ define('_JSHOP_NEW_STATUS_IS', 'New Status is');
 define('_JSHOP_ORDER_CANCELED', 'Order was canceled');
 define('_JSHOP_COMMENT_YOUR_ORDER', 'Comments on your Order');
 
-define('_JSHOP_PAYMENT_DEBIT', 'Advice debit');
-define('_JSHOP_PAYMENT_PURCHASE', 'Purchase Order');
-define('_JSHOP_PAYMENT_PAYPAL', 'Paypal');
-define('_JSHOP_PAYMENT_BANK', 'Bank');
-
 // Step order
-define('_JSHOP_STEP_ORDER_2', 'Shipping Address');
+define('_JSHOP_STEP_ORDER_2', 'Address');
 define('_JSHOP_STEP_ORDER_3', 'Payment Method');
 define('_JSHOP_STEP_ORDER_4', 'Delivery Method');
 define('_JSHOP_STEP_ORDER_5', 'Confirm Order');
 
 // End order
 define('_JSHOP_ADD_INFO', 'Notes added below will be added to your order:');
-define('_JSHOP_FINISH_DELIVERY_ADRESS', 'Delivery adress');
+define('_JSHOP_FINISH_DELIVERY_ADRESS', 'Delivery address');
 define('_JSHOP_FINISH_SHIPPING_METHOD', 'Delivery method');
 define('_JSHOP_FINISH_PAYMENT_METHOD', 'Payment method');
 define('_JSHOP_THANK_YOU_ORDER', 'Thank you for your order');
@@ -313,6 +307,7 @@ define('_JSHOP_DOWNLOAD_DEMO', 'Download demo');
 define('_JSHOP_DOWNLOAD', 'Download');
 define('_JSHOP_FOR_DOWNLOAD_ORDER_MUST_BE_PAID', 'Order must be paid');
 define('_JSHOP_NUMBER_DOWNLOADS_FILE_RESTRICTED', 'Number downloads of file is restricted');
+define('_JSHOP_TIME_DOWNLOADS_FILE_RESTRICTED', 'Time downloads of file is restricted');
 
 // No price
 define('_JSHOP_NO_PRICE', 'No price');  
@@ -417,7 +412,7 @@ define('_JSHOP_TOP_RATING','Top rating');
 define('_JSHOP_TOP_HITS','Top hits');
 define('_JSHOP_PRINT','Print');
 
-define('_JSHOP_DEFAULT_PRICE','Price without discount');
+define('_JSHOP_DEFAULT_PRICE','Price for Basic members');
 define('_JSHOP_QTY_IN_STOCK','Quantity in stock');
 define('_JSHOP_UNLIMITED','Unlimited');
 define('_JSHOP_OF','of');
@@ -426,5 +421,29 @@ define('_JSHOP_SEARCH_FOR','Search for');
 define('_JSHOP_ANY_WORDS','Any words');
 define('_JSHOP_ALL_WORDS','All words');
 define('_JSHOP_EXACT_WORDS','Exact Phrase');
+
+define('_JSHOP_ORDER_DETAILS','Order details');
+define('_JSHOP_CART_EMPTY','Your Cart is currently empty.');
+define('_JSHOP_ORDER_DELIVERY_TIME', 'Delivery time');
+define('_JSHOP_GROUP', 'Group');
+define('_JSHOP_TITLE', 'Title');
+define('_JSHOP_DISCOUNT', 'Discount');
+define('_JSHOP_USER_GROUPS_INFO', 'All groups');
+define('_JSHOP_BILL_ADDRESS', 'Billing address');
+define('_JSHOP_ZOOM_IMAGE', 'Zoom image');
+define('_JSHOP_INVOICE_DATE','Invoice Date');
+define('_JSHOP_PRIVACY_STATEMENT','Privacy Statement');
+define('_JSHOP_PACKAGE_PRICE','Package price');
+define('_JSHOP_DELIVERY_DATE','Delivery date');
+define('_JSHOP_ERROR_AGB','Read and check "Terms of Service"');
+define('_JSHOP_ERROR_SHIPPING','Error shipping');
+define('_JSHOP_M_NAME', 'Middle name');
+define('_JSHOP_BIRTHDAY', 'Birthday');
+define('_JSHOP_REGWARN_MNAME','Please enter your middle name.');
+define('_JSHOP_REGWARN_BIRTHDAY','Please enter your birthday.');
+define('_JSHOP_REGWARN_MNAME','Please enter your middle name.');
+define('_JSHOP_REGWARN_BIRTHDAY','Please enter your birthday.');
+define('_JSHOP_REGWARN_MNAME_DELIVERY','Please enter your delivery middle name.');
+define('_JSHOP_REGWARN_BIRTHDAY_DELIVERY','Please enter your delivery birthday.');
 
 ?>

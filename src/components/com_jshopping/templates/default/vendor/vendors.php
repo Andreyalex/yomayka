@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <div class="jshop">
 <?php if ($this->params->get('show_page_title') && $this->params->get('page_title')) {?>    
 <div class="componentheading<?php print $this->params->get('pageclass_sfx');?>"><?php print $this->params->get('page_title')?></div>

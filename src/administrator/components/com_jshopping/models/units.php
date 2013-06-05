@@ -13,8 +13,8 @@ jimport( 'joomla.application.component.model');
 class JshoppingModelUnits extends JModel{    
 
     function getUnits(){
-        $db =& JFactory::getDBO();    
-        $lang = &JSFactory::getLang();     
+        $db = JFactory::getDBO();    
+        $lang = JSFactory::getLang();     
         $query = "SELECT id, `".$lang->get('name')."` as name FROM `#__jshopping_unit` ORDER BY name";
         $db->setQuery($query);
         return $db->loadObjectList();

@@ -1,19 +1,12 @@
 <div class="jshop-topbar">
 
-    <div class="submenu">
-        <?php 
-            $modules = JModuleHelper::getModules('jshopping-submenu');
-            echo JModuleHelper::renderModule($modules[0]);
-        ?>
-    </div>
-    
     <?php 
     $currentMenu = JFactory::getApplication()->getMenu()->getActive(); 
     ?>
     
     <a class="category-title menuitem alias-<?php echo $currentMenu->alias; ?>" onclick="jQuery('.jshop-topbar').toggleClass('open');">
         <span class="icon"></span>
-        <h2 class="content"><?php echo $currentMenu->title; ?></h2>
+        <span class="content"><?php echo $currentMenu->title; ?></span>
         <!--<span class="nonlink iconfont control" ></span>-->
     </a>
 </div>

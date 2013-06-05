@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.0.0 31.07.2010
+* @version      3.13.0 31.07.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -12,17 +12,25 @@ jimport('joomla.application.component.controller');
 
 class JshoppingControllerInfo extends JController{
 
-    function display(){
-        
+    function display($cachable = false, $urlparams = false){
+        checkAccessController("info");        
         addSubmenu("info");
-        
-        $jshopConfig = &JSFactory::getConfig();        
+        $jshopConfig = JSFactory::getConfig();        
         $data = JApplicationHelper::parseXMLInstallFile($jshopConfig->admin_path."jshopping.xml");
-        $view=&$this->getView("panel", 'html');
-        $view->setLayout("info"); 
-        $view->assign("data",$data);
+        if ($jshopConfig->display_updates_version){
+		    $update_model = $this->getModel("info");
+		    $update = $update_model->getUpdateObj($data['version'], $jshopConfig);
+        }else{
+            $update = new stdClass();
+        }
+        $view=$this->getView("panel", 'html');
+        $view->setLayout("info");
+		$view->assign("data",$data);
+        $view->assign("update",$update);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayInfo', array(&$view));
         $view->displayInfo();
     }
-
 }
 ?>

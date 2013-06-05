@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <table class="jshop list_product">
 <?php foreach ($this->rows as $k=>$product){?>
 <?php if ($k%$this->count_product_to_row==0) print "<tr>";?>

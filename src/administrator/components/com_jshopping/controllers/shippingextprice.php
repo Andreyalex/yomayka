@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 20.12.2011
+* @version      3.13.0 20.12.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -22,19 +22,22 @@ class JshoppingControllerShippingExtPrice extends JController{
         addSubmenu("other");
     }
     
-    function display(){
-		$shippings = &$this->getModel("shippingExtPrice");
+    function display($cachable = false, $urlparams = false){
+		$shippings = $this->getModel("shippingExtPrice");
 		$rows = $shippings->getList();
         
-		$view = &$this->getView("shippingext", 'html');
+		$view = $this->getView("shippingext", 'html');
         $view->setLayout("list");
 		$view->assign('rows', $rows);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayShippingExtPrices', array(&$view));
 		$view->displayList();
 	}
 	
-	function edit() {
+	function edit(){
 		$id = JRequest::getInt("id");
-        $row = &JTable::getInstance('shippingExt', 'jshop');
+        $row = JTable::getInstance('shippingExt', 'jshop');
         $row->load($id);
         
         if (!$row->exec) {
@@ -43,19 +46,19 @@ class JshoppingControllerShippingExtPrice extends JController{
         
         $shippings_conects = $row->getShippingMethod();        
         
-        $shippings = &$this->getModel("shippings");
+        $shippings = $this->getModel("shippings");
         $list_shippings = $shippings->getAllShippings(0);        
         
         $nofilter = array("params", "shipping_method");
         JFilterOutput::objectHTMLSafe($row, ENT_QUOTES, $nofilter);
         
-        $view = &$this->getView("shippingext", 'html');
+        $view = $this->getView("shippingext", 'html');
         $view->setLayout("edit");
         $view->assign('row', $row);
         $view->assign('list_shippings', $list_shippings);
         $view->assign('shippings_conects', $shippings_conects);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditShippingExtPrice', array(&$view));
         $view->displayEdit();
 	}
@@ -63,10 +66,10 @@ class JshoppingControllerShippingExtPrice extends JController{
 	function save() {
 		$id = JRequest::getInt("id", 0);		
         $post = JRequest::get("post");
-        $row = &JTable::getInstance('shippingExt', 'jshop');        
+        $row = JTable::getInstance('shippingExt', 'jshop');        
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeSaveShippingExtCalc', array(&$post));
         
         $row->bind($post);        
@@ -82,9 +85,9 @@ class JshoppingControllerShippingExtPrice extends JController{
 		$cid = JRequest::getVar("cid");
         $flag = ($this->getTask() == 'publish') ? 1 : 0;
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforePublishShippingExtPrice', array(&$cid,&$flag) );
-        $obj = &JTable::getInstance('shippingExt', 'jshop');
+        $obj = JTable::getInstance('shippingExt', 'jshop');
         $obj->publish($cid, $flag);
         $dispatcher->trigger('onAfterPublishShippingExtPrice', array(&$cid,&$flag) );        
 		$this->setRedirect("index.php?option=com_jshopping&controller=shippingextprice");
@@ -93,7 +96,7 @@ class JshoppingControllerShippingExtPrice extends JController{
     function reorder(){
         $ids = JRequest::getVar('cid', null, 'post', 'array');        
         $move = ($this->getTask() == 'orderup') ? -1 : +1;
-        $obj = &JTable::getInstance('shippingExt', 'jshop');
+        $obj = JTable::getInstance('shippingExt', 'jshop');
         $obj->load($ids[0]);
         $obj->move($move);
         $this->setRedirect("index.php?option=com_jshopping&controller=shippingextprice");
@@ -102,9 +105,9 @@ class JshoppingControllerShippingExtPrice extends JController{
     function remove(){
         $id = JRequest::getInt("id");
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveShippingExtPrice', array(&$id) );
-        $obj = &JTable::getInstance('shippingExt', 'jshop');        
+        $obj = JTable::getInstance('shippingExt', 'jshop');        
         $obj->delete($id);
         $dispatcher->trigger( 'onAfterRemoveShippingExtPrice', array(&$id) );        
         $this->setRedirect("index.php?option=com_jshopping&controller=shippingextprice", _JSHOP_ITEM_DELETED);

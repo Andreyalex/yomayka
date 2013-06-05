@@ -1,5 +1,5 @@
 <?php
-
+defined('_JEXEC') or die();
 foreach($this->languages as $lang){
        $name = "name_".$lang->language;
        $alias = "alias_".$lang->language;
@@ -45,7 +45,7 @@ foreach($this->languages as $lang){
          </td>
          <td>
            <?php
-              $editor = &JFactory::getEditor();
+              $editor = JFactory::getEditor();
               print $editor->display('description'.$lang->id,  $row->$description , '100%', '350', '75', '20' ) ;
            ?>
          </td>

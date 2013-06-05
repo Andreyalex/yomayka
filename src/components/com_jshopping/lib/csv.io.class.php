@@ -1,7 +1,7 @@
 <?php
 /**
 * CSV read & write
-* version 1.2
+* version 1.2.1
 */
 
 class csv{
@@ -10,17 +10,17 @@ class csv{
     var $text_qualifier = '"';
     
     function setDelimit($val){
-        $this->delimit = $val;    
+        $this->delimit = $val;
     }
     
     function setTextQualifier($val){
         $this->text_qualifier = $val;
-    }    
+    }
 
  	function read($file){
  	$rows=array();
  		$fp = fopen ($file,"r");
-		while ($data = fgetcsv($fp, 262144, $this->delimit) ) {
+		while ($data = fgetcsv($fp, 262144, $this->delimit, $this->text_qualifier) ) {
 			$rows[]=$data;
 		}
 		fclose ($fp);
@@ -65,6 +65,6 @@ class csv{
 		fclose($fp);
 	return 1;
  	}
-            
+
 }
 ?>

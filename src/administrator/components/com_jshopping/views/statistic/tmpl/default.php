@@ -1,7 +1,8 @@
 <?php
-displaySubmenuOptions();
-$rows = $this->rows;
-$paid_status = $this->paid_status;
+	defined('_JEXEC') or die();
+	displaySubmenuOptions();
+	$rows = $this->rows;
+	$paid_status = $this->paid_status;
 ?>
 <div class="jshop_edit" style="width:100%; ">
 <div style="width:60%; float:left;">

@@ -1,4 +1,9 @@
-<?php $row = $this->shipping; $edit = $this->edit; JHTML::_('behavior.tooltip');?>
+<?php 
+	defined('_JEXEC') or die();
+	$row = $this->shipping; 
+	$edit = $this->edit; 
+	JHTML::_('behavior.tooltip');
+?>
 <form action = "index.php?option=com_jshopping&controller=shippings" method = "post" name = "adminForm">
 
 <div class="col100">
@@ -51,7 +56,7 @@
      	</td>
      	<td>
        		<?php
-                $editor = &JFactory::getEditor();
+                $editor = JFactory::getEditor();
                 print $editor->display('description'.$lang->id,  $row->$field , '100%', '350', '75', '20' ) ;
        		?>
      	</td>

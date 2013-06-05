@@ -1,8 +1,10 @@
 <?php
-displaySubmenuOptions();
-$manufacturers = $this->rows;
-$count = count($manufacturers);
-$i = 0;
+	defined('_JEXEC') or die();
+	displaySubmenuOptions();
+	$manufacturers = $this->rows;
+	$count = count($manufacturers);
+	$i = 0;
+	$saveOrder=$this->filter_order_Dir=="asc" && $this->filter_order=="ordering";
 ?>
 <form action = "index.php?option=com_jshopping&controller=manufacturers" method = "post" name = "adminForm">
 <table class = "adminlist">
@@ -15,11 +17,13 @@ $i = 0;
       <input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo $count = count( $manufacturers );?>);" />
     </th>
     <th align = "left">
-      <?php echo _JSHOP_TITLE; ?>
+      <?php echo JHTML::_('grid.sort', _JSHOP_TITLE, 'name', $this->filter_order_Dir, $this->filter_order)?>
     </th>
     <th colspan = "3" width = "40">
-      <?php echo _JSHOP_ORDERING; ?>
+      <?php echo JHTML::_( 'grid.sort', _JSHOP_ORDERING, 'ordering', $this->filter_order_Dir, $this->filter_order);?>
+      <?php if ($saveOrder){?>
       <a class="saveorder" href="javascript:saveorder(<?php echo ($count-1);?>, 'saveorder')" title="Save Order"></a>
+      <?php }?>
     </th>
     <th width = "50">
       <?php echo _JSHOP_PUBLISH;?>
@@ -28,7 +32,7 @@ $i = 0;
         <?php echo _JSHOP_EDIT;?>
     </th>
     <th width = "40">
-        <?php echo _JSHOP_ID;?>
+        <?php echo JHTML::_( 'grid.sort', _JSHOP_ID, 'manufacturer_id', $this->filter_order_Dir, $this->filter_order);?>
     </th>
   </tr>
 </thead>  
@@ -47,12 +51,12 @@ $i = 0;
    </td>
    <td align = "right" width = "20">
     <?php
-        if ($i != 0) echo '<a href = "index.php?option=com_jshopping&controller=manufacturers&task=order&id='.$man->manufacturer_id.'&move=-1"><img alt="'._JSHOP_UP.'" src="components/com_jshopping/images/uparrow.png"/></a>';
+        if ($i!=0 && $saveOrder) echo '<a href = "index.php?option=com_jshopping&controller=manufacturers&task=order&id='.$man->manufacturer_id.'&move=-1"><img alt="'._JSHOP_UP.'" src="components/com_jshopping/images/uparrow.png"/></a>';
     ?>
    </td>
    <td align = "left" width = "20">
     <?php
-        if ($i != $count - 1) echo '<a href = "index.php?option=com_jshopping&controller=manufacturers&task=order&id='.$man->manufacturer_id.'&move=1"><img alt="'._JSHOP_DOWN.'" src="components/com_jshopping/images/downarrow.png"/></a>';
+        if ($i!=($count-1) && $saveOrder) echo '<a href = "index.php?option=com_jshopping&controller=manufacturers&task=order&id='.$man->manufacturer_id.'&move=1"><img alt="'._JSHOP_DOWN.'" src="components/com_jshopping/images/downarrow.png"/></a>';
     ?>
    </td>
    <td align = "center" width = "10">
@@ -76,6 +80,8 @@ $i = 0;
 ?>
 </table>
 
+<input type="hidden" name="filter_order" value="<?php echo $this->filter_order?>" />
+<input type="hidden" name="filter_order_Dir" value="<?php echo $this->filter_order_Dir?>" />
 <input type = "hidden" name = "task" value = "" />
 <input type = "hidden" name = "hidemainmenu" value = "0" />
 <input type = "hidden" name = "boxchecked" value = "0" />

@@ -1,3 +1,7 @@
+<?php defined('_JEXEC') or die(); ?>
+<?php print $this->checkout_navigator?>
+<?php print $this->small_cart?>
+
 <div class="jshop">
 <form id = "shipping_form" name = "shipping_form" action = "<?php print $this->action ?>" method = "post" onsubmit = "return validateShippingMethods()">
 <?php print $this->_tmp_ext_html_shipping_start?>
@@ -30,7 +34,14 @@
           <?php } ?>
           </table>
       <?php } ?>
-      <br /><?php print $shipping->description ?></td>
+      <div class="shipping_descr"><?php print $shipping->description?></div>
+      <?php if ($shipping->delivery){?>
+      <div class="shipping_delivery"><?php print _JSHOP_DELIVERY_TIME.": ".$shipping->delivery?></div>
+      <?php }?>
+      <?php if ($shipping->delivery_date_f){?>
+      <div class="shipping_delivery_date"><?php print _JSHOP_DELIVERY_DATE.": ".$shipping->delivery_date_f?></div>
+      <?php }?>      
+      </td>
   </tr>
 <?php } ?>
 </table>

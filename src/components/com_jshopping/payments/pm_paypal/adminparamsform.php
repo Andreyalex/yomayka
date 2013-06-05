@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <div class="col100">
 <fieldset class="adminform">
 <table class="admintable" width = "100%" >
@@ -60,7 +61,7 @@
    </td>
    <td>
      <?php              
-     print JHTML::_('select.booleanlist', 'pm_params[checkdatareturn]', 'class = "inputbox" size = "1"', $params['checkdatareturn']);     
+     print JHTML::_('select.booleanlist', 'pm_params[checkdatareturn]', 'class = "inputbox"', $params['checkdatareturn']);     
      ?>
    </td>
  </tr>
@@ -70,7 +71,17 @@
    </td>
    <td>
      <?php              
-     print JHTML::_('select.booleanlist', 'pm_params[use_ssl]', 'class = "inputbox" size = "1"', $params['use_ssl']);     
+     print JHTML::_('select.booleanlist', 'pm_params[use_ssl]', 'class = "inputbox"', $params['use_ssl']);     
+     ?>
+   </td>
+ </tr>
+ <tr>
+   <td class="key">
+     <?php echo _JSHOP_OVERRIDING_ADDRESSES?>
+   </td>
+   <td>
+     <?php              
+     print JHTML::_('select.booleanlist', 'pm_params[address_override]', 'class = "inputbox"', $params['address_override']);
      ?>
    </td>
  </tr> 

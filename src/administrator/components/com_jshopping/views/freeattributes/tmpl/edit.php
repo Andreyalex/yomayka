@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <form action = "index.php?option=com_jshopping&controller=freeattributes" method = "post" name = "adminForm">
 
 <div class="col100">
@@ -5,17 +6,30 @@
 <table class="admintable" width = "100%" >     
     <?php 
     foreach($this->languages as $lang){
-    $field = "name_".$lang->language;
+    $name = "name_".$lang->language;
     ?>
      <tr>
        <td class="key">
          <?php echo _JSHOP_TITLE; ?> <?php if ($this->multilang) print "(".$lang->lang.")";?>* 
        </td>
        <td>
-         <input type = "text" class = "inputbox" name = "<?php print $field?>" value = "<?php echo $this->attribut->$field?>" />
+         <input type = "text" class = "inputbox" name = "<?php print $name?>" value = "<?php echo $this->attribut->$name?>" />
        </td>
      </tr>
-  <?php } ?>
+    <?php } ?>
+    <?php 
+    foreach($this->languages as $lang){
+    $description = "description_".$lang->language;
+    ?>
+     <tr>
+       <td class="key">
+         <?php echo _JSHOP_DESCRIPTION; ?> <?php if ($this->multilang) print "(".$lang->lang.")";?>
+       </td>
+       <td>
+         <input type = "text" class = "inputbox" name = "<?php print $description?>" value = "<?php echo $this->attribut->$description?>" />
+       </td>
+     </tr>
+    <?php } ?>
     <tr>
        <td class="key">
          <?php echo _JSHOP_REQUIRED;?>

@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <div class="col100">
 <fieldset class="adminform">
 <table class="admintable" width = "100%" >

@@ -17,8 +17,8 @@ class jshopProductFieldValue extends JTableAvto{
     }
     
     function getAllList($display = 0){
-        $db =& JFactory::getDBO();
-        $lang = &JSFactory::getLang(); 
+        $db = JFactory::getDBO();
+        $lang = JSFactory::getLang(); 
         $query = "SELECT id, `".$lang->get("name")."` as name, field_id FROM `#__jshopping_products_extra_field_values` order by ordering";
         $db->setQuery($query);
         if ($display==0){

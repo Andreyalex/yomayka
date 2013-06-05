@@ -1,13 +1,18 @@
+<?php defined('_JEXEC') or die(); ?>
 <script type="text/javascript">
     <?php if ($this->product->product_quantity >0){?>
     var translate_not_available = "<?php print addslashes(_JSHOP_PRODUCT_NOT_AVAILABLE_THIS_OPTION)?>";
     <?php }else{?>
     var translate_not_available = "<?php print addslashes(_JSHOP_PRODUCT_NOT_AVAILABLE)?>";
     <?php }?>
+    var translate_zoom_image = "<?php print addslashes(_JSHOP_ZOOM_IMAGE)?>";
     var product_basic_price_volume = <?php print $this->product->weight_volume_units;?>;
     var product_basic_price_unit_qty = <?php print $this->product->product_basic_price_unit_qty;?>;
     var currency_code = "<?php print $this->config->currency_code;?>";
     var format_currency = "<?php print $this->config->format_currency[$this->config->currency_format];?>";
+    var decimal_count = <?php print $this->config->decimal_count;?>;
+    var decimal_symbol = "<?php print $this->config->decimal_symbol;?>";
+    var thousand_separator = "<?php print $this->config->thousand_separator;?>";
     var attr_value = new Object();
     var attr_list = new Array();
     var attr_img = new Object();

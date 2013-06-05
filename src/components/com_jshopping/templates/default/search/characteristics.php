@@ -1,9 +1,11 @@
+<?php defined('_JEXEC') or die(); ?>
 <?php
 $characteristic_displayfields = $this->characteristic_displayfields;
 $characteristic_fields = $this->characteristic_fields;
 $characteristic_fieldvalues = $this->characteristic_fieldvalues;
 $groupname = "";
 ?>
+<?php print $this->tmp_ext_search_html_characteristic_start;?>
 <?php if (is_array($characteristic_displayfields) && count($characteristic_displayfields)){?>
     <div class="filter_characteristic">
     <?php foreach($characteristic_displayfields as $ch_id){?>
@@ -24,3 +26,4 @@ $groupname = "";
     <?php }?>
     </div>
 <?php } ?>
+<?php print $this->tmp_ext_search_html_characteristic_end;?>

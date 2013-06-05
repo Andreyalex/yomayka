@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <div class="jshop">
 <?php if ($this->header){?>
 <h1 class="listproduct<?php print $this->prefix;?>"><?php print $this->header?></h1>

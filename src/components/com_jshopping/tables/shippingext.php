@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 20.12.2011
+* @version      3.13.0 20.12.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -15,9 +15,9 @@ class jshopShippingExt extends JTableAvto{
         parent::__construct( '#__jshopping_shipping_ext_calc', 'id', $_db );
     }
     
-    function load($id){
-        parent::load($id);        
-        $jshopConfig = &JSFactory::getConfig();
+    function load($id = NULL, $reset = true){
+        parent::load($id, $reset);
+        $jshopConfig = JSFactory::getConfig();
         $path = $jshopConfig->path."shippings";
         $extname = $this->alias;
         $filepatch = $path."/".$extname."/".$extname.".php";
@@ -27,11 +27,10 @@ class jshopShippingExt extends JTableAvto{
         }else{
             JError::raiseWarning("","Load ShippingExt ".$extname." error.");
         }
-        
     }
     
     function getList($active = 0){
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $adv_query = "";
         if ($active==1){
             $adv_query = "where `published`='1'";

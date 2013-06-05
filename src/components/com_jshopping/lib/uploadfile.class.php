@@ -1,7 +1,7 @@
 <?php
 /**
 * Uplpad file & Upload Image
-* @version      1.6.1 12.08.2010
+* @version      1.6.1.3 02.02.2013
 * @author       MAXXmarketing GmbH
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
 * @license      GNU/GPL 
@@ -152,11 +152,11 @@ class UploadFile{
     /**
     * rename file md5 name
     */
-    function renameFileMd5($name){        
+    function renameFileMd5($name){
         $m=$this->parseNameFile($name);
-        $m['name']=md5(mktime().$m['name']);
+        $m['name']=md5(time().$m['name']);
         if ($m['ext']!="") $m['ext']='.'.$m['ext'];
-        $name=$m['name'].$m['ext'];        
+        $name=$m['name'].$m['ext'];
     return $name;
     }
 
@@ -178,7 +178,7 @@ class UploadFile{
     }
     
     /**
-    * rename file from filter    
+    * rename file from filter
     */
     function renameFileFilter($name){
         $filters = array();
@@ -190,9 +190,9 @@ class UploadFile{
         $filters["Ö"] = "O";
         $filters["ß"] = "ss";
         foreach($filters as $k=>$v){
-            $name = str_replace($k, $v, $name);    
-        }        
-        $name = eregi_replace("[^a-zA-Z0-9\.]", "_" , $name);
+            $name = str_replace($k, $v, $name);
+        }
+        $name = preg_replace("/[^a-zA-Z0-9\.\-]/", "_", $name);
     return $name;
     }
 
@@ -228,7 +228,7 @@ class UploadFile{
     /**
     * start upload
     */
-    function upload(){        
+    function upload(){
         if ($this->error!==0) return 0;
         if (!$this->getTestFileAllow()) return 0;
         if ($this->auto_create_dir && !is_dir($this->dir)) mkdir($this->dir, $this->new_dir_access);
@@ -237,7 +237,7 @@ class UploadFile{
         if ($this->auto_rename_file) $this->name = $this->renameExistingFile($this->dir, $this->name);
         $this->uploaded_real_name_file = $this->name;
         if (move_uploaded_file($this->tmp_name, $this->dir."/".$this->name)) {
-            $this->file_upload_ok=1;            
+            $this->file_upload_ok=1;
             return 1;
         }else{
             $this->file_upload_ok=0;
@@ -256,7 +256,7 @@ class UploadImage extends UploadFile{
 
     function copyImage($width=120, $height=0){
         if (!$this->file_upload_ok) return 0;
-                        
+
         $this->name_image=$this->prefix.$this->name;
         if (!$this->dir_image) $this->dir_image = $this->dir;
         if ($this->auto_create_dir && !is_dir($this->dir_image))  mkdir($this->dir_image,$this->new_dir_access);
@@ -265,13 +265,13 @@ class UploadImage extends UploadFile{
         if ($this->auto_rename_file) $this->name_image=$this->renameExistingFile($this->dir_image, $this->name_image);            
         return $this->resizeImage($this->dir."/".$this->uploaded_real_name_file, $width ,$height, $this->dir_image."/".$this->name_image, $this->quality);        
     }
-    
+
     function setQuality($quality){
         $this->quality=$quality;
     }
 
     function getNameImage(){
-        return    $this->name_image;
+        return $this->name_image;
     }
     
     function setDirImage($val){
@@ -290,7 +290,7 @@ class UploadImage extends UploadFile{
         return $this->prefix;
     }
     
-    function resizeImage($image, $nw=0, $nh=0, $img_to="", $quality=85){        
+    function resizeImage($image, $nw=0, $nh=0, $img_to="", $quality=85){
         $path=pathinfo($image);
         $ext=$path['extension'];
         $ext=strtolower($ext);
@@ -304,7 +304,7 @@ class UploadImage extends UploadFile{
         else
             return 0;
         
-        if (!$si) return 0;    
+        if (!$si) return 0;
 
         $sw=imagesx($si);
         $sh=imagesy($si);
@@ -313,27 +313,27 @@ class UploadImage extends UploadFile{
         if ($nw==0) $nw=(int)(($nh/$sh)*$sw);
         $dim=imagecreatetruecolor($nw,$nh);
         if ($ext=="png") imagefilledrectangle($dim,0,0,$nw,$nh,0xFFFFFF);
-        imagecopyresampled($dim,$si,0,0,0,0,$nw,$nh,$sw,$sh);        
+        imagecopyresampled($dim,$si,0,0,0,0,$nw,$nh,$sw,$sh);
         
 
         switch($ext){
             case 'jpg':
-            case 'jpeg':                
+            case 'jpeg':
                 imagejpeg($dim, $img_to, $quality);
             break;
             case 'gif':
-                if ($img_to)                
+                if ($img_to)
                     imagegif($dim, $img_to);
-                else    
+                else
                     imagegif($dim);
             break;
             case 'png':
-                if (phpversion()>='5.1.2'){                     
+                if (phpversion()>='5.1.2'){
                     imagepng($dim, $img_to, 10-max(intval($quality/10),1));
-                }else{    
+                }else{
                     imagepng($dim, $img_to);
-                }    
-            break;        
+                }
+            break;
             default:
                 return 0;
             break;

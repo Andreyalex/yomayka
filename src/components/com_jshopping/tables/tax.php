@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.6.0 23.11.2010
+* @version      3.10.0 23.11.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -17,14 +17,14 @@ class jshopTax extends JTable {
     }
     
     function getAllTaxes(){
-        $db =& JFactory::getDBO();                
+        $db = JFactory::getDBO();                
         $query = "SELECT tax_id, tax_name, tax_value FROM `#__jshopping_taxes`";
         $db->setQuery($query);
         return $db->loadObjectList();
     }
     
     function getExtTaxes($tax_id = 0){
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $where = "";
         if ($tax_id) $where = " where tax_id='".$tax_id."'";
         $query = "SELECT * FROM `#__jshopping_taxes_ext` ".$where;
@@ -35,6 +35,6 @@ class jshopTax extends JTable {
         }
         return $list;
     }
-    
+
 }
 ?>

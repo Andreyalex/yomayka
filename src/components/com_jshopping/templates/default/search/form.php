@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <script type="text/javascript">var liveurl = '<?php print JURI::root()?>';</script>
 <div class="jshop">
     <h1><?php print _JSHOP_SEARCH ?></h1>
@@ -5,7 +6,7 @@
     <form action="<?php print $this->action?>" name="form_ad_search" method="post" onsubmit="return validateFormAdvancedSearch('form_ad_search')">
     <input type="hidden" name="setsearchdata" value="1">
     <table class = "jshop" cellpadding = "6" cellspacing="0">
-      <?php print $this->_tmp_ext_search_html_start;?>  
+      <?php print $this->_tmp_ext_search_html_start;?>
       <tr>
   	    <td width="120">
   		    <?php print _JSHOP_SEARCH_TEXT?>

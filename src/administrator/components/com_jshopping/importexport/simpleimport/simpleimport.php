@@ -5,9 +5,9 @@ jimport('joomla.filesystem.folder');
 class IeSimpleImport extends IeController{
     
     function view(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $ie_id = JRequest::getInt("ie_id");
-        $_importexport = &JTable::getInstance('ImportExport', 'jshop'); 
+        $_importexport = JTable::getInstance('ImportExport', 'jshop'); 
         $_importexport->load($ie_id);
         $name = $_importexport->get('name');                        
             
@@ -20,18 +20,18 @@ class IeSimpleImport extends IeController{
     }
 
     function save(){
-        $mainframe =& JFactory::getApplication();
-        $jshopConfig = &JSFactory::getConfig();
+        $mainframe = JFactory::getApplication();
+        $jshopConfig = JSFactory::getConfig();
         require_once(JPATH_COMPONENT_SITE.'/lib/uploadfile.class.php');
         require_once(JPATH_COMPONENT_SITE."/lib/csv.io.class.php");
         
         $ie_id = JRequest::getInt("ie_id");
         if (!$ie_id) $ie_id = $this->get('ie_id');
         
-        $lang = &JSFactory::getLang();
-        $db = &JFactory::getDBO();
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO();
         
-        $_importexport = &JTable::getInstance('ImportExport', 'jshop'); 
+        $_importexport = JTable::getInstance('ImportExport', 'jshop'); 
         $_importexport->load($ie_id);
         $alias = $_importexport->get('alias');
         $_importexport->set('endstart', time());
@@ -55,7 +55,7 @@ class IeSimpleImport extends IeController{
             $listCat[$row->name] = $row->id;
         }
         
-        $_products = &JModel::getInstance('products', 'JshoppingModel');                
+        $_products = JModel::getInstance('products', 'JshoppingModel');                
         
         $dir = $jshopConfig->importexport_path.$alias."/";
         
@@ -73,7 +73,7 @@ class IeSimpleImport extends IeController{
                                         
                     $tax_value = intval($row[5]);                    
                     if (!isset($listTax[$tax_value])){
-                        $tax = &JTable::getInstance('tax', 'jshop');
+                        $tax = JTable::getInstance('tax', 'jshop');
                         $tax->set('tax_name', $tax_value);
                         $tax->set('tax_value', $tax_value);
                         $tax->store();
@@ -82,7 +82,7 @@ class IeSimpleImport extends IeController{
                     
                     $category_name = $row['6'];
                     if (!isset($listCat[$category_name]) && $category_name!=""){
-                        $cat = &JTable::getInstance("category","jshop");
+                        $cat = JTable::getInstance("category","jshop");
                         $query = "SELECT max(ordering) FROM `#__jshopping_categories`";
                         $db->setQuery($query);        
                         $ordering = $db->loadResult() + 1;
@@ -97,7 +97,7 @@ class IeSimpleImport extends IeController{
                     }
                     
                     
-                    $product =& JTable::getInstance('product', 'jshop');
+                    $product = JTable::getInstance('product', 'jshop');
                     $product->set("product_ean", $row[1]);
                     $product->set("product_quantity", $row[2]);
                     $product->set("product_date_added", $row[3]);

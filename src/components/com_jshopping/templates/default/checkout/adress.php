@@ -1,3 +1,7 @@
+<?php defined('_JEXEC') or die(); ?>
+<?php print $this->checkout_navigator?>
+<?php print $this->small_cart?>
+
 <div class="jshop address_block">
 <?php 
 $config_fields = $this->config_fields;
@@ -15,7 +19,7 @@ include(dirname(__FILE__)."/adress.js.php");
           <td>
             <?php print $this->select_titles ?>
           </td>
-        </tr>        
+        </tr>
         <?php } ?>
         <?php if ($config_fields['f_name']['display']){?>
         <tr>
@@ -34,6 +38,16 @@ include(dirname(__FILE__)."/adress.js.php");
           </td>
           <td>
             <input type = "text" name = "l_name" id = "l_name" value = "<?php print $this->user->l_name ?>" class = "inputbox" />
+          </td>
+        </tr>
+        <?php } ?>
+        <?php if ($config_fields['m_name']['display']){?>
+        <tr>
+          <td class="name">
+            <?php print _JSHOP_M_NAME ?> <?php if ($config_fields['m_name']['require']){?><span>*</span><?php } ?>
+          </td>
+          <td>
+            <input type = "text" name = "m_name" id = "m_name" value = "<?php print $this->user->m_name ?>" class = "inputbox" />
           </td>
         </tr>
         <?php } ?>
@@ -86,7 +100,18 @@ include(dirname(__FILE__)."/adress.js.php");
             <input type = "text" name = "email" id = "email" value = "<?php print $this->user->email ?>" class = "inputbox" />
           </td>
         </tr>
-        <?php } ?>        
+        <?php } ?>
+        <?php if ($config_fields['birthday']['display']){?>
+        <tr>
+          <td class="name">
+            <?php print _JSHOP_BIRTHDAY ?> <?php if ($config_fields['birthday']['require']){?><span>*</span><?php } ?>
+          </td>
+          <td>
+            <?php echo JHTML::_('calendar', $this->user->birthday, 'birthday', 'birthday', $this->config->field_birthday_format, array('class'=>'inputbox', 'size'=>'25', 'maxlength'=>'19'));?>            
+          </td>
+        </tr>
+        <?php } ?>
+        <?php echo $this->_tmpl_address_html_2?>
         <?php if ($config_fields['home']['display']){?>
         <tr>
           <td  class="name">
@@ -157,6 +182,7 @@ include(dirname(__FILE__)."/adress.js.php");
           </td>
         </tr>
         <?php } ?>
+        <?php echo $this->_tmpl_address_html_3?>
         <?php if ($config_fields['phone']['display']){?>
         <tr>
           <td class="name">
@@ -217,6 +243,7 @@ include(dirname(__FILE__)."/adress.js.php");
           </td>
         </tr>
         <?php } ?>
+        <?php echo $this->_tmpl_address_html_4?>
     </table>
     </div>
     
@@ -262,6 +289,16 @@ include(dirname(__FILE__)."/adress.js.php");
           </td>
         </tr>
         <?php } ?>
+        <?php if ($config_fields['d_m_name']['display']){?>
+        <tr>
+          <td class="name">
+            <?php print _JSHOP_M_NAME ?> <?php if ($config_fields['d_m_name']['require']){?><span>*</span><?php } ?>
+          </td>
+          <td>
+            <input type = "text" name = "d_m_name" id = "d_m_name" value = "<?php print $this->user->d_m_name ?>" class = "inputbox" />
+          </td>
+        </tr>
+        <?php } ?>
         <?php if ($config_fields['d_firma_name']['display']){?>
         <tr>
           <td class="name">
@@ -282,7 +319,17 @@ include(dirname(__FILE__)."/adress.js.php");
           </td>
         </tr>
         <?php } ?>
-        
+        <?php if ($config_fields['d_birthday']['display']){?>
+        <tr>
+          <td class="name">
+            <?php print _JSHOP_BIRTHDAY ?> <?php if ($config_fields['d_birthday']['require']){?><span>*</span><?php } ?>
+          </td>
+          <td>
+            <?php echo JHTML::_('calendar', $this->user->d_birthday, 'd_birthday', 'd_birthday', $this->config->field_birthday_format, array('class'=>'inputbox', 'size'=>'25', 'maxlength'=>'19'));?>
+          </td>
+        </tr>
+        <?php } ?>
+        <?php echo $this->_tmpl_address_html_5?>
         <?php if ($config_fields['d_home']['display']){?>
         <tr>
           <td  class="name">
@@ -354,6 +401,7 @@ include(dirname(__FILE__)."/adress.js.php");
           </td>
         </tr>
         <?php } ?>
+        <?php echo $this->_tmpl_address_html_6?>
         <?php if ($config_fields['d_phone']['display']){?>
         <tr>
           <td class="name">
@@ -414,12 +462,33 @@ include(dirname(__FILE__)."/adress.js.php");
           </td>
         </tr>
         <?php } ?>                    
+        <?php echo $this->_tmpl_address_html_7?>
     </table>
     </div>
+    <?php if ($config_fields['privacy_statement']['display']){?>
+    <div class="jshop_register">
+    <div class="jshop_block_privacy_statement">    
+    <table>
+        <tr>
+          <td class="name">
+            <a class="privacy_statement" href="#" onclick="window.open('<?php print SEFLink('index.php?option=com_jshopping&controller=content&task=view&page=privacy_statement&tmpl=component', 1);?>','window','width=800, height=600, scrollbars=yes, status=no, toolbar=no, menubar=no, resizable=yes, location=no');return false;">
+            <?php print _JSHOP_PRIVACY_STATEMENT?> <?php if ($config_fields['privacy_statement']['require']){?><span>*</span><?php } ?>
+            </a>            
+          </td>
+          <td>
+            <input type="checkbox" name="privacy_statement" id="privacy_statement" value="1" />
+          </td>
+        </tr>
+        </table>
+    </div>
+    </div>
+    <?php } ?>    
     <?php print $this->_tmp_ext_html_address_end?>
     
     <div style="padding-top:10px;">
+        <?php echo $this->_tmpl_address_html_8?>
         <div class="requiredtext">* <?php print _JSHOP_REQUIRED?></div>
+        <?php echo $this->_tmpl_address_html_9?>
         <input type = "submit" name = "next" value = "<?php print _JSHOP_NEXT ?>" class = "button" />
     </div>
 </form>

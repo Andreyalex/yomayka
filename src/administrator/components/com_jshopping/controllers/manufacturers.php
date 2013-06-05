@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 22.07.2011
+* @version      3.13.0 22.07.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -13,28 +13,36 @@ jimport('joomla.application.component.controller');
 class JshoppingControllerManufacturers extends JController{
 
     function __construct( $config = array() ){
-        parent::__construct( $config );        
-
+        parent::__construct( $config );
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("manufacturers");
         addSubmenu("other");
     }
 
-    function display() {
-        $db = &JFactory::getDBO();
-        $manufacturer = &$this->getModel("manufacturers");
-        $rows = $manufacturer->getAllManufacturers();
-        $view=&$this->getView("manufacturer", 'html');
+    function display($cachable = false, $urlparams = false){
+        $db = JFactory::getDBO();
+        $mainframe = JFactory::getApplication();
+        $context = "jshopping.list.admin.manufacturers";
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "ordering", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
+        $manufacturer = $this->getModel("manufacturers");
+        $rows = $manufacturer->getAllManufacturers(0, $filter_order, $filter_order_Dir);
+        $view=$this->getView("manufacturer", 'html');
         $view->setLayout("list");
-        $view->assign('rows', $rows);        
+        $view->assign('rows', $rows);
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayManufacturers', array(&$view));
         $view->displayList();
     }
 
-    function edit() {
-        $db = &JFactory::getDBO();
+    function edit(){
+        $db = JFactory::getDBO();
         $man_id = JRequest::getInt("man_id");
-        $manufacturer = &JTable::getInstance('manufacturer', 'jshop');
+        $manufacturer = JTable::getInstance('manufacturer', 'jshop');
         $manufacturer->load($man_id);
         $edit = ($man_id)?(1):(0);
         
@@ -42,42 +50,42 @@ class JshoppingControllerManufacturers extends JController{
             $manufacturer->manufacturer_publish = 1;
         }
         
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         $multilang = count($languages)>1;
         
         $nofilter = array();
         JFilterOutput::objectHTMLSafe( $manufacturer, ENT_QUOTES, $nofilter);
 
-        $view=&$this->getView("manufacturer", 'html');
+        $view=$this->getView("manufacturer", 'html');
         $view->setLayout("edit");
         $view->assign('manufacturer', $manufacturer);        
         $view->assign('edit', $edit);
         $view->assign('languages', $languages);
         $view->assign('multilang', $multilang);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditManufacturers', array(&$view));        
         $view->displayEdit();
     }
 
-    function save() {
-        $jshopConfig = &JSFactory::getConfig();
+    function save(){
+        $jshopConfig = JSFactory::getConfig();
         
         require_once ($jshopConfig->path.'lib/image.lib.php');
         require_once ($jshopConfig->path.'lib/uploadfile.class.php');
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
         $apply = JRequest::getVar("apply");
-        $_alias = &$this->getModel("alias");
-        $db = &JFactory::getDBO();
-        $man = &JTable::getInstance('manufacturer', 'jshop');        
+        $_alias = $this->getModel("alias");
+        $db = JFactory::getDBO();
+        $man = JTable::getInstance('manufacturer', 'jshop');        
         $man_id = JRequest::getInt("manufacturer_id");
 
         $post = JRequest::get("post");
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         foreach($languages as $lang){
             $post['name_'.$lang->language] = trim($post['name_'.$lang->language]);
@@ -111,9 +119,11 @@ class JshoppingControllerManufacturers extends JController{
         $upload = new UploadFile($_FILES['manufacturer_logo']);
         $upload->setAllowFile(array('jpeg','jpg','gif','png'));
         $upload->setDir($jshopConfig->image_manufs_path);
+        $upload->setFileNameMd5(0);
+        $upload->setFilterName(1);
         if ($upload->upload()){            
             if ($post['old_image']){
-                @unlink($jshopConfig->image_manufs_path . "/" . $post['old_image']);
+                @unlink($jshopConfig->image_manufs_path."/".$post['old_image']);
             }
             $name = $upload->getName();
             @chmod($jshopConfig->image_manufs_path."/".$name, 0777);
@@ -164,17 +174,17 @@ class JshoppingControllerManufacturers extends JController{
         
     }
 
-    function remove() {
+    function remove(){
         $cid = JRequest::getVar("cid");
-        $db = &JFactory::getDBO();
-        $jshopConfig = &JSFactory::getConfig();
+        $db = JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
         $text = array();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveManufacturer', array(&$cid) );
         foreach ($cid as $key => $value) {
-            $query = "DELETE FROM `#__jshopping_manufacturers` WHERE `manufacturer_id` = '" . $db->getEscaped($value) . "'";                       
-            $manuf = &JTable::getInstance('manufacturer', 'jshop');
+            $query = "DELETE FROM `#__jshopping_manufacturers` WHERE `manufacturer_id` = '" . $db->escape($value) . "'";                       
+            $manuf = JTable::getInstance('manufacturer', 'jshop');
             $manuf->load($value);
             $manuf->delete();
             
@@ -198,14 +208,14 @@ class JshoppingControllerManufacturers extends JController{
 
     function publishManufacturer($flag) {
         $cid = JRequest::getVar("cid");
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforePublishManufacturer', array(&$cid, &$flag) );
         foreach ($cid as $key => $value) {
             $query = "UPDATE `#__jshopping_manufacturers`
-                       SET `manufacturer_publish` = '" . $db->getEscaped($flag) . "'
-                       WHERE `manufacturer_id` = '" . $db->getEscaped($value) . "'";
+                       SET `manufacturer_publish` = '" . $db->escape($flag) . "'
+                       WHERE `manufacturer_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
         }
@@ -217,8 +227,8 @@ class JshoppingControllerManufacturers extends JController{
     
     function delete_foto(){
         $id = JRequest::getInt("id");
-        $jshopConfig = &JSFactory::getConfig();
-        $manuf = &JTable::getInstance('manufacturer', 'jshop');
+        $jshopConfig = JSFactory::getConfig();
+        $manuf = JTable::getInstance('manufacturer', 'jshop');
         $manuf->load($id);
         @unlink($jshopConfig->image_manufs_path.'/'.$manuf->manufacturer_logo);
         $manuf->manufacturer_logo = "";
@@ -229,7 +239,7 @@ class JshoppingControllerManufacturers extends JController{
     function order(){        
         $id = JRequest::getInt("id");
         $move = JRequest::getInt("move");        
-        $manuf = &JTable::getInstance('manufacturer', 'jshop');
+        $manuf = JTable::getInstance('manufacturer', 'jshop');
         $manuf->load($id);
         $manuf->move($move);
         $this->setRedirect("index.php?option=com_jshopping&controller=manufacturers");
@@ -240,7 +250,7 @@ class JshoppingControllerManufacturers extends JController{
         $order = JRequest::getVar( 'order', array(), 'post', 'array' );
         
         foreach ($cid as $k=>$id){
-            $table = &JTable::getInstance('manufacturer', 'jshop');
+            $table = JTable::getInstance('manufacturer', 'jshop');
             $table->load($id);
             if ($table->ordering!=$order[$k]){
                 $table->ordering = $order[$k];
@@ -248,7 +258,7 @@ class JshoppingControllerManufacturers extends JController{
             }        
         }
         
-        $table = &JTable::getInstance('manufacturer', 'jshop');
+        $table = JTable::getInstance('manufacturer', 'jshop');
         $table->ordering = null;
         $table->reorder();        
                 

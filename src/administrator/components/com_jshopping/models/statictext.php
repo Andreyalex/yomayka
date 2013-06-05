@@ -13,8 +13,8 @@ jimport( 'joomla.application.component.model');
 class JshoppingModelStaticText extends JModel{ 
 
     function getList(){
-        $lang = &JSFactory::getLang();
-        $db =& JFactory::getDBO();         
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO();         
         $query = "SELECT id, alias FROM `#__jshopping_config_statictext` ORDER BY id";
         $db->setQuery($query);
         return $db->loadObjectList();

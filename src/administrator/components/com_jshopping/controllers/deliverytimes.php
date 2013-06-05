@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.9.4 23.09.2010
+* @version      3.13.0 23.09.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,52 +14,61 @@ class JshoppingControllerDeliveryTimes extends JController{
     
     function __construct( $config = array() ){
         parent::__construct( $config );
-
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("deliverytimes");
         addSubmenu("other");
     }
 
-	function display(){
-		$_deliveryTimes = &$this->getModel("deliveryTimes");
-		$rows = $_deliveryTimes->getDeliveryTimes();
-		$view=&$this->getView("deliverytimes", 'html');
+	function display($cachable = false, $urlparams = false){
+        $mainframe = JFactory::getApplication();
+		$context = "jshoping.list.admin.deliverytimes";
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "name", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
+        
+		$_deliveryTimes = $this->getModel("deliveryTimes");
+		$rows = $_deliveryTimes->getDeliveryTimes($filter_order, $filter_order_Dir);
+		$view=$this->getView("deliverytimes", 'html');
         $view->setLayout("list");
-        $view->assign('rows', $rows);        
+        $view->assign('rows', $rows); 
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayDeliveryTimes', array(&$view));
 		$view->displayList();
 	}
 	
-	function edit() {
+	function edit(){
 		$id = JRequest::getInt("id");
-		$deliveryTimes = &JTable::getInstance('deliveryTimes', 'jshop');
+		$deliveryTimes = JTable::getInstance('deliveryTimes', 'jshop');
 		$deliveryTimes->load($id);
 		$edit = ($id)?(1):(0);
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         $multilang = count($languages)>1;
         JFilterOutput::objectHTMLSafe( $deliveryTimes, ENT_QUOTES);
 
-		$view=&$this->getView("deliverytimes", 'html');
+		$view=$this->getView("deliverytimes", 'html');
         $view->setLayout("edit");
         $view->assign('deliveryTimes', $deliveryTimes);        
         $view->assign('edit', $edit);
         $view->assign('languages', $languages);
         $view->assign('multilang', $multilang);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditDeliverytimes', array(&$view));
 		$view->displayEdit();
 	}
 	
 	function save() {
-	    $mainframe =& JFactory::getApplication();
+	    $mainframe = JFactory::getApplication();
 		$id = JRequest::getInt("id");
-		$deliveryTimes = &JTable::getInstance('deliveryTimes', 'jshop');
+		$deliveryTimes = JTable::getInstance('deliveryTimes', 'jshop');
         $post = JRequest::get("post");
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeSaveDeliveryTime', array(&$post) );
         
 		if (!$deliveryTimes->bind($post)) {
@@ -84,16 +93,16 @@ class JshoppingControllerDeliveryTimes extends JController{
 	}
 	
 	function remove() {
-		$db = &JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$text = array();
 		$cid = JRequest::getVar("cid");
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveDeliveryTime', array(&$cid) );
         
 		foreach ($cid as $key => $value) {
-			$query = "DELETE FROM `#__jshopping_delivery_times` WHERE `id` = '" . $db->getEscaped($value) . "'";
+			$query = "DELETE FROM `#__jshopping_delivery_times` WHERE `id` = '" . $db->escape($value) . "'";
 			$db->setQuery($query);
 			if ($db->query())
 				$text[] = _JSHOP_DELIVERY_TIME_DELETED."<br>";

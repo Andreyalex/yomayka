@@ -14,8 +14,8 @@ class jshopOrderStatus extends JTableAvto {
     }
     
     function getName($status_id) {
-        $lang = &JSFactory::getLang();
-        $query = "SELECT `".$lang->get('name')."` as name FROM `#__jshopping_order_status` WHERE status_id = '" . $this->_db->getEscaped($status_id) . "'";
+        $lang = JSFactory::getLang();
+        $query = "SELECT `".$lang->get('name')."` as name FROM `#__jshopping_order_status` WHERE status_id = '" . $this->_db->escape($status_id) . "'";
         $this->_db->setQuery($query);
         return $this->_db->loadResult();
     }    

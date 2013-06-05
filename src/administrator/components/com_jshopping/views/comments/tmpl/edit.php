@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <form action = "index.php?option=com_jshopping&controller=reviews" method = "post" enctype = "multipart/form-data" name = "adminForm">
      <div class="col100">
      <table class="admintable" >

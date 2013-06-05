@@ -20,8 +20,8 @@ class jshopLanguage extends JTable {
     }
     
     function getAllLanguages($publish = 1) {
-        $jshopConfig = &JSFactory::getConfig();
-        $db =& JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         $where_add = $publish ? "where `publish`='1'": ""; 
         $query = "SELECT * FROM `#__jshopping_languages` ".$where_add." order by `ordering`";
         $db->setQuery($query);

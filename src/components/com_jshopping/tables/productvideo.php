@@ -1,21 +1,16 @@
 <?php
 /**
-* @version      2.8.0 20.02.2011
+* @version      3.9.0 30.07.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
-* @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
+* @copyright    Copyright (C) 2012 webdesigner-profi.de. All rights reserved.
 * @license      GNU/GPL
 */
 
 class jshopProductVideo extends JTable {
 
-    var $video_id = null;
-    var $product_id = null;    
-    var $video_name = null;
-    var $video_preview = null;
-    
     function __construct( &$_db ){
-        parent::__construct('#__jshopping_products_videos', 'id', $_db);
+        parent::__construct('#__jshopping_products_videos', 'video_id', $_db);
     }
 }
 ?>

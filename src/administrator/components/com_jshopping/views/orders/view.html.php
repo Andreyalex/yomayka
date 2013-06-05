@@ -6,6 +6,7 @@ class JshoppingViewOrders extends JView
 {
     function displayList($tpl = null){        
         JToolBarHelper::title( _JSHOP_ORDER_LIST, 'generic.png');
+        JToolBarHelper::addNewX();
         JToolBarHelper::deleteList();
         parent::display($tpl);
 	}
@@ -18,6 +19,7 @@ class JshoppingViewOrders extends JView
     function displayShow($tpl = null){
         JToolBarHelper::title($this->order->order_number, 'generic.png');
         JToolBarHelper::back();
+        JToolBarHelper::custom('send', 'send', 'send', _JSHOP_SEND_MAIL, false);
         parent::display($tpl);
     }
 }

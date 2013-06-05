@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <div class="jshop">
 <h1><?php print $this->category->name?></h1>
 <?php print $this->category->description?>

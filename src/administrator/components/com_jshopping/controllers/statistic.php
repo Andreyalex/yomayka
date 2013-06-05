@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.8.0 20.12.2010
+* @version      3.13.0 20.12.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,25 +14,22 @@ class JshoppingControllerStatistic extends JController{
 
     function __construct( $config = array() ){
         parent::__construct( $config );
-
         addSubmenu("other");
         checkAccessController("statistic");
     }
-    function display(){
-        
-        $jshopConfig = &JSFactory::getConfig(); 
 
-        $_statisctic = &$this->getModel("statistic");   
-        
+    function display($cachable = false, $urlparams = false){
+        $jshopConfig = JSFactory::getConfig(); 
+        $_statisctic = $this->getModel("statistic");
         $rows = $_statisctic->getAllOrderStatus();
 
-        $today = $_statisctic->getOrderStatistics('day');  
-        $week = $_statisctic->getOrderStatistics('week');  
+        $today = $_statisctic->getOrderStatistics('day');
+        $week = $_statisctic->getOrderStatistics('week');
         $month = $_statisctic->getOrderStatistics('month');  
         $year = $_statisctic->getOrderStatistics('year');  
 
         $category = $_statisctic->getCategoryStatistics(); 
-        $manufacture = $_statisctic->getManufactureStatistics();     
+        $manufacture = $_statisctic->getManufactureStatistics();
         $product = $_statisctic->getProductStatistics() ; 
         $pr_instok = $_statisctic->getProductStatistics('1') ; 
         $pr_outstok = $_statisctic->getProductStatistics('2') ; 
@@ -48,30 +45,31 @@ class JshoppingControllerStatistic extends JController{
 
         $usergroups= $_statisctic->getUserGroupsStatistics();
 
-        $view=&$this->getView("statistic", 'html');        
-        $view->assign('rows', $rows);   
-        $view->assign('today', $today);   
+        $view=$this->getView("statistic", 'html');
+        $view->assign('rows', $rows);
+        $view->assign('today', $today);
         $view->assign('week', $week); 
-        $view->assign('month', $month); 
+        $view->assign('month', $month);
         $view->assign('year', $year); 
-        $view->assign('paid_status', $jshopConfig->payment_status_enable_download_sale_file);    
-        $view->assign('category', $category);  
-        $view->assign('manufacture', $manufacture);  
+        $view->assign('paid_status', $jshopConfig->payment_status_enable_download_sale_file);
+        $view->assign('category', $category);
+        $view->assign('manufacture', $manufacture);
         $view->assign('product', $product); 
-        $view->assign('pr_instok', $pr_instok);  
-        $view->assign('pr_outstok', $pr_outstok);  
-        $view->assign('pr_download', $pr_download); 
+        $view->assign('pr_instok', $pr_instok);
+        $view->assign('pr_outstok', $pr_outstok);
+        $view->assign('pr_download', $pr_download);
         $view->assign('customer', $customer);  
-        $view->assign('customer_enabled', $customer_enabled); 
-        $view->assign('customer_loggedin', $customer_loggedin);  
-        $view->assign('stuff1', $stuff1);   
-        $view->assign('stuff2', $stuff2);  
-        $view->assign('stuff3', $stuff3); 
-        $view->assign('usergroups', $usergroups); 
-        $view->display();        
+        $view->assign('customer_enabled', $customer_enabled);
+        $view->assign('customer_loggedin', $customer_loggedin);
+        $view->assign('stuff1', $stuff1);
+        $view->assign('stuff2', $stuff2);
+        $view->assign('stuff3', $stuff3);
+        $view->assign('usergroups', $usergroups);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayStatistic', array(&$view));
+        $view->display();
     }
-    
-    
 }
 
-?>		
+?>

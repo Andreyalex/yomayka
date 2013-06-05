@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 20.12.2011
+* @version      3.13.3 20.12.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -15,27 +15,26 @@ jimport('joomla.filesystem.archive');
 jimport('joomla.filesystem.path');
 
 class JshoppingControllerUpdate extends JController{
-    
+
     function __construct( $config = array() ){
-        $mainframe =& JFactory::getApplication();
+        $mainframe = JFactory::getApplication();
         parent::__construct( $config );
         checkAccessController("update");
         addSubmenu("update");
-        $language =& JFactory::getLanguage(); 
+        $language = JFactory::getLanguage(); 
         $language->load('com_installer');
     }
 
-    function display(){		                
-		$view=&$this->getView("update", 'html');        
+    function display($cachable = false, $urlparams = false){
+		$view=$this->getView("update", 'html');
 		$view->display(); 
     }
     
 	
-	function update() {       
+	function update(){
         $installtype = JRequest::getVar('installtype');
         $back = JRequest::getVar('back');
-        
-        // Make sure that zlib is loaded so that the package can be unpacked
+
         if (!extension_loaded('zlib')){
             JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_INSTALLER_MSG_INSTALL_WARNINSTALLZLIB'));
             $this->setRedirect("index.php?option=com_jshopping&controller=update");
@@ -59,15 +58,15 @@ class JshoppingControllerUpdate extends JController{
                 $this->setRedirect("index.php?option=com_jshopping&controller=update");
                 return false;
             }
-            $config =& JFactory::getConfig();
-            $tmp_dest = $config->getValue('config.tmp_path').DS.$userfile['name'];
+            $config = JFactory::getConfig();
+            $tmp_dest = $config->getValue('config.tmp_path').'/'.$userfile['name'];
             $tmp_src = $userfile['tmp_name'];
             jimport('joomla.filesystem.file');
             $uploaded = JFile::upload($tmp_src, $tmp_dest); 
-            $archivename = $tmp_dest;            
+            $archivename = $tmp_dest;
             $tmpdir = uniqid('install_');
-            $extractdir = JPath::clean(dirname($archivename).DS.$tmpdir);
-            $archivename = JPath::clean($archivename);        
+            $extractdir = JPath::clean(dirname($archivename).'/'.$tmpdir);
+            $archivename = JPath::clean($archivename);
         }else {
             jimport( 'joomla.installer.helper' );
             $url = JRequest::getVar('install_url');
@@ -82,26 +81,28 @@ class JshoppingControllerUpdate extends JController{
                 $this->setRedirect("index.php?option=com_jshopping&controller=update");
                 return false;
             }
-            $config        = JFactory::getConfig();
-            $tmp_dest    = $config->get('tmp_path');
+            $config = JFactory::getConfig();
+            $tmp_dest = $config->get('tmp_path');
             $tmpdir = uniqid('install_');
-            $extractdir = JPath::clean(dirname(JPATH_BASE).DS.'tmp'.DS.$tmpdir);
-            $archivename = JPath::clean($tmp_dest.DS.$p_file);              
+            $extractdir = JPath::clean(dirname(JPATH_BASE).'/tmp/'.$tmpdir);
+            $archivename = JPath::clean($tmp_dest.'/'.$p_file);
         }
         $result = JArchive::extract($archivename, $extractdir);
         if ( $result === false ) {
             JError::raiseWarning('500', "Error");
             $this->setRedirect("index.php?option=com_jshopping&controller=update");
             return false;
-        }                        
-                
+        }
+
+        if (file_exists($extractdir."/checkupdate.php")) include($extractdir."/checkupdate.php");
+
         $this->copyFiles($extractdir);
-		
+
         if (file_exists($extractdir."/update.sql")){
-            $db = &JFactory::getDBO();
+            $db = JFactory::getDBO();
             $lines = file($extractdir."/update.sql");
             $fullline = implode(" ", $lines);
-            $queryes = $db->splitSql($fullline);            
+            $queryes = $db->splitSql($fullline);
             foreach($queryes as $query){
                 if (trim($query)!=''){
                     $db->setQuery($query);
@@ -111,25 +112,25 @@ class JshoppingControllerUpdate extends JController{
                         saveToLog("error.log", "Update - ".$db->stderr());
                     }
                 }
-            }            
+            }
         }
         
         if (file_exists($extractdir."/update.php")) include($extractdir."/update.php");
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onAfterUpdateShop', array($extractdir) );
-                
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onAfterUpdateShop', array($extractdir));
         @unlink($archivename);
-        
-        $session =& JFactory::getSession();
+        JFolder::delete($extractdir);
+
+        $session = JFactory::getSession();
         $checkedlanguage = array();
-        $session->set("jshop_checked_language", $checkedlanguage);        
+        $session->set("jshop_checked_language", $checkedlanguage);
         
-        if( $back == '' ){
+        if ($back==''){
             $this->setRedirect("index.php?option=com_jshopping&controller=update", _JSHOP_COMPLETED); 
         }else{
-            $this->setRedirect( $back , _JSHOP_COMPLETED);
+            $this->setRedirect($back , _JSHOP_COMPLETED);
         }
     }
     
@@ -138,27 +139,26 @@ class JshoppingControllerUpdate extends JController{
         if ($subdir!="" && !file_exists(JPATH_ROOT.$subdir)){
             @mkdir(JPATH_ROOT.$subdir, 0755);
         }
-        
-        $files = JFolder::files($startdir.$subdir, '');
-        foreach($files as $file){        
-            if ($subdir=="" && ($file == "update.sql" || $file == "update.php")){
+
+        $files = JFolder::files($startdir.$subdir, '', false, false, array(), array());
+        foreach($files as $file){
+            if ($subdir=="" && ($file=="update.sql" || $file=="update.php" || $file=="checkupdate.php")){
                 continue;
-            }            
-            
+            }
+
             if (@copy($startdir.$subdir."/".$file, JPATH_ROOT.$subdir."/".$file)){
                 //JError::raiseWarning( 500, "Copy file: ".$subdir."/".$file." OK");
             }else{
-                JError::raiseWarning( 500, "Copy file: ".$subdir."/".$file." ERROR");
+                JError::raiseWarning("", "Copy file: ".$subdir."/".$file." ERROR");
                 saveToLog("error.log", "Update - Copy file: ".$subdir."/".$file." ERROR");
             }
         }
         
         $folders = JFolder::folders($startdir.$subdir, '');
         foreach($folders as $folder){
-            $dir = $subdir."/".$folder;            
+            $dir = $subdir."/".$folder;
             $this->copyFiles($startdir, $dir);
         }
     }
-         
 }
 ?>

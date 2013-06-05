@@ -1,35 +1,31 @@
 <?php
 /**
-* @version      3.2.0 10.02.2011
+* @version      3.9.1 20.08.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
 * @license      GNU/GPL
 */
 
-function messageOutput($text,$class = 'jshop_red') {
-    return '<span class = "' . $class . '">' . $text . '</span><br />';
-}
-
-function quickiconButton( $link, $image, $text ) {
-    ?>
-    <div style="float:left;">
-        <div class="icon">
-            <a href="<?php echo $link; ?>">
-                <?php echo JHTML::_('image.site',  $image, '/components/com_jshopping/images/', NULL, NULL, $text ); ?>
-                <span><?php echo $text; ?></span>
-            </a>
-        </div>
+function quickiconButton( $link, $image, $text ){
+$jshopConfig = JSFactory::getConfig();
+?>
+<div style="float:left;">
+    <div class="icon">
+        <a href="<?php echo $link?>">
+            <img src="<?php print $jshopConfig->live_admin_path?>images/<?php print $image?>" alt="">
+            <span><?php echo $text?></span>
+        </a>
     </div>
-    <?php
+</div>
+<?php
 }
 
-function getTemplates($type, $default){
-
+function getTemplates($type, $default, $first_empty = 0){
     $name = $type."_template";
     $folder = $type;
 
-    $jshopConfig = &JSFactory::getConfig();
+    $jshopConfig = JSFactory::getConfig();
     $temp = array();
     $dir = $jshopConfig->path."/templates/".$jshopConfig->template."/".$folder."/";
     $dh = opendir($dir);
@@ -40,6 +36,9 @@ function getTemplates($type, $default){
     }
     closedir($dh);
     $list = array();
+    if ($first_empty){
+        $list[] = JHTML::_('select.option', -1, "- - -", 'id', 'value');
+    }
     foreach($temp as $val){
         $list[] = JHTML::_('select.option', $val, $val, 'id', 'value');
     }
@@ -48,12 +47,12 @@ function getTemplates($type, $default){
 }
 
 function getShopTemplatesSelect($default){
-    $jshopConfig = &JSFactory::getConfig();
+    $jshopConfig = JSFactory::getConfig();
     $temp = array();
     $dir = $jshopConfig->path."/templates/";
     $dh = opendir($dir);
-    while (($file = readdir($dh)) !== false) {        
-        if (is_dir($dir.$file) && $file!="." && $file!=".."){
+    while(($file = readdir($dh)) !== false){        
+        if (is_dir($dir.$file) && $file!="." && $file!=".." && $file!='addons'){
             $temp[] = $file;
         }
     }
@@ -62,7 +61,6 @@ function getShopTemplatesSelect($default){
     foreach($temp as $val){
         $list[] = JHTML::_('select.option', $val, $val, 'id', 'value');
     }
-    
     return JHTML::_('select.genericlist', $list, "template",'class = "inputbox" size = "1"','id','value', $default);
 }
 
@@ -75,14 +73,14 @@ function getFileName($name) {
 }
 
 function getMainCurrencyCode(){
-    $jshopConfig = &JSFactory::getConfig();
-    $currency =& JTable::getInstance('currency', 'jshop');
+    $jshopConfig = JSFactory::getConfig();
+    $currency = JTable::getInstance('currency', 'jshop');
     $currency->load($jshopConfig->mainCurrency);
-    return $currency->currency_code;
+return $currency->currency_code;
 }
 
 function updateCountExtTaxRule(){
-    $db = &JFactory::getDBO();
+    $db = JFactory::getDBO();
     $query = "SELECT count(id) FROM `#__jshopping_taxes_ext`";
     $db->setQuery($query);
     $count = $db->loadResult();
@@ -93,7 +91,7 @@ function updateCountExtTaxRule(){
 }
 
 function updateCountConfigDisplayPrice(){
-    $db = &JFactory::getDBO();
+    $db = JFactory::getDBO();
     $query = "SELECT count(id) FROM `#__jshopping_config_display_prices`";
     $db->setQuery($query);
     $count = $db->loadResult();
@@ -112,9 +110,9 @@ function orderBlocked($order){
 }
 
 function addSubmenu($vName){
-    $user = & JFactory::getUser();
+    $user = JFactory::getUser();
     JPluginHelper::importPlugin('jshoppingmenu');
-    $dispatcher =& JDispatcher::getInstance();
+    $dispatcher = JDispatcher::getInstance();
     
     $adminaccess = $user->authorise('core.admin', 'com_jshopping');
     $installaccess = $user->authorise('core.admin.install', 'com_jshopping');
@@ -139,9 +137,9 @@ function addSubmenu($vName){
 }
 
 function displayMainPanelIco(){
-    $user = & JFactory::getUser();
+    $user =  JFactory::getUser();
     JPluginHelper::importPlugin('jshoppingmenu');
-    $dispatcher =& JDispatcher::getInstance();
+    $dispatcher = JDispatcher::getInstance();
     
     $adminaccess = $user->authorise('core.admin', 'com_jshopping');
     $installaccess = $user->authorise('core.admin.install', 'com_jshopping');
@@ -166,10 +164,10 @@ function displayMainPanelIco(){
 }
 
 function displayOptionPanelIco(){
-    $jshopConfig = &JSFactory::getConfig();
-    $user = & JFactory::getUser();
+    $jshopConfig = JSFactory::getConfig();
+    $user = JFactory::getUser();
     JPluginHelper::importPlugin('jshoppingmenu');
-    $dispatcher =& JDispatcher::getInstance();
+    $dispatcher = JDispatcher::getInstance();
     
     $adminaccess = $user->authorise('core.admin', 'com_jshopping');
     
@@ -177,7 +175,7 @@ function displayOptionPanelIco(){
     $menu['manufacturers'] = array(_JSHOP_MENU_MANUFACTURERS, 'index.php?option=com_jshopping&controller=manufacturers', 'jshop_manufacturer_b.png', 1);
     $menu['coupons'] = array(_JSHOP_MENU_COUPONS, 'index.php?option=com_jshopping&controller=coupons', 'jshop_coupons_b.png', $jshopConfig->use_rabatt_code);
     $menu['currencies'] = array(_JSHOP_PANEL_CURRENCIES, 'index.php?option=com_jshopping&controller=currencies', 'jshop_currencies_b.png', 1);
-    $menu['taxes'] = array(_JSHOP_PANEL_TAXES, 'index.php?option=com_jshopping&controller=taxes', 'jshop_taxes_b.png', 1);
+    $menu['taxes'] = array(_JSHOP_PANEL_TAXES, 'index.php?option=com_jshopping&controller=taxes', 'jshop_taxes_b.png', $jshopConfig->tax);
     $menu['payments'] = array(_JSHOP_PANEL_PAYMENTS, 'index.php?option=com_jshopping&controller=payments', 'jshop_payments_b.png', ($adminaccess && $jshopConfig->without_payment==0));
     $menu['shippings'] = array(_JSHOP_PANEL_SHIPPINGS, 'index.php?option=com_jshopping&controller=shippings', 'jshop_shipping_b.png', ($adminaccess && $jshopConfig->without_shipping==0));
     $menu['shippingsprices'] = array(_JSHOP_PANEL_SHIPPINGS_PRICES, 'index.php?option=com_jshopping&controller=shippingsprices', 'jshop_shipping_price_b.png', ($adminaccess && $jshopConfig->without_shipping==0));    
@@ -194,6 +192,7 @@ function displayOptionPanelIco(){
     $menu['productfields'] = array(_JSHOP_PANEL_PRODUCT_EXTRA_FIELDS, 'index.php?option=com_jshopping&controller=productfields', 'jshop_charac_b.png', $jshopConfig->admin_show_product_extra_field);
     $menu['languages'] = array(_JSHOP_PANEL_LANGUAGES, 'index.php?option=com_jshopping&controller=languages', 'jshop_languages_b.png', $jshopConfig->admin_show_languages && $adminaccess);
     $menu['importexport'] = array(_JSHOP_PANEL_IMPORT_EXPORT, 'index.php?option=com_jshopping&controller=importexport', 'jshop_import_export_b.png', 1);
+    $menu['addons'] = array(_JSHOP_ADDONS, 'index.php?option=com_jshopping&controller=addons', 'jshop_configuration_b.png', $adminaccess);
     $menu['statistic'] = array(_JSHOP_STATISTIC, 'index.php?option=com_jshopping&controller=statistic', 'jshop_order_status_b.png', $adminaccess);
     
     $dispatcher->trigger( 'onBeforeAdminOptionPanelIcoDisplay', array(&$menu) );
@@ -206,10 +205,10 @@ function displayOptionPanelIco(){
 }
 
 function getItemsOptionPanelMenu(){
-    $jshopConfig = &JSFactory::getConfig();
-    $user = & JFactory::getUser();
+    $jshopConfig = JSFactory::getConfig();
+    $user = JFactory::getUser();
     JPluginHelper::importPlugin('jshoppingmenu');
-    $dispatcher =& JDispatcher::getInstance();
+    $dispatcher = JDispatcher::getInstance();
     
     $adminaccess = $user->authorise('core.admin', 'com_jshopping');
     
@@ -217,7 +216,7 @@ function getItemsOptionPanelMenu(){
     $menu['manufacturers'] = array(_JSHOP_MENU_MANUFACTURERS, 'index.php?option=com_jshopping&controller=manufacturers', 'jshop_manufacturer_b.png', 1);
     $menu['coupons'] = array(_JSHOP_MENU_COUPONS, 'index.php?option=com_jshopping&controller=coupons', 'jshop_coupons_b.png', $jshopConfig->use_rabatt_code);
     $menu['currencies'] = array(_JSHOP_PANEL_CURRENCIES, 'index.php?option=com_jshopping&controller=currencies', 'jshop_currencies_b.png', 1);
-    $menu['taxes'] = array(_JSHOP_PANEL_TAXES, 'index.php?option=com_jshopping&controller=taxes', 'jshop_taxes_b.png', 1);
+    $menu['taxes'] = array(_JSHOP_PANEL_TAXES, 'index.php?option=com_jshopping&controller=taxes', 'jshop_taxes_b.png', $jshopConfig->tax);
     $menu['payments'] = array(_JSHOP_PANEL_PAYMENTS, 'index.php?option=com_jshopping&controller=payments', 'jshop_payments_b.png', ($adminaccess && $jshopConfig->without_payment==0));
     $menu['shippings'] = array(_JSHOP_PANEL_SHIPPINGS, 'index.php?option=com_jshopping&controller=shippings', 'jshop_shipping_b.png', ($adminaccess && $jshopConfig->without_shipping==0));
     $menu['shippingsprices'] = array(_JSHOP_PANEL_SHIPPINGS_PRICES, 'index.php?option=com_jshopping&controller=shippingsprices', 'jshop_shipping_price_b.png', ($adminaccess && $jshopConfig->without_shipping==0));    
@@ -234,6 +233,7 @@ function getItemsOptionPanelMenu(){
     $menu['productfields'] = array(_JSHOP_PANEL_PRODUCT_EXTRA_FIELDS, 'index.php?option=com_jshopping&controller=productfields', 'jshop_charac_b.png', $jshopConfig->admin_show_product_extra_field);
     $menu['languages'] = array(_JSHOP_PANEL_LANGUAGES, 'index.php?option=com_jshopping&controller=languages', 'jshop_languages_b.png', $jshopConfig->admin_show_languages && $adminaccess);
     $menu['importexport'] = array(_JSHOP_PANEL_IMPORT_EXPORT, 'index.php?option=com_jshopping&controller=importexport', 'jshop_import_export_b.png', 1);
+    $menu['addons'] = array(_JSHOP_ADDONS, 'index.php?option=com_jshopping&controller=addons', 'jshop_configuration_b.png', $adminaccess);
     $menu['statistic'] = array(_JSHOP_STATISTIC, 'index.php?option=com_jshopping&controller=statistic', 'jshop_order_status_b.png', $adminaccess);
     
     $dispatcher->trigger( 'onBeforeAdminOptionPanelMenuDisplay', array(&$menu) );
@@ -242,10 +242,10 @@ function getItemsOptionPanelMenu(){
 }
 
 function displayConfigPanelIco(){
-    $jshopConfig = &JSFactory::getConfig();
-    $user = & JFactory::getUser();
+    $jshopConfig = JSFactory::getConfig();
+    $user = JFactory::getUser();
     JPluginHelper::importPlugin('jshoppingmenu');
-    $dispatcher =& JDispatcher::getInstance();
+    $dispatcher = JDispatcher::getInstance();
     
     $menu = array();    
     $menu['general'] = array(_JSHOP_GENERAL_PARAMETERS, 'index.php?option=com_jshopping&controller=config&task=general', 'jshop_configuration_b.png', 1);
@@ -258,6 +258,7 @@ function displayConfigPanelIco(){
     $menu['seo'] = array(_JSHOP_SEO, 'index.php?option=com_jshopping&controller=config&task=seo', 'jshop_languages_b.png', 1);
     $menu['storeinfo'] = array(_JSHOP_STORE_INFO, 'index.php?option=com_jshopping&controller=config&task=storeinfo', 'jshop_store_info_b.png', 1);
     $menu['adminfunction'] = array(_JSHOP_SHOP_FUNCTION, 'index.php?option=com_jshopping&controller=config&task=adminfunction', 'jshop_options_b.png', 1);                
+    $menu['otherconfig'] = array(_JSHOP_OC, 'index.php?option=com_jshopping&controller=config&task=otherconfig', 'jshop_reviews_b.png', 1);                
     
     $dispatcher->trigger( 'onBeforeAdminConfigPanelIcoDisplay', array(&$menu) );
     
@@ -269,10 +270,10 @@ function displayConfigPanelIco(){
 }
 
 function getItemsConfigPanelMenu(){
-    $jshopConfig = &JSFactory::getConfig();
-    $user = & JFactory::getUser();
+    $jshopConfig = JSFactory::getConfig();
+    $user = JFactory::getUser();
     JPluginHelper::importPlugin('jshoppingmenu');
-    $dispatcher =& JDispatcher::getInstance();
+    $dispatcher = JDispatcher::getInstance();
     
     $menu = array();    
     $menu['general'] = array(_JSHOP_GENERAL_PARAMETERS, 'index.php?option=com_jshopping&controller=config&task=general', 'jshop_configuration_b.png', 1);
@@ -285,6 +286,7 @@ function getItemsConfigPanelMenu(){
     $menu['seo'] = array(_JSHOP_SEO, 'index.php?option=com_jshopping&controller=config&task=seo', 'jshop_languages_b.png', 1);
     $menu['storeinfo'] = array(_JSHOP_STORE_INFO, 'index.php?option=com_jshopping&controller=config&task=storeinfo', 'jshop_store_info_b.png', 1);
     $menu['adminfunction'] = array(_JSHOP_SHOP_FUNCTION, 'index.php?option=com_jshopping&controller=config&task=adminfunction', 'jshop_options_b.png', 1);                
+    $menu['otherconfig'] = array(_JSHOP_OC, 'index.php?option=com_jshopping&controller=config&task=otherconfig', 'jshop_reviews_b.png', 1);                
     
     $dispatcher->trigger( 'onBeforeAdminConfigPanelMenuDisplay', array(&$menu) );
     
@@ -293,62 +295,31 @@ function getItemsConfigPanelMenu(){
 
 
 function checkAccessController($name){
-    $mainframe =& JFactory::getApplication();
-    $user = & JFactory::getUser();
+    $mainframe = JFactory::getApplication();
+    $user = JFactory::getUser();
     
     $adminaccess = $user->authorise('core.admin', 'com_jshopping');
     $installaccess = $user->authorise('core.admin.install', 'com_jshopping');
     
-    if ($name=="config"){
-        if (!$adminaccess) {
-            $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
-            return 0;
-        }
-    }
+    $access = array();
+    $access["config"] = $user->authorise('core.admin', 'com_jshopping')==1;
+    $access["languages"] = $user->authorise('core.admin', 'com_jshopping')==1;
+    $access["payments"] = $user->authorise('core.admin', 'com_jshopping')==1;
+    $access["shippings"] = $user->authorise('core.admin', 'com_jshopping')==1;
+    $access["shippingsprices"] = $user->authorise('core.admin', 'com_jshopping')==1;
+    $access["vendors"] = $user->authorise('core.admin', 'com_jshopping')==1;
+    $access["statistic"] = $user->authorise('core.admin', 'com_jshopping')==1;
+    $access["addons"] = $user->authorise('core.admin', 'com_jshopping')==1;
+    $access["update"] = $user->authorise('core.admin.install', 'com_jshopping')==1;
     
-    if ($name=="languages"){
-        if (!$adminaccess) {
-            $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
-            return 0;
-        }
-    }
-    if ($name=="payments"){
-        if (!$adminaccess) {
-            $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
-            return 0;
-        }
-    }
-    if ($name=="shippings"){
-        if (!$adminaccess) {
-            $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
-            return 0;
-        }
-    }
-    if ($name=="shippingsprices"){
-        if (!$adminaccess) {
-            $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
-            return 0;
-        }
-    }
-    if ($name=="vendors"){
-        if (!$adminaccess) {
-            $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
-            return 0;
-        }
-    }
-    if ($name=="statistic"){
-        if (!$adminaccess) {
-            $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
-            return 0;
-        }
-    }
-    if ($name=="update"){
-        if (!$installaccess) {
-            $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
-            return 0;
-        }
-    }    
+    JPluginHelper::importPlugin('jshoppingadmin');
+    $dispatcher = JDispatcher::getInstance();
+    $dispatcher->trigger('onBeforeAdminCheckAccessController', array(&$access));
     
+    if (isset($access[$name]) && !$access[$name]){
+        $mainframe->redirect('index.php', JText::_('JERROR_ALERTNOAUTHOR'));
+        return 0;
+    }
 }
 
 function displaySubmenuOptions($active=""){
@@ -357,16 +328,16 @@ function displaySubmenuOptions($active=""){
 
 function getIdVendorForCUser(){
 static $id;
-$jshopConfig = &JSFactory::getConfig();
+$jshopConfig = JSFactory::getConfig();
 
     if (!$jshopConfig->admin_show_vendors) return 0;
     if (!isset($id)){
-        $user = & JFactory::getUser();
+        $user = JFactory::getUser();
         $adminaccess = $user->authorise('core.admin', 'com_jshopping');
         if ($adminaccess){
             $id = 0;    
         }else{
-            $vendors = &JModel::getInstance("vendors", "JshoppingModel");    
+            $vendors = JModel::getInstance("vendors", "JshoppingModel");    
             $id = $vendors->getIdVendorForUserId($user->id);
         }
     }
@@ -374,8 +345,8 @@ $jshopConfig = &JSFactory::getConfig();
 }
 
 function checkAccessVendorToProduct($id_vendor_cuser, $product_id){
-    $mainframe =& JFactory::getApplication();
-    $product =& JTable::getInstance('product', 'jshop');
+    $mainframe = JFactory::getApplication();
+    $product = JTable::getInstance('product', 'jshop');
     $product->load($product_id);
     if ($product->vendor_id!=$id_vendor_cuser){
         $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));

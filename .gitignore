@@ -3,3 +3,5 @@ assets
 src/.htaccess
 src/configuration.php
 src/libraries/wurfl
+src_
+/src/nbproject/private/

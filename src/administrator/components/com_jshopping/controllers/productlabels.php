@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.9.4 06.08.2011
+* @version      3.13.0 06.08.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,56 +14,65 @@ class JshoppingControllerProductLabels extends JController{
     
     function __construct( $config = array() ){
         parent::__construct( $config );
-
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("productlabels");
         addSubmenu("other");
     }
 
-	function display(){
-        $jshopConfig = &JSFactory::getConfig();
-		$_productLabels = &$this->getModel("productLabels");
-		$rows = $_productLabels->getList();
+	function display($cachable = false, $urlparams = false){
+        $jshopConfig = JSFactory::getConfig();
+        $mainframe = JFactory::getApplication();
+		$context = "jshoping.list.admin.productlabels";
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "name", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
         
-		$view=&$this->getView("product_labels", 'html');
+		$_productLabels = $this->getModel("productLabels");
+		$rows = $_productLabels->getList($filter_order, $filter_order_Dir);
+        
+		$view=$this->getView("product_labels", 'html');
         $view->setLayout("list");		
         $view->assign('rows', $rows);
-        $view->assign('config', $jshopConfig);        
+        $view->assign('config', $jshopConfig); 
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayProductLabels', array(&$view));
 		$view->displayList();
 	}
 	
 	function edit() {
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
 		$id = JRequest::getInt("id");
-		$productLabel = &JTable::getInstance('productLabel', 'jshop');
+		$productLabel = JTable::getInstance('productLabel', 'jshop');
 		$productLabel->load($id);
 		$edit = ($id)?(1):(0);
         
         JFilterOutput::objectHTMLSafe( $productLabel, ENT_QUOTES);
 
-		$view=&$this->getView("product_labels", 'html');
+		$view=$this->getView("product_labels", 'html');
         $view->setLayout("edit");
         $view->assign('productLabel', $productLabel);
         $view->assign('config', $jshopConfig);
         $view->assign('edit', $edit);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditProductLabels', array(&$view));
 		$view->displayEdit();
 	}
 	
-	function save() {
-        $mainframe =& JFactory::getApplication();
-        $jshopConfig = &JSFactory::getConfig();
+	function save(){
+        $mainframe = JFactory::getApplication();
+        $jshopConfig = JSFactory::getConfig();
         require_once ($jshopConfig->path.'lib/uploadfile.class.php');
 	    
 		$id = JRequest::getInt("id");
-		$productLabel = &JTable::getInstance('productLabel', 'jshop');
+		$productLabel = JTable::getInstance('productLabel', 'jshop');
         $post = JRequest::get("post");
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeSaveProductLabel', array(&$post) );
         
         $upload = new UploadFile($_FILES['image']);
@@ -106,13 +115,13 @@ class JshoppingControllerProductLabels extends JController{
 	}
 	
 	function remove(){
-        $jshopConfig = &JSFactory::getConfig();
-		$db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+		$db = JFactory::getDBO();
 		$text = array();
-        $productLabel = &JTable::getInstance('productLabel', 'jshop');
+        $productLabel = JTable::getInstance('productLabel', 'jshop');
 		$cid = JRequest::getVar("cid");
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveProductLabel', array(&$cid) );
 		foreach ($cid as $key => $value) {
             $productLabel->load($value);
@@ -126,9 +135,9 @@ class JshoppingControllerProductLabels extends JController{
 	}
     
     function delete_foto(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $id = JRequest::getInt("id");
-        $productLabel = &JTable::getInstance('productLabel', 'jshop');
+        $productLabel = JTable::getInstance('productLabel', 'jshop');
         $productLabel->load($id);
         @unlink($jshopConfig->image_labels_path."/".$productLabel->image);
         $productLabel->image = "";

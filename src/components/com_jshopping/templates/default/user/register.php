@@ -1,13 +1,15 @@
 <?php 
-$config_fields = $this->config_fields;
-include(dirname(__FILE__)."/register.js.php");
+	defined('_JEXEC') or die();
+	$config_fields = $this->config_fields;
+	include(dirname(__FILE__)."/register.js.php");
 ?>
 <div class="jshop">
-    <?php if (!$hideheaderh1){?>
+    <?php if (!isset($hideheaderh1)){?>
     <h1><?php print _JSHOP_REGISTRATION;?></h1>
     <?php } ?>
     
-    <form action = "<?php print SEFLink('index.php?option=com_jshopping&controller=user&task=registersave',0,0, $this->config->use_ssl)?>" method = "post" name = "loginForm" onsubmit = "return validateRegistrationForm('<?php print $this->urlcheckdata ?>', this.name)" autocomplete="off">
+    <form action = "<?php print SEFLink('index.php?option=com_jshopping&controller=user&task=registersave',1,0, $this->config->use_ssl)?>" method = "post" name = "loginForm" onsubmit = "return validateRegistrationForm('<?php print $this->urlcheckdata?>', this.name)" autocomplete="off">
+    <?php echo $this->_tmpl_register_html_1?>
     <div class = "jshop_register" style="padding-top:0px;">
       <table>
         <?php if ($config_fields['title']['display']){?>
@@ -37,6 +39,16 @@ include(dirname(__FILE__)."/register.js.php");
           </td>
           <td>
             <input type = "text" name = "l_name" id = "l_name" value = "" class = "inputbox" />
+          </td>
+        </tr>
+        <?php } ?>
+        <?php if ($config_fields['m_name']['display']){?>
+        <tr>
+          <td class="name">
+            <?php print _JSHOP_M_NAME ?> <?php if ($config_fields['m_name']['require']){?><span>*</span><?php } ?>
+          </td>
+          <td>
+            <input type = "text" name = "m_name" id = "m_name" value = "" class = "inputbox" />
           </td>
         </tr>
         <?php } ?>
@@ -99,10 +111,20 @@ include(dirname(__FILE__)."/register.js.php");
             <input type = "text" name = "email2" id = "email2" value = "" class = "inputbox" />
           </td>
         </tr>
-        <?php } ?>        
+        <?php } ?>
+        <?php if ($config_fields['birthday']['display']){?>
+        <tr>
+          <td class="name">
+            <?php print _JSHOP_BIRTHDAY?> <?php if ($config_fields['birthday']['require']){?><span>*</span><?php } ?>
+          </td>
+          <td>            
+            <?php echo JHTML::_('calendar', '', 'birthday', 'birthday', $this->config->field_birthday_format, array('class'=>'inputbox', 'size'=>'25', 'maxlength'=>'19'));?>
+          </td>
+        </tr>
+        <?php } ?>
       </table>
     </div>
-
+    <?php echo $this->_tmpl_register_html_2?>
     <div class = "jshop_register">
       <table>
         <?php if ($config_fields['home']['display']){?>
@@ -177,7 +199,7 @@ include(dirname(__FILE__)."/register.js.php");
         <?php } ?>        
       </table>
     </div>
-
+    <?php echo $this->_tmpl_register_html_3?>
     <div class = "jshop_register">
       <table>
         <?php if ($config_fields['phone']['display']){?>
@@ -244,7 +266,7 @@ include(dirname(__FILE__)."/register.js.php");
         
       </table>
     </div>
-
+    <?php echo $this->_tmpl_register_html_4?>
     <div class = "jshop_register">
       <table>
         <?php if ($config_fields['u_name']['display']){?>
@@ -277,12 +299,24 @@ include(dirname(__FILE__)."/register.js.php");
           </td>
         </tr>
         <?php } ?>
+        <?php if ($config_fields['privacy_statement']['display']){?>
+        <tr>
+          <td class="name">
+            <a class="privacy_statement" href="#" onclick="window.open('<?php print SEFLink('index.php?option=com_jshopping&controller=content&task=view&page=privacy_statement&tmpl=component', 1);?>','window','width=800, height=600, scrollbars=yes, status=no, toolbar=no, menubar=no, resizable=yes, location=no');return false;">
+            <?php print _JSHOP_PRIVACY_STATEMENT?> <?php if ($config_fields['privacy_statement']['require']){?><span>*</span><?php } ?>
+            </a>            
+          </td>
+          <td>
+            <input type="checkbox" name="privacy_statement" id="privacy_statement" value="1" />
+          </td>
+        </tr>
+        <?php } ?>        
       </table>
     </div>
-    
+    <?php echo $this->_tmpl_register_html_5?>
     <div class="requiredtext">* <?php print _JSHOP_REQUIRED?></div>
-    
-    <input type = "hidden" name = "<?php print $this->validate ?>" value="1" />
+    <?php echo $this->_tmpl_register_html_6?>
+    <?php echo JHtml::_('form.token');?>
     <input type = "submit" value = "<?php print _JSHOP_SEND_REGISTRATION ?>" class = "button" />
     </form>
 </div>

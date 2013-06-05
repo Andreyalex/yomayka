@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.0 10.12.2011
+* @version      3.12.2 15.12.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -10,15 +10,16 @@
 class JTableAvto extends JTable{
     
     function getBuildQueryListProductDefaultResult(){
-        $lang = &JSFactory::getLang();
+        $lang = JSFactory::getLang();
         return "prod.product_id, pr_cat.category_id, prod.`".$lang->get('name')."` as name, prod.`".$lang->get('short_description')."` as short_description, prod.product_ean, prod.product_thumb_image, prod.product_price, prod.currency_id, prod.product_tax_id as tax_id, prod.product_old_price, prod.product_weight, prod.average_rating, prod.reviews_count, prod.hits, prod.weight_volume_units, prod.basic_price_unit_id, prod.label_id, prod.product_manufacturer_id, prod.min_price, prod.product_quantity, prod.different_prices";
     }
     
     function getBuildQueryListProduct($type, $restype, &$filters, &$adv_query, &$adv_from, &$adv_result){
-        $jshopConfig = &JSFactory::getConfig();
-        $lang = &JSFactory::getLang();
-        $user = &JFactory::getUser();
-        $db =& JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $lang = JSFactory::getLang();
+        $user = JFactory::getUser();
+        $db = JFactory::getDBO();
+        $originaladvres = $adv_result;
         
         $groups = implode(',', $user->getAuthorisedViewLevels());
         if ($type=="category"){
@@ -54,9 +55,14 @@ class JTableAvto extends JTable{
         if (is_array($filters['extra_fields'])){
             foreach($filters['extra_fields'] as $f_id=>$vals){
                 if (is_array($vals) && count($vals)){
-                    $adv_query .= " AND prod.`extra_field_".$f_id."` in (".implode(",",$vals).")";
+                    $tmp = array();
+                    foreach($vals as $val_id){
+                        $tmp[] = " find_in_set('".$val_id."', prod.`extra_field_".$f_id."`) ";
+                    }
+                    $_tmp_adv_query = implode(' OR ', $tmp);
+                    $adv_query .= " AND (".$_tmp_adv_query.")";
                 }elseif(is_string($vals) && $vals!=""){
-                    $adv_query .= " AND prod.`extra_field_".$f_id."`='".$db->getEscaped($vals)."'";
+                    $adv_query .= " AND prod.`extra_field_".$f_id."`='".$db->escape($vals)."'";
                 }
             }
         }
@@ -68,7 +74,7 @@ class JTableAvto extends JTable{
         }
         
         if ($restype=="count"){
-            $adv_result = "";
+            $adv_result = $originaladvres;
         }    
     }
     
@@ -77,8 +83,8 @@ class JTableAvto extends JTable{
         $price_to = getCorrectedPriceForQueryFilter($filters['price_to']);
         if (!$price_from && !$price_to) return 0;
         
-        $jshopConfig = &JSFactory::getConfig();
-        $userShop = &JSFactory::getUserShop();
+        $jshopConfig = JSFactory::getConfig();
+        $userShop = JSFactory::getUserShop();
         $multyCurrency = count(JSFactory::getAllCurrency());
         if ($userShop->percent_discount){
             $price_part = 1-$userShop->percent_discount/100;
@@ -124,7 +130,7 @@ class JTableAvto extends JTable{
         }
         
         JPluginHelper::importPlugin('jshoppingproducts');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBuildQueryListProductFilterPrice', array($filters, &$adv_query, &$adv_from, &$adv_query2, &$adv_from2) );
         
         $adv_query .= $adv_query2;
@@ -135,7 +141,7 @@ class JTableAvto extends JTable{
         $order_query = "";
         if (!$order) return $order_query;
         $order_original = $order;
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $multyCurrency = count(JSFactory::getAllCurrency());
         if ($multyCurrency>1 && $order=="prod.product_price"){
             if (strpos($adv_from,"jshopping_currencies")===false){
@@ -156,15 +162,15 @@ class JTableAvto extends JTable{
         }
         
         JPluginHelper::importPlugin('jshoppingproducts');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBuildQueryOrderListProduct', array($order, $orderby, &$adv_from, &$order_query, $order_original) );
         
     return $order_query;
     }
     
-    function getBuildQueryListProductSimpleList($type, $array_categories, &$adv_query, &$adv_from, &$adv_result){
-        $jshopConfig = &JSFactory::getConfig();
-        $user = &JFactory::getUser();
+    function getBuildQueryListProductSimpleList($type, $array_categories, &$filters, &$adv_query, &$adv_from, &$adv_result){
+        $jshopConfig = JSFactory::getConfig();
+        $user = JFactory::getUser();
                 
         if (is_array($array_categories) && count($array_categories)){
             $adv_query .= " AND pr_cat.category_id IN (".implode(",", $array_categories).")";
@@ -187,6 +193,34 @@ class JTableAvto extends JTable{
         if ($jshopConfig->product_list_show_qty_stock){
             $adv_result .= ", prod.unlimited";
         }
+
+        if (is_array($filters['categorys']) && count($filters['categorys'])){
+            $adv_query .= " AND cat.category_id in (".implode(",",$filters['categorys']).")";
+        }
+        if (is_array($filters['manufacturers']) && count($filters['manufacturers'])){
+            $adv_query .= " AND prod.product_manufacturer_id in (".implode(",",$filters['manufacturers']).")";
+        }        
+        if (is_array($filters['labels']) && count($filters['labels'])){
+            $adv_query .= " AND prod.label_id in (".implode(",",$filters['labels']).")";
+        }
+        if (is_array($filters['vendors']) && count($filters['vendors'])){
+            $adv_query .= " AND prod.vendor_id in (".implode(",",$filters['vendors']).")";
+        }        
+        if (is_array($filters['extra_fields'])){
+            foreach($filters['extra_fields'] as $f_id=>$vals){
+                if (is_array($vals) && count($vals)){
+                    $tmp = array();
+                    foreach($vals as $val_id){
+                        $tmp[] = " find_in_set('".$val_id."', prod.`extra_field_".$f_id."`) ";
+                    }
+                    $_tmp_adv_query = implode(' OR ', $tmp);
+                    $adv_query .= " AND (".$_tmp_adv_query.")";
+                }elseif(is_string($vals) && $vals!=""){
+                    $adv_query .= " AND prod.`extra_field_".$f_id."`='".$db->escape($vals)."'";
+                }
+            }
+        }        
+        $this->getBuildQueryListProductFilterPrice($filters, $adv_query, $adv_from);
     }
 }
 ?>

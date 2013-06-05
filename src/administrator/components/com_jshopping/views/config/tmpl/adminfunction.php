@@ -1,8 +1,9 @@
 <?php
-$jshopConfig = &JSFactory::getConfig();
-JHTML::_('behavior.tooltip');
-$lists = $this->lists;
-include(dirname(__FILE__)."/submenu.php");
+	defined('_JEXEC') or die();
+	$jshopConfig = JSFactory::getConfig();
+	JHTML::_('behavior.tooltip');
+	$lists = $this->lists;
+	include(dirname(__FILE__)."/submenu.php");
 ?>
 <form action = "index.php?option=com_jshopping&controller=config" method = "post" name = "adminForm" enctype = "multipart/form-data">
 <input type="hidden" name="task" value="">
@@ -105,7 +106,24 @@ include(dirname(__FILE__)."/submenu.php");
         <input type = "checkbox" name = "use_extend_attribute_data" value = "1" <?php if ($jshopConfig->use_extend_attribute_data) echo 'checked = "checked"';?> />
     </td>
 </tr>
-
+<tr>
+    <td class="key">
+        <?php echo _JSHOP_TAX?>
+    </td>
+    <td>
+        <input type="hidden" name="tax" value="0"/>
+        <input type="checkbox" name="tax" value="1" <?php if ($jshopConfig->tax) echo 'checked = "checked"';?> />
+    </td>
+</tr>
+<tr>
+    <td class="key">
+        <?php echo _JSHOP_STOCK?>
+    </td>
+    <td>
+        <input type="hidden" name="stock" value="0"/>
+        <input type="checkbox" name="stock" value="1" <?php if ($jshopConfig->stock) echo 'checked = "checked"';?> />
+    </td>
+</tr>
 </table>
 </fieldset>
 </div>
@@ -200,40 +218,9 @@ include(dirname(__FILE__)."/submenu.php");
         <input type = "checkbox" name = "admin_show_product_extra_field" value = "1" <?php if ($jshopConfig->admin_show_product_extra_field) echo 'checked = "checked"';?> />
     </td>
 </tr>
-
-</table>
-</fieldset>
-</div>
-<div class="clr"></div>
-
-
-<div class="col100">
-<fieldset class="adminform">
-    <legend><?php echo _JSHOP_ADDITIONAL ?></legend>
-<table class="admintable" width = "100%" >
-<tr>
-    <td class="key">
-        <?php echo _JSHOP_EXTENDED_TAX_RULE_FOR?>
-    </td>
-    <td>
-        <?php print $lists['tax_rule_for'];?>
-    </td>
-</tr>
-
-<tr>
-    <td class="key">
-        <?php echo _JSHOP_SAVE_ALIAS_AUTOMATICAL?>
-    </td>
-    <td>
-        <input type="hidden" name="create_alias_product_category_auto" value="0">
-        <input type = "checkbox" name = "create_alias_product_category_auto" value = "1" <?php if ($jshopConfig->create_alias_product_category_auto) echo 'checked = "checked"';?> />
-    </td>
-</tr>
-
 <?php $pkey = "etemplatevar";if ($this->$pkey){print $this->$pkey;}?>
 </table>
 </fieldset>
 </div>
 <div class="clr"></div>
-
 </form>

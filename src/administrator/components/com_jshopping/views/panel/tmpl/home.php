@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <table>
 <tr>
  <td width = "40%">

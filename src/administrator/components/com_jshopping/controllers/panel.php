@@ -11,9 +11,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.application.component.controller');
 
 class JshoppingControllerPanel extends JController{
-    function display(){
+    
+    function display($cachable = false, $urlparams = false){
+        checkAccessController("panel");
         addSubmenu("");
-		$view=&$this->getView("panel", 'html');
+		$view=$this->getView("panel", 'html');
         $view->setLayout("home");		
 		$view->displayHome(); 
     }

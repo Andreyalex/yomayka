@@ -1,5 +1,6 @@
+<?php defined('_JEXEC') or die(); ?>
 <script type="text/javascript">
 function check_pm_paypal(){
-    $_('payment_form').submit();
+    jQuery('#payment_form').submit();
 }
 </script>

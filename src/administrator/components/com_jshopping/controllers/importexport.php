@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.7.0 16.12.2010
+* @version      3.13.0 16.12.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,36 +14,37 @@ include_once(JPATH_COMPONENT_ADMINISTRATOR."/importexport/iecontroller.php");
 class JshoppingControllerImportExport extends JController{
     
     function __construct( $config = array() ){
-        parent::__construct( $config );        
-        
+        parent::__construct( $config );
+        checkAccessController("importexport");
         addSubmenu("other");
     }
 
-    function display(){
-        
+    function display($cachable = false, $urlparams = false){
         if ($this->getTask()!="" && $this->getTask()!="backtolistie" && JRequest::getInt("ie_id")){
             $this->view();
             return 1;
         }
-        
-    	$importexport = &$this->getModel("importexport");    	
+    	$importexport = $this->getModel("importexport");
         $rows = $importexport->getList();		
-        $view=&$this->getView("import_export_list", 'html');
+        $view=$this->getView("import_export_list", 'html');
 		$view->assign('rows', $rows);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayImportExport', array(&$view));
         $view->display();
     }
     
-    function remove() {        
-        $cid = JRequest::getInt("cid");        
-        $_importexport = &JTable::getInstance('ImportExport', 'jshop'); 
-        $_importexport->load($cid);        
-        $_importexport->delete();        
+    function remove(){
+        $cid = JRequest::getInt("cid");
+        $_importexport = JTable::getInstance('ImportExport', 'jshop'); 
+        $_importexport->load($cid);
+        $_importexport->delete();
         $this->setRedirect('index.php?option=com_jshopping&controller=importexport', _JSHOP_ITEM_DELETED);
     }
-    
+
     function setautomaticexecution(){
-        $cid = JRequest::getInt("cid");        
-        $_importexport = &JTable::getInstance('ImportExport', 'jshop'); 
+        $cid = JRequest::getInt("cid");
+        $_importexport = JTable::getInstance('ImportExport', 'jshop'); 
         $_importexport->load($cid);
         if ($_importexport->steptime > 0){
             $_importexport->steptime = 0;
@@ -56,7 +57,7 @@ class JshoppingControllerImportExport extends JController{
     
     function view(){
         $ie_id = JRequest::getInt("ie_id");
-        $_importexport = &JTable::getInstance('ImportExport', 'jshop'); 
+        $_importexport = JTable::getInstance('ImportExport', 'jshop'); 
         $_importexport->load($ie_id);
         $alias = $_importexport->get('alias');
         if (!file_exists(JPATH_COMPONENT_ADMINISTRATOR."/importexport/".$alias."/".$alias.".php")){
@@ -70,8 +71,8 @@ class JshoppingControllerImportExport extends JController{
         $controller   = new $classname($ie_id);
         $controller->set('ie_id', $ie_id);
         $controller->set('alias', $alias);
-        $controller->execute( JRequest::getVar( 'task' ) );        
+        $controller->execute( JRequest::getVar( 'task' ) );
     }
-		      
+
 }
 ?>

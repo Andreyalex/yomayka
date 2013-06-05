@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 20.12.2011
+* @version      3.13.0 15.06.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -85,6 +85,18 @@ class PaymentRoot{
     * exec before end. Step7.
     */
     function finish($pmconfigs, $order, $rescode, $act){
+    }
+    
+    /**
+    * exec complete. StepFinish.
+    */
+    function complete($pmconfigs, $order, $payment){
+    }
+    
+    /**
+    * exec before mail send
+    */
+    function prepareParamsDispayMail(&$order, &$pm_method){
     }
     
     /**

@@ -1,25 +1,38 @@
 <?php
-$row = $this->row;
-JHTML::_('behavior.tooltip');
+	defined('_JEXEC') or die();
+	$row = $this->row;
+	JHTML::_('behavior.tooltip');
 ?>
 <div class="jshop_edit">
-<form action = "index.php?option=com_jshopping&controller=productfields" method = "post"name = "adminForm">
-
+<form action = "index.php?option=com_jshopping&controller=productfields" method="post" name="adminForm" enctype="multipart/form-data">
 <div class="col100">
 <fieldset class="adminform">
 <table width = "100%" class="admintable">
-   <?php 
+    <?php 
     foreach($this->languages as $lang){
-    $field = "name_".$lang->language;
+    $name = "name_".$lang->language;
     ?>
-       <tr>
-         <td class="key" style="width:250px;">
-               <?php echo _JSHOP_TITLE; ?> <?php if ($this->multilang) print "(".$lang->lang.")";?>*
-         </td>
-         <td>
-               <input type = "text" class = "inputbox" id = "<?php print $field?>" name = "<?php print $field?>" value = "<?php echo $row->$field;?>" />
-         </td>
-       </tr>
+    <tr>
+        <td class="key" style="width:250px;">
+            <?php echo _JSHOP_TITLE; ?> <?php if ($this->multilang) print "(".$lang->lang.")";?>*
+        </td>
+        <td>
+            <input type = "text" class = "inputbox" id = "<?php print $name?>" name = "<?php print $name?>" value = "<?php echo $row->$name;?>" />
+        </td>
+    </tr>
+    <?php }?>
+    <?php 
+    foreach($this->languages as $lang){
+    $description = "description_".$lang->language;
+    ?>
+    <tr>
+        <td class="key" style="width:250px;">
+            <?php echo _JSHOP_DESCRIPTION; ?> <?php if ($this->multilang) print "(".$lang->lang.")";?>
+        </td>
+        <td>
+            <input type = "text" class = "inputbox" id = "<?php print $description?>" name = "<?php print $description?>" value = "<?php echo $row->$description;?>" />
+        </td>
+    </tr>
     <?php }?>
     <tr>
      <td  class="key">

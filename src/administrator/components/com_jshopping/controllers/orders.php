@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.0 25.06.2011
+* @version      3.14.3 12.01.2013
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -11,34 +11,39 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.application.component.controller');
 
 class JshoppingControllerOrders extends JController{
-    
+
     function __construct( $config = array() ){
         parent::__construct( $config );
+        $this->registerTask('add', 'edit' );
+        checkAccessController("orders");
         addSubmenu("orders");
     }
 
-    function display(){
-        $jshopConfig = &JSFactory::getConfig();
-        $mainframe =& JFactory::getApplication();        
+    function display($cachable = false, $urlparams = false){
+        $jshopConfig = JSFactory::getConfig();
+        $mainframe = JFactory::getApplication();        
         $context = "jshopping.list.admin.orders";
         $limit = $mainframe->getUserStateFromRequest( $context.'limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
         $limitstart = $mainframe->getUserStateFromRequest( $context.'limitstart', 'limitstart', 0, 'int' );
         $id_vendor_cuser = getIdVendorForCUser();
-        
+        $client_id = JRequest::getInt('client_id',0);
+		
         $status_id = $mainframe->getUserStateFromRequest( $context.'status_id', 'status_id', 0 );
         $year = $mainframe->getUserStateFromRequest( $context.'year', 'year', 0 );
         $month = $mainframe->getUserStateFromRequest( $context.'month', 'month', 0 );
         $day = $mainframe->getUserStateFromRequest( $context.'day', 'day', 0 );
         $notfinished = $mainframe->getUserStateFromRequest( $context.'notfinished', 'notfinished', 0 );
         $text_search = $mainframe->getUserStateFromRequest( $context.'text_search', 'text_search', '' );
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "order_number", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "desc", 'cmd');
         
-        $filter = array("status_id"=>$status_id, "year"=>$year, "month"=>$month, "day"=>$day, "text_search"=>$text_search, 'notfinished'=>$notfinished);
+        $filter = array("status_id"=>$status_id, 'user_id'=>$client_id, "year"=>$year, "month"=>$month, "day"=>$day, "text_search"=>$text_search, 'notfinished'=>$notfinished);
         
         if ($id_vendor_cuser){            
             $filter["vendor_id"] = $id_vendor_cuser;
         }
         
-        $orders = &$this->getModel("orders");                
+        $orders = $this->getModel("orders");
         
         $total = $orders->getCountAllOrders($filter);        
         jimport('joomla.html.pagination');
@@ -49,7 +54,7 @@ class JshoppingControllerOrders extends JController{
         foreach($_list_order_status as $v){
             $list_order_status[$v->status_id] = $v->name;
         }
-        $rows = $orders->getAllOrders($pageNav->limitstart, $pageNav->limit, $filter);
+        $rows = $orders->getAllOrders($pageNav->limitstart, $pageNav->limit, $filter, $filter_order, $filter_order_Dir);
         $lists['status_orders'] = $_list_order_status;
         $_list_status0[] = JHTML::_('select.option', 0, _JSHOP_ALL_ORDERS, 'status_id', 'name');
         $_list_status = $lists['status_orders'];
@@ -109,10 +114,10 @@ class JshoppingControllerOrders extends JController{
         }
 
         JPluginHelper::importPlugin('jshoppingorder');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeDisplayListOrderAdmin', array(&$rows) );
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayListOrderAdmin', array(&$rows));
 		
-		$view=&$this->getView("orders", 'html');
+		$view=$this->getView("orders", 'html');
         $view->setLayout("list");
         $view->assign('rows', $rows); 
         $view->assign('lists', $lists); 
@@ -120,32 +125,36 @@ class JshoppingControllerOrders extends JController{
         $view->assign('text_search', $text_search); 
         $view->assign('filter', $filter);        
         $view->assign('show_vendor', $show_vendor);
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
         $view->assign('list_order_status', $list_order_status);
+		$view->assign('client_id', $client_id);
+        $dispatcher->trigger('onBeforeShowOrderListView', array(&$view));
 		$view->displayList(); 
     }
     
     function show(){
         $order_id = JRequest::getInt("order_id");
-        $lang = &JSFactory::getLang();
-        $db = &JFactory::getDBO();
-        $jshopConfig = &JSFactory::getConfig();
-        $orders = &$this->getModel("orders");
-        $order = &JTable::getInstance('order', 'jshop');
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $orders = $this->getModel("orders");
+        $order = JTable::getInstance('order', 'jshop');
         $order->load($order_id);
-        $orderstatus = &JTable::getInstance('orderStatus', 'jshop');
+        $orderstatus = JTable::getInstance('orderStatus', 'jshop');
         $orderstatus->load($order->order_status);
         $name = $lang->get("name");    
         $order->status_name = $orderstatus->$name;
         
         $id_vendor_cuser = getIdVendorForCUser();
         
-        $shipping_method =&JTable::getInstance('shippingMethod', 'jshop');
+        $shipping_method =JTable::getInstance('shippingMethod', 'jshop');
         $shipping_method->load($order->shipping_method_id);
         
         $name = $lang->get("name");
         $order->shipping_info = $shipping_method->$name;
         
-        $pm_method = &JTable::getInstance('paymentMethod', 'jshop');
+        $pm_method = JTable::getInstance('paymentMethod', 'jshop');
         $pm_method->load($order->payment_method_id);
         $order->payment_name = $pm_method->$name;
         
@@ -156,33 +165,42 @@ class JshoppingControllerOrders extends JController{
             foreach($tmp_order_vendors as $v){
                 $order_vendors[$v->id] = $v;
             }
-        }        
+        }
 
         $order->weight = $order->getWeightItems();
         $order_history = $order->getHistory();
         $lists['status'] = JHTML::_('select.genericlist', $orders->getAllOrderStatus(),'order_status','class = "inputbox" size = "1" id = "order_status"','status_id','name', $order->order_status);        
         
-        $country = &JTable::getInstance('country', 'jshop');
+        $country = JTable::getInstance('country', 'jshop');
         $country->load($order->country);
         $field_country_name = $lang->get("name");
         $order->country = $country->$field_country_name;
         
-        $d_country = &JTable::getInstance('country', 'jshop');
+        $d_country = JTable::getInstance('country', 'jshop');
         $d_country->load($order->d_country);
         $field_country_name = $lang->get("name");
         $order->d_country = $d_country->$field_country_name;
+        
+        $order->title = $jshopConfig->arr['title'][$order->title];
+        $order->d_title = $jshopConfig->arr['title'][$order->d_title];
+        
+        $order->birthday = getDisplayDate($order->birthday, $jshopConfig->field_birthday_format);
+        $order->d_birthday = getDisplayDate($order->d_birthday, $jshopConfig->field_birthday_format);
         
         $jshopConfig->user_field_client_type[0]="";
         $order->client_type_name = $jshopConfig->user_field_client_type[$order->client_type];
         
         $order->order_tax_list = $order->getTaxExt();
         
+        if ($order->coupon_id){
+            $coupon = JTable::getInstance('coupon', 'jshop'); 
+            $coupon->load($order->coupon_id);
+            $order->coupon_code = $coupon->coupon_code;
+        }
+        
         $tmp_fields = $jshopConfig->getListFieldsRegister();
         $config_fields = $tmp_fields["address"];
-        $count_filed_delivery = 0;
-        foreach($config_fields as $k=>$v){
-            if (substr($k, 0, 2)=="d_" && $v['display']==1) $count_filed_delivery++;
-        }
+        $count_filed_delivery = $jshopConfig->getEnableDeliveryFiledRegistration('address');
         
         $display_info_only_product = 0;
         if ($jshopConfig->admin_show_vendors && $id_vendor_cuser){
@@ -198,14 +216,28 @@ class JshoppingControllerOrders extends JController{
                 }
             }
         }
-        
+        $order->delivery_time_name = '';
+        $order->delivery_date_f = '';
+        if ($jshopConfig->show_delivery_time_checkout){
+            $deliverytimes = JSFactory::getAllDeliveryTime();
+            $order->delivery_time_name = $deliverytimes[$order->delivery_times_id];
+            if ($order->delivery_time_name==""){
+                $order->delivery_time_name = $order->delivery_time;
+            }
+        }
+        if ($jshopConfig->show_delivery_date && !datenull($order->delivery_date)){
+            $order->delivery_date_f = formatdate($order->delivery_date);
+        }
+
+        $stat_download = $order->getFilesStatDownloads(1);
+
         JPluginHelper::importPlugin('jshoppingorder');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeDisplayOrderAdmin', array(&$order, &$order_items, &$order_history) );        
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayOrderAdmin', array(&$order, &$order_items, &$order_history));
         
         $print = JRequest::getInt("print");
         
-        $view=&$this->getView("orders", 'html');
+        $view=$this->getView("orders", 'html');
         $view->setLayout("show");
         $view->assign('config', $jshopConfig); 
         $view->assign('order', $order); 
@@ -218,11 +250,12 @@ class JshoppingControllerOrders extends JController{
         $view->assign('display_info_only_product', $display_info_only_product);
         $view->assign('current_vendor_id', $id_vendor_cuser);
         $view->assign('display_block_change_order_status', $display_block_change_order_status);
+        $view->assign('stat_download', $stat_download);
         if ($jshopConfig->admin_show_vendors){ 
             $view->assign('order_vendors', $order_vendors);
         }
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeShowOrder', array(&$view));
         $view->displayShow();
     }
@@ -242,17 +275,18 @@ class JshoppingControllerOrders extends JController{
     }    
     
     function _updateStatus($order_id, $order_status, $status_id, $notify, $comments, $include, $view_order) {
-        $mainframe =& JFactory::getApplication();
-        $jshopConfig = &JSFactory::getConfig();
-        
+        $mainframe = JFactory::getApplication();
+        $jshopConfig = JSFactory::getConfig();
+        $client_id = JRequest::getInt('client_id',0);
+		
         JPluginHelper::importPlugin('jshoppingorder');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeChangeOrderStatusAdmin', array(&$order_id, &$order_status, &$status_id, &$notify, &$comments, &$include, &$view_order) );
         
-        $order = &JTable::getInstance('order', 'jshop');
+        $order = JTable::getInstance('order', 'jshop');
         $order->load($order_id);        
         
-        JSFactory::loadLanguageFile($order->getLang());        
+        JSFactory::loadLanguageFile($order->getLang());
         $prev_order_status = $order->order_status;
         $order->order_status = $order_status;
         $order->order_m_date = date("Y-m-d H:i:s");
@@ -268,7 +302,7 @@ class JshoppingControllerOrders extends JController{
             $order->changeProductQTYinStock("-");            
         }
         
-        $order_history = &JTable::getInstance('orderHistory', 'jshop');
+        $order_history = JTable::getInstance('orderHistory', 'jshop');
         $order_history->order_id = $order_id;
         $order_history->order_status_id = $order_status;
         $order_history->status_date_added = date("Y-m-d H:i:s");
@@ -288,21 +322,34 @@ class JshoppingControllerOrders extends JController{
         $admin_send_order = 1;
         if ($jshopConfig->admin_not_send_email_order_vendor_order && $vendor_send_order && count($listVendors)) $admin_send_order = 0;
 
-        $lang = &JSFactory::getLang($order->getLang());
-        $new_status = &JTable::getInstance('orderStatus', 'jshop'); 
+        $lang = JSFactory::getLang($order->getLang());
+        $new_status = JTable::getInstance('orderStatus', 'jshop'); 
         $new_status->load($order_status);
         $comments = ($include)?($comments):('');
         $name = $lang->get('name');
         
+        $shop_item_id = getShopMainPageItemid();
+        $juri = JURI::getInstance();
+        $liveurlhost = $juri->toString( array("scheme",'host', 'port'));
+        $app = JApplication::getInstance('site');
+        $router = &$app->getRouter();
+        $uri = $router->build('index.php?option=com_jshopping&controller=user&task=order&order_id='.$order_id."&Itemid=".$shop_item_id);
+        $url = $uri->toString();
+        $order_details_url = $liveurlhost.str_replace('/administrator', '', $url);
+        if ($order->user_id==-1){
+            $order_details_url = '';
+        }
+
         $mailfrom = $mainframe->getCfg( 'mailfrom' );
         $fromname = $mainframe->getCfg( 'fromname' );
         
-        $view=&$this->getView("orders", 'html');
+        $view=$this->getView("orders", 'html');
         $view->setLayout("statusorder");
         $view->assign('order', $order);
         $view->assign('comment', $comments);
         $view->assign('order_status', $new_status->$name);        
         $view->assign('vendorinfo', $vendorinfo);
+        $view->assign('order_detail', $order_details_url);
         $dispatcher->trigger('onBeforeCreateMailOrderStatusView', array(&$view));        
         $message = $view->loadTemplate();
             
@@ -323,32 +370,51 @@ class JshoppingControllerOrders extends JController{
         JSFactory::loadAdminLanguageFile();
         
         $dispatcher->trigger( 'onAfterChangeOrderStatusAdmin', array(&$order_id, &$order_status, &$status_id, &$notify, &$comments, &$include, &$view_order) );
-        
         if ($view_order)
             $this->setRedirect("index.php?option=com_jshopping&controller=orders&task=show&order_id=".$order_id, _JSHOP_ORDER_STATUS_CHANGED);
         else
-            $this->setRedirect("index.php?option=com_jshopping&controller=orders", _JSHOP_ORDER_STATUS_CHANGED);
+            $this->setRedirect("index.php?option=com_jshopping&controller=orders&client_id=".$client_id, _JSHOP_ORDER_STATUS_CHANGED);
+    }
+    
+    function finish(){
+        $jshopConfig = JSFactory::getConfig();
+        $order_id = JRequest::getInt("order_id");
+        $order = JTable::getInstance('order', 'jshop');
+        $order->load($order_id);
+        $order->order_created = 1;
+        $order->store();
+        
+        JSFactory::loadLanguageFile($order->getLang());
+        JModel::addIncludePath(JPATH_SITE.'/components/com_jshopping/models');
+        $checkout = JModel::getInstance('checkout', 'jshop');
+        if ($jshopConfig->send_order_email){
+            $checkout->sendOrderEmail($order_id, 1);
+        }
+        
+        JSFactory::loadAdminLanguageFile();
+        $this->setRedirect("index.php?option=com_jshopping&controller=orders", _JSHOP_ORDER_FINISHED);
     }
 
     function remove(){
+		$client_id = JRequest::getInt('client_id',0);
         $cid = JRequest::getVar("cid");
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $tmp = array();
         
         JPluginHelper::importPlugin('jshoppingorder');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
         $dispatcher->trigger( 'onBeforeRemoveOrder', array(&$cid) );
         
         if (count($cid)){
             foreach ($cid as $key=>$value){
-                $query = "DELETE FROM `#__jshopping_orders` WHERE `order_id` = '" . $db->getEscaped($value) . "'";
+                $query = "DELETE FROM `#__jshopping_orders` WHERE `order_id` = '" . $db->escape($value) . "'";
                 $db->setQuery($query);
                 if ($db->query()){
-                    $query = "DELETE FROM `#__jshopping_order_item` WHERE `order_id` = '" . $db->getEscaped($value) . "'";
+                    $query = "DELETE FROM `#__jshopping_order_item` WHERE `order_id` = '" . $db->escape($value) . "'";
                     $db->setQuery($query);
                     $db->query();
-                    $query = "DELETE FROM `#__jshopping_order_history` WHERE `order_id` = '" . $db->getEscaped($value) . "'";
+                    $query = "DELETE FROM `#__jshopping_order_history` WHERE `order_id` = '" . $db->escape($value) . "'";
                     $db->setQuery($query);
                     $db->query();
                     $tmp[] = $value;
@@ -362,17 +428,19 @@ class JshoppingControllerOrders extends JController{
         }else{
             $text = "";
         }
-        $this->setRedirect("index.php?option=com_jshopping&controller=orders", $text);
+        $this->setRedirect("index.php?option=com_jshopping&controller=orders&client_id=".$client_id, $text);
     }
     
     function edit(){
-        $mainframe =& JFactory::getApplication();                         
+        $mainframe = JFactory::getApplication();
         $order_id = JRequest::getVar("order_id");
-        $lang = &JSFactory::getLang();
-        $db = &JFactory::getDBO();
-        $jshopConfig = &JSFactory::getConfig();
-        $orders = &$this->getModel("orders");
-        $order = &JTable::getInstance('order', 'jshop');
+		$client_id = JRequest::getInt('client_id',0);
+		
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $orders = $this->getModel("orders");
+        $order = JTable::getInstance('order', 'jshop');
         $order->load($order_id);
         $name = $lang->get("name");
         
@@ -382,17 +450,31 @@ class JshoppingControllerOrders extends JController{
                 $mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
                 return 0;
             }
-        }    
+        }
 
         $order_items = $order->getAllItems();
         
-        $country = &JTable::getInstance('country', 'jshop');
+        $_languages = $this->getModel("languages");
+        $languages = $_languages->getAllLanguages(1);        
+        
+        $select_language = JHTML::_('select.genericlist', $languages, 'lang', 'class = "inputbox" style="float:none"','language', 'name', $order->lang);
+        
+        $country = JTable::getInstance('country', 'jshop');
         $countries = $country->getAllCountries();
         $select_countries = JHTML::_('select.genericlist', $countries, 'country', 'class = "inputbox"','country_id', 'name', $order->country );
         $select_d_countries = JHTML::_('select.genericlist', $countries, 'd_country', 'class = "inputbox"','country_id', 'name', $order->d_country);
+        $option_title = array();
+        foreach($jshopConfig->arr['title'] as $key=>$value){
+            if ($key>0) $option_title[] = JHTML::_('select.option', $key, $value, 'title_id', 'title_name');
+        }    
+        $select_titles = JHTML::_('select.genericlist', $option_title,'title','class = "inputbox"','title_id','title_name', $order->title);
+        $select_d_titles = JHTML::_('select.genericlist', $option_title,'d_title','class = "inputbox endes"','title_id','title_name', $order->d_title);
+        
+        $order->birthday = getDisplayDate($order->birthday, $jshopConfig->field_birthday_format);
+        $order->d_birthday = getDisplayDate($order->d_birthday, $jshopConfig->field_birthday_format);
         
         $client_types = array(); 
-        foreach ($jshopConfig->user_field_client_type as $key => $value) {        
+        foreach($jshopConfig->user_field_client_type as $key=>$value){
             $client_types[] = JHTML::_('select.option', $key, $value, 'id', 'name' );
         }
         $select_client_types = JHTML::_('select.genericlist', $client_types,'client_type','class = "inputbox" onchange="showHideFieldFirm(this.value)"','id','name', $order->client_type);
@@ -402,18 +484,51 @@ class JshoppingControllerOrders extends JController{
         
         $tmp_fields = $jshopConfig->getListFieldsRegister();
         $config_fields = $tmp_fields["address"];
-        $count_filed_delivery = 0;
-        foreach($config_fields as $k=>$v){
-            if (substr($k, 0, 2)=="d_" && $v['display']==1) $count_filed_delivery++;
-        }
+        $count_filed_delivery = $jshopConfig->getEnableDeliveryFiledRegistration('address');
         
-        $pm_method = &JTable::getInstance('paymentMethod', 'jshop');
+        $pm_method = JTable::getInstance('paymentMethod', 'jshop');
         $pm_method->load($order->payment_method_id);
-        $order->payment_name = $pm_method->$name;      
+        $order->payment_name = $pm_method->$name;
         
         $order->order_tax_list = $order->getTaxExt();
         
-        $view=&$this->getView("orders", 'html');
+        $_currency = $this->getModel("currencies");
+        $currency_list = $_currency->getAllCurrencies();
+        $order_currency = 0;
+        foreach($currency_list as $k=>$v){
+            if ($v->currency_code_iso==$order->currency_code_iso) $order_currency = $v->currency_id;
+        }
+        $select_currency = JHTML::_('select.genericlist', $currency_list, 'currency_id','class = "inputbox"','currency_id','currency_code', $order_currency);
+        
+        $display_price_list = array();
+        $display_price_list[] = JHTML::_('select.option', 0, _JSHOP_PRODUCT_BRUTTO_PRICE, 'id', 'name');
+        $display_price_list[] = JHTML::_('select.option', 1, _JSHOP_PRODUCT_NETTO_PRICE, 'id', 'name');
+        $display_price_select = JHTML::_('select.genericlist', $display_price_list, 'display_price', 'onchange="updateOrderTotalValue();"', 'id', 'name', $order->display_price);
+        
+        $shippings = $this->getModel("shippings");
+        $shippings_list = $shippings->getAllShippings(0);
+        $shippings_select = JHTML::_('select.genericlist', $shippings_list, 'shipping_method_id', '', 'shipping_id', 'name', $order->shipping_method_id);
+        
+        $payments = $this->getModel("payments");
+        $payments_list = $payments->getAllPaymentMethods(0);
+        $payments_select = JHTML::_('select.genericlist', $payments_list, 'payment_method_id', '', 'payment_id', 'name', $order->payment_method_id);
+        
+        $deliverytimes = JSFactory::getAllDeliveryTime();
+        $first=array(0=>"- - -");
+        $delivery_time_select = JHTML::_('select.genericlist', array_merge($first,$deliverytimes), 'delivery_times_id', '', 'id', 'name', $order->delivery_times_id);
+        
+		$users = $this->getModel('users');
+		$users_list = $users->getUsers();
+		$first = array(0=>'- - -');
+		$users_list_select = JHTML::_('select.genericlist', array_merge($first,$users_list), 'user_id', 'onchange="updateBillingShippingForUser(this.value);"', 'user_id', 'name', $order->user_id);
+        
+        JFilterOutput::objectHTMLSafe($order);
+        foreach($order_items as $k=>$v){
+            JFilterOutput::objectHTMLSafe($order_items[$k]);
+        }        
+		
+        JHTML::_('behavior.calendar');
+        $view=$this->getView("orders", 'html');
         $view->setLayout("edit");
         $view->assign('config', $jshopConfig); 
         $view->assign('order', $order);  
@@ -423,103 +538,158 @@ class JshoppingControllerOrders extends JController{
         $view->assign('order_id',$order_id);
         $view->assign('select_countries', $select_countries);
         $view->assign('select_d_countries', $select_d_countries);
+        $view->assign('select_titles', $select_titles);
+        $view->assign('select_d_titles', $select_d_titles);
         $view->assign('select_client_types', $select_client_types);
-        JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $view->assign('select_currency', $select_currency);
+        $view->assign('display_price_select', $display_price_select);
+        $view->assign('shippings_select', $shippings_select);
+        $view->assign('payments_select', $payments_select);
+        $view->assign('select_language', $select_language);
+        $view->assign('delivery_time_select', $delivery_time_select);
+		$view->assign('users_list_select', $users_list_select);
+		$view->assign('client_id', $client_id);
+		JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditOrders', array(&$view));
         $view->displayEdit();
     }
-    
+
     function save(){
-        $jshopConfig = &JSFactory::getConfig();
+        $db = JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
         $post = JRequest::get('post');
-        $order = &JTable::getInstance('order', 'jshop');
-        $order_id = $post['order_id'];
-        $db = &JFactory::getDBO();
+		$client_id = JRequest::getInt('client_id',0);
+        $file_generete_pdf_order = $jshopConfig->file_generete_pdf_order;
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
-        $n = JRequest::getVar('amount_tax_items');        
-        $a = null;
+        $order_id = intval($post['order_id']);
+        $orders = $this->getModel("orders");
+        $order = JTable::getInstance('order', 'jshop');
+        $order->load($order_id);
+        if (!$order_id){
+            $order->user_id = -1;
+            $order->order_date = $order->order_m_date = date("Y-m-d H:i:s", time());
+            $orderNumber = $jshopConfig->next_order_number;
+            $jshopConfig->updateNextOrderNumber();
+            $order->order_number = $order->formatOrderNumber($orderNumber);
+            $order->order_hash = md5(time().$order->order_total.$order->user_id);
+            $order->file_hash = md5(time().$order->order_total.$order->user_id."hashfile");
+            $order->ip_address = $_SERVER['REMOTE_ADDR'];
+            $order->order_status = $jshopConfig->default_status_order;
+        }
+        $order_created_prev = $order->order_created;
+        if ($post['birthday']) $post['birthday'] = getJsDateDB($post['birthday'], $jshopConfig->field_birthday_format);
+        if ($post['d_birthday']) $post['d_birthday'] = getJsDateDB($post['d_birthday'], $jshopConfig->field_birthday_format);
+        
         if (!$jshopConfig->hide_tax){
             $post['order_tax'] = 0;
-            for($i = 1; $i<=$n; $i++) {
-                $a[number_format(JRequest::getVar('tax_percent_'.$i,''),2)] = JRequest::getVar('tax_value_'.$i,'');     
-                $post['order_tax'] += JRequest::getVar('tax_value_'.$i,'');   
-            } 
-            $post['order_tax_ext'] = serialize($a);
-            $post['order_tax'] = number_format($post['order_tax'],2);  
-        }
-        
-        $dispatcher->trigger( 'onBeforeSaveOrder', array(&$post) );
-        
-        $k = JRequest::getVar('amount_order_items');
-        if ($k){
-            for($i = 1; $i<=$k; $i++) {
-                $product_name       = JRequest::getVar('product_name_'.$i,'');
-                $product_ean        = JRequest::getVar('product_ean_'.$i,'');
-                $product_item_price = JRequest::getVar('product_item_price_'.$i,0);
-                $product_quantity   = JRequest::getVar('product_quantity_'.$i,0);
-                $order_item_id   = JRequest::getVar('order_item_id_'.$i); 
-                $query = 'UPDATE #__jshopping_order_item SET `product_name`="'.$product_name.'",`product_ean`="'.$product_ean.'",`product_item_price`="'.$product_item_price.'",`product_quantity`="'.$product_quantity.'" WHERE `order_id`='.$order_id.' AND `order_item_id`='.$order_item_id;          
-                $db->setQuery($query);
-                $db->query();    
+            $order_tax_ext = array();
+            if (isset($post['tax_percent'])){
+                foreach($post['tax_percent'] as $k=>$v){
+                    if ($post['tax_percent'][$k]!="" || $post['tax_value'][$k]!=""){
+                        $order_tax_ext[number_format($post['tax_percent'][$k],2)] = $post['tax_value'][$k];
+                    }
+                }
             }
+            $post['order_tax_ext'] = serialize($order_tax_ext);
+            $post['order_tax'] = number_format(array_sum($order_tax_ext),2);
         }
-
-        if (!$order->bind($post)) {
-            JError::raiseWarning("",_JSHOP_ERROR_BIND);
-            $this->setRedirect("index.php?option=com_jshopping&controller=orders");
-        }
-
-        if (!$order->store()) {
-            JError::raiseWarning("",_JSHOP_ERROR_SAVE_DATABASE);
-            $this->setRedirect("index.php?option=com_jshopping&controller=orders");
-        }    
         
+        $currency = JTable::getInstance('currency', 'jshop');
+        $currency->load($post['currency_id']);
+        $post['currency_code'] = $currency->currency_code;
+        $post['currency_code_iso'] = $currency->currency_code_iso;
+        $post['currency_exchange'] = $currency->currency_value;
+
+        $dispatcher->trigger('onBeforeSaveOrder', array(&$post, &$file_generete_pdf_order));
+
+        $order->bind($post);
+        $order->store();
+        $order_id = $order->order_id;
+        $order_items = $order->getAllItems();
+        $orders->saveOrderItem($order_id, $post, $order_items);
+        
+        JSFactory::loadLanguageFile($order->getLang());
+
         if ($jshopConfig->order_send_pdf_client || $jshopConfig->order_send_pdf_admin){
-            $order->load($post['order_id']);
+            $order->load($order_id);
+            $order->items = null;
             $order->products = $order->getAllItems();
             JSFactory::loadLanguageFile($order->getLang());
-            $lang = &JSFactory::getLang($order->getLang());
+            $lang = JSFactory::getLang($order->getLang());
             
             $order->order_date = strftime($jshopConfig->store_date_format, strtotime($order->order_date));
             $order->order_tax_list = $order->getTaxExt();
-            $country = &JTable::getInstance('country', 'jshop');
+            $country = JTable::getInstance('country', 'jshop');
             $country->load($order->country);
             $field_country_name = $lang->get("name");
-            $order->country = $country->$field_country_name;        
+            $order->country = $country->$field_country_name;
             
-            $d_country = &JTable::getInstance('country', 'jshop');
+            $d_country = JTable::getInstance('country', 'jshop');
             $d_country->load($order->d_country);
             $field_country_name = $lang->get("name");
             $order->d_country = $d_country->$field_country_name;
 
-            $shippingMethod = &JTable::getInstance('shippingMethod', 'jshop');
+            $shippingMethod = JTable::getInstance('shippingMethod', 'jshop');
             $shippingMethod->load($order->shipping_method_id);
             
-            $pm_method = &JTable::getInstance('paymentMethod', 'jshop');
+            $pm_method = JTable::getInstance('paymentMethod', 'jshop');
             $pm_method->load($order->payment_method_id);
             
             $name = $lang->get("name");
             $description = $lang->get("description");
             $order->shipping_information = $shippingMethod->$name;
             $order->payment_name = $pm_method->$name;
-            $order->payment_information = $order->payment_params;
+            $order->payment_information = $order->payment_params;            
             
-            include_once(JPATH_SITE . "/components/com_jshopping/lib/generete_pdf_order.php");
-            $order->pdf_file = generatePdf($order);
-            $order->insertPDF();
+            if ($jshopConfig->order_send_pdf_client || $jshopConfig->order_send_pdf_admin){
+                include_once($file_generete_pdf_order);
+                $order->pdf_file = generatePdf($order);
+                $order->insertPDF();
+            }
         }
         
-        $dispatcher->trigger( 'onAfterSaveOrder', array(&$order) );
+        if ($order->order_created==1 && $order_created_prev==0){
+            $order->items = null;
+            JSFactory::loadLanguageFile($order->getLang());
+            JModel::addIncludePath(JPATH_SITE.'/components/com_jshopping/models');
+            $checkout = JModel::getInstance('checkout', 'jshop');
+            if ($jshopConfig->send_order_email){
+                $checkout->sendOrderEmail($order_id, 1);
+            }
+        }
         
-        $this->setRedirect("index.php?option=com_jshopping&controller=orders");
+        JSFactory::loadAdminLanguageFile();
+        $dispatcher->trigger('onAfterSaveOrder', array(&$order, &$file_generete_pdf_order) );
+        $this->setRedirect("index.php?option=com_jshopping&controller=orders&client_id=".$client_id);
+    }
+    
+    function stat_file_download_clear(){        
+        $order_id = JRequest::getInt("order_id");
+        $order = JTable::getInstance('order', 'jshop');
+        $order->load($order_id);
+        $order->file_stat_downloads = '';
+        $order->store();
+        $this->setRedirect("index.php?option=com_jshopping&controller=orders&task=show&order_id=".$order_id);
+    }
+    
+    function send(){
+        $order_id = JRequest::getInt("order_id");
+        $order = JTable::getInstance('order', 'jshop');
+        $order->load($order_id);
+        JSFactory::loadLanguageFile($order->getLang());
+        JModel::addIncludePath(JPATH_SITE.'/components/com_jshopping/models');
+        $checkout = JModel::getInstance('checkout', 'jshop');
+        $checkout->sendOrderEmail($order_id, 1);
+        JSFactory::loadAdminLanguageFile();
+        $this->setRedirect("index.php?option=com_jshopping&controller=orders&task=show&order_id=".$order_id, _JSHOP_MAIL_HAS_BEEN_SENT);
     }
     
     function cancel(){
-        $this->setRedirect("index.php?option=com_jshopping&controller=orders");    
+		$client_id = JRequest::getInt('client_id',0);
+        $this->setRedirect("index.php?option=com_jshopping&controller=orders&client_id=".$client_id);
     }
-
 }
 ?>

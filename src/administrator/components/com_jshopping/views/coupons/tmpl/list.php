@@ -1,11 +1,16 @@
 <?php
-displaySubmenuOptions();
-$coupons = $this->rows;
-$pageNav = $this->pageNav;
-$i = 0;
+	defined('_JEXEC') or die();
+	displaySubmenuOptions();
+	$coupons = $this->rows;
+	$pageNav = $this->pageNav;
+	$i = 0;
 ?>
-<form action = "index.php?option=com_jshopping&controller=coupons" method = "post" name = "adminForm">
-
+<form action="index.php?option=com_jshopping&controller=coupons" method="post" name="adminForm" id="adminForm">
+<?php
+if (isset($this->ext_coupon_html_befor_list)){
+    print $this->ext_coupon_html_befor_list;
+}
+?>
 <table class = "adminlist">
 <thead>
   <tr>
@@ -16,34 +21,34 @@ $i = 0;
       <input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $coupons );?>);" />
     </th>
     <th align = "left">
-      <?php echo _JSHOP_CODE;?>
+        <?php echo JHTML::_('grid.sort', _JSHOP_CODE, 'C.coupon_code', $this->filter_order_Dir, $this->filter_order); ?>
     </th>
     <th width = "200" align = "left">
-      <?php echo _JSHOP_VALUE; ?>
+        <?php echo JHTML::_('grid.sort', _JSHOP_VALUE, 'C.coupon_value', $this->filter_order_Dir, $this->filter_order); ?>
     </th>
     <th width = "80">
-      <?php echo _JSHOP_START_DATE_COUPON;?>
+        <?php echo JHTML::_('grid.sort', _JSHOP_START_DATE_COUPON, 'C.coupon_start_date', $this->filter_order_Dir, $this->filter_order); ?>
     </th>
     <th width = "80">
-      <?php echo _JSHOP_EXPIRE_DATE_COUPON;?>
+        <?php echo JHTML::_('grid.sort', _JSHOP_EXPIRE_DATE_COUPON, 'C.coupon_expire_date', $this->filter_order_Dir, $this->filter_order); ?>
     </th>
     <th width = "80">
-      <?php echo _JSHOP_FINISHED_AFTER_USED;?>
+        <?php echo JHTML::_('grid.sort', _JSHOP_FINISHED_AFTER_USED, 'C.finished_after_used', $this->filter_order_Dir, $this->filter_order); ?>
     </th>
     <th width = "80">
-      <?php echo _JSHOP_FOR_USER;?>
+        <?php echo JHTML::_('grid.sort', _JSHOP_FOR_USER, 'C.for_user_id', $this->filter_order_Dir, $this->filter_order); ?>
     </th>
     <th width = "80">
-      <?php echo _JSHOP_COUPON_USED;?>
+        <?php echo JHTML::_('grid.sort', _JSHOP_COUPON_USED, 'C.used', $this->filter_order_Dir, $this->filter_order); ?>
     </th>
     <th width = "50">
-      <?php echo _JSHOP_PUBLISH;?>
+        <?php echo _JSHOP_PUBLISH;?>
     </th>
     <th width = "50">
         <?php echo _JSHOP_EDIT;?>
     </th>
     <th width = "40">
-      <?php echo _JSHOP_ID;?>
+        <?php echo JHTML::_('grid.sort', _JSHOP_ID, 'C.coupon_id', $this->filter_order_Dir, $this->filter_order); ?>
     </th>
   </tr>
 </thead>  
@@ -105,6 +110,8 @@ $i++;
 </tfoot>
 </table>
 
+<input type="hidden" name="filter_order" value="<?php echo $this->filter_order?>" />
+<input type="hidden" name="filter_order_Dir" value="<?php echo $this->filter_order_Dir?>" />
 <input type = "hidden" name = "task" value = "" />
 <input type = "hidden" name = "hidemainmenu" value = "0" />
 <input type = "hidden" name = "boxchecked" value = "0" />

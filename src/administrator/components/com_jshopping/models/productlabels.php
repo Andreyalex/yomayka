@@ -12,9 +12,14 @@ jimport( 'joomla.application.component.model');
 
 class JshoppingModelProductLabels extends JModel{    
 
-    function getList(){
-        $db =& JFactory::getDBO();            
-        $query = "SELECT * FROM `#__jshopping_product_labels` ORDER BY name";
+    function getList($order = null, $orderDir = null){
+        $db = JFactory::getDBO();
+        $ordering = "name";
+        if ($order && $orderDir){
+            $ordering = $order." ".$orderDir;
+        }
+        
+        $query = "SELECT * FROM `#__jshopping_product_labels` ORDER BY ".$ordering;
         $db->setQuery($query);
         return $db->loadObjectList();
     }

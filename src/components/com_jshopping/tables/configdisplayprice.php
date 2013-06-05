@@ -31,7 +31,7 @@ class jshopConfigDisplayPrice extends JTable {
     }
     
     function getList(){
-        $db =& JFactory::getDBO();        
+        $db = JFactory::getDBO();        
         $query = "SELECT * FROM `#__jshopping_config_display_prices`";
         $db->setQuery($query);
         $list = $db->loadObjectList();

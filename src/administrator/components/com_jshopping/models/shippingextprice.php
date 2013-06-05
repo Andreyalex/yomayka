@@ -12,7 +12,7 @@ jimport( 'joomla.application.component.model');
 
 class JshoppingModelShippingExtPrice extends JModel{
     function getList($active = 0){
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $adv_query = "";
         if ($active==1){
             $adv_query = "where `published`='1'";

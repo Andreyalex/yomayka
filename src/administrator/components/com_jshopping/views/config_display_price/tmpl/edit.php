@@ -1,6 +1,7 @@
 <?php
-$row = $this->row;
-JHTML::_('behavior.tooltip');
+	defined('_JEXEC') or die();
+	$row = $this->row;
+	JHTML::_('behavior.tooltip');
 ?>
 <form action = "index.php?option=com_jshopping&controller=configdisplayprice" method = "post"name = "adminForm">
 

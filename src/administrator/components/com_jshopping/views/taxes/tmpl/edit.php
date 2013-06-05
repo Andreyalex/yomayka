@@ -1,7 +1,8 @@
 <?php
-$row = $this->tax;
-$edit = $this->edit;
-JHTML::_('behavior.tooltip');
+	defined('_JEXEC') or die();
+	$row = $this->tax;
+	$edit = $this->edit;
+	JHTML::_('behavior.tooltip');
 ?>
 <div class="jshop_edit">
 <form action = "index.php?option=com_jshopping&controller=taxes" method = "post"name = "adminForm" id='item-form'>

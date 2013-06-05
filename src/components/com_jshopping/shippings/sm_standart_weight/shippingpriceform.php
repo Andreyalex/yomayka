@@ -1,4 +1,5 @@
 <?php
+	defined('_JEXEC') or die();
     $row = $template->sh_method_price;
 ?>
 <tr><td>&nbsp;</td></tr>
@@ -18,7 +19,7 @@
          </th>
          <th>
            <?php echo _JSHOP_PRICE;?> (<?php echo $template->currency->currency_code; ?>)
-         </td>
+         </th>
          <th>
            <?php echo _JSHOP_PACKAGE_PRICE;?> (<?php echo $template->currency->currency_code; ?>)
          </th>         

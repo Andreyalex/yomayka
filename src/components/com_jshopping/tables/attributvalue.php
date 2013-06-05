@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.7.0 20.12.2010
+* @version      3.10.0 20.12.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -17,16 +17,16 @@ class jshopAttributValue extends JTableAvto{
     }
     
     function getName($value_id){
-        $db =& JFactory::getDBO();
-        $lang = &JSFactory::getLang();
-        $query = "SELECT `".$lang->get("name")."` as name FROM `#__jshopping_attr_values` WHERE value_id = '".$db->getEscaped($value_id)."'";
+        $db = JFactory::getDBO();
+        $lang = JSFactory::getLang();
+        $query = "SELECT `".$lang->get("name")."` as name FROM `#__jshopping_attr_values` WHERE value_id = '".$db->escape($value_id)."'";
         $db->setQuery($query);        
         return $db->loadResult();
     }
     
     function getAllValues($attr_id) {
-        $db =& JFactory::getDBO(); 
-        $lang = &JSFactory::getLang();
+        $db = JFactory::getDBO(); 
+        $lang = JSFactory::getLang();
         $query = "SELECT value_id, image, `".$lang->get("name")."` as name, value_ordering, attr_id FROM `#__jshopping_attr_values` where attr_id='".$attr_id."' ORDER BY value_ordering, value_id";
         $db->setQuery($query);
         return $db->loadObjectList();
@@ -39,8 +39,8 @@ class jshopAttributValue extends JTableAvto{
     * @param mixed $resulttype
     */
     function getAllAttributeValues($resulttype=0){
-        $db =& JFactory::getDBO();
-        $lang = &JSFactory::getLang();
+        $db = JFactory::getDBO();
+        $lang = JSFactory::getLang();
         $query = "SELECT value_id, image, `".$lang->get("name")."` as name, attr_id, value_ordering FROM `#__jshopping_attr_values` ORDER BY value_ordering, value_id";
         $db->setQuery($query);
         $db->setQuery($query);

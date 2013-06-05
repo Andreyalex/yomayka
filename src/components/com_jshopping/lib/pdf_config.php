@@ -1,19 +1,19 @@
 <?php
 define('K_TCPDF_EXTERNAL_CONFIG', true);
 // Installation path
-define("K_PATH_MAIN", JPATH_SITE.DS."components".DS."com_jshopping".DS."lib".DS."tcpdf");
+define("K_PATH_MAIN", JPATH_SITE."/components/com_jshopping/lib/tcpdf");
 // URL path
 define("K_PATH_URL", JPATH_SITE);
 // Fonts path
-define("K_PATH_FONTS", JPATH_SITE.DS."components".DS."com_jshopping".DS."lib".DS."tcpdf".DS."fonts".DS);
+define("K_PATH_FONTS", JPATH_SITE."/components/com_jshopping/lib/tcpdf/fonts/");
 // Cache directory path
-define("K_PATH_CACHE", K_PATH_MAIN.DS."cache");
+define("K_PATH_CACHE", K_PATH_MAIN."/cache");
 // Cache URL path
-define("K_PATH_URL_CACHE", K_PATH_URL.DS."cache");
+define("K_PATH_URL_CACHE", K_PATH_URL."/cache");
 // Images path
-define("K_PATH_IMAGES", K_PATH_MAIN.DS."images");
+define("K_PATH_IMAGES", K_PATH_MAIN."/images");
 // Blank image path
-define("K_BLANK_IMAGE", K_PATH_IMAGES.DS."_blank.png");
+define("K_BLANK_IMAGE", K_PATH_IMAGES."/_blank.png");
 
 // Cell height ratio
 define("K_CELL_HEIGHT_RATIO", 1.5);

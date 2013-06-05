@@ -1,68 +1,69 @@
 <?php
-displaySubmenuOptions();
-$count = count ($this->reviews);
-$i = 0;
+	defined('_JEXEC') or die();
+	displaySubmenuOptions();
+	$count = count ($this->reviews);
+	$i = 0;
 ?>
 <form action = "index.php?option=com_jshopping&controller=reviews" method = "post" name = "adminForm">
     <table width = "100%">
-      <tr>
-        <td width = "95%" align = "right">
-            <?php echo $this->categories;?>
-        </td>
-        <td>
-           <?php echo $this->products_select;?>  
-        </td>
-        <td>
-            <input type = "text" name = "text_search" value = "<?php echo $this->text_search;?>" />
-        </td>
-        <td>
-            <input type = "submit" class = "button" value = "<?php echo _JSHOP_SEARCH;?>" />
-        </td>
-      </tr>
+        <tr>
+            <td width = "95%" align = "right">
+                <?php echo $this->categories;?>
+            </td>
+            <td>
+                <?php echo $this->products_select;?>  
+            </td>
+            <td>
+                <input type = "text" name = "text_search" value = "<?php echo $this->text_search;?>" />
+            </td>
+            <td>
+                <input type = "submit" class = "button" value = "<?php echo _JSHOP_SEARCH;?>" />
+            </td>
+        </tr>
     </table>
 
     <table class = "adminlist" >
     <thead> 
-      <tr>
-        <th class = "title" width  = "10">
-          #
-        </th>
-        <th width = "20">
-          <input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo $count;?>);" />
-        </th>
-        <th width = "200" align = "left">
-          <?php echo _JSHOP_NAME_PRODUCT; ?>
-        </th>
-        <th>
-          <?php echo _JSHOP_USER; ?>   
-        </th>        
-        <th>
-          <?php echo _JSHOP_EMAIL; ?> 
-        </th>
-        <th align = "left">
-          <?php echo _JSHOP_PRODUCT_REVIEW; ?>
-        </th>
-        <th>
-          <?php echo _JSHOP_REVIEW_MARK; ?>
-        </th> 
-        <th>
-          <?php echo _JSHOP_DATE; ?>  
-        </th>
-        <th>
-          IP
-        </th>
-        <th width="50">
-            <?php echo _JSHOP_PUBLISH;?>       
-        </th>
-        <th width="50">
-            <?php echo _JSHOP_EDIT; ?>
-        </th>
-        <th width="50">
-            <?php echo _JSHOP_DELETE; ?>
-        </th>
-        <th width = "40">
-            <?php echo _JSHOP_ID; ?>
-        </th>
+        <tr>
+            <th class = "title" width  = "10">
+                #
+            </th>
+            <th width = "20">
+                <input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo $count;?>);" />
+            </th>
+            <th width = "200" align = "left">
+                <?php echo JHTML::_('grid.sort', _JSHOP_NAME_PRODUCT, 'name', $this->filter_order_Dir, $this->filter_order); ?>
+            </th>
+            <th>
+                <?php echo JHTML::_('grid.sort', _JSHOP_USER, 'pr_rew.user_name', $this->filter_order_Dir, $this->filter_order); ?>
+            </th>        
+            <th>
+                <?php echo JHTML::_('grid.sort', _JSHOP_EMAIL, 'pr_rew.user_email', $this->filter_order_Dir, $this->filter_order); ?>
+            </th>
+            <th align = "left">
+                <?php echo JHTML::_('grid.sort', _JSHOP_PRODUCT_REVIEW, 'pr_rew.review', $this->filter_order_Dir, $this->filter_order); ?>
+            </th>
+            <th>
+                <?php echo JHTML::_('grid.sort', _JSHOP_REVIEW_MARK, 'pr_rew.mark', $this->filter_order_Dir, $this->filter_order); ?>
+            </th> 
+            <th>
+                <?php echo JHTML::_('grid.sort', _JSHOP_DATE, 'pr_rew.time', $this->filter_order_Dir, $this->filter_order); ?> 
+            </th>
+            <th>
+                <?php echo JHTML::_('grid.sort', 'IP', 'pr_rew.ip', $this->filter_order_Dir, $this->filter_order); ?>
+            </th>
+            <th width="50">
+                <?php echo _JSHOP_PUBLISH;?>       
+            </th>
+            <th width="50">
+                <?php echo _JSHOP_EDIT; ?>
+            </th>
+            <th width="50">
+                <?php echo _JSHOP_DELETE; ?>
+            </th>
+            <th width = "40">
+                <?php echo JHTML::_('grid.sort', _JSHOP_ID, 'pr_rew.review_id', $this->filter_order_Dir, $this->filter_order); ?>
+            </th>
       </tr>
     </thead> 
     <?php
@@ -120,8 +121,9 @@ $i = 0;
      </tfoot>   
      </table>
           
-     <input type = "hidden" name = "task" value = "" />
-     <input type = "hidden" name = "hidemainmenu" value = "0" />
-     <input type = "hidden" name = "boxchecked" value = "0" />
-     <img src = "http://joomshopping.com/image.php" width = "1" height = "1" />
+    <input type="hidden" name="filter_order" value="<?php echo $this->filter_order?>" />
+    <input type="hidden" name="filter_order_Dir" value="<?php echo $this->filter_order_Dir?>" />
+    <input type = "hidden" name = "task" value = "" />
+    <input type = "hidden" name = "hidemainmenu" value = "0" />
+    <input type = "hidden" name = "boxchecked" value = "0" />
 </form>

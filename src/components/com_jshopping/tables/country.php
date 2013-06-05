@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.5.0 03.11.2010
+* @version      2.10.0 03.11.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -16,9 +16,9 @@ class jshopCountry extends JTableAvto {
     }
 
     function getAllCountries($publish = 1){
-        $db =& JFactory::getDBO(); 
-        $lang = &JSFactory::getLang();
-        $jshopConfig = &JSFactory::getConfig();
+        $db = JFactory::getDBO(); 
+        $lang = JSFactory::getLang();
+        $jshopConfig = JSFactory::getConfig();
         $where = ($publish)?(" WHERE country_publish = '1' "):(" ");
         $ordering = "ordering";
         if ($jshopConfig->sorting_country_in_alphabet) $ordering = "name";
@@ -26,6 +26,6 @@ class jshopCountry extends JTableAvto {
         $db->setQuery($query);
         return $db->loadObjectList();
     }
-    
+
 }
 ?>

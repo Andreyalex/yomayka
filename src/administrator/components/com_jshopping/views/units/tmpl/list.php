@@ -1,7 +1,8 @@
 <?php
-displaySubmenuOptions();
-$rows = $this->rows;
-$i = 0;
+	defined('_JEXEC') or die();
+	displaySubmenuOptions();
+	$rows = $this->rows;
+	$i = 0;
 ?>
 <form action = "index.php?option=com_jshopping&controller=units" method = "post" name = "adminForm">
 

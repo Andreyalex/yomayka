@@ -1,3 +1,7 @@
+<?php defined('_JEXEC') or die(); ?>
+<?php print $this->checkout_navigator?>
+<?php print $this->small_cart?>
+
 <script type="text/javascript">
 var payment_type_check = {};
 <?php foreach($this->payment_methods as  $payment){?>
@@ -22,22 +26,16 @@ var payment_type_check = {};
         ?><span class="payment_image"><img src="<?php print $payment->image?>" alt="<?php print htmlspecialchars($payment->name)?>" /></span><?php
       }
       ?><b><?php print $payment->name;?></b> 
-        <?php 
-        if ($payment->calculeprice > 0){
-            if ($payment->price_type==2){
-                print "(+".$payment->calculeprice."%)";
-            }else{
-                print "(+".formatprice($payment->calculeprice).")";
-            }
-        }
-        ?>
+        <?php if ($payment->price_add_text!=''){?>
+            (<?php print $payment->price_add_text?>)
+        <?php }?>
       </label>
     </td>
   </tr>
   <tr id = "tr_payment_<?php print $payment->payment_class ?>" <?php if ($this->active_payment != $payment->payment_id){?>style = "display:none"<?php } ?>>
     <td class = "jshop_payment_method">
-        <?php print $payment->payment_description ?>
-        <?php print $payment->form;?>
+        <?php print $payment->payment_description?>
+        <?php print $payment->form?>
     </td>
   </tr>
   <?php } ?>

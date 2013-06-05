@@ -1,25 +1,27 @@
 <?php
-$order = $this->order;
-$order_history = $this->order_history;
-$order_item = $this->order_items;
-$lists = $this->lists;
-$print = $this->print;
+	defined('_JEXEC') or die();
+	$order=$this->order;
+	$order_history=$this->order_history;
+	$order_item=$this->order_items;
+	$lists=$this->lists;
+	$print=$this->print;
 ?>
 <div class="jshop_edit">
-<form action = "index.php?option=com_jshopping&controller=orders" method = "post" name = "adminForm">
-<table class = "adminlist" width = "100%">
+<form action="index.php?option=com_jshopping&controller=orders" method="post" name="adminForm">
+<input type="hidden" name="order_id" value="<?php print $order->order_id?>">
+<table class="adminlist" width="100%">
 <tr>
-  <td width = "50%" style = "vertical-align:top;padding-top:14px;">
-    <table class = "adminlist">
+  <td width="50%" style="vertical-align:top;padding-top:14px;">
+    <table class="adminlist">
     <thead>    
       <tr>
-        <th colspan = "2">
+        <th colspan="2">
           <?php echo _JSHOP_ORDER_PURCHASE;?>
         </th>
       </tr>
      </thead> 
       <tr>
-        <td width = "50%">
+        <td width="50%">
           <b><?php echo _JSHOP_NUMBER;?></b>
         </td>
         <td>
@@ -27,7 +29,7 @@ $print = $this->print;
         </td>
       </tr>
       <tr>
-        <td width = "50%">
+        <td width="50%">
           <b><?php echo _JSHOP_DATE;?></b> 
        </td>
         <td>
@@ -52,42 +54,42 @@ $print = $this->print;
       </tr>
     </table>
   </td>
-  <td width = "50%" style = "vertical-align: top">
+  <td width="50%" style="vertical-align: top">
       <?php
        if (!$print){
         jimport('joomla.html.pane');   
-        $pane =& JPane::getInstance('Tabs');
+        $pane=JPane::getInstance('Tabs');
         echo $pane->startPane('orderPane');
                 
         if ($this->display_block_change_order_status){
         echo $pane->startPanel(_JSHOP_STATUS_CHANGE, 'first-page');
       ?>
-        <table width = "100%">
+        <table width="100%">
           <tr>
-            <th colspan = "2" align = "center">
+            <th colspan="2" align="center">
               <?php echo _JSHOP_STATUS_CHANGE?>:
             </th>
           </tr>
           <tr>
-            <td colspan = "2">
+            <td colspan="2">
               <?php echo _JSHOP_ORDER_STATUS?>
               <?php echo $lists['status'];?>
-              <input type = "button" class = "button" name = "update_status" onclick = "verifyStatus(<?php echo $order->order_status?>, <?php echo $order->order_id?>, '<?php echo _JSHOP_CHANGE_ORDER_STATUS;?>', 1)" value = "<?php echo _JSHOP_UPDATE_STATUS?>" />
+              <input type="button" class="button" name="update_status" onclick="verifyStatus(<?php echo $order->order_status?>, <?php echo $order->order_id?>, '<?php echo _JSHOP_CHANGE_ORDER_STATUS;?>', 1)" value="<?php echo _JSHOP_UPDATE_STATUS?>" />
             </td>
           </tr>
           <tr>
-            <td colspan = "2">
+            <td colspan="2">
               <table>
                 <tr>
                   <td>
                     <?php echo _JSHOP_COMMENT;?>:
                   </td>
                   <td>
-                    <textarea id = "comments" name = "comments"></textarea>
+                    <textarea id="comments" name="comments"></textarea>
                   </td>
                   <td>
-                    <input type = "checkbox" class = "inputbox"  name = "notify" id = "notify" /><label for = "notify">  <?php echo _JSHOP_NOTIFY_USER;?></label><br />
-                    <input type = "checkbox" class = "inputbox"  name = "include" id = "include" /><label for = "include">  <?php echo _JSHOP_INCLUDE_COMMENT;?></label>
+                    <input type="checkbox" class="inputbox"  name="notify" id="notify" /><label for="notify">  <?php echo _JSHOP_NOTIFY_USER;?></label><br />
+                    <input type="checkbox" class="inputbox"  name="include" id="include" /><label for="include">  <?php echo _JSHOP_INCLUDE_COMMENT;?></label>
                   </td>
                 </tr>
               </table>
@@ -100,7 +102,7 @@ $print = $this->print;
         echo $pane->startPanel(_JSHOP_ORDER_HISTORY, 'second-page');
       ?>
         <table>
-            <tr class = "bold">
+            <tr class="bold">
               <td>
                 <?php echo _JSHOP_DATE_ADDED;?>
               </td>
@@ -114,14 +116,14 @@ $print = $this->print;
                 <?php echo _JSHOP_COMMENT;?>
               </td>
             </tr>
-          <?php foreach ($order_history as $history) {?>
+          <?php foreach($order_history as $history){?>
             <tr>
               <td>
                 <?php echo $history->status_date_added?>
               </td>
-              <td class = "center">
-                <?php $notify_customer = ($history->customer_notify) ? ('tick.png'): ('publish_x.png');?>
-                <img src = "components/com_jshopping/images/<?php echo $notify_customer?>" alt = "notify_customer" border = "0" />
+              <td class="center">
+                <?php $notify_customer=($history->customer_notify) ? ('tick.png'): ('publish_x.png');?>
+                <img src="components/com_jshopping/images/<?php echo $notify_customer?>" alt="notify_customer" border="0" />
               </td>
               <td>
                 <?php echo $history->status_name?>
@@ -145,12 +147,18 @@ $print = $this->print;
 <table width="100%">
 <tr>
     <td width="50%" valign="top">
-        <table width = "100%" class = "adminlist">
+        <table width="100%" class="adminlist">
         <thead>
         <tr>
           <th colspan="2" align="center"><?php print _JSHOP_BILL_TO ?></th>
         </tr>
         </thead>
+        <?php if ($this->config_fields['title']['display']){?>
+        <tr>
+          <td><b><?php print _JSHOP_USER_TITLE?>:</b></td>
+          <td><?php print $this->order->title?></td>
+        </tr>
+        <?php } ?>
         <?php if ($this->config_fields['firma_name']['display']){?>
         <tr>
           <td><b><?php print _JSHOP_FIRMA_NAME?>:</b></td>
@@ -159,10 +167,10 @@ $print = $this->print;
         <?php } ?>
         <?php if ($this->config_fields['f_name']['display']){?>
         <tr>
-          <td width = "40%"><b><?php print _JSHOP_FULL_NAME?>:</b></td>
-          <td width = "60%"><?php print $this->order->f_name?> <?php print $this->order->l_name?></td>
+          <td width="40%"><b><?php print _JSHOP_FULL_NAME?>:</b></td>
+          <td width="60%"><?php print $this->order->f_name?> <?php print $this->order->l_name?> <?php print $this->order->m_name?></td>
         </tr>
-        <?php } ?>
+        <?php } ?>        
         <?php if ($this->config_fields['client_type']['display']){?>
         <tr>
           <td><b><?php print _JSHOP_CLIENT_TYPE?>:</b></td>
@@ -179,6 +187,12 @@ $print = $this->print;
         <tr>
           <td><b><?php print _JSHOP_VAT_NUMBER?>:</b></td>
           <td><?php print $this->order->tax_number?></td>
+        </tr>
+        <?php } ?>
+        <?php if ($this->config_fields['birthday']['display']){?>
+        <tr>
+          <td><b><?php print _JSHOP_BIRTHDAY?>:</b></td>
+          <td><?php print $this->order->birthday?></td>
         </tr>
         <?php } ?>
         <?php if ($this->config_fields['home']['display']){?>
@@ -270,12 +284,18 @@ $print = $this->print;
     </td>
     <td width="50%"  valign="top">
     <?php if ($this->count_filed_delivery >0) {?>
-        <table width = "100%" class = "adminlist">
+        <table width="100%" class="adminlist">
         <thead>
         <tr>
           <th colspan="2" align="center"><?php print _JSHOP_SHIP_TO ?></th>
         </tr>
         </thead>
+        <?php if ($this->config_fields['d_title']['display']){?>
+        <tr>
+          <td><b><?php print _JSHOP_USER_TITLE?>:</b></td>
+          <td><?php print $this->order->d_title?></td>
+        </tr>
+        <?php } ?>
         <?php if ($this->config_fields['d_firma_name']['display']){?>
         <tr>
             <td><b><?php print _JSHOP_FIRMA_NAME?>:</b></td>
@@ -284,8 +304,14 @@ $print = $this->print;
         <?php } ?>
         <?php if ($this->config_fields['d_f_name']['display']){?>
         <tr>
-            <td width = "40%"><b><?php print _JSHOP_FULL_NAME?>:</b></td>
-            <td width = "60%"><?php print $this->order->d_f_name?> <?php print $this->order->d_l_name?></td>
+            <td width="40%"><b><?php print _JSHOP_FULL_NAME?>:</b></td>
+            <td width="60%"><?php print $this->order->d_f_name?> <?php print $this->order->d_l_name?> <?php print $this->order->d_m_name?></td>
+        </tr>
+        <?php } ?>
+        <?php if ($this->config_fields['d_birthday']['display']){?>
+        <tr>
+          <td><b><?php print _JSHOP_BIRTHDAY?>:</b></td>
+          <td><?php print $this->order->d_birthday?></td>
         </tr>
         <?php } ?>
         <?php if ($this->config_fields['d_home']['display']){?>
@@ -379,7 +405,7 @@ $print = $this->print;
 </table>
 
 <br/>
-<table class = "adminlist" width = "100%">
+<table class="adminlist" width="100%">
 <thead>
 <tr>
  <th>
@@ -409,7 +435,9 @@ $print = $this->print;
 <?php foreach ($order_item as $item){ ?>
 <tr>
  <td>
-   <?php echo $item->product_name?><br />
+   <a target="_blank" href="index.php?option=com_jshopping&controller=products&task=edit&product_id=<?php print $item->product_id?>">
+    <?php echo $item->product_name?>
+   </a><br />
    <?php print sprintAtributeInOrder($item->product_attributes).sprintFreeAtributeInOrder($item->product_freeattributes);?>
  </td>
  <?php if ($this->config->show_product_code_in_order){?>
@@ -438,9 +466,9 @@ $print = $this->print;
 </table>
 
 <?php if (!$this->display_info_only_product){?>
-<table class = "adminlist" width = "100%">
+<table class="adminlist" width="100%">
 <tr>
- <td colspan = "5" style = "height: 20px">
+ <td colspan="5" style="height: 20px">
     <?php if ($this->config->show_weight_order){?>  
     <div style="text-align:right;">
         <i><?php print _JSHOP_WEIGHT_PRODUCTS?>: <span><?php print formatweight($this->order->weight);?></span></i>
@@ -448,42 +476,53 @@ $print = $this->print;
   <?php }?>
  </td>
 </tr>
-<tr class = "bold">
- <td colspan = "4" class = "right">
+<tr class="bold">
+ <td colspan="4" class="right">
     <?php echo _JSHOP_SUBTOTAL?>
  </td>
- <td class = "left" width="18%">
+ <td class="left" width="18%">
    <?php echo formatprice($order->order_subtotal, $order->currency_code);?><?php print $this->_tmp_ext_subtotal?>
  </td>
 </tr>
 <?php if ($order->order_discount > 0){?>
-<tr class = "bold">
- <td colspan = "4" class = "right">
+<tr class="bold">
+ <td colspan="4" class="right">
     <?php echo _JSHOP_COUPON_DISCOUNT?>
+    <?php if ($order->coupon_id){?>(<?php print $order->coupon_code?>)<?php }?>
  </td>
- <td class = "left">
+ <td class="left">
    <?php echo formatprice(-$order->order_discount, $order->currency_code);?><?php print $this->_tmp_ext_discount?>
  </td>
 </tr>
 <?php } ?>
 
 <?php if (!$this->config->without_shipping || $order->order_shipping > 0){?>
-<tr class = "bold">
- <td colspan = "4" class = "right">
+<tr class="bold">
+ <td colspan="4" class="right">
     <?php echo _JSHOP_SHIPPING_PRICE?>
  </td>
- <td class = "left">
+ <td class="left">
    <?php echo formatprice($order->order_shipping, $order->currency_code);?><?php print $this->_tmp_ext_shipping?>
+ </td>
+</tr>
+<?php } ?>
+<?php if (!$this->config->without_shipping || $order->order_package > 0){?>
+<tr class="bold">
+ <td colspan="4" class="right">
+    <?php echo _JSHOP_PACKAGE_PRICE?>
+ </td>
+ <td class="left">
+   <?php echo formatprice($order->order_package, $order->currency_code);?><?php print $this->_tmp_ext_shipping_package?>
  </td>
 </tr>
 <?php } ?>
 
 <?php if ($order->order_payment > 0){?>
-<tr class = "bold">
- <td colspan = "4" class = "right">
+<tr class="bold">
+ <td colspan="4" class="right">
      <?php print $order->payment_name;?>
  </td>
- <td class = "left">
+ <td class="left">
    <?php echo formatprice($order->order_payment, $order->currency_code);?><?php print $this->_tmp_ext_payment?>
  </td>
 </tr>
@@ -492,21 +531,21 @@ $print = $this->print;
 <?php if (!$this->config->hide_tax){?>
     <?php foreach($order->order_tax_list as $percent=>$value){?>
       <tr class="bold">
-        <td  colspan = "4" class = "right">
+        <td  colspan="4" class="right">
           <?php print displayTotalCartTaxName($order->display_price);?>
           <?php print $percent."%"?>
         </td>
-        <td  class = "left">
+        <td  class="left">
           <?php print formatprice($value, $order->currency_code);?><?php print $this->_tmp_ext_tax[$percent]?>
         </td>
       </tr>
     <?php }?>
 <?php }?>
-<tr class = "bold">
- <td colspan = "4" class = "right">
+<tr class="bold">
+ <td colspan="4" class="right">
     <?php echo _JSHOP_TOTAL?>
  </td>
- <td class = "left">
+ <td class="left">
    <?php echo formatprice($order->order_total, $order->currency_code);?><?php print $this->_tmp_ext_total?>
  </td>
 </tr>
@@ -518,23 +557,31 @@ $print = $this->print;
 <thead>
 <tr>
     <?php if (!$this->config->without_shipping){?>
-    <th width = "33%">
+    <th width="33%">
     <?php echo _JSHOP_SHIPPING_INFORMATION?>
     </th>
     <?php }?>
     <?php if (!$this->config->without_payment){?>
-    <th width = "33%">
+    <th width="33%">
     <?php echo _JSHOP_PAYMENT_INFORMATION?>
     </th>
     <?php } ?>
-    <th width = "34%">
+    <th width="34%">
     <?php echo _JSHOP_CUSTOMER_COMMENT?>
     </th>
 </tr>
 </thead>
 <tr>
     <?php if (!$this->config->without_shipping){?>
-    <td valign="top"><?php echo $order->shipping_info?></td>
+    <td valign="top">
+        <div style="padding-bottom:4px;"><?php echo $order->shipping_info?></div>
+        <?php if ($order->delivery_time_name){?>
+        <div><?php echo _JSHOP_DELIVERY_TIME.": ".$order->delivery_time_name?></div>
+        <?php }?>
+        <?php if ($order->delivery_date_f){?>
+        <div><?php echo _JSHOP_DELIVERY_DATE.": ".$order->delivery_date_f?></div>
+        <?php }?>
+    </td>
     <?php } ?>
     <?php if (!$this->config->without_payment){?>
     <td valign="top">
@@ -546,5 +593,31 @@ $print = $this->print;
 </tr>
 </table>
 
+<?php if (count($this->stat_download)){?>
+<br/>
+<table class="adminlist">
+<thead>
+<tr>
+    <th width="50%">
+        <?php echo _JSHOP_FILE_SALE?>
+    </th>
+    <th>
+        <?php echo _JSHOP_COUNT_DOWNLOAD?>
+    </th>
+</tr>
+</thead>
+<?php foreach($this->stat_download as $v){?>
+<tr>
+    <td><?php print $v->file_descr?></td>
+    <td><?php print $v->count_download?></td>
+</tr>
+<?php }?>
+</table>
+<div class="order_stat_file_download_clear">
+    <a onclick="return confirm('<?php print _JSHOP_CLEAR?>')" href="index.php?option=com_jshopping&controller=orders&task=stat_file_download_clear&order_id=<?php print $order->order_id?>"><?php print _JSHOP_CLEAR?></a>
+</div>
+<?php }?>
+<?php print $this->_ext_end_html?>
+<input type="hidden" name="task" value="" />
 </form>
 </div>

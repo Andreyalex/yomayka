@@ -31,7 +31,7 @@ function verifyStatus(orderStatus, orderId, message, extended, limit){
          var isChecked = ($_('notify').checked) ? ('&notify=1') : ('&notify=0');
          var includeComment = ($_('include').checked) ? ('&include=1') : ('&include=0');
 
-         location.href = 'index.php?option=com_jshopping&controller=orders&task=update_one_status&js_nolang=1&order_id=' + orderId + '&order_status=' + statusNewId + isChecked + includeComment + '&comments=' + $F_('comments');
+         location.href = 'index.php?option=com_jshopping&controller=orders&task=update_one_status&js_nolang=1&order_id=' + orderId + '&order_status=' + statusNewId + isChecked + includeComment + '&comments=' + encodeURIComponent($F_('comments'));
        }
    }
 }
@@ -48,7 +48,6 @@ function updatePrice(display_price_admin){
     }else{
         $_('product_price').value = Round(price2 / (1 + percent / 100), product_price_precision);
     }
-    
     reloadAddPriceValue();
 }
 
@@ -64,7 +63,6 @@ function updatePrice2(display_price_admin){
     }else{
         $_('product_price2').value = Round (price * (1 + percent / 100), product_price_precision);
     }
-    
     reloadAddPriceValue();
 }
 
@@ -78,7 +76,7 @@ function addNewPrice(){
     html += '<td><input type = "text" id="product_add_price_'+add_price_num+'" value = "" onkeyup="productAddPriceupdateDiscount('+add_price_num+')" /></td>';    
     html += '<td align="center"><a href="#" onclick="delete_add_price('+add_price_num+');return false;"><img src="components/com_jshopping/images/publish_r.png" border="0"/></a></td>';
     html += '</tr>';
-    jQuery("#table_add_price").append(html);       
+    jQuery("#table_add_price").append(html);
 }
 
 function delete_add_price(num){
@@ -113,7 +111,7 @@ function productAddPriceupdateDiscount(num){
 
 function reloadAddPriceValue(){
     var discount;
-    var origin = jQuery("#product_price").val();    
+    var origin = jQuery("#product_price").val();
     jQuery("#attr_price").val(origin);
     
     if (origin=="") return 0;
@@ -126,19 +124,19 @@ function reloadAddPriceValue(){
             else
                 price = origin - (origin * discount/100);
             jQuery("#product_add_price_"+i).val(price);
-        }    
-    }    
+        }
+    }
 }
 
 function updateEanForAttrib(){
     jQuery("#attr_ean").val(jQuery("#product_ean").val());
 }
 
-function addFieldShPrice(){    
+function addFieldShPrice(){
     shipping_weight_price_num++;
-    var html;    
+    var html;
     html = '<tr id="shipping_weight_price_row_'+shipping_weight_price_num+'">';
-    html += '<td><input type = "text" class = "inputbox" name = "shipping_weight_from[]" value = "" /></td>';    
+    html += '<td><input type = "text" class = "inputbox" name = "shipping_weight_from[]" value = "" /></td>';
     html += '<td><input type = "text" class = "inputbox" name = "shipping_weight_to[]" value = "" /></td>';
     html += '<td><input type = "text" class = "inputbox" name = "shipping_price[]" value = "" /></td>';
     html += '<td><input type = "text" class = "inputbox" name = "shipping_package_price[]" value = "" /></td>';
@@ -148,16 +146,7 @@ function addFieldShPrice(){
 }
 
 function delete_shipping_weight_price_row(num){
-    jQuery("#shipping_weight_price_row_"+num).remove();   
-}
-
-function checkDirectory(id, directory){
-    var url = 'index.php?option=com_jshopping&controller=config&task=check_directory&directory=' + directory+"&ajax=1";
-    function showResponse(json){       
-       $_(id).innerHTML = json.text;
-       $_(id).className = (json.isWrite == 1) ? ('jshop_green') : ('jshop_red');              
-    }
-    jQuery.getJSON(url, showResponse);
+    jQuery("#shipping_weight_price_row_"+num).remove();
 }
 
 function setDefaultSize(width, height, param){
@@ -195,8 +184,8 @@ function addAttributValue2(id){
     var value_id = jQuery("#attr_ind_id_tmp_"+id+"  :selected").val();
     var attr_value_text = jQuery("#attr_ind_id_tmp_"+id+"  :selected").text();
     var mod_price = jQuery("#attr_price_mod_tmp_"+id).val();
-    var price = jQuery("#attr_ind_price_tmp_"+id).val();    
-    var existcheck = jQuery('#attr_ind_'+id+'_'+value_id).val();    
+    var price = jQuery("#attr_ind_price_tmp_"+id).val();
+    var existcheck = jQuery('#attr_ind_'+id+'_'+value_id).val();
     if (existcheck){
         alert(lang_attribute_exist);
         return 0;
@@ -217,10 +206,10 @@ function addAttributValue2(id){
     html+="<td><input type='text' name='attrib_ind_price[]' value='"+price+"'></td>";
     html+="<td><a href='#' onclick=\"jQuery('#attr_ind_row_"+id+"_"+value_id+"').remove();return false;\"><img src='components/com_jshopping/images/publish_r.png' border='0'></a></td>";
     html += "</tr>";    
-    jQuery("#list_attr_value_ind_"+id).append(html);    
+    jQuery("#list_attr_value_ind_"+id).append(html);
 }
 
-function addAttributValue(){    
+function addAttributValue(){
     attr_tmp_row_num++;
     var id=0;
     var ide=0;
@@ -229,7 +218,7 @@ function addAttributValue(){
     var html="";
     var hidden="";
     var field="";
-    var count_attr_sel = 0;    
+    var count_attr_sel = 0;
     var tmpmass = {};
     var tmpimg = "";
     var selectedval = {};
@@ -250,13 +239,13 @@ function addAttributValue(){
         jQuery("#"+ide+" :selected").each(function(j, selected){ 
           value = jQuery(selected).val(); 
           text = jQuery(selected).text();
-          if (value!=0){           
+          if (value!=0){
               selectedval[id][num] = {"text":text, "value":value};
               num++;
           }
         });
-                
-        if (selectedval[id].length==0){            
+
+        if (selectedval[id].length==0){
             selectedval[id][0] = {"text":"-", "value":"0"};
         }else{
             count_attr_sel++;    
@@ -300,10 +289,10 @@ function addAttributValue(){
         for (var i=0; i<count_attributs; i++){
             id = attrib_ids[i];
             num = current_index_list[i];
-            list_key[j][i] = num;            
+            list_key[j][i] = num;
         }
         
-        index = 0;                
+        index = 0;
         for (var i=0; i<count_attributs; i++){
             if (i==index){
                 current_index_list[index]++;
@@ -312,17 +301,16 @@ function addAttributValue(){
                     index++;
                 }
             }
-        }        
+        }
     }
-    
+
     var entered_price = jQuery("#attr_price").val();
     var entered_count = jQuery("#attr_count").val();
     var entered_ean = jQuery("#attr_ean").val();    
-    var entered_weight = jQuery("#attr_weight").val();    
+    var entered_weight = jQuery("#attr_weight").val();
     var entered_weight_volume_units = jQuery("#attr_weight_volume_units").val();
     var entered_old_price = jQuery("#attr_old_price").val();
     var entered_buy_price = jQuery("#attr_buy_price").val();
-    
     var count_added_rows = 0;
     for(var j=0; j<combination; j++){
         tmpmass = {};
@@ -339,12 +327,14 @@ function addAttributValue(){
             html+="<td>" + hidden + tmpimg + option.text + "</td>";
             tmpmass[id] = option.value;
         }
-           
+
         field="<input type='text' name='attrib_price[]' value='"+entered_price+"'>";
         html+="<td>"+field+"</td>";
         
-        field="<input type='text' name='attr_count[]' value='"+entered_count+"'>";
-        html+="<td>"+field+"</td>";
+        if (use_stock=="1"){
+            field="<input type='text' name='attr_count[]' value='"+entered_count+"'>";
+            html+="<td>"+field+"</td>";
+        }
         
         field="<input type='text' name='attr_ean[]' value='"+entered_ean+"'>";
         html+="<td>"+field+"</td>";
@@ -365,7 +355,7 @@ function addAttributValue(){
             html+="<td>"+field+"</td>";
         }
             
-        html+="<td></td><td><input type='hidden' name='product_attr_id[]' value='0'><a href='#' onclick=\"deleteTmpRowAttrib('"+attr_tmp_row_num+"');return false;\"><img src='components/com_jshopping/images/publish_r.png' border='0'></a></td>";
+        html+="<td></td><td><input type='hidden' name='product_attr_id[]' value='0'><input type='checkbox' class='ch_attr_delete' value='"+attr_tmp_row_num+"'></td>";
         
         html+="</tr>";
         html+="";
@@ -384,8 +374,8 @@ function addAttributValue(){
         }
         
         if (!existcheck){
-            jQuery("#list_attr_value").append(html);
-            attrib_exist[attr_tmp_row_num] = tmpmass;        
+            jQuery("#list_attr_value #attr_row_end").before(html);
+            attrib_exist[attr_tmp_row_num] = tmpmass;
             attr_tmp_row_num++;
             count_added_rows++;
         }
@@ -401,6 +391,17 @@ function addAttributValue(){
 function deleteTmpRowAttrib(num){
     jQuery("#attr_row_"+num).remove();
     delete attrib_exist[num];
+}
+function selectAllListAttr(checked){
+    jQuery(".ch_attr_delete").attr('checked', checked);
+}
+function deleteListAttr(){
+    jQuery("#ch_attr_delete_all").attr('checked', false);
+    jQuery(".ch_attr_delete").each(function(i){
+        if (jQuery(this).attr('checked')){
+            deleteTmpRowAttrib(jQuery(this).val());
+        }
+    });
 }
 
 function deleteFotoCategory(catid){
@@ -485,12 +486,11 @@ function add_to_list_relatad(id){
     html += '<input type="hidden" name="related_products[]" value="'+id+'"/>';
     html += '</div>';
     html += '</div>';
-    
     jQuery("#list_related").append(html);
 }
 
 function delete_related(id){
-    jQuery("#related_product_"+id).remove();    
+    jQuery("#related_product_"+id).remove();
 }
 
 function reloadProductExtraField(product_id){
@@ -498,9 +498,8 @@ function reloadProductExtraField(product_id){
     jQuery("#category_id :selected").each(function(j, selected){ 
       value = jQuery(selected).val(); 
       text = jQuery(selected).text();
-      if (value!=0){           
+      if (value!=0){
           catsurl += "&cat_id[]="+value;
-          
       }
     });
     
@@ -512,7 +511,7 @@ function reloadProductExtraField(product_id){
 }
 
 function PFShowHideSelectCats(){
-    var value = jQuery("input[@name=allcats]:checked").val();
+    var value = jQuery("input[name=allcats]:checked").val();
     if (value=="0"){
         jQuery("#tr_categorys").show();
     }else{
@@ -530,4 +529,212 @@ function ShowHideEnterProdQty(checked){
 
 function editAttributeExtendParams(id){
     window.open('index.php?option=com_jshopping&controller=products&task=edit&product_attr_id='+id,'windowae','width=1000, height=760, scrollbars=yes,status=no,toolbar=no,menubar=no,resizable=yes,location=yes');
+}
+
+function addOrderItemRow(){
+    end_number_order_item++;
+    var i = end_number_order_item;
+    var html = '<tr valign="top" id="order_item_row_'+i+'">';
+    html+='<td><input type="text" name="product_name['+i+']" value="" size="44" />';
+    html+='<a class="modal" rel="{handler: \'iframe\', size: {x: 800, y: 600}}" href="index.php?option=com_jshopping&controller=product_list_selectable&tmpl=component&e_name='+i+'">'+lang_load+'</a><br />';
+    if (admin_show_attributes){
+        html+='<textarea rows="2" cols="24" name="product_attributes['+i+']"></textarea><br />';
+    }
+    if (admin_show_freeattributes){
+        html+='<textarea rows="2" cols="24" name="product_freeattributes['+i+']"></textarea><br />';
+    }   
+    html+='<input type="hidden" name="product_id['+i+']" value="" />';
+    html+='<input type="hidden" name="product_tax['+i+']" value="" />';
+    html+='<input type="hidden" name="weight['+i+']" value="" />';
+    html+='<input type="hidden" name="delivery_times_id['+i+']" value="" />';
+    html+='<input type="hidden" name="vendor_id['+i+']" value="" />';
+    html+='<input type="hidden" name="thumb_image['+i+']" value="" />';
+    html+='</td>';
+    html+='<td><input type="text" name="product_ean['+i+']" value="" /></td>';
+    html+='<td><input type="text" name="product_quantity['+i+']" value="" onkeyup="updateOrderSubtotalValue();"/></td>';
+    html+='<td width="20%"><input type="text" name="product_item_price['+i+']" value="" onkeyup="updateOrderSubtotalValue();"/>';
+    html+='<input type="hidden" name="order_item_id['+i+']" value="" /></td>';    
+    html+='<td><a href="#" onclick="jQuery(\'#order_item_row_'+i+'\').remove();updateOrderSubtotalValue();return false;"><img src="components/com_jshopping/images/publish_r.png" border="0"></a></td>';
+    html+='</tr>';
+    jQuery("#list_order_items").append(html);
+    
+    SqueezeBox.initialize({});
+    SqueezeBox.assign($$('a.modal'), {
+        parse: 'rel'
+    });
+}
+function loadProductInfoRowOrderItem(pid, num){
+    var url = 'index.php?option=com_jshopping&controller=products&task=loadproductinfo&product_id='+pid+'&ajax=1';
+    jQuery.getJSON(url, function(json){
+        jQuery("input[name=product_id\\["+num+"\\]]").val(json.product_id);
+        jQuery("input[name=product_name\\["+num+"\\]]").val(json.product_name);
+        jQuery("input[name=product_ean\\["+num+"\\]]").val(json.product_ean);
+        jQuery("input[name=product_item_price\\["+num+"\\]]").val(json.product_price);
+        
+        jQuery("input[name=product_tax\\["+num+"\\]]").val(json.product_tax);
+        jQuery("input[name=weight\\["+num+"\\]]").val(json.product_weight);
+        jQuery("input[name=delivery_times_id\\["+num+"\\]]").val(json.delivery_times_id);
+        jQuery("input[name=vendor_id\\["+num+"\\]]").val(json.vendor_id);
+        jQuery("input[name=thumb_image\\["+num+"\\]]").val(json.thumb_image);
+        
+        jQuery("input[name=product_quantity\\["+num+"\\]]").val(1);
+		updateOrderSubtotalValue();
+    });
+}
+
+function addOrderTaxRow(){
+    var html="<tr>";
+    html+='<td class="right"><input type="text" name="tax_percent[]"/> %</td>';
+    html+='<td class="left"><input type="text" name="tax_value[]" onkeyup="updateOrderTotalValue();"/></td>';
+    html+='</tr>';
+    jQuery("#row_button_add_tax").before(html);
+}
+
+function updateOrderSubtotalValue() {
+	var result = 0;
+	var regExp = /product_item_price\[(\d+)\]/i;
+	jQuery("input[name^=product_item_price]").each(function(){
+		var myArray = regExp.exec(jQuery(this).attr("name"));
+		var value = myArray[1];
+		var price = parseFloat(jQuery(this).val());
+		if (isNaN(price)) price = 0;
+		var quantity = parseFloat(jQuery("input[name=product_quantity\\["+value+"\\]]").val());
+		if (isNaN(quantity)) quantity = 0;
+		result += price * quantity;
+	});
+	
+	jQuery("input[name=order_subtotal]").val(result);
+	updateOrderTotalValue();
+}
+
+function updateOrderTotalValue() {
+	var result = 0;
+	var subtotal = parseFloat(jQuery("input[name=order_subtotal]").val());
+	if (isNaN(subtotal)) subtotal = 0;
+	var discount = parseFloat(jQuery("input[name=order_discount]").val());
+	if (isNaN(discount)) discount = 0;
+	var shipping = parseFloat(jQuery("input[name=order_shipping]").val());
+	if (isNaN(shipping)) shipping = 0;
+    var opackage = parseFloat(jQuery("input[name=order_package]").val());
+    if (isNaN(opackage)) opackage = 0;
+	var payment = parseFloat(jQuery("input[name=order_payment]").val());
+	if (isNaN(payment)) payment = 0;
+	result = subtotal - discount + shipping+opackage + payment;
+	
+	if (jQuery("#display_price option:selected").val() == 1) {
+		jQuery("input[name^=tax_value]").each(function(){
+			var tax_value = parseFloat(jQuery(this).val());
+			if (isNaN(tax_value)) tax_value = 0;
+			result += tax_value;
+		});
+	}
+	
+	jQuery("input[name=order_total]").val(result);
+}
+
+function changeVideoFileField(obj) {
+	isChecked = jQuery(obj).is(':checked');
+	var td_inputs = jQuery(obj).parents('td:first');
+	if (isChecked) {
+		td_inputs.find("input[name^='product_video_']").val('').hide();
+		td_inputs.find("textarea[name^='product_video_code_']").show();
+	} else {
+		td_inputs.find("textarea[name^='product_video_code_']").val('').hide();
+		td_inputs.find("input[name^='product_video_']").show();
+	}
+}
+
+function updateAllVideoFileField() {
+	jQuery("table.admintable input[name^='product_insert_code_']").each(function(){
+		changeVideoFileField(this);
+	});
+}
+
+function setBillingShippingFields(user) {
+	for(var field in user){
+		jQuery(".jshop_address [name='" + field + "']").val(user[field]);
+	}
+}
+
+function updateBillingShippingForUser(user_id) {
+	if (user_id > 0) {
+		var data = {};
+		data['user_id'] = user_id;
+		if (userinfo_ajax){
+			userinfo_ajax.abort();
+		}
+		userinfo_ajax = jQuery.ajax({
+			url: userinfo_link,
+			dataType: "json",
+			data: data,
+			type: "post",    
+			success: function (json) {
+				setBillingShippingFields(json);
+			}
+		});
+	} else {
+		setBillingShippingFields(userinfo_fields);
+	}
+}
+
+function changeCouponType(){
+    var val = jQuery("input[name=coupon_type]:checked").val();    
+    if (val==0){
+        jQuery("#ctype_percent").show();
+        jQuery("#ctype_value").hide();
+    }else{
+        jQuery("#ctype_percent").hide();
+        jQuery("#ctype_value").show();
+    }
+}
+
+
+function setImageFromFolder(position, filename){
+	jQuery("input[name='product_folder_image_" + position + "']").val(filename);
+	jQuery("#sbox-overlay").click();
+};
+
+var product_images_prevAjaxQuery = null;
+function product_images_request(position, url, filter){
+	var data = {};
+	data['position'] = position;
+    data['filter'] = filter;
+	if (product_images_prevAjaxQuery){
+		product_images_prevAjaxQuery.abort();
+	}
+	product_images_prevAjaxQuery = jQuery.ajax({
+	    url: url, 
+        dataType: 'html',
+        data : data, 
+        beforeSend: function() {
+			jQuery('#product_images').empty();
+            jQuery('.sbox-content-string').append('<div id="product_images-overlay"></div>');
+        },
+		success: function(html){
+			jQuery('#product_images-overlay').remove();
+			jQuery('#product_images').html(html).fadeIn();
+		}
+    });
+}
+
+function SqueezeBox_init(product_images_width, product_images_height){
+    if (!product_images_width) product_images_width = 640;
+    if (!product_images_height) product_images_height = 480;
+	SqueezeBox.initialize();
+	SqueezeBox.setOptions({size: {x: product_images_width, y: product_images_height}}).setContent('string', '');
+	SqueezeBox.applyContent('<div id="product_images" style="display: none; height: ' + product_images_height + 'px; overflow: scroll;"></div>');
+	jQuery('.sbox-content-string').append('<div id="product_images-overlay"></div>');
+}
+
+function changeProductField(obj) {
+	isChecked = jQuery(obj).is(':checked');
+	var div_inputs = jQuery(obj).parents('div:first');
+	if (isChecked) {
+		div_inputs.find("input.product_image").val('').hide();
+		div_inputs.find(".product_folder_image").show();
+	} else {
+		div_inputs.find("input[name^='product_folder_image_']").val('').hide();
+		div_inputs.find("input[name^='select_image_']").val(_JSHOP_IMAGE_SELECT).hide();
+		div_inputs.find("input.product_image").show();
+	}
 }

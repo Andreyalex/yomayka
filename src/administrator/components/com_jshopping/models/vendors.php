@@ -12,17 +12,17 @@ jimport( 'joomla.application.component.model');
 class JshoppingModelVendors extends JModel{
 	
     function getNamesVendors() {
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $query = "SELECT id, f_name, l_name FROM `#__jshopping_vendors` ORDER BY f_name, l_name DESC";
         $db->setQuery($query);
         return $db->loadObjectList();
     }    	
 
     function getAllVendors($limitstart, $limit, $text_search="") {
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $where = "";
         if ($text_search){
-            $search = $db->getEscaped($text_search);            
+            $search = $db->escape($text_search);            
             $where .= " and (f_name like '%".$search."%' or l_name like '%".$search."%' or email like '%".$search."%') ";            
         } 
         $query = "SELECT * FROM `#__jshopping_vendors` where 1 ".$where." ORDER BY id DESC";
@@ -31,10 +31,10 @@ class JshoppingModelVendors extends JModel{
     }
 
     function getCountAllVendors($text_search = "") {
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $where = "";
         if ($text_search){
-            $search = $db->getEscaped($text_search);            
+            $search = $db->escape($text_search);            
             $where .= " and (f_name like '%".$search."%' or l_name like '%".$search."%' or email like '%".$search."%') ";
         }
         $query = "SELECT COUNT(id) FROM `#__jshopping_vendors` where 1 ".$where." ORDER BY id DESC";
@@ -43,7 +43,7 @@ class JshoppingModelVendors extends JModel{
     }
     
     function getAllVendorsNames($main_id_null = 0){
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = "SELECT id, concat(f_name, ' ', l_name) as name, `main` FROM `#__jshopping_vendors` where 1 ".$where." ORDER BY name";
         $db->setQuery($query, $limitstart, $limit);        
         $rows = $db->loadObjectList();
@@ -56,8 +56,8 @@ class JshoppingModelVendors extends JModel{
     }
     
     function getIdVendorForUserId($id){
-        $db =& JFactory::getDBO();
-        $query = "SELECT id FROM `#__jshopping_vendors` where user_id='".$db->getEscaped($id)."'";
+        $db = JFactory::getDBO();
+        $query = "SELECT id FROM `#__jshopping_vendors` where user_id='".$db->escape($id)."'";
         $db->setQuery($query);
         return $db->loadResult();
     }

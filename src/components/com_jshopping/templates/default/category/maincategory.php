@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <?php if ($this->params->get('show_page_heading') && $this->params->get('page_heading')) {?>    
 <div class="shophead<?php print $this->params->get('pageclass_sfx');?>"><h1><?php print $this->params->get('page_heading')?></h1></div>
 <?php }?>

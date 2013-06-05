@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 10.12.2011
+* @version      3.10.0 10.12.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -22,7 +22,7 @@ class jshopCurrency extends JTable {
     }
 
 	function getAllCurrencies($publish = 1) {
-		$db =& JFactory::getDBO(); 
+		$db = JFactory::getDBO(); 
 		$query_where = ($publish)?("WHERE currency_publish = '1'"):("");
 		$query = "SELECT currency_id, currency_name, currency_code, currency_code_iso, currency_value FROM `#__jshopping_currencies` $query_where ORDER BY currency_ordering";
 		$db->setQuery($query);

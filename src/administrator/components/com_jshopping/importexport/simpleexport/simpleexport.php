@@ -5,9 +5,9 @@ jimport('joomla.filesystem.folder');
 class IeSimpleExport extends IeController{
     
     function view(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $ie_id = JRequest::getInt("ie_id");
-        $_importexport = &JTable::getInstance('ImportExport', 'jshop'); 
+        $_importexport = JTable::getInstance('ImportExport', 'jshop'); 
         $_importexport->load($ie_id);
         $name = $_importexport->get('name');
         $ie_params_str = $_importexport->get('params');
@@ -25,14 +25,14 @@ class IeSimpleExport extends IeController{
     }
 
     function save(){
-        $mainframe =& JFactory::getApplication();
+        $mainframe = JFactory::getApplication();
         
         include_once(JPATH_COMPONENT_SITE."/lib/csv.io.class.php");
         
         $ie_id = JRequest::getInt("ie_id");
         if (!$ie_id) $ie_id = $this->get('ie_id');
         
-        $_importexport = &JTable::getInstance('ImportExport', 'jshop'); 
+        $_importexport = JTable::getInstance('ImportExport', 'jshop'); 
         $_importexport->load($ie_id);
         $alias = $_importexport->get('alias');
         $_importexport->set('endstart', time());        
@@ -46,9 +46,9 @@ class IeSimpleExport extends IeController{
         $ie_params_str = $_importexport->get('params');
         $ie_params = parseParamsToArray($ie_params_str);
         
-        $jshopConfig = &JSFactory::getConfig();
-        $lang = &JSFactory::getLang();
-        $db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO();
         
         $query = "SELECT prod.product_id, prod.product_ean, prod.product_quantity, prod.product_date_added, prod.product_price, tax.tax_value as tax, prod.`".$lang->get('name')."` as name, prod.`".$lang->get('short_description')."` as short_description,  prod.`".$lang->get('description')."` as description, cat.`".$lang->get('name')."` as cat_name
                   FROM `#__jshopping_products` AS prod
@@ -90,10 +90,10 @@ class IeSimpleExport extends IeController{
     }
 
     function filedelete(){
-        $mainframe =& JFactory::getApplication();
-        $jshopConfig = &JSFactory::getConfig();
+        $mainframe = JFactory::getApplication();
+        $jshopConfig = JSFactory::getConfig();
         $ie_id = JRequest::getInt("ie_id");
-        $_importexport = &JTable::getInstance('ImportExport', 'jshop'); 
+        $_importexport = JTable::getInstance('ImportExport', 'jshop'); 
         $_importexport->load($ie_id);
         $alias = $_importexport->get('alias');
         $file = JRequest::getVar("file");

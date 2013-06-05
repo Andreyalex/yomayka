@@ -1,4 +1,7 @@
-<?php echo $pane->startPanel(_JSHOP_ATTRIBUTES, 'attribs-page');?>
+<?php 
+	defined('_JEXEC') or die();
+	echo $pane->startPanel(_JSHOP_ATTRIBUTES, 'attribs-page');
+?>
 <?php if ( (count($lists['all_independent_attributes'])+count($lists['all_attributes']))>0 ){?>
     <script type="text/javascript">
         var lang_error_attribute = "<?php print _JSHOP_ERROR_ADD_ATTRIBUTE; ?>";
@@ -6,6 +9,7 @@
         var folder_image_attrib = "<?php print $jshopConfig->image_attributes_live_path?>";
         var use_basic_price = "<?php print $jshopConfig->admin_show_product_basic_price?>";
         var use_bay_price = "<?php print $jshopConfig->admin_show_product_bay_price?>";
+        var use_stock = "<?php print intval($jshopConfig->stock)?>";
         var attrib_images = new Object();
         <?php foreach($lists['attribs_values'] as $k=>$v){?>
         attrib_images[<?php print $v->value_id?>] = "<?php print $v->image?>";
@@ -45,8 +49,10 @@
        <?php foreach($lists['all_attributes'] as $key=>$value){ ?>
             <th width="120"><?php echo $value->name?></th>
        <?php } ?>
-            <th width="120"><?php print _JSHOP_PRICE; ?></th>            
+            <th width="120"><?php print _JSHOP_PRICE; ?></th>
+            <?php if ($jshopConfig->stock){?>
             <th width="120"><?php print _JSHOP_QUANTITY_PRODUCT ?></th>
+            <?php }?>
             <th width="120"><?php print _JSHOP_EAN_PRODUCT ?></th>
             <th width="120"><?php print _JSHOP_PRODUCT_WEIGHT?> (<?php print sprintUnitWeight()?>)</th>
             <?php if ($jshopConfig->admin_show_product_basic_price){?>
@@ -57,7 +63,7 @@
             <th width="120"><?php print _JSHOP_PRODUCT_BUY_PRICE; ?></th>
             <?php }?>
             <th></th>
-            <th width="60"><?php print _JSHOP_DELETE?></th>
+            <th width="60"><input type='checkbox' id='ch_attr_delete_all' onclick="selectAllListAttr(this.checked)"></th>
        </tr>
        </thead>
        <?php       
@@ -76,8 +82,10 @@
                     }
                     print "<td><input type='hidden' name='attrib_id[".$value->attr_id."][]' value='".$tmp_val."'>".$image_.$tmp_val_val."</td>";
                }
-               print "<td><input type='text' name='attrib_price[]' value='".$v->price."'></td>";               
+               print "<td><input type='text' name='attrib_price[]' value='".$v->price."'></td>";
+               if ($jshopConfig->stock){
                print "<td><input type='text' name='attr_count[]' value='".$v->count."'></td>";
+               }
                print "<td><input type='text' name='attr_ean[]' value='".$v->ean."'></td>";
                print "<td><input type='text' name='attr_weight[]' value='".$v->weight."'></td>";
                if ($jshopConfig->admin_show_product_basic_price){
@@ -92,10 +100,24 @@
                    print "<a target='_blank' href='index.php?option=com_jshopping&controller=products&task=edit&product_attr_id=".$v->product_attr_id."' onclick='editAttributeExtendParams(".$v->product_attr_id.");return false;'>"._JSHOP_ATTRIBUTE_EXTEND_PARAMS."</a>";
                }
                print "</td>";
-               print "<td><input type='hidden' name='product_attr_id[]' value='".$v->product_attr_id."'><a href='#' onclick=\"deleteTmpRowAttrib('".$attr_tmp_row_num."');return false;\"><img src='components/com_jshopping/images/publish_r.png' border='0'></a></td>";
+               print "<td><input type='hidden' name='product_attr_id[]' value='".$v->product_attr_id."'><input type='checkbox' class='ch_attr_delete' value='".$attr_tmp_row_num."'></td>";
                print "</tr>";
-           }
+           }           
        }
+       print "<tr id='attr_row_end'>";
+       foreach($lists['all_attributes'] as $key=>$value){
+           print "<td></td>";
+       }
+       if ($jshopConfig->stock){
+       print "<td></td>";
+       }
+       print "<td></td><td></td><td></td>";
+       if ($jshopConfig->admin_show_product_basic_price) print "<td></td>";
+       print "<td></td>";
+       if ($jshopConfig->admin_show_product_bay_price) print "<td></td>";              
+       print "<td></td>";
+       print "<td><input type='button' value='"._JSHOP_DELETE."' onclick='deleteListAttr()'></td>";
+       print "</tr>";
        ?>
        </table>
        <br/>
@@ -113,10 +135,12 @@
                 <td class="key"><?php print _JSHOP_PRICE;?>*</td>
                 <td><input type="text" id="attr_price" value="<?php echo $row->product_price?>" style="width:100px;"></td>
             </tr>
+            <?php if ($jshopConfig->stock){?>
             <tr>
                 <td class="key"><?php print _JSHOP_QUANTITY_PRODUCT?>*</td>
                 <td><input type="text" id="attr_count"  style="width:100px;" value="1"></td> 
             </tr>
+            <?php }?>
             <tr>
                 <td class="key"><?php print _JSHOP_EAN_PRODUCT?></td>
                 <td><input type="text" id="attr_ean" style="width:100px;" value="<?php echo $row->product_ean?>"></td>
@@ -145,12 +169,12 @@
                 <td></td>
                 <td>
                 <div style="width:100px;text-align:right;">
-                <input type = "button" onclick = "addAttributValue()" value = "<?php echo _JSHOP_ADD?>" />
+                <input type="button" onclick="addAttributValue()" value="<?php echo _JSHOP_ADD?>" />
                 </div>
                 </td>
             </tr>            
             </table>
-            
+        </fieldset>    
        </div>
        <div class="clr"></div>
        <br/>

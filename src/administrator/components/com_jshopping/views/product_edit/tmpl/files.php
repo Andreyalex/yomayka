@@ -1,5 +1,6 @@
 <?php
-  echo $pane->startPanel(_JSHOP_FILES, 'product_files');
+	defined('_JEXEC') or die();
+	echo $pane->startPanel(_JSHOP_FILES, 'product_files');
 ?>   
    <div class="col100">
     <table class="admintable" >

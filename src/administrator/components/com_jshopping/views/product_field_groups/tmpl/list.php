@@ -1,6 +1,7 @@
 <?php 
-displaySubmenuOptions("productfields");
-$rows = $this->rows; $count = count ($rows); $i = 0; 
+	defined('_JEXEC') or die();
+	displaySubmenuOptions("productfields");
+	$rows = $this->rows; $count = count ($rows); $i = 0; 
 ?>
 <form action = "index.php?option=com_jshopping&controller=productfieldgroups" method = "post" name = "adminForm">
 <table class = "adminlist">

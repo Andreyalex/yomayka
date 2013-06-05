@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.2.0 28.06.2011
+* @version      3.14.1 02.02.2013
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -12,21 +12,21 @@ jimport('joomla.application.component.controller');
 
 class JshoppingControllerUser extends JController{
     
-    function display(){
+    function display($cachable = false, $urlparams = false){
         $this->myaccount();
     }
     
     function login(){
-        $jshopConfig = &JSFactory::getConfig();
-        $session =& JFactory::getSession();
-        $mainframe =& JFactory::getApplication();
+        $jshopConfig = JSFactory::getConfig();
+        $session = JFactory::getSession();
+        $mainframe = JFactory::getApplication();
         $params = $mainframe->getParams();
         
-        $user = &JFactory::getUser();
+        $user = JFactory::getUser();
         if ($user->id){            
             $view_name = "user";
             $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-            $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+            $view = $this->getView($view_name, getDocumentType(), '', $view_config);
             $view->setLayout("logout");            
             $view->display();
             return 0;
@@ -40,31 +40,28 @@ class JshoppingControllerUser extends JController{
         
         $show_pay_without_reg = $session->get("show_pay_without_reg");
         
-        $seo = &JTable::getInstance("seo", "jshop");
+        $seo = JTable::getInstance("seo", "jshop");
         $seodata = $seo->loadData("login");
         if (getThisURLMainPageShop()){            
             appendPathWay(_JSHOP_LOGIN);
             if ($seodata->title==""){
                 $seodata->title = _JSHOP_LOGIN;
             }
+            setMetaData($seodata->title, $seodata->keyword, $seodata->description);
         }else{
-            if ($seodata->title==""){
-                $seodata->title = $params->get('page_title');
-            }
+            setMetaData($seodata->title, $seodata->keyword, $seodata->description, $params);
         }
-        setMetaData($seodata->title, $seodata->keyword, $seodata->description);
-        
-        //for login-registration template
-        $country = &JTable::getInstance('country', 'jshop');        
+
+        $country = JTable::getInstance('country', 'jshop');        
         $option_country[] = JHTML::_('select.option',  '0', _JSHOP_REG_SELECT, 'country_id', 'name' );    
-        $select_countries = JHTML::_('select.genericlist', array_merge($option_country, jshopCountry::getAllCountries()),'country','id = "country" class = "inputbox" size = "1"','country_id','name' );
-        foreach ($jshopConfig->arr['title'] as $key => $value) {        
+        $select_countries = JHTML::_('select.genericlist', array_merge($option_country, $country->getAllCountries()),'country','id = "country" class = "inputbox" size = "1"','country_id','name' );
+        foreach($jshopConfig->arr['title'] as $key=>$value){
             $option_title[] = JHTML::_('select.option', $key, $value, 'title_id', 'title_name' );    
         }
         $select_titles = JHTML::_('select.genericlist', $option_title,'title','class = "inputbox"','title_id','title_name' );
         
         $client_types = array();
-        foreach ($jshopConfig->user_field_client_type as $key => $value) {        
+        foreach ($jshopConfig->user_field_client_type as $key=>$value){
             $client_types[] = JHTML::_('select.option', $key, $value, 'id', 'name' );
         }
         $select_client_types = JHTML::_('select.genericlist', $client_types,'client_type','class = "inputbox" onchange="showHideFieldFirm(this.value)"','id','name');
@@ -73,17 +70,19 @@ class JshoppingControllerUser extends JController{
         $config_fields = $tmp_fields['register'];
         
         JPluginHelper::importPlugin('jshoppingcheckout');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeDisplayLogin', array() );
-
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayLogin', array());
+        
+        if ($jshopConfig->show_registerform_in_logintemplate && $config_fields['birthday']['display']){
+            JHTML::_('behavior.calendar');
+        }
         $view_name = "user";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
         $view->setLayout("login");
-        $view->assign('href_register', SEFLink('index.php?option=com_jshopping&controller=user&task=register',0,0, $jshopConfig->use_ssl));
+        $view->assign('href_register', SEFLink('index.php?option=com_jshopping&controller=user&task=register',1,0, $jshopConfig->use_ssl));
         $view->assign('href_lost_pass', SEFLInk('index.php?option=com_users&view=reset',0,0, $jshopConfig->use_ssl));
         $view->assign('return', $return);
-        $view->assign('validate', $validate = JUtility::getToken());
         $view->assign('Itemid', JRequest::getVar('Itemid'));
         $view->assign('config', $jshopConfig);
         $view->assign('show_pay_without_reg', $show_pay_without_reg);
@@ -92,17 +91,15 @@ class JshoppingControllerUser extends JController{
         $view->assign('select_countries', $select_countries);
         $view->assign('config_fields', $config_fields);
         $view->assign('live_path', JURI::base());
-        $view->assign('urlcheckdata', SEFLink("index.php?option=com_jshopping&controller=user&task=check_user_exist_ajax&ajax=1", 0, 1, $jshopConfig->use_ssl));
+        $view->assign('urlcheckdata', SEFLink("index.php?option=com_jshopping&controller=user&task=check_user_exist_ajax&ajax=1", 1, 1, $jshopConfig->use_ssl));
         $dispatcher->trigger('onBeforeDisplayLoginView', array(&$view));
         $view->display();
     }
     
     function loginsave(){
-        $mainframe =& JFactory::getApplication();
+        $mainframe = JFactory::getApplication();
         JPluginHelper::importPlugin('jshoppingcheckout');
-        $dispatcher =& JDispatcher::getInstance();
-        
-        // Check for request forgeries
+        $dispatcher = JDispatcher::getInstance();
         JRequest::checkToken('request') or jexit( 'Invalid Token' );
        
         if ($return = JRequest::getVar('return', '', 'method', 'base64')) {
@@ -122,13 +119,11 @@ class JshoppingControllerUser extends JController{
         
         $dispatcher->trigger( 'onBeforeLogin', array(&$options, &$credentials) );
         
-        //preform the login action
         $error = $mainframe->login($credentials, $options);
         
         setNextUpdatePrices();        
 
         if ((!JError::isError($error)) && ($error !== FALSE)){
-            // Redirect if the return url is not registration or login
             if ( ! $return ) {
                 $return = JURI::base();
             }                        
@@ -136,7 +131,6 @@ class JshoppingControllerUser extends JController{
             $mainframe->redirect( $return );
         }else{
             $dispatcher->trigger( 'onAfterLoginEror', array() );
-            // Redirect to a login form
             $mainframe->redirect( SEFLink('index.php?option=com_jshopping&controller=user&task=login&return='.base64_encode($return),0,1,$jshopConfig->use_ssl) );
         }
     }
@@ -145,15 +139,15 @@ class JshoppingControllerUser extends JController{
         $mes = array();
         $username = JRequest::getVar("username");
         $email = JRequest::getVar("email");
-        $db = &JFactory::getDBO(); 
-        $query = "SELECT id FROM `#__users` WHERE username = '" . $db->getEscaped($username) . "'";
+        $db = JFactory::getDBO(); 
+        $query = "SELECT id FROM `#__users` WHERE username = '" . $db->escape($username) . "'";
         $db->setQuery($query);
         $db->query();
         if ($db->getNumRows()){ 
             $mes[] = sprintf(_JSHOP_USER_EXIST, $username);
         }
         
-        $query = "SELECT id FROM `#__users` WHERE email = '" . $db->getEscaped($email) . "'";
+        $query = "SELECT id FROM `#__users` WHERE email = '" . $db->escape($email) . "'";
         $db->setQuery($query);
         $db->query();
         if ($db->getNumRows()){ 
@@ -169,123 +163,119 @@ class JshoppingControllerUser extends JController{
     }
     
     function register(){
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO(); 
-        $mainframe =& JFactory::getApplication();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO(); 
+        $mainframe = JFactory::getApplication();
         $params = $mainframe->getParams();
         
-        $seo = &JTable::getInstance("seo", "jshop");
+        $seo = JTable::getInstance("seo", "jshop");
         $seodata = $seo->loadData("register");
-        if (getThisURLMainPageShop()){            
+        if (getThisURLMainPageShop()){
             appendPathWay(_JSHOP_REGISTRATION);
             if ($seodata->title==""){
                 $seodata->title = _JSHOP_REGISTRATION;
             }
+            setMetaData($seodata->title, $seodata->keyword, $seodata->description);
         }else{
-            if ($seodata->title==""){
-                $seodata->title = $params->get('page_title');
-            }
+            setMetaData($seodata->title, $seodata->keyword, $seodata->description, $params);
         }
-        setMetaData($seodata->title, $seodata->keyword, $seodata->description);
-        
-        // If user registration is not allowed, show 403 not authorized.
-        $usersConfig = &JComponentHelper::getParams( 'com_users' );
+
+        $usersConfig = JComponentHelper::getParams( 'com_users' );
         if ($usersConfig->get('allowUserRegistration') == '0') {
             JError::raiseError( 403, JText::_( 'Access Forbidden' ));
             return;
         }        
         
-        $country = &JTable::getInstance('country', 'jshop');        
-        $option_country[] = JHTML::_('select.option',  '0', _JSHOP_REG_SELECT, 'country_id', 'name' );    
-        $select_countries = JHTML::_('select.genericlist', array_merge($option_country, jshopCountry::getAllCountries()),'country','id = "country" class = "inputbox" size = "1"','country_id','name', $jshopConfig->default_country );
-        foreach ($jshopConfig->arr['title'] as $key => $value) {        
+        $country = JTable::getInstance('country', 'jshop');
+        $option_country[] = JHTML::_('select.option', '0', _JSHOP_REG_SELECT, 'country_id', 'name');
+        $select_countries = JHTML::_('select.genericlist', array_merge($option_country, $country->getAllCountries()),'country','id = "country" class = "inputbox" size = "1"','country_id','name', $jshopConfig->default_country);
+        foreach ($jshopConfig->arr['title'] as $key=>$value){
             $option_title[] = JHTML::_('select.option', $key, $value, 'title_id', 'title_name' );    
         }
         $select_titles = JHTML::_('select.genericlist', $option_title,'title','class = "inputbox"','title_id','title_name' );
         
         $client_types = array();
-        foreach ($jshopConfig->user_field_client_type as $key => $value) {        
-            $client_types[] = JHTML::_('select.option', $key, $value, 'id', 'name' );
+        foreach($jshopConfig->user_field_client_type as $key=>$value){
+            $client_types[] = JHTML::_('select.option', $key, $value, 'id', 'name');
         }
         $select_client_types = JHTML::_('select.genericlist', $client_types,'client_type','class = "inputbox" onchange="showHideFieldFirm(this.value)"','id','name');
         
         $tmp_fields = $jshopConfig->getListFieldsRegister();
         $config_fields = $tmp_fields['register'];
-        
+
         JPluginHelper::importPlugin('jshoppingcheckout');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeDisplayRegister', array() );
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayRegister', array());
         
+        if ($config_fields['birthday']['display']){
+            JHTML::_('behavior.calendar');
+        }
         $view_name = "user";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
         $view->setLayout("register");   
+        $view->assign('config', $jshopConfig);
         $view->assign('select_client_types', $select_client_types);
         $view->assign('select_titles', $select_titles);
         $view->assign('select_countries', $select_countries);
         $view->assign('config_fields', $config_fields);
-        $view->assign('live_path', JURI::base());        
-        $view->assign('urlcheckdata', SEFLink("index.php?option=com_jshopping&controller=user&task=check_user_exist_ajax&ajax=1",0,1));
-        $view->assign('validate', JUtility::getToken());
+        $view->assign('live_path', JURI::base());
+        $view->assign('urlcheckdata', SEFLink("index.php?option=com_jshopping&controller=user&task=check_user_exist_ajax&ajax=1",1,1));
         $dispatcher->trigger('onBeforeDisplayRegisterView', array(&$view));
         $view->display();
     }
     
     function registersave(){
-        JRequest::checkToken() or jexit( 'Invalid Token' );
-        
+        JRequest::checkToken() or jexit('Invalid Token');
         $mainframe = JFactory::getApplication();
         $jshopConfig = JSFactory::getConfig();
         $config = JFactory::getConfig();
         $db = JFactory::getDBO();
         $params = JComponentHelper::getParams('com_users');
+        $lang = JFactory::getLanguage();
+        $lang->load('com_users');
+        $post = JRequest::get('post');
         
         JPluginHelper::importPlugin('jshoppingcheckout');
-        $dispatcher =& JDispatcher::getInstance();
-        
-        // If user registration is not allowed, show 403 not authorized.
+        $dispatcher = JDispatcher::getInstance();
+
         if ($params->get('allowUserRegistration') == '0') {
             JError::raiseError( 403, JText::_('Access Forbidden'));
             return;
         }
         
-        $usergroup = &JTable::getInstance('usergroup', 'jshop');
-        $default_usergroup = jshopUsergroup::getDefaultUsergroup();
-        // Get the constants from com_user
-        $lang = & JFactory::getLanguage();
-        $lang->load( 'com_users' );
-        // End Get constants from com_user        
+        $usergroup = JTable::getInstance('usergroup', 'jshop');
+        $default_usergroup = $usergroup->getDefaultUsergroup();
+        $post['username'] = $post['u_name'];
+        $post['password2'] = $post['password_2'];
+        $post['name'] = $post['f_name'].' '.$post['l_name'];
+        if ($post['birthday']) $post['birthday'] = getJsDateDB($post['birthday'], $jshopConfig->field_birthday_format);
         
-        $_POST['username'] = JRequest::getVar('u_name');
-        $_POST['password2'] = JRequest::getVar('password_2');
-        $_POST['name'] = JRequest::getVar('f_name');
+        $dispatcher->trigger('onBeforeRegister', array(&$post, &$default_usergroup) );
         
-        $dispatcher->trigger( 'onBeforeRegister', array(&$_POST) );
-        
-        $row = &JTable::getInstance('userShop', 'jshop');                
-        $row->bind(JRequest::get('post'));
+        $row = JTable::getInstance('userShop', 'jshop');
+        $row->bind($post);
         $row->usergroup_id = $default_usergroup;
-        $row->password = JRequest::getVar('password');
-        $row->password2 = JRequest::getVar('password_2');
+        $row->password = $post['password'];
+        $row->password2 = $post['password2'];
         
-        if (!$row->check("register")) {
+        if (!$row->check("register")){
             JError::raiseWarning('', $row->getError());
-            $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=register",0,1, $jshopConfig->use_ssl));
+            $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=register",1,1, $jshopConfig->use_ssl));
             return 0;
         }
         
         $user = new JUser;
-        // Prepare the data for the user object.
         $data = array();
         $data['groups'][] = $params->get('new_usertype', 2);
-        $data['email']        = JRequest::getVar("email");
-        $data['password']    = JRequest::getVar("password");
-        $data['password2']    = JRequest::getVar("password_2");
-        $data['name']    = JRequest::getVar("f_name");
-        $data['username']    = JRequest::getVar("u_name");
+        $data['email'] = JRequest::getVar("email");
+        $data['password'] = JRequest::getVar("password");
+        $data['password2'] = JRequest::getVar("password_2");
+        $data['name'] = $post['f_name'].' '.$post['l_name'];
+        $data['username'] = JRequest::getVar("u_name");
         $useractivation = $params->get('useractivation');
+        $sendpassword = $params->get('sendpassword', 1);
 
-        // Check if the user needs to activate their account.
         if (($useractivation == 1) || ($useractivation == 2)) {
             jimport('joomla.user.helper');
             $data['activation'] = JUtility::getHash(JUserHelper::genRandomPassword());
@@ -299,24 +289,20 @@ class JshoppingControllerUser extends JController{
         unset($row->password2);
         if (!$db->insertObject($row->getTableName(), $row, $row->getKeyName())){
             JError::raiseWarning('', "Error insert in table ".$row->getTableName());
-            $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=register",0,1,$jshopConfig->use_ssl));
+            $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=register",1,1,$jshopConfig->use_ssl));
             return 0;
         }
-        
-        // Compile the notification mail values.
+
         $data = $user->getProperties();
-        $data['fromname']    = $config->get('fromname');
-        $data['mailfrom']    = $config->get('mailfrom');
-        $data['sitename']    = $config->get('sitename');
-        $data['siteurl']    = JUri::base();
+        $data['fromname'] = $config->get('fromname');
+        $data['mailfrom'] = $config->get('mailfrom');
+        $data['sitename'] = $config->get('sitename');
+        $data['siteurl'] = JUri::base();
         
-                // Handle account activation/confirmation emails.
-        if ($useractivation == 2)
-        {
-            // Set the link to confirm the user email.
+        if ($useractivation == 2){
             $uri = JURI::getInstance();
             $base = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
-            $data['activate'] = $base.JRoute::_('index.php?option=com_users&task=registration.activate&token='.$data['activation'], false);
+            $data['activate'] = $base.JRoute::_('index.php?option=com_jshopping&controller=user&task=activate&token='.$data['activation'], false);
 
             $emailSubject    = JText::sprintf(
                 'COM_USERS_EMAIL_ACCOUNT_DETAILS',
@@ -324,38 +310,56 @@ class JshoppingControllerUser extends JController{
                 $data['sitename']
             );
 
-            $emailBody = JText::sprintf(
-                'COM_USERS_EMAIL_REGISTERED_WITH_ADMIN_ACTIVATION_BODY',
-                $data['name'],
-                $data['sitename'],
-                $data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation'],
-                $data['siteurl'],
-                $data['username'],
-                $data['password_clear']
-            );
-        }
-        else if ($useractivation == 1)
-        {
-            // Set the link to activate the user account.
+            if ($sendpassword){
+                $emailBody = JText::sprintf(
+                    'COM_USERS_EMAIL_REGISTERED_WITH_ADMIN_ACTIVATION_BODY',
+                    $data['name'],
+                    $data['sitename'],
+                    $data['siteurl'].'index.php?option=com_jshopping&controller=user&task=activate&token='.$data['activation'],
+                    $data['siteurl'],
+                    $data['username'],
+                    $data['password_clear']
+                );
+            } else {
+				$emailBody = JText::sprintf(
+					'COM_USERS_EMAIL_REGISTERED_WITH_ADMIN_ACTIVATION_BODY_NOPW',
+					$data['name'],
+					$data['sitename'],
+					$data['siteurl'].'index.php?option=com_jshopping&controller=user&task=activate&token='.$data['activation'],
+					$data['siteurl'],
+					$data['username']
+				);
+			}
+        }else if ($useractivation == 1){
             $uri = JURI::getInstance();
             $base = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
-            $data['activate'] = $base.JRoute::_('index.php?option=com_users&task=registration.activate&token='.$data['activation'], false);
+            $data['activate'] = $base.JRoute::_('index.php?option=com_jshopping&controller=user&task=activate&token='.$data['activation'], false);
 
-            $emailSubject    = JText::sprintf(
+            $emailSubject = JText::sprintf(
                 'COM_USERS_EMAIL_ACCOUNT_DETAILS',
                 $data['name'],
                 $data['sitename']
             );
-
-            $emailBody = JText::sprintf(
-                'COM_USERS_EMAIL_REGISTERED_WITH_ACTIVATION_BODY',
-                $data['name'],
-                $data['sitename'],
-                $data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation'],
-                $data['siteurl'],
-                $data['username'],
-                $data['password_clear']
-            );
+            if ($sendpassword){
+                $emailBody = JText::sprintf(
+                    'COM_USERS_EMAIL_REGISTERED_WITH_ACTIVATION_BODY',
+                    $data['name'],
+                    $data['sitename'],
+                    $data['siteurl'].'index.php?option=com_jshopping&controller=user&task=activate&token='.$data['activation'],
+                    $data['siteurl'],
+                    $data['username'],
+                    $data['password_clear']
+                );
+            } else {
+				$emailBody = JText::sprintf(
+					'COM_USERS_EMAIL_REGISTERED_WITH_ACTIVATION_BODY_NOPW',
+					$data['name'],
+					$data['sitename'],
+					$data['siteurl'].'index.php?option=com_jshopping&controller=user&task=activate&token='.$data['activation'],
+					$data['siteurl'],
+					$data['username']
+				);
+			}
         } else {
 
             $emailSubject    = JText::sprintf(
@@ -372,60 +376,108 @@ class JshoppingControllerUser extends JController{
             );
         }
 
-        // Send the registration email.
         $return = JUtility::sendMail($data['mailfrom'], $data['fromname'], $data['email'], $emailSubject, $emailBody);
+        
+        if (($params->get('useractivation') < 2) && ($params->get('mail_to_admin') == 1)){
+            $emailSubject = JText::sprintf(
+                'COM_USERS_EMAIL_ACCOUNT_DETAILS',
+                $data['name'],
+                $data['sitename']
+            );
 
-        // Check for an error.
-        if ($return !== true) {
-            $this->setError(JText::_('COM_USERS_REGISTRATION_SEND_MAIL_FAILED'));
+            $emailBodyAdmin = JText::sprintf(
+                'COM_USERS_EMAIL_REGISTERED_NOTIFICATION_TO_ADMIN_BODY',
+                $data['name'],
+                $data['username'],
+                $data['siteurl']
+            );
 
-            // Send a system message to administrators receiving system mails
-            $db = JFactory::getDBO();
-            $q = "SELECT id FROM #__users WHERE block = 0 AND sendEmail = 1";
-            $db->setQuery($q);
-            $sendEmail = $db->loadResultArray();
-            if (count($sendEmail) > 0) {
-                $jdate = new JDate();
-                // Build the query to add the messages
-                $q = "INSERT INTO `#__messages` (`user_id_from`, `user_id_to`, `date_time`, `subject`, `message`)
-                    VALUES ";
-                $messages = array();
-                foreach ($sendEmail as $userid) {
-                    $messages[] = "(".$userid.", ".$userid.", '".$jdate->toMySQL()."', '".JText::_('COM_USERS_MAIL_SEND_FAILURE_SUBJECT')."', '".JText::sprintf('COM_USERS_MAIL_SEND_FAILURE_BODY', $return, $data['username'])."')";
-                }
-                $q .= implode(',', $messages);
-                $db->setQuery($q);
-                $db->query();
+            $query = 'SELECT name, email, sendEmail FROM #__users WHERE sendEmail=1';
+            $db->setQuery( $query );
+            $rows = $db->loadObjectList();
+            foreach($rows as $rowadm){
+                $return = JFactory::getMailer()->sendMail($data['mailfrom'], $data['fromname'], $rowadm->email, $emailSubject, $emailBodyAdmin);
             }
-            return false;
         }
         
-        $dispatcher->trigger( 'onAfterRegister', array(&$user, &$row, &$_POST, &$useractivation) );
-                
-        if ( $useractivation == 2 ){
+        $dispatcher->trigger('onAfterRegister', array(&$user, &$row, &$post, &$useractivation));
+
+        if ($useractivation == 2){
             $message  = JText::_('COM_USERS_REGISTRATION_COMPLETE_VERIFY');
-            $return = SEFLink("index.php?option=com_jshopping&controller=user&task=login",0,1,$jshopConfig->use_ssl);
-        } elseif ( $useractivation == 1 ){
+            $return = SEFLink("index.php?option=com_jshopping&controller=user&task=login",1,1,$jshopConfig->use_ssl);
+        } elseif ($useractivation == 1){
             $message  = JText::_('COM_USERS_REGISTRATION_COMPLETE_ACTIVATE');
-            $return = SEFLink("index.php?option=com_jshopping&controller=user&task=login",0,1,$jshopConfig->use_ssl);
+            $return = SEFLink("index.php?option=com_jshopping&controller=user&task=login",1,1,$jshopConfig->use_ssl);
         } else {
             $message = JText::_('COM_USERS_REGISTRATION_SAVE_SUCCESS');
-            $return = SEFLink("index.php?option=com_jshopping&controller=user&task=login",0,1,$jshopConfig->use_ssl);
+            $return = SEFLink("index.php?option=com_jshopping&controller=user&task=login",1,1,$jshopConfig->use_ssl);
         }
         
         $this->setRedirect($return, $message);
     }
     
+    public function activate(){
+        $jshopConfig = JSFactory::getConfig();
+        $user = JFactory::getUser();
+        $uParams = JComponentHelper::getParams('com_users');
+        $lang =  JFactory::getLanguage();
+        $lang->load( 'com_users' );
+        jimport('joomla.user.helper');
+
+        if ($user->get('id')) {
+            $this->setRedirect('index.php');
+            return true;
+        }
+
+        if ($uParams->get('useractivation') == 0 || $uParams->get('allowUserRegistration') == 0) {
+            JError::raiseError(403, JText::_('JLIB_APPLICATION_ERROR_ACCESS_FORBIDDEN'));
+            return false;
+        }
+
+        $model = JTable::getInstance('userShop', 'jshop');
+        $token = JRequest::getVar('token', null, 'request', 'alnum');
+
+        if ($token === null || strlen($token) !== 32) {
+            JError::raiseError(403, JText::_('JINVALID_TOKEN'));
+            return false;
+        }
+
+        $return = $model->activate($token);
+
+        if ($return === false) {
+            $this->setMessage(JText::sprintf('COM_USERS_REGISTRATION_SAVE_FAILED', $model->getError()), 'warning');
+            $this->setRedirect('index.php');
+            return false;
+        }
+
+        $useractivation = $uParams->get('useractivation');
+
+        if ($useractivation == 0){
+            $this->setMessage(JText::_('COM_USERS_REGISTRATION_SAVE_SUCCESS'));
+            $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=login",0,1,$jshopConfig->use_ssl));
+        }elseif ($useractivation == 1){
+            $this->setMessage(JText::_('COM_USERS_REGISTRATION_ACTIVATE_SUCCESS'));
+            $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=login",0,1,$jshopConfig->use_ssl));
+        }elseif ($return->getParam('activate')){
+            $this->setMessage(JText::_('COM_USERS_REGISTRATION_VERIFY_SUCCESS'));
+            $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=login",0,1,$jshopConfig->use_ssl));
+        }else{
+            $this->setMessage(JText::_('COM_USERS_REGISTRATION_ADMINACTIVATE_SUCCESS'));
+            $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=login",0,1,$jshopConfig->use_ssl));
+        }
+        return true;
+    }
+    
     function editaccount(){
         checkUserLogin();
-        $user = &JFactory::getUser();
-        $adv_user = &JSFactory::getUserShop();
-        $jshopConfig = &JSFactory::getConfig();
-        $mainframe =& JFactory::getApplication();
+        $user = JFactory::getUser();
+        $adv_user = JSFactory::getUserShop();
+        $jshopConfig = JSFactory::getConfig();
+        $mainframe = JFactory::getApplication();
         $params = $mainframe->getParams();
             
         appendPathWay(_JSHOP_EDIT_DATA);        
-        $seo = &JTable::getInstance("seo", "jshop");
+        $seo = JTable::getInstance("seo", "jshop");
         $seodata = $seo->loadData("editaccount");
         if ($seodata->title==""){
             $seodata->title = _JSHOP_EDIT_DATA;
@@ -434,14 +486,16 @@ class JshoppingControllerUser extends JController{
         
         if (!$adv_user->country) $adv_user->country = $jshopConfig->default_country;
         if (!$adv_user->d_country) $adv_user->d_country = $jshopConfig->default_country;
+        $adv_user->birthday = getDisplayDate($adv_user->birthday, $jshopConfig->field_birthday_format);
+        $adv_user->d_birthday = getDisplayDate($adv_user->d_birthday, $jshopConfig->field_birthday_format);
         
-        $country = &JTable::getInstance('country', 'jshop');
+        $country = JTable::getInstance('country', 'jshop');
         $option_country[] = JHTML::_('select.option', 0, _JSHOP_REG_SELECT, 'country_id', 'name' );
-        $option_countryes = array_merge($option_country,jshopCountry::getAllCountries());    
+        $option_countryes = array_merge($option_country,$country->getAllCountries());
         $select_countries = JHTML::_('select.genericlist', $option_countryes,'country','class = "inputbox" size = "1"','country_id', 'name',$adv_user->country );
         $select_d_countries = JHTML::_('select.genericlist', $option_countryes,'d_country','class = "inputbox" size = "1"','country_id', 'name',$adv_user->d_country );
 
-        foreach ($jshopConfig->arr['title'] as $key => $value) {        
+        foreach($jshopConfig->arr['title'] as $key=>$value){
             $option_title[] = JHTML::_('select.option', $key, $value, 'title_id', 'title_name' );    
         }    
         $select_titles = JHTML::_('select.genericlist', $option_title,'title','class = "inputbox"','title_id','title_name',$adv_user->title );
@@ -455,21 +509,22 @@ class JshoppingControllerUser extends JController{
                 
         $tmp_fields = $jshopConfig->getListFieldsRegister();
         $config_fields = $tmp_fields['editaccount'];
-        $count_filed_delivery = 0;
-        foreach($config_fields as $k=>$v){
-            if (substr($k, 0, 2)=="d_" && $v['display']==1) $count_filed_delivery++;
-        }
+        $count_filed_delivery = $jshopConfig->getEnableDeliveryFiledRegistration('editaccount');
         
         JPluginHelper::importPlugin('jshoppingcheckout');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeDisplayEditUser', array(&$adv_user) );
         
         filterHTMLSafe( $adv_user, ENT_QUOTES);        
         
+        if ($config_fields['birthday']['display'] || $config_fields['d_birthday']['display']){
+            JHTML::_('behavior.calendar');
+        }
         $view_name = "user";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
         $view->setLayout("editaccount");        
+        $view->assign('config',$jshopConfig);
         $view->assign('select_countries',$select_countries);
         $view->assign('select_d_countries',$select_d_countries);
         $view->assign('select_titles',$select_titles);
@@ -491,72 +546,84 @@ class JshoppingControllerUser extends JController{
         $db = JFactory::getDBO();
         $app = JFactory::getApplication();
         JPluginHelper::importPlugin('jshoppingcheckout');
-        $dispatcher =& JDispatcher::getInstance();
-        $jshopConfig = &JSFactory::getConfig();
+        $dispatcher = JDispatcher::getInstance();
+        $jshopConfig = JSFactory::getConfig();
         
-        $user_shop = &JTable::getInstance('userShop', 'jshop');        
+        $user_shop = JTable::getInstance('userShop', 'jshop');
         $post = JRequest::get('post');
+        if ($post['birthday']) $post['birthday'] = getJsDateDB($post['birthday'], $jshopConfig->field_birthday_format);
+        if ($post['d_birthday']) $post['d_birthday'] = getJsDateDB($post['d_birthday'], $jshopConfig->field_birthday_format);
         
-        $dispatcher->trigger( 'onBeforeAccountSave', array(&$post) );
+        $dispatcher->trigger('onBeforeAccountSave', array(&$post));
         
         unset($post['user_id']);
         unset($post['usergroup_id']);
         $user_shop->load($user->id);
         $user_shop->bind($post);
-        
+        $user_shop->password = $post['password'];
+        $user_shop->password2 = $post['password_2'];
+
         if (!$user_shop->check("editaccount")) {
             JError::raiseWarning('',$user_shop->getError());
             $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=editaccount",0,1,$jshopConfig->use_ssl));
             return 0;
         }
-        
-        if (!$user_shop->store()) {
+        unset($user_shop->password);
+        unset($user_shop->password2);
+
+        if (!$user_shop->store()){
             JError::raiseWarning(500,_JSHOP_REGWARN_ERROR_DATABASE);
             $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=editaccount",0,1,$jshopConfig->use_ssl));
             return 0;
         }
         
-        $user = new JUser($user->id);        
+        $user = new JUser($user->id);
         $user->email = $user_shop->email;
+        $user->name = $user_shop->f_name.' '.$user_shop->l_name;
+        if ($post['password']!=''){
+            $data = array("password"=>$post['password'], "password2"=>$post['password']);
+            $user->bind($data);
+        }
         $user->save();
-        
+
         $data = array();
         $data['email'] = $user->email;
+        $data['name'] = $user->name;
         $app->setUserState('com_users.edit.profile.data', $data);
-        
+
         setNextUpdatePrices();
-        
+
         $dispatcher->trigger( 'onAfterAccountSave', array() );
-                
+
         $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=myaccount",0,1,$jshopConfig->use_ssl), _JSHOP_ACCOUNT_UPDATE);
     }
     
     function orders(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         checkUserLogin();
-        $user = &JFactory::getUser();
-        $order = &JTable::getInstance('order', 'jshop');
+        $user = JFactory::getUser();
+        $order = JTable::getInstance('order', 'jshop');
         
         appendPathWay(_JSHOP_MY_ORDERS);
-        $seo = &JTable::getInstance("seo", "jshop");
+        $seo = JTable::getInstance("seo", "jshop");
         $seodata = $seo->loadData("myorders");
         if ($seodata->title==""){
             $seodata->title = _JSHOP_MY_ORDERS;
         }
         setMetaData($seodata->title, $seodata->keyword, $seodata->description);
         
-        $orders = jshopOrder::getOrdersForUser($user->id);
-        foreach ($orders as $key => $value) {
-            $orders[$key]->order_href = SEFLink('index.php?option=com_jshopping&controller=user&task=order&order_id=' . $value->order_id,0,0,$jshopConfig->use_ssl);
+        $orders = $order->getOrdersForUser($user->id);
+        foreach($orders as $key=>$value){
+            $orders[$key]->order_href = SEFLink('index.php?option=com_jshopping&controller=user&task=order&order_id='.$value->order_id,0,0,$jshopConfig->use_ssl);
         }
-        
+
         JPluginHelper::importPlugin('jshoppingorder');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeDisplayListOrder', array(&$orders) );
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayListOrder', array(&$orders));
         
         $view_name = "order";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
         $view->setLayout("listorder");
         $view->assign('orders', $orders);
         $view->assign('image_path', $jshopConfig->live_path."images");
@@ -565,15 +632,17 @@ class JshoppingControllerUser extends JController{
     }
     
     function order(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         checkUserLogin();
-        $db = &JFactory::getDBO(); 
-        $user = &JFactory::getUser();
-        $lang = &JSFactory::getLang();
+        $db = JFactory::getDBO(); 
+        $user = JFactory::getUser();
+        $lang = JSFactory::getLang();
+        JPluginHelper::importPlugin('jshoppingorder');
+        $dispatcher = JDispatcher::getInstance();
         
         appendPathWay(_JSHOP_MY_ORDERS, SEFLink('index.php?option=com_jshopping&controller=user&task=orders',0,0,$jshopConfig->use_ssl));
         
-        $seo = &JTable::getInstance("seo", "jshop");
+        $seo = JTable::getInstance("seo", "jshop");
         $seodata = $seo->loadData("myorder-detail");
         if ($seodata->title==""){
             $seodata->title = _JSHOP_MY_ORDERS;
@@ -581,44 +650,47 @@ class JshoppingControllerUser extends JController{
         setMetaData($seodata->title, $seodata->keyword, $seodata->description);
         
         $order_id = JRequest::getInt('order_id');
-        
-        $order = &JTable::getInstance('order', 'jshop');        
+        $order = JTable::getInstance('order', 'jshop');
         $order->load($order_id);
+        $dispatcher->trigger('onAfterLoadOrder', array(&$order, &$user));
         
         appendPathWay(_JSHOP_ORDER_NUMBER.": ".$order->order_number);
         
         if ($user->id!=$order->user_id){
-            JError::raiseError( 500, "Error order number");    
+            JError::raiseError( 500, "Error order number. You are not the owner of this order");
         }
         
         $order->items = $order->getAllItems();
         $order->weight = $order->getWeightItems();
         $order->status_name = $order->getStatus();
         $order->history = $order->getHistory();
-        if ($jshopConfig->client_allow_cancel_order && $order->order_status!=$jshopConfig->payment_status_for_cancel_client){
+        if ($jshopConfig->client_allow_cancel_order && $order->order_status!=$jshopConfig->payment_status_for_cancel_client && !in_array($order->order_status, $jshopConfig->payment_status_disable_cancel_client) ){
             $allow_cancel = 1;
         }else{
             $allow_cancel = 0;
         }
         
-        $shipping_method =&JTable::getInstance('shippingMethod', 'jshop');
+        $order->birthday = getDisplayDate($order->birthday, $jshopConfig->field_birthday_format);
+        $order->d_birthday = getDisplayDate($order->d_birthday, $jshopConfig->field_birthday_format);
+        
+        $shipping_method =JTable::getInstance('shippingMethod', 'jshop');
         $shipping_method->load($order->shipping_method_id);
         
         $name = $lang->get("name");
         $description = $lang->get("description");
         $order->shipping_info = $shipping_method->$name;
         
-        $pm_method = &JTable::getInstance('paymentMethod', 'jshop');
+        $pm_method = JTable::getInstance('paymentMethod', 'jshop');
         $pm_method->load($order->payment_method_id);
         $order->payment_name = $pm_method->$name;
         if ($pm_method->show_descr_in_email) $order->payment_description = $pm_method->$description;  else $order->payment_description = "";
         
-        $country = &JTable::getInstance('country', 'jshop');
+        $country = JTable::getInstance('country', 'jshop');
         $country->load($order->country);
         $field_country_name = $lang->get("name");
         $order->country = $country->$field_country_name;
         
-        $d_country = &JTable::getInstance('country', 'jshop');
+        $d_country = JTable::getInstance('country', 'jshop');
         $d_country->load($order->d_country);
         $field_country_name = $lang->get("name");
         $order->d_country = $d_country->$field_country_name;
@@ -626,8 +698,21 @@ class JshoppingControllerUser extends JController{
         $jshopConfig->user_field_client_type[0]="";
         $order->client_type_name = $jshopConfig->user_field_client_type[$order->client_type];
         
+        $order->delivery_time_name = '';
+        $order->delivery_date_f = '';
+        if ($jshopConfig->show_delivery_time_checkout){
+            $deliverytimes = JSFactory::getAllDeliveryTime();
+            $order->delivery_time_name = $deliverytimes[$order->delivery_times_id];
+            if ($order->delivery_time_name==""){
+                $order->delivery_time_name = $order->delivery_time;
+            }
+        }
+        if ($jshopConfig->show_delivery_date && !datenull($order->delivery_date)){
+            $order->delivery_date_f = formatdate($order->delivery_date);
+        }
+        
         $order->order_tax_list = $order->getTaxExt();
-        $show_percent_tax = 0;        
+        $show_percent_tax = 0;
         if (count($order->order_tax_list)>1 || $jshopConfig->show_tax_in_product) $show_percent_tax = 1;
         if ($jshopConfig->hide_tax) $show_percent_tax = 0;
         $hide_subtotal = 0;
@@ -640,18 +725,23 @@ class JshoppingControllerUser extends JController{
         
         $tmp_fields = $jshopConfig->getListFieldsRegister();
         $config_fields = $tmp_fields["address"];
-        $count_filed_delivery = 0;
-        foreach($config_fields as $k=>$v){
-            if (substr($k, 0, 2)=="d_" && $v['display']==1) $count_filed_delivery++;
+        $count_filed_delivery = $jshopConfig->getEnableDeliveryFiledRegistration('address');
+
+        if ($jshopConfig->order_display_new_digital_products){
+            $product = JTable::getInstance('product', 'jshop');
+            foreach($order->items as $k=>$v){
+                $product->product_id = $v->product_id;
+                $product->setAttributeActive(unserialize($v->attributes));
+                $files = $product->getSaleFiles();
+                $order->items[$k]->files = serialize($files);
+            }
         }
-        
-        JPluginHelper::importPlugin('jshoppingorder');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeDisplayOrder', array(&$order) );
+
+        $dispatcher->trigger('onBeforeDisplayOrder', array(&$order));
 
         $view_name = "order";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
         $view->setLayout("order");
         $view->assign('order', $order);
         $view->assign('config', $jshopConfig);
@@ -664,28 +754,27 @@ class JshoppingControllerUser extends JController{
         $view->assign('allow_cancel', $allow_cancel);
         $dispatcher->trigger('onBeforeDisplayOrderView', array(&$view));
         $view->display();
-        
     }
     
     function cancelorder(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         checkUserLogin();
-        $db = &JFactory::getDBO(); 
-        $user = &JFactory::getUser();
-        $lang = &JSFactory::getLang();
-        $mainframe =& JFactory::getApplication();
+        $db = JFactory::getDBO(); 
+        $user = JFactory::getUser();
+        $lang = JSFactory::getLang();
+        $mainframe = JFactory::getApplication();
         
         if (!$jshopConfig->client_allow_cancel_order) return 0;
         
         $order_id = JRequest::getInt('order_id');
         
-        $order = &JTable::getInstance('order', 'jshop');        
+        $order = JTable::getInstance('order', 'jshop');
         $order->load($order_id);
         
         appendPathWay(_JSHOP_ORDER_NUMBER.": ".$order->order_number);
         
         if ($user->id!=$order->user_id){
-            JError::raiseError( 500, "Error order number");    
+            JError::raiseError( 500, "Error order number");
         }
         $status = $jshopConfig->payment_status_for_cancel_client;
         
@@ -699,14 +788,14 @@ class JshoppingControllerUser extends JController{
         
         $vendorinfo = $order->getVendorInfo();
         
-        $order_status = &JTable::getInstance('orderStatus', 'jshop');
+        $order_status = JTable::getInstance('orderStatus', 'jshop');
         $order_status->load($status);
         
         if (in_array($status, $jshopConfig->payment_status_return_product_in_stock)){
             $order->changeProductQTYinStock("+");
         }
         
-        $order_history = &JTable::getInstance('orderHistory', 'jshop');
+        $order_history = JTable::getInstance('orderHistory', 'jshop');
         $order_history->order_id = $order->order_id;
         $order_history->order_status_id = $status;
         $order_history->status_date_added = date("Y-m-d H:i:s");
@@ -718,13 +807,13 @@ class JshoppingControllerUser extends JController{
         
         $view_name = "order";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, 'html', '', $view_config);
+        $view = $this->getView($view_name, 'html', '', $view_config);
         $view->setLayout("statusorder");
         $view->assign('order', $order);
         $view->assign('order_status', $order_status->$name);
         $view->assign('vendorinfo', $vendorinfo);
         $message = $view->loadTemplate();
-         
+
         $mailfrom = $mainframe->getCfg( 'mailfrom' );
         $fromname = $mainframe->getCfg( 'fromname' );
         JUtility::sendMail($mailfrom, $fromname, $jshopConfig->contact_email, _JSHOP_ORDER_STATUS_CHANGE_TITLE, $message);
@@ -732,31 +821,52 @@ class JshoppingControllerUser extends JController{
         JUtility::sendMail($mailfrom, $fromname, $order->email, $subject, $message);
         
         JPluginHelper::importPlugin('jshoppingorder');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onAfterUserCancelOrder', array(&$order_id) );
         
         $this->setRedirect(SEFLink("index.php?option=com_jshopping&controller=user&task=order&order_id=".$order_id,0,1,$jshopConfig->use_ssl), _JSHOP_ORDER_CANCELED);
     }
-    
+
     function myaccount(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         checkUserLogin();
+
+        $user = JFactory::getUser();
+        $adv_user = JSFactory::getUserShop();
+        $lang = JSFactory::getLang();
         
-        $seo = &JTable::getInstance("seo", "jshop");
+        $country = JTable::getInstance('country', 'jshop');
+        $country->load($adv_user->country);
+        $field_country_name = $lang->get("name");
+        $adv_user->country = $country->$field_country_name;
+        
+        $group = JTable::getInstance('userGroup', 'jshop');
+        $group->load($adv_user->usergroup_id);
+        $adv_user->groupname = $group->usergroup_name;
+        $adv_user->discountpercent = floatval($group->usergroup_discount);
+
+        $seo = JTable::getInstance("seo", "jshop");
         $seodata = $seo->loadData("myaccount");
         if ($seodata->title==""){
             $seodata->title = _JSHOP_MY_ACCOUNT;
         }
         setMetaData($seodata->title, $seodata->keyword, $seodata->description);
         
+        $tmp_fields = $jshopConfig->getListFieldsRegister();
+        $config_fields = $tmp_fields['editaccount'];
+        
         JPluginHelper::importPlugin('jshoppingcheckout');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeDisplayMyAccount', array() );
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger( 'onBeforeDisplayMyAccount', array());
 
         $view_name = "user";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
         $view->setLayout("myaccount");
+        $view->assign('config', $jshopConfig);
+        $view->assign('user', $adv_user);
+        $view->assign('config_fields', $config_fields);
+        $view->assign('href_user_group_info', SEFLink('index.php?option=com_jshopping&controller=user&task=groupsinfo'));
         $view->assign('href_edit_data', SEFLink('index.php?option=com_jshopping&controller=user&task=editaccount',0,0,$jshopConfig->use_ssl));
         $view->assign('href_show_orders', SEFLink('index.php?option=com_jshopping&controller=user&task=orders',0,0,$jshopConfig->use_ssl));
         $view->assign('href_logout', SEFLink('index.php?option=com_jshopping&controller=user&task=logout'));
@@ -764,16 +874,35 @@ class JshoppingControllerUser extends JController{
         $view->display();
     }
     
-    function logout(){
-        $mainframe =& JFactory::getApplication();
+    function groupsinfo(){
+        $jshopConfig = JSFactory::getConfig();
+        setMetaData(_JSHOP_USER_GROUPS_INFO, "", "");
+        
+        $group = JTable::getInstance('userGroup', 'jshop');
+        $list = $group->getList();
+        
         JPluginHelper::importPlugin('jshoppingcheckout');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayGroupsInfo', array());
+
+        $view_name = "user";
+        $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
+        $view->setLayout("groupsinfo");
+        $view->assign('rows', $list);
+        $dispatcher->trigger('onBeforeDisplayGroupsInfoView', array(&$view));
+        $view->display();
+    }
+    
+    function logout(){
+        $mainframe = JFactory::getApplication();
+        JPluginHelper::importPlugin('jshoppingcheckout');
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeLogout', array() );
 
-        //preform the logout action
         $error = $mainframe->logout();
-        
-        $session =& JFactory::getSession();
+
+        $session = JFactory::getSession();
         $session->set('user_shop_guest', null);
         $session->set('cart', null);
 
@@ -784,12 +913,11 @@ class JshoppingControllerUser extends JController{
                     $return = '';
                 }
             }
-            
+
             setNextUpdatePrices();
-                        
+
             $dispatcher->trigger( 'onAfterLogout', array() );
 
-            // Redirect if the return url is not registration or login
             if ( $return && !( strpos( $return, 'com_user' )) ) {
                 $mainframe->redirect( $return );
             }else{

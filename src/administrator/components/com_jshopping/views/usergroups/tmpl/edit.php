@@ -1,6 +1,7 @@
 <?php
-$usergroup = $this->usergroup;
-JHTML::_('behavior.tooltip');
+	defined('_JEXEC') or die();
+	$usergroup = $this->usergroup;
+	JHTML::_('behavior.tooltip');
 ?>
 <form action = "index.php?option=com_jshopping&controller=usergroups" method = "post" name = "adminForm">
 
@@ -38,7 +39,7 @@ JHTML::_('behavior.tooltip');
 		</td>
 		<td>
 			<?php 
-            $editor = &JFactory::getEditor();
+            $editor = JFactory::getEditor();
             print $editor->display( 'usergroup_description',  $usergroup->usergroup_description , '100%', '350', '75', '20' ) ;
             ?> 
 		</td>

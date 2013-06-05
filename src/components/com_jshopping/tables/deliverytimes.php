@@ -14,14 +14,14 @@ class jshopDeliveryTimes extends JTableAvto {
     }
     
     function getName() {
-        $lang = &JSFactory::getLang();
+        $lang = JSFactory::getLang();
         $name = $lang->get('name');
         return $this->$name;
     }
     
     function getDeliveryTimes(){
-        $db =& JFactory::getDBO();    
-        $lang = &JSFactory::getLang();     
+        $db = JFactory::getDBO();    
+        $lang = JSFactory::getLang();     
         $query = "SELECT id, `".$lang->get('name')."` as name FROM `#__jshopping_delivery_times` ORDER BY name";
         $db->setQuery($query);
         return $db->loadObjectList();

@@ -1,13 +1,14 @@
 <?php
-$row = $this->manufacturer;
-$edit = $this->edit;
-$jshopConfig = &JSFactory::getConfig();
-jimport('joomla.html.pane');
+	defined('_JEXEC') or die();
+	$row = $this->manufacturer;
+	$edit = $this->edit;
+	$jshopConfig = JSFactory::getConfig();
+	jimport('joomla.html.pane');
 ?>
 <div class="jshop_edit">
 <form action = "index.php?option=com_jshopping&controller=manufacturers" method = "post" name = "adminForm" enctype = "multipart/form-data" id="item-form">
    <?php
-   $pane =& JPane::getInstance('Tabs');
+   $pane = JPane::getInstance('Tabs');
    echo $pane->startPane('catPane');
    
    foreach($this->languages as $lang){
@@ -55,7 +56,7 @@ jimport('joomla.html.pane');
          </td>
          <td>
            <?php
-              $editor = &JFactory::getEditor();
+              $editor = JFactory::getEditor();
               print $editor->display('description'.$lang->id, $row->$description , '100%', '350', '75', '20' ) ;              
            ?>
          </td>
@@ -125,7 +126,6 @@ jimport('joomla.html.pane');
          <td>
            <input type = "text" class = "inputbox" id = "products_row" name = "products_row" value = "<?php echo $count_product_row = ($row->manufacturer_id) ? ($row->products_row) : ($jshopConfig->count_products_to_row);?>" />
          </td>
-       </tr>
        </tr>
        <?php $pkey = "etemplatevar";if ($this->$pkey){print $this->$pkey;}?>
      </table>

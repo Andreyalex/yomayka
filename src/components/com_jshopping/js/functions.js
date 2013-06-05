@@ -48,15 +48,15 @@ function addEventMy(elm, evType, fn, useCapture) {
 }
 
 function highlightField(field){
-    $_(field).style.backgroundColor = "#FDC055";
+    jQuery('#'+field).addClass('fielderror');
 }
 
 function unhighlightField(formName){
     var form = document.forms[formName];
     var countElements = form.length;
     for (i = 0; i < countElements; i++){
-       	if (form.elements[i].type == 'button' || form.elements[i].type == 'submit' || form.elements[i].type == 'radio' || form.elements[i].type == 'hidden') continue;
-       	form.elements[i].style.backgroundColor = "#FFFFFF";
+       	if (form.elements[i].type == 'button' || form.elements[i].type == 'submit' || form.elements[i].type == 'radio' || form.elements[i].type == 'hidden') continue;       	
+        jQuery(form.elements[i]).removeClass('fielderror');
     }
 }
 
@@ -71,7 +71,7 @@ function checkMail(value){
 }
 
 function Equal(value1, value2){
-  return (value1 == value2)
+  return (value1 == value2);
 }
 
 function validateRegistrationForm(urlcheckdata, formName){
@@ -101,6 +101,14 @@ function validateRegistrationForm(urlcheckdata, formName){
     
     if (register_field_require.l_name){
         arrayId[i] = 'l_name';
+        arrayType[i] = 'nem';
+        arrayParams[i] = '';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
+    
+    if (register_field_require.m_name){
+        arrayId[i] = 'm_name';
         arrayType[i] = 'nem';
         arrayParams[i] = '';
         arrayErrorMessages[i] = '';
@@ -153,6 +161,14 @@ function validateRegistrationForm(urlcheckdata, formName){
         arrayId[i] = 'email';
         arrayType[i] = 'eqne';
         arrayParams[i] = 'email2';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
+    
+    if (register_field_require.birthday){
+        arrayId[i] = 'birthday';
+        arrayType[i] = 'nem';
+        arrayParams[i] = '';
         arrayErrorMessages[i] = '';
         i++;
     }
@@ -276,15 +292,20 @@ function validateRegistrationForm(urlcheckdata, formName){
         arrayErrorMessages[i] = '';
         i++;
     }
-
-    var typeShowError      = 2;
-	var backCurrent = '#FFFFFF';
-	var backColor   = '#FDC055';
-	var myForm = new validateForm(formName, arrayId, arrayType, arrayParams, arrayErrorMessages, typeShowError, backCurrent, backColor);
+    
+    if (register_field_require.privacy_statement){
+        arrayId[i] = 'privacy_statement';
+        arrayType[i] = 'chk';
+        arrayParams[i] = '';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
+    
+	var myForm = new validateForm(formName, arrayId, arrayType, arrayParams, arrayErrorMessages, 2);
 	var error = (myForm.validate()) ? (1) : (0);
 	if (!error){
 		return false;
-	} else {
+	}else{
         function showResponse(originalRequest){
            if (originalRequest != 1){
            	  alert (originalRequest);
@@ -302,9 +323,6 @@ function validateRegistrationForm(urlcheckdata, formName){
 function validateCheckoutAdressForm(livepath, formName){
     
     var typeShowError = 2;
-    var backCurrent = '#FFFFFF';
-    var backColor   = '#FDC055';
-
     var arrayId = new Array();
     var arrayType = new Array();
     var arrayParams = new Array();
@@ -330,6 +348,14 @@ function validateCheckoutAdressForm(livepath, formName){
     
     if (register_field_require.l_name){
         arrayId[i] = 'l_name';
+        arrayType[i] = 'nem';
+        arrayParams[i] = '';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
+    
+    if (register_field_require.m_name){
+        arrayId[i] = 'm_name';
         arrayType[i] = 'nem';
         arrayParams[i] = '';
         arrayErrorMessages[i] = '';
@@ -373,6 +399,14 @@ function validateCheckoutAdressForm(livepath, formName){
     if (register_field_require.email){
         arrayId[i] = 'email';
         arrayType[i] = 'em';
+        arrayParams[i] = '';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
+    
+    if (register_field_require.birthday){
+        arrayId[i] = 'birthday';
+        arrayType[i] = 'nem';
         arrayParams[i] = '';
         arrayErrorMessages[i] = '';
         i++;
@@ -481,6 +515,14 @@ function validateCheckoutAdressForm(livepath, formName){
         arrayErrorMessages[i] = '';
         i++;
     }
+    
+    if (register_field_require.privacy_statement){
+        arrayId[i] = 'privacy_statement';
+        arrayType[i] = 'chk';
+        arrayParams[i] = '';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
         
     if ($_('delivery_adress_2')){
         if ($F_('delivery_adress_2')){
@@ -509,6 +551,14 @@ function validateCheckoutAdressForm(livepath, formName){
                 i++;
             }
             
+            if (register_field_require.d_m_name){
+                arrayId[i] = 'd_m_name';
+                arrayType[i] = 'nem';
+                arrayParams[i] = '';
+                arrayErrorMessages[i] = '';
+                i++;
+            }
+            
             if (register_field_require.d_firma_name){
                 arrayId[i] = 'd_firma_name';
                 arrayType[i] = 'nem';
@@ -520,6 +570,14 @@ function validateCheckoutAdressForm(livepath, formName){
             if (register_field_require.d_email){
                 arrayId[i] = 'd_email';
                 arrayType[i] = 'em';
+                arrayParams[i] = '';
+                arrayErrorMessages[i] = '';
+                i++;
+            }
+            
+            if (register_field_require.d_birthday){
+                arrayId[i] = 'd_birthday';
+                arrayType[i] = 'nem';
                 arrayParams[i] = '';
                 arrayErrorMessages[i] = '';
                 i++;
@@ -631,16 +689,12 @@ function validateCheckoutAdressForm(livepath, formName){
             
         }
     }
-	var myForm = new validateForm(formName, arrayId, arrayType, arrayParams, arrayErrorMessages, typeShowError, backCurrent, backColor);
-	return error = (myForm.validate()) ? (true) : (false);
+	var myForm = new validateForm(formName, arrayId, arrayType, arrayParams, arrayErrorMessages, typeShowError);
+return error = myForm.validate();
 }
 
 function validateEditAccountForm(livepath, formName){
-    
     var typeShowError = 2;
-    var backCurrent = '#FFFFFF';
-    var backColor   = '#FDC055';
-
     var arrayId = new Array();
     var arrayType = new Array();
     var arrayParams = new Array();
@@ -666,6 +720,14 @@ function validateEditAccountForm(livepath, formName){
     
     if (register_field_require.l_name){
         arrayId[i] = 'l_name';
+        arrayType[i] = 'nem';
+        arrayParams[i] = '';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
+    
+    if (register_field_require.m_name){
+        arrayId[i] = 'm_name';
         arrayType[i] = 'nem';
         arrayParams[i] = '';
         arrayErrorMessages[i] = '';
@@ -709,6 +771,14 @@ function validateEditAccountForm(livepath, formName){
     if (register_field_require.email){
         arrayId[i] = 'email';
         arrayType[i] = 'em';
+        arrayParams[i] = '';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
+    
+    if (register_field_require.birthday){
+        arrayId[i] = 'birthday';
+        arrayType[i] = 'nem';
         arrayParams[i] = '';
         arrayErrorMessages[i] = '';
         i++;
@@ -817,6 +887,29 @@ function validateEditAccountForm(livepath, formName){
         arrayErrorMessages[i] = '';
         i++;
     }
+    
+    if (register_field_require.password){
+        arrayId[i] = 'password';
+        arrayType[i] = 'nem';
+        arrayParams[i] = '';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
+    if (register_field_require.password_2){
+        arrayId[i] = 'password_2';
+        arrayType[i] = 'eqne';
+        arrayParams[i] = 'password';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
+    
+    if (register_field_require.privacy_statement){
+        arrayId[i] = 'privacy_statement';
+        arrayType[i] = 'chk';
+        arrayParams[i] = '';
+        arrayErrorMessages[i] = '';
+        i++;
+    }
         
     if ($_('delivery_adress_2')){
         if ($F_('delivery_adress_2')){
@@ -845,6 +938,14 @@ function validateEditAccountForm(livepath, formName){
                 i++;
             }
             
+            if (register_field_require.d_m_name){
+                arrayId[i] = 'd_m_name';
+                arrayType[i] = 'nem';
+                arrayParams[i] = '';
+                arrayErrorMessages[i] = '';
+                i++;
+            }
+            
             if (register_field_require.d_firma_name){
                 arrayId[i] = 'd_firma_name';
                 arrayType[i] = 'nem';
@@ -856,6 +957,14 @@ function validateEditAccountForm(livepath, formName){
             if (register_field_require.d_email){
                 arrayId[i] = 'd_email';
                 arrayType[i] = 'em';
+                arrayParams[i] = '';
+                arrayErrorMessages[i] = '';
+                i++;
+            }
+            
+            if (register_field_require.d_birthday){
+                arrayId[i] = 'd_birthday';
+                arrayType[i] = 'nem';
                 arrayParams[i] = '';
                 arrayErrorMessages[i] = '';
                 i++;
@@ -967,8 +1076,8 @@ function validateEditAccountForm(livepath, formName){
             
         }
     }
-    var myForm = new validateForm(formName, arrayId, arrayType, arrayParams, arrayErrorMessages, typeShowError, backCurrent, backColor);
-    return error = (myForm.validate()) ? (true) : (false);
+    var myForm = new validateForm(formName, arrayId, arrayType, arrayParams, arrayErrorMessages, typeShowError);
+return error = myForm.validate();
 }
 
 function validateFormAdvancedSearch(formName){
@@ -976,22 +1085,30 @@ function validateFormAdvancedSearch(formName){
     var arrayType          = new Array('date|em', 'date|em', 'fl|em|0', 'fl|em');
     var arrayParams        = new Array('', '');
     var arrayErrorMessages = new Array('', '');
-    var typeShowError      = 2;
-	var backCurrent = '#FFFFFF';
-	var backColor   = '#FDC055';
-    var myForm = new validateForm(formName, arrayId, arrayType, arrayParams, arrayErrorMessages, typeShowError, backCurrent, backColor);
+    var myForm = new validateForm(formName, arrayId, arrayType, arrayParams, arrayErrorMessages, 2);
     error = myForm.validate(); 
-    return error;
+return error;
+}
+
+function validateReviewForm(formName){
+    var arrayId            = new Array('review_user_name', 'review_user_email', 'review_review');
+    var arrayType          = new Array('nem', 'em', 'nem');
+    var arrayParams        = new Array('', '');
+    var arrayErrorMessages = new Array('', '');
+    var myForm = new validateForm(formName, arrayId, arrayType, arrayParams, arrayErrorMessages, 2);
+    error = myForm.validate(); 
+return error;
 }
 
 function checkAGB(){
-    if ($_("agb").checked){        
+    if ($_("agb").checked){
         return true;
     }else{
-        jQuery(".row_agb").css({"background-color":"#FDC055"})
+        jQuery(".row_agb").addClass('fielderror');
+        jQuery('#agb').focus();
         return false;
     }
-} 
+}
 
 var activePaymentMethod = "";
 function showPaymentForm(paymentMethod){
@@ -1005,7 +1122,7 @@ function checkPaymentForm(){
         if (payment_type_check[activePaymentMethod]=='1'){
             eval("check_"+activePaymentMethod+"();");    
         }else{
-            $_('payment_form').submit();
+            jQuery('#payment_form').submit();
         }
     }
 }
@@ -1056,9 +1173,16 @@ function showVideo(idElement, width, height){
 	jQuery('a.lightbox').hide();
     jQuery('#main_image').hide();
 	jQuery('#hide_' + idElement).show();
-    
 	jQuery('#hide_' + idElement).media( { width: width, height: height} );
     jQuery(".product_label").hide();
+}
+
+function showVideoCode(idElement){
+	jQuery('.video_full:not(#hide_' + idElement + ')').hide();
+    jQuery('a.lightbox').hide();
+    jQuery('#main_image').hide();
+    jQuery(".product_label").hide();
+	jQuery('#hide_' + idElement).show();
 }
 
 function showImage(id){    
@@ -1069,21 +1193,26 @@ function showImage(id){
 }
 
 function playMusic(idElement){
-	jQuery('#' + idElement).media( { width: 100, height: 20, autoplay:true } );
+	jQuery('#'+idElement).media( { width: 100, height: 20, autoplay:true } );
 }
 
 function showHideReview(){
 	jQuery('#jshop_review_write').show();
 }
 
-function formatprice(price){
+function formatprice(price){    
+    if (typeof(decimal_count)==='undefined') decimal_count = 2;
+    if (typeof(decimal_symbol)==='undefined') decimal_symbol = ".";
+    price = price.toFixed(decimal_count).toString();
+    price = price.replace('.',decimal_symbol);
     res = format_currency.replace("Symb",currency_code);
-    res = res.replace("00",price);
+    res = res.replace("00",price);    
 return res;
 }
 
 var prevAjaxHandler = null;
 var reloadAttribEvents = [];
+var extdataurlupdateattr = {};
 function reloadAttribSelectAndPrice(id_select){
     var product_id = jQuery("#product_id").val();
     var qty = jQuery("#quantity").val();
@@ -1093,6 +1222,9 @@ function reloadAttribSelectAndPrice(id_select){
     for(var i=0;i<attr_list.length;i++){
         var id = attr_list[i];
         data["attr["+id+"]"] = attr_value[id];
+    }
+    for(extdatakey in extdataurlupdateattr){
+        data[extdatakey] = extdataurlupdateattr[extdatakey];
     }
 
     if (prevAjaxHandler){
@@ -1117,8 +1249,6 @@ function reloadAttribSelectAndPrice(id_select){
                 var volume = product_basic_price_volume;
                 if (a_basic_price_volume>0) volume = a_basic_price_volume;
                 var basicPrice = parseFloat(json.pricefloat / volume) * product_basic_price_unit_qty;
-                basicPrice = basicPrice.toFixed(2).toString();
-                basicPrice = basicPrice.replace('.',',');
                 jQuery("#block_basic_price").html(formatprice(basicPrice));
             }
             for(key in json){
@@ -1131,6 +1261,12 @@ function reloadAttribSelectAndPrice(id_select){
                 jQuery("#not_available").html(translate_not_available);
             }else{
                 jQuery("#not_available").html("");
+            }
+            
+            if (json.displaybuttons=="0"){
+                jQuery(".productfull table.prod_buttons").hide();
+            }else{
+                jQuery(".productfull table.prod_buttons").show();
             }
 
             if (json.ean){
@@ -1150,15 +1286,20 @@ function reloadAttribSelectAndPrice(id_select){
                 jQuery("#old_price").html(json.oldprice);
             }
 
-            if (json.images){
+            if (json.images && json.images.length>0){
                 var count_prod_img = json.images.length;
                 var html_thumb_img = "";
                 var html_middle_img = "";
+                var html_zoom_img = '';
+                if (typeof(jshop_product_hide_zoom_image)==='undefined') jshop_product_hide_zoom_image = 0;
+                if (!jshop_product_hide_zoom_image){
+                    html_zoom_img = ' <div class="text_zoom"><img alt="zoom" src="'+liveimgpath+'/search.png" /> '+translate_zoom_image+'</div>';
+                }
                 for(var j=0;j<count_prod_img;j++){
                     html_thumb_img+='<img class="jshop_img_thumb" src="'+liveproductimgpath+'/thumb_'+json.images[j]+'" onclick = "showImage('+j+')" />';
                     tmp = 'style="display:none"';
                     if (j==0) tmp = '';
-                    html_middle_img+='<a class="lightbox" id="main_image_full_'+j+'" href="'+liveproductimgpath+'/full_'+json.images[j]+'" '+tmp+'><img id = "main_image_'+j+'" src = "'+liveproductimgpath+'/'+json.images[j]+'" /></a>';
+                    html_middle_img+='<a class="lightbox" id="main_image_full_'+j+'" href="'+liveproductimgpath+'/full_'+json.images[j]+'" '+tmp+'><img id="main_image_'+j+'" src="'+liveproductimgpath+'/'+json.images[j]+'" />'+html_zoom_img+'</a>';
                 }
                 if (json.displayimgthumb=="1") 
                     jQuery("#list_product_image_thumb").html(html_thumb_img+"<br/>");
@@ -1167,7 +1308,11 @@ function reloadAttribSelectAndPrice(id_select){
                 jQuery("#list_product_image_middle").html(html_middle_img);
                 initJSlightBox();
             }
-            
+
+			if (typeof(json.demofiles)!='undefined'){
+				jQuery("#list_product_demofiles").html(json.demofiles);
+			}
+
             jQuery.each(reloadAttribEvents, function(key, handler){
                 handler.call(this, json);
             });
@@ -1205,7 +1350,7 @@ function reloadAttribImg(id, value){
     jQuery("#prod_attr_img_"+id).attr('src', path+"/"+img);
 }
 
-function reloadAttrValue(){
+function reloadAttrValue(){    
     for(var id in attr_value){
         if (jQuery("input[name=jshop_attr_id\\["+id+"\\]]").attr("type")=="radio"){
             attr_value[id] = jQuery("input[name=jshop_attr_id\\["+id+"\\]]:checked").val();

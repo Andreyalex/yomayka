@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.9.4 02.11.2010
+* @version      3.13.0 02.11.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,55 +14,57 @@ class JshoppingControllerUnits extends JController{
     
     function __construct( $config = array() ){
         parent::__construct( $config );
-
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("units");
         addSubmenu("other");
     }
 
-	function display(){
-		$_units = &$this->getModel("units");
+	function display($cachable = false, $urlparams = false){
+		$_units = $this->getModel("units");
 		$rows = $_units->getUnits();
         
-		$view=&$this->getView("units", 'html');
+		$view=$this->getView("units", 'html');
         $view->setLayout("list");		
-        $view->assign('rows', $rows);        
+        $view->assign('rows', $rows);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayUnits', array(&$view));        
 		$view->displayList();
 	}
 	
 	function edit() {
 		$id = JRequest::getInt("id");
-		$units = &JTable::getInstance('unit', 'jshop');
+		$units = JTable::getInstance('unit', 'jshop');
 		$units->load($id);
 		$edit = ($id)?(1):(0);
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         $multilang = count($languages)>1;
         if (!$units->qty) $units->qty = 1;
         
         JFilterOutput::objectHTMLSafe( $units, ENT_QUOTES);
 
-		$view=&$this->getView("units", 'html');
+		$view=$this->getView("units", 'html');
         $view->setLayout("edit");
         $view->assign('units', $units);        
         $view->assign('edit', $edit);
         $view->assign('languages', $languages);
         $view->assign('multilang', $multilang);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditUnitss', array(&$view));
 		$view->displayEdit();
 	}
 	
 	function save() {
-	    $mainframe =& JFactory::getApplication();
+	    $mainframe = JFactory::getApplication();
 		$id = JRequest::getInt("id");
-		$units = &JTable::getInstance('unit', 'jshop');
+		$units = JTable::getInstance('unit', 'jshop');
         $post = JRequest::get("post");
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeSaveUnit', array(&$post) );        
         
 		if (!$units->bind($post)) {
@@ -87,16 +89,16 @@ class JshoppingControllerUnits extends JController{
 	}
 	
 	function remove() {
-		$db = &JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$text = array();
 		$cid = JRequest::getVar("cid");
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveUnit', array(&$cid) );
 
 		foreach ($cid as $key => $value) {
-			$query = "DELETE FROM `#__jshopping_unit` WHERE `id` = '" . $db->getEscaped($value) . "'";
+			$query = "DELETE FROM `#__jshopping_unit` WHERE `id` = '" . $db->escape($value) . "'";
 			$db->setQuery($query);
 			if($db->query()) $text[] = _JSHOP_ITEM_DELETED."<br>";			
 		}

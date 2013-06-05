@@ -1,9 +1,10 @@
 <?php
-$row = $this->coupon;
-$lists = $this->lists;
-$edit = $this->edit;
-JHTML::_('behavior.calendar');
-JHTML::_('behavior.tooltip');        
+	defined('_JEXEC') or die();
+	$row = $this->coupon;
+	$lists = $this->lists;
+	$edit = $this->edit;
+	JHTML::_('behavior.calendar');
+	JHTML::_('behavior.tooltip');        
 ?>
 <div class="jshop_edit">
 <div class="col100">
@@ -41,6 +42,8 @@ JHTML::_('behavior.tooltip');
      </td>
      <td>
        <input type = "text" class = "inputbox" id = "coupon_value" name = "coupon_value" value = "<?php echo $row->coupon_value;?>" />
+       <span id="ctype_percent" <?php if ($row->coupon_type==1) {?>style="display:none"<?php }?>>%</span>
+       <span id="ctype_value" <?php if ($row->coupon_type==0) {?>style="display:none"<?php }?>><?php print $this->currency_code?></span>
      </td>
    </tr>
    <tr>
@@ -81,7 +84,7 @@ JHTML::_('behavior.tooltip');
 <input type = "hidden" name = "task" value = "" />
 <input type = "hidden" name = "edit" value = "<?php echo $edit;?>" />
 <?php if ($edit) {?>
-  <input type = "hidden" name = "coupon_id" value = "<?php echo $row->coupon_id?>" />
+<input type = "hidden" name = "coupon_id" value = "<?php echo $row->coupon_id?>" />
 <?php }?>
 </form>
 </fieldset>

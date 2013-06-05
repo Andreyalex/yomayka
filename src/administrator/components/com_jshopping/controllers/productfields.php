@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.0 03.12.2011
+* @version      3.13.0 03.01.2013
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,20 +14,28 @@ class JshoppingControllerProductFields extends JController{
     
     function __construct( $config = array() ){
         parent::__construct( $config );
-
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("productfields");
         addSubmenu("other");
     }
     
-    function display(){
-        $db = &JFactory::getDBO();
-        $_categories = &$this->getModel("categories");
+    function display($cachable = false, $urlparams = false){
+        $db = JFactory::getDBO();
+        $mainframe = JFactory::getApplication();
+		$context = "jshoping.list.admin.productfields";
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "F.ordering", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
+        $group = $mainframe->getUserStateFromRequest($context.'group', 'group', 0, 'int');
+        $text_search = $mainframe->getUserStateFromRequest($context.'text_search', 'text_search', '');
+        
+        $filter = array("group"=>$group, "text_search"=>$text_search);
+        
+        $_categories = $this->getModel("categories");
         $listCats = $_categories->getAllList(1);
         
-        $_productfields = &$this->getModel("productFields");
-        $rows = $_productfields->getList();
+        $_productfields = $this->getModel("productFields");
+        $rows = $_productfields->getList(0, $filter_order, $filter_order_Dir, $filter);
         foreach($rows as $k=>$v){
             if ($v->allcats){
                 $rows[$k]->printcat = _JSHOP_ALL;
@@ -41,7 +49,7 @@ class JshoppingControllerProductFields extends JController{
             }
         }
         
-        $_productfieldvalues = &$this->getModel("productFieldValues");
+        $_productfieldvalues = $this->getModel("productFieldValues");
         $vals = $_productfieldvalues->getAllList(2);
                 
         foreach($rows as $k=>$v){
@@ -52,22 +60,36 @@ class JshoppingControllerProductFields extends JController{
             }
         }
         
+        $lists = array();
+        $_productfieldgroups = $this->getModel("productFieldGroups");
+        $groups = $_productfieldgroups->getList();
+        $groups0 = array();
+        $groups0[] = JHTML::_('select.option', 0, "- - -", 'id', 'name');        
+        $lists['group'] = JHTML::_('select.genericlist', array_merge($groups0, $groups),'group','onchange="document.adminForm.submit();"','id','name', $group);
+        
         $types = array(_JSHOP_LIST, _JSHOP_TEXT);
 
-        $view = &$this->getView("product_fields", 'html');
+        $view = $this->getView("product_fields", 'html');
         $view->setLayout("list");
+        $view->assign('lists', $lists);
         $view->assign('rows', $rows);
         $view->assign('vals', $vals);
         $view->assign('types', $types);
+        $view->assign('text_search', $text_search);
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayProductField', array(&$view));
         $view->displayList();
     }
     
     function edit(){        
         $id = JRequest::getInt("id");
-        $productfield = &JTable::getInstance('productField', 'jshop');
+        $productfield = JTable::getInstance('productField', 'jshop');
         $productfield->load($id);
         
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         $multilang = count($languages)>1;
         
@@ -83,17 +105,19 @@ class JshoppingControllerProductFields extends JController{
         
         $type = array();
         $type[] = JHTML::_('select.option', 0, _JSHOP_LIST, 'id', 'value');
+        $type[] = JHTML::_('select.option', -1, _JSHOP_MULTI_LIST, 'id', 'value');
         $type[] = JHTML::_('select.option', 1, _JSHOP_TEXT, 'id', 'value');
         if (!isset($productfield->type)) $productfield->type = 0;
+        if ($productfield->multilist) $productfield->type = -1;
         $lists['type'] = JHTML::_('select.radiolist', $type, 'type','','id','value', $productfield->type);
         
-        $_productfieldgroups = &$this->getModel("productFieldGroups");
+        $_productfieldgroups = $this->getModel("productFieldGroups");
         $groups = $_productfieldgroups->getList();
         $groups0 = array();
         $groups0[] = JHTML::_('select.option', 0, "- - -", 'id', 'name');        
         $lists['group'] = JHTML::_('select.genericlist', array_merge($groups0, $groups),'group','class="inputbox"','id','name', $productfield->group);
                                                     
-        $view = &$this->getView("product_fields", 'html');
+        $view = $this->getView("product_fields", 'html');
         $view->setLayout("edit");
         JFilterOutput::objectHTMLSafe($productfield, ENT_QUOTES);
         $view->assign('row', $productfield);
@@ -101,19 +125,25 @@ class JshoppingControllerProductFields extends JController{
         $view->assign('languages', $languages);
         $view->assign('multilang', $multilang);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditProductFields', array(&$view));
         $view->displayEdit();
     }
 
     function save(){
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $id = JRequest::getInt("id");
-        $productfield = &JTable::getInstance('productField', 'jshop');        
+        $productfield = JTable::getInstance('productField', 'jshop');        
         $post = JRequest::get("post");
+        if ($post['type']==-1){
+            $post['type'] = 0;
+            $post['multilist'] = 1;
+        }else{
+            $post['multilist'] = 0;
+        }
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeSaveProductField', array(&$post) );
                 
         if (!$productfield->bind($post)) {
@@ -139,12 +169,12 @@ class JshoppingControllerProductFields extends JController{
         }
         
         if (!$id){
-            $query = "ALTER TABLE `#__jshopping_products` ADD `extra_field_".$productfield->id."` varchar(32) NOT NULL";
+            $query = "ALTER TABLE `#__jshopping_products` ADD `extra_field_".$productfield->id."` varchar(100) NOT NULL";
             $db->setQuery($query);
             $db->query();
         }
         
-        $dispatcher->trigger( 'onAfterSaveProductField', array(&$productfield) );
+        $dispatcher->trigger('onAfterSaveProductField', array(&$productfield));
         
         if ($this->getTask()=='apply'){
             $this->setRedirect("index.php?option=com_jshopping&controller=productfields&task=edit&id=".$productfield->id);
@@ -156,19 +186,19 @@ class JshoppingControllerProductFields extends JController{
 
     function remove(){
         $cid = JRequest::getVar("cid");
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $text = array();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveProductField', array(&$cid) );
         foreach ($cid as $key => $value) {            
-            $query = "DELETE FROM `#__jshopping_products_extra_fields` WHERE `id` = '".$db->getEscaped($value)."'";
+            $query = "DELETE FROM `#__jshopping_products_extra_fields` WHERE `id` = '".$db->escape($value)."'";
             $db->setQuery($query);
             if ($db->query()){
                 $text[] = _JSHOP_ITEM_DELETED;
             }
             
-            $query = "DELETE FROM `#__jshopping_products_extra_field_values` WHERE `field_id` = '".$db->getEscaped($value)."'";
+            $query = "DELETE FROM `#__jshopping_products_extra_field_values` WHERE `field_id` = '".$db->escape($value)."'";
             $db->setQuery($query);
             $db->query();
             
@@ -185,7 +215,7 @@ class JshoppingControllerProductFields extends JController{
     function order(){        
         $id = JRequest::getInt("id");
         $move = JRequest::getInt("move");        
-        $productfield = &JTable::getInstance('productField', 'jshop');
+        $productfield = JTable::getInstance('productField', 'jshop');
         $productfield->load($id);
         $productfield->move($move);
         $this->setRedirect("index.php?option=com_jshopping&controller=productfields");
@@ -196,7 +226,7 @@ class JshoppingControllerProductFields extends JController{
         $order = JRequest::getVar( 'order', array(), 'post', 'array' );
         
         foreach ($cid as $k=>$id){
-            $table = &JTable::getInstance('productField', 'jshop');
+            $table = JTable::getInstance('productField', 'jshop');
             $table->load($id);
             if ($table->ordering!=$order[$k]){
                 $table->ordering = $order[$k];
@@ -204,7 +234,7 @@ class JshoppingControllerProductFields extends JController{
             }        
         }
         
-        $table = &JTable::getInstance('productField', 'jshop');
+        $table = JTable::getInstance('productField', 'jshop');
         $table->ordering = null;
         $table->reorder();        
                 

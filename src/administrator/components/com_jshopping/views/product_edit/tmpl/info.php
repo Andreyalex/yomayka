@@ -1,5 +1,6 @@
 <?php
-echo $pane->startPanel(_JSHOP_INFO_PRODUCT, 'main-page');
+	defined('_JEXEC') or die();
+	echo $pane->startPanel(_JSHOP_INFO_PRODUCT, 'main-page');
 ?>
     <div class="col100">
      <table class="admintable" width="90%">
@@ -153,6 +154,7 @@ echo $pane->startPanel(_JSHOP_INFO_PRODUCT, 'main-page');
          <input type = "text" name = "product_ean" id = "product_ean" value = "<?php echo $row->product_ean?>" onkeyup="updateEanForAttrib()"; />
        </td>
      </tr>
+     <?php if ($jshopConfig->stock){?>
      <tr>
        <td class="key">
          <?php echo _JSHOP_QUANTITY_PRODUCT;?>*
@@ -167,20 +169,13 @@ echo $pane->startPanel(_JSHOP_INFO_PRODUCT, 'main-page');
          </div>         
        </td>
      </tr>
-     <!--<tr>
-       <td class="key"><?php echo _JSHOP_AVILABILITY_PRODUCT;?></td>
-       <td>
-         <input type = "text" name = "product_availability" id = "product_availability" value = "<?php echo $row->product_availability?>" size="80" />
-         <?php echo JHTML::tooltip(_JSHOP_AVILABILITY_PRODUCT_INFO);?>
-       </td>
-     </tr>-->
+     <?php }?>
      <tr>
        <td class="key"><?php echo _JSHOP_URL; ?></td>
        <td>
          <input type = "text" name = "product_url" id = "product_url" value = "<?php echo $row->product_url?>" size="80" />
        </td>
      </tr>
-     
      <?php if ($jshopConfig->use_different_templates_cat_prod) { ?>
      <tr>
        <td class="key">
@@ -195,7 +190,7 @@ echo $pane->startPanel(_JSHOP_INFO_PRODUCT, 'main-page');
      <?php if (!$this->withouttax){?>
      <tr>     
        <td class="key">
-         <?php echo _JSHOP_NAME_TAX;?>*
+         <?php echo _JSHOP_TAX;?>*
        </td>
        <td>
          <?php echo $lists['tax'];?>

@@ -1,4 +1,8 @@
-<?php $row = $this->order_status; $edit = $this->edit; ?>
+<?php 
+	defined('_JEXEC') or die();
+	$row = $this->order_status; 
+	$edit = $this->edit; 
+?>
 <form action = "index.php?option=com_jshopping&controller=orderstatus" method = "post" name = "adminForm">
 <div class="col100">
 <fieldset class="adminform">

@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <table width="100%" style="background: #EBF0F3;border-radius:10px;">
 <tr>
  <td width = "50%" valign="top" style="padding:5px;">
@@ -25,8 +26,13 @@
  </td>
  <td valign="top" style="padding:5px;">
     <div style="padding-left:5px;padding-bottom:30px;">
-        <div><img src = "components/com_jshopping/images/jshop_logo.jpg" /></div>
+        <div><img src="components/com_jshopping/images/jshop_logo.jpg" /></div>
         <div style="padding-top:5px;padding-left:5px;font-size:14px;"><?php if (isset($this->data['version'])){?><b>Version <?php print $this->data['version'];}?></b></div>
+		<?php if ($this->update->text && $this->update->link){?>
+		<div style="padding-left:5px;padding-top:4px;">
+			<a href="<?php echo $this->update->link;?>" target="_blank"><?php echo $this->update->text;?></a>
+		</div>
+		<?php }?>
     </div>
     <div style="padding-bottom:5px;">
         <img src="components/com_jshopping/images/at.png" align="left" border="0" style="margin-right:10px;">
@@ -51,6 +57,5 @@
         </table>
         <br>
     </div>
-    
  </td>
 </table>

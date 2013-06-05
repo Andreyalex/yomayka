@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.5.0 12.02.2012
+* @version      3.14.0 01.05.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -10,7 +10,7 @@
 define('_JSHOP_DETAIL', 'Detail');
 define('_JSHOP_QUANTITY', 'Anzahl');
 define('_JSHOP_ADD_TO_CART', 'Zum Warenkorb hinzufügen');
-define('_JSHOP_ADD_TO_WISHLIST', 'Zur Wunschliste hinzufügen');
+define('_JSHOP_ADD_TO_WISHLIST', 'zur Wunschliste hinzufügen');
 define('_JSHOP_WISHLIST_IS_EMPTY', 'Ihre Wunschliste ist leer');
 define('_JSHOP_ORDER_BY', 'Produkte sortieren nach');
 define('_JSHOP_DISPLAY_NUMBER', 'Produkte pro Seite');
@@ -20,8 +20,8 @@ define('_JSHOP_PRODUCT', 'Produkt');
 define('_JSHOP_PRICE', 'Preis');
 define('_JSHOP_ALL', 'Alle');
 define('_JSHOP_ADDED_TO_CART', 'Produkt wurde zum Warenkorb hinzugefügt');
-define('_JSHOP_ADDED_TO_WISHLIST', 'Produkt wurde zum Wunschliste hinzugefügt');
-define('_JSHOP_ERROR_ADDED_TO_CART', 'Fehler wurde zum Warenkorb hinzugefügt');
+define('_JSHOP_ADDED_TO_WISHLIST', 'Produkt wurde zur Wunschliste hinzugefügt');
+define('_JSHOP_ERROR_ADDED_TO_CART', 'Fehler beim Hinzufügen zum Warenkorb');
 define('_JSHOP_PRODUCT_COUNT', 'Produkt(e)');
 define('_JSHOP_PRODUCTS', 'Produkte');
 define('_JSHOP_CART', 'Warenkorb');
@@ -38,70 +38,70 @@ define('_JSHOP_TAX', 'MwSt.');
 define('_JSHOP_PRICE_TOTAL', 'Gesamtpreis');
 define('_JSHOP_PRICE_SUBTOTAL', 'Preis ohne Versandkosten');
 define('_JSHOP_UPDATE_CART', 'Warenkorb aktualisieren');
-define('_JSHOP_CHECKOUT', 'Zur Kasse');
+define('_JSHOP_CHECKOUT', 'zur Kasse');
 define('_JSHOP_RABATT', 'Rabattcode');
 define('_JSHOP_RABATT_ACTIVE', 'Aktivieren');
-define('_JSHOP_RABATT_NON_SUPPORT', 'Rabattcode hat keine Unterstützung');
+define('_JSHOP_RABATT_NON_SUPPORT', 'Rabattcode wird nicht unterstützt');
 define('_JSHOP_RABATT_NON_CORRECT', 'Sie haben einen falschen Code eingegeben.');
-define('_JSHOP_RABATT_USED', 'ie haben einen verwendeten Code eingegeben.');
-define('_JSHOP_BACK_TO_SHOP', 'Zurück zum Shop');
+define('_JSHOP_RABATT_USED', 'Sie haben einen bereits verwendeten Code eingegeben.');
+define('_JSHOP_BACK_TO_SHOP', 'zurück zum Shop');
 define('_JSHOP_HAVE_NOT_ACCOUNT', 'Neukundenanmeldung');
 define('_JSHOP_HAVE_ACCOUNT', 'Kundenlogin');
 define('_JSHOP_REGISTRATION', 'Registrierung');
 define('_JSHOP_REGISTER', 'Bitte melden Sie sich an');
-define('_JSHOP_PL_LOGIN', 'Hier bitte einloggen');
+define('_JSHOP_PL_LOGIN', 'Bitte hier einloggen');
 define('_JSHOP_LOGIN', 'Login');
 define('_JSHOP_REMEMBER_ME', 'Passwort merken');
 define('_JSHOP_EMAIL', 'E-Mail');
 define('_JSHOP_PASSWORT', 'Passwort');
-define('_JSHOP_LOST_PASSWORD', 'Passwort vergessen');
-define('_JSHOP_LOST_PASSWORD_DESC', 'Bitte geben Sie Ihren Benutzernamen und Ihre E-Mail Adresse ein dann klicken Sie bitte auf den Knopf Passwort senden .<br />In Kürze erhalten Sie ein neues Passwort. Benutzen Sie dieses neue Passwort für den Zugang zur Seite.');
+define('_JSHOP_LOST_PASSWORD', 'Passwort vergessen?');
+define('_JSHOP_LOST_PASSWORD_DESC', 'Bitte geben Sie Ihren Benutzernamen und Ihre E-Mail Adresse ein. Dann klicken Sie bitte auf den Knopf Passwort senden .<br />In Kürze erhalten Sie ein neues Passwort. Benutzen Sie dieses neue Passwort für den Zugang zur Seite.');
 define('_JSHOP_SEND_PASSWORD', 'Passwort senden');
 define('_JSHOP_PASS_ERROR', ' Leider wurde kein entsprechender Benutzer gefunden');
-define('_JSHOP_NEWPASS_SENT', 'Das neu Passwort vom Benutzer wurde erstellt und gesendet!');
+define('_JSHOP_NEWPASS_SENT', 'Das neue Passwort für den Benutzer wurde erstellt und versendet!');
 define('_JSHOP_LOGOUT', 'Abmelden');
 define('_JSHOP_MANUFACTURER', 'Hersteller');
 define('_JSHOP_CATEGORY', 'Kategorie');
 define('_JSHOP_ACCESS_DENIED', 'Zugriff verweigert');
 define('_JSHOP_REQUIRED', 'Pflichtfelder');
-define('_JSHOP_BACK', 'Zurück');
+define('_JSHOP_BACK', 'zurück');
 define('_JSHOP_DELETE', 'Löschen');
 define('_JSHOP_CONFIRM_REMOVE', 'Wirklich entfernen?');
 
 // Messages
-define('_JSHOP_REGWARN_INUSE', 'Der Benutzername oder das Passwort ist schon in Gebrauch. Bitte benutzen Sie einen anderen Benutzernamen oder ein anderes Passwort.');
+define('_JSHOP_REGWARN_INUSE', 'Der Benutzername oder das Passwort wird bereits verwendet. Bitte verwenden Sie einen anderen Benutzernamen oder ein anderes Passwort.');
 define('_JSHOP_REGWARN_NAME','Bitte geben Sie Ihren Vornamen ein.');
-define('_JSHOP_REGWARN_LNAME','Bitte geben Sie Ihren Namen ein.');
+define('_JSHOP_REGWARN_LNAME','Bitte geben Sie Ihren Nachnamen ein.');
 define('_JSHOP_REGWARN_UNAME','Bitte geben Sie den Benutzernamen ein.');
-define('_JSHOP_REGWARN_MAIL','Bitte geben die aktuelle E-Mail Adresse ein.');
+define('_JSHOP_REGWARN_MAIL','Bitte geben Sie die aktuelle E-Mail Adresse ein.');
 define('_JSHOP_REGWARN_EMAIL_INUSE','Diese E-Mail Adresse ist bereits registriert! Sie haben Ihr Passwort vergessen? Klicken Sie bitte auf <strong>Passwort vergessen</strong> und es wird Ihnen ein neues Passwort zugesendet.');
-define('_JSHOP_VALID_AZ09',"Bitte aktuelle %s. Keinen Lücken, nicht, mehr als %d Zeichen und enthält nur 0-9,a-z,A-Z");
+define('_JSHOP_VALID_AZ09',"Bitte überprüfen %s. Es darf keine Lücken enthalten, nicht mehr als %d Zeichen und nur 0-9, a-z, A-Z");
 define('_JSHOP_REGWARN_STREET', 'Bitte geben Sie die Straße ein.');
-define('_JSHOP_REGWARN_HOME', 'Bitte geben Sie die Hause ein.');
-define('_JSHOP_REGWARN_APARTMENT', 'Bitte geben Sie die Wohnung ein.');
+define('_JSHOP_REGWARN_HOME', 'Bitte geben Sie die Hausnummer ein.');
+define('_JSHOP_REGWARN_APARTMENT', 'Bitte geben Sie die Türnummer ein.');
 define('_JSHOP_REGWARN_ZIP', 'Bitte geben Sie die Postleitzahl ein');
 define('_JSHOP_REGWARN_CITY', 'Bitte geben Sie die Stadt ein');
 define('_JSHOP_REGWARN_STATE', 'Bitte geben Sie das Bundesland ein');
 define('_JSHOP_REGWARN_COUNTRY', 'Bitte wählen Sie das Land aus');
-define('_JSHOP_REGWARN_TITLE', 'Bitte wählen Sie den Anrede aus');
+define('_JSHOP_REGWARN_TITLE', 'Bitte wählen Sie die Anrede aus');
 define('_JSHOP_REGWARN_PHONE', 'Bitte geben Sie die Telefonnummer ein');
-define('_JSHOP_REGWARN_NAME_DELIVERY','Bitte geben Sie den Name den Liefer ein');
-define('_JSHOP_REGWARN_LNAME_DELIVERY','Bitte geben Sie den Vornamen den Liefer ein');
-define('_JSHOP_REGWARN_MAIL_DELIVERY','Bitte geben Sie eine gültige E-Mail Adresse den Liefer ein');
-define('_JSHOP_REGWARN_STREET_DELIVERY', 'Bitte geben Sie eine gültige Straße den Liefer ein');
-define('_JSHOP_REGWARN_HOME_DELIVERY', 'Bitte geben Sie eine gültige Hause den Liefer ein');
-define('_JSHOP_REGWARN_APARTMENT_DELIVERY', 'Bitte geben Sie eine gültige Wohnung den Liefer ein');
-define('_JSHOP_REGWARN_ZIP_DELIVERY', 'Bitte geben Sie eine gültige Postleitzahl den Liefer ein.');
-define('_JSHOP_REGWARN_STATE_DELIVERY', 'Bitte geben Sie das Bundesland den Liefer ein.');
-define('_JSHOP_REGWARN_COUNTRY_DELIVERY', 'Bitte wählen Sie das Land den Liefer aus');
-define('_JSHOP_REGWARN_TITLE_DELIVERY', 'Bitte wählen Sie den Anrede den Liefer aus');
-define('_JSHOP_REGWARN_PHONE_DELIVERY', 'Bitte geben Sie eine Telefonnummer den Liefer ein');
-define('_JSHOP_REGWARN_FIRMA_NAME', 'Bitte geben Sie den Name der Firma ein');
-define('_JSHOP_REGWARN_FIRMA_NAME_DELIVERY', 'Bitte geben Sie den Name der Lieferfirma ein');
+define('_JSHOP_REGWARN_NAME_DELIVERY','Bitte geben Sie den Nachnamen des Empfängers ein');
+define('_JSHOP_REGWARN_LNAME_DELIVERY','Bitte geben Sie den Vornamen des Empfängers ein');
+define('_JSHOP_REGWARN_MAIL_DELIVERY','Bitte geben Sie eine gültige E-Mail Adresse des Empfängers ein');
+define('_JSHOP_REGWARN_STREET_DELIVERY', 'Bitte geben Sie die Straße des Empfängers ein');
+define('_JSHOP_REGWARN_HOME_DELIVERY', 'Bitte geben Sie die Hausnummer des Empfängersein');
+define('_JSHOP_REGWARN_APARTMENT_DELIVERY', 'Bitte, geben Sie die Türnummer des Empfängers ein');
+define('_JSHOP_REGWARN_ZIP_DELIVERY', 'Bitte geben Sie die Postleitzahl des Empfängers ein.');
+define('_JSHOP_REGWARN_STATE_DELIVERY', 'Bitte geben Sie das Bundesland des Empfängers ein.');
+define('_JSHOP_REGWARN_COUNTRY_DELIVERY', 'Bitte wählen Sie das Land des Empfängers aus');
+define('_JSHOP_REGWARN_TITLE_DELIVERY', 'Bitte wählen Sie die Anrede des Empfängers aus');
+define('_JSHOP_REGWARN_PHONE_DELIVERY', 'Bitte geben Sie eine Telefonnummer des Empfängers ein');
+define('_JSHOP_REGWARN_FIRMA_NAME', 'Bitte geben Sie den Namen der Firma ein');
+define('_JSHOP_REGWARN_FIRMA_NAME_DELIVERY', 'Bitte geben Sie den Namen der Empfängerfirma ein');
 define('_JSHOP_REGWARN_CLIENT_TYPE', 'Bitte geben Sie Kundentyp ein');
-define('_JSHOP_REGWARN_FAX', 'Bitte geben Sie einen Telefax ein');
-define('_JSHOP_REGWARN_FAX_DELIVERY', 'Bitte geben Sie einen Telefax den Liefer ein');
-define('_JSHOP_REGWARN_CITY_DELIVERY', 'Bitte geben Sie die Stadt den Liefer ein');
+define('_JSHOP_REGWARN_FAX', 'Bitte geben Sie eine Telefax-Nr. ein');
+define('_JSHOP_REGWARN_FAX_DELIVERY', 'Bitte geben Sie eine Telefax-Nr. des Empfängers ein');
+define('_JSHOP_REGWARN_CITY_DELIVERY', 'Bitte geben Sie die Stadt des Empfängers ein');
 define('_JSHOP_REGWARN_FIRMA_CODE', 'Please enter company code');
 define('_JSHOP_REGWARN_TAX_NUMBER', 'Please enter tax number');
 define('_JSHOP_REGWARN_MOBIL_PHONE', 'Please enter mobil');
@@ -112,20 +112,20 @@ define('_JSHOP_REGWARN_EXT_FIELD_3', 'Please enter ext. field 1');
 define('_JSHOP_REGWARN_EXT_FIELD_1_DELIVERY', 'Please enter delivery  ext. field 1');
 define('_JSHOP_REGWARN_EXT_FIELD_2_DELIVERY', 'Please enter delivery  ext. field 2');
 define('_JSHOP_REGWARN_EXT_FIELD_3_DELIVERY', 'Please enter delivery  ext. field 3');
-define('_JSHOP_REGWARN_PASSWORD_NOT_MATCH', 'Passwörter nicht überein');
+define('_JSHOP_REGWARN_PASSWORD_NOT_MATCH', 'Passwörter stimmen nicht überein');
 define('_JSHOP_REGWARN_PASSWORD', 'Bitte geben Sie das Passwort ein');
 define('_JSHOP_PLEASE_ENTER_X', 'Bitte geben Sie %s');
 
 define('_JSHOP_REGWARN_ERROR_DATABASE', 'Fehler beim Speichern in die Datenbank');
 
-define('_JSHOP_NEXT', 'Weiter');
-define('_JSHOP_GO', 'Go');
+define('_JSHOP_NEXT', 'weiter');
+define('_JSHOP_GO', 'Los');
 define('_JSHOP_USEND_MSG_ACTIVATE', 'Hallo %s.
 Vielen Dank für die Anmeldung auf %s. Ihr Konto wurde eingerichtet und muss aktiviert werden bevor Sie es benutzen können.
 Um das Konto zu aktivieren klicken Sie bitte auf den folgenden Link oder kopieren Sie den Link in Ihr Browserfenster:
 %s
 
-Nach der Freischaltung können Sie sich bei %s einloggen indem Sie den folgenden Benutzernamen und Passwort benutzen:
+Nach der Freischaltung können Sie sich bei %s einloggen. Verwenden Sie dazu folgenden Benutzernamen und folgendes Passwort:
 
 Benutzername - %s
 Passwort - %s');
@@ -133,7 +133,7 @@ define('_JSHOP_USEND_MSG', "Hallo %s.
 
 Vielen Dank für die Anmeldung auf %s.
 
-Sie müssen jetzt zu %s einloggen indem Sie Benutzernamen und Passwort benutzen mit denen Sie sich angemeldet haben.");
+Sie müssen sich jetzt bei %s einloggen. Verwenden Sie dazu den Benutzernamen und das Passwort mit denen Sie sich angemeldet haben.");
 
 // Anmeldung
 define('_JSHOP_REG_TITLE', 'Anrede');
@@ -142,8 +142,8 @@ define('_JSHOP_F_NAME', 'Vorname');
 define('_JSHOP_L_NAME', 'Nachname');
 define('_JSHOP_FULL_NAME', 'Vollständiger Name');
 define('_JSHOP_FIRMA_NAME', 'Firma');
-define('_JSHOP_HOME', 'Hause');
-define('_JSHOP_APARTMENT', 'Wohnung');
+define('_JSHOP_HOME', 'Haus');
+define('_JSHOP_APARTMENT', 'Türnummer');
 define('_JSHOP_STREET_NR', 'Straße / Nr.');
 define('_JSHOP_ZIP', 'Postleitzahl');
 define('_JSHOP_STATE', 'Bundesland');
@@ -181,9 +181,9 @@ define('_JSHOP_NO_SELECT_PRODUCT', 'Sie haben kein Produkt gewählt');
 define('_JSHOP_YES', 'Ja');
 define('_JSHOP_NO', 'Nein');
 define('_JSHOP_NOT', 'Keine');
-define('_JSHOP_DELIVERY_ADRESS', 'Lieferadresse falls abweichend zur Rechnungsanschrift');
+define('_JSHOP_DELIVERY_ADRESS', 'Versandadresse falls abweichend zur Rechnungsadresse');
 define('_JSHOP_AGB', 'AGB');
-define('_JSHOP_RETURN_POLICY', 'Rückgaberecht');
+define('_JSHOP_RETURN_POLICY', 'Widerrufsbelehrung');
 define('_JSHOP_SELECT_VALUE', 'Bitte auswählen');
 
 // Payment
@@ -192,9 +192,7 @@ define('_JSHOP_ACCOUNT_NUMBER', 'Kontonummer');
 define('_JSHOP_BIC', 'Bankleitzahl');
 define('_JSHOP_BANK', 'Bank');
 define('_JSHOP_ERROR_PAYMENT', 'Fehler bei der Zahlungsmethode');
-define('_JSHOP_ERROR_PAYMENT_INFO', 'Nummer der Bestellung: %s. Fehler: %s');  
-define('_JSHOP_ERROR_PAYMENT_DEBIT', 'Sie haben keine korrekte Information eingegeben');
-define('_JSHOP_ORDER_FINISH', 'Bestellung absenden');
+define('_JSHOP_ORDER_FINISH', 'Kaufen');
 define('_JSHOP_ERROR_PAYMENT_DATA', 'Bitte geben Sie die korrekten Zahlungsinformationen');
 
 define("_JSHOP_HI","Hallo");
@@ -205,24 +203,19 @@ define('_JSHOP_NEW_STATUS_IS', 'Neuer Status ist');
 define('_JSHOP_ORDER_CANCELED', 'Bestellung wurde abgebrochen');
 define('_JSHOP_COMMENT_YOUR_ORDER', 'Kommentare zu Ihrer Bestellung');
 
-define('_JSHOP_PAYMENT_DEBIT', 'Lastschrift');
-define('_JSHOP_PAYMENT_PURCHASE', 'Vorauskasse');
-define('_JSHOP_PAYMENT_PAYPAL', 'Paypal');
-define('_JSHOP_PAYMENT_BANK', 'Bank');
-
 // Step order
-define('_JSHOP_STEP_ORDER_2', 'Rechnungsadresse');
+define('_JSHOP_STEP_ORDER_2', 'Adresse');
 define('_JSHOP_STEP_ORDER_3', 'Zahlungsart');
 define('_JSHOP_STEP_ORDER_4', 'Lieferart');
-define('_JSHOP_STEP_ORDER_5', 'Bestellung bestätigen');
+define('_JSHOP_STEP_ORDER_5', 'Bestellung');
 
 // End order
-define('_JSHOP_ADD_INFO', 'Hier können Sie noch eine Notiz zu Ihrer Bestellung hinzufügen:');
-define('_JSHOP_FINISH_DELIVERY_ADRESS', 'Lieferadresse');
+define('_JSHOP_ADD_INFO', 'Hier können Sie Ihrer Bestellung noch einen Kommentar hinzufügen:');
+define('_JSHOP_FINISH_DELIVERY_ADRESS', 'Versandadresse');
 define('_JSHOP_FINISH_SHIPPING_METHOD', 'Lieferart');
 define('_JSHOP_FINISH_PAYMENT_METHOD', 'Zahlungsart');
 define('_JSHOP_THANK_YOU_ORDER', 'Vielen Dank für Ihre Bestellung');
-define('_JSHOP_ORDER_PLACED', 'Ihre Bestellung wurde erfolgreich durchgeführt!');
+define('_JSHOP_ORDER_PLACED', 'Ihre Bestellung wurde erfolgreich weitergeleitet!');
 
 // E-mail
 define('_JSHOP_EMAIL_THANK_YOU', 'Vielen Dank für Ihren Einkauf bei uns.<br />');
@@ -233,11 +226,11 @@ define('_JSHOP_ORDER_DATE', 'Bestell-Datum');
 define('_JSHOP_ORDER_FROM', 'Bestellung vom');
 define('_JSHOP_ORDER_SHORT_NR', 'Nr');
 define('_JSHOP_ORDER_STATUS', 'Status der Bestellung');
-define('_JSHOP_CUSTOMER_INFORMATION', 'Kundeninformation');
-define('_JSHOP_ORDER_HISTORY', 'Bestell Historie');
+define('_JSHOP_CUSTOMER_INFORMATION', 'Kundeninformationen');
+define('_JSHOP_ORDER_HISTORY', 'Bestellungsverlauf');
 define('_JSHOP_ORDER_COMMENT', 'Kommentare');
-define('_JSHOP_NEW_ORDER', 'Neue Bestellung N. %s (%s)');
-define('_JSHOP_NEW_ORDER_V', 'Neue Bestellung N. %s');
+define('_JSHOP_NEW_ORDER', 'Neue Bestellung Nr. %s (%s)');
+define('_JSHOP_NEW_ORDER_V', 'Neue Bestellung Nr. %s');
 define('_JSHOP_EMAIL_BILL_TO', 'Rechnungadresse');
 define('_JSHOP_EMAIL_BILL', 'Rechnung');
 define('_JSHOP_EMAIL_SHIP_TO', 'Versandadresse');
@@ -250,16 +243,16 @@ define('_JSHOP_SUBTOTAL_NETTO', 'Nettobetrag');
 define('_JSHOP_VAT', 'MwSt.');
 define('_JSHOP_ENDTOTAL', 'Endbetrag');
 define('_JSHOP_ENDTOTAL_INKL_TAX', 'Endbetrag inkl. MwSt.');
-define('_JSHOP_BENEF_BANK', 'Beneficiary Bank');
+define('_JSHOP_BENEF_BANK', 'bank');
 define('_JSHOP_BENEF_BIC', 'Bankleitzahl');
 define('_JSHOP_BENEF_CONTO', 'Kontonummer');
 define('_JSHOP_BENEF_IBAN', 'IBAN');
-define('_JSHOP_BENEF_SWIFT', 'SWIFT Code');
+define('_JSHOP_BENEF_SWIFT', 'BIC/SWIFT Code');
 define('_JSHOP_BENEF_PAYEE','Zahlungsempfänger');
 define('_JSHOP_INTERM_BANK', 'Intermediary Bank');
 define('_JSHOP_INTERM_NAME', 'Name');
 define('_JSHOP_BENEF_BANK_NAME','Name');
-define('_JSHOP_INTERM_SWIFT', 'SWIFT Code');
+define('_JSHOP_INTERM_SWIFT', 'BIC/SWIFT Code');
 define('_JSHOP_SHIPPING_PRICE', 'Versandkosten');
 define('_JSHOP_WEIGHT_UNIT', 'Kg');
 define('_JSHOP_WEIGHT', 'Gewicht');
@@ -281,7 +274,7 @@ define('_JSHOP_ADVANCED_SEARCH', 'Erweiterte Suche');
 define('_JSHOP_NO_SEARCH_RESULTS', 'Kein Resultat der Suche');
 define('_JSHOP_EDIT_DATA', 'Datei bearbeiten');
 define('_JSHOP_SHOW_ORDERS', 'Bestellungen ansehen');
-define('_JSHOP_NO_ORDERS', 'Sie haben noch keine Bestellungen getätigt');
+define('_JSHOP_NO_ORDERS', 'Sie haben noch keine Bestellungen getätigt.');
 define('_JSHOP_CANCEL_ORDER', 'Bestellung stornieren');
 
 // Search
@@ -314,6 +307,7 @@ define('_JSHOP_DOWNLOAD_DEMO', 'Download Demo');
 define('_JSHOP_DOWNLOAD', 'Download');
 define('_JSHOP_FOR_DOWNLOAD_ORDER_MUST_BE_PAID', 'Download ist erst nach der Bezahlung möglich');
 define('_JSHOP_NUMBER_DOWNLOADS_FILE_RESTRICTED', 'Anzahl Downloads der Datei ist eingeschränkt');
+define('_JSHOP_TIME_DOWNLOADS_FILE_RESTRICTED', 'Zeit Downloads von Dateien eingeschränkt');
 
 // No price
 define('_JSHOP_NO_PRICE', 'Keine Preisangabe');
@@ -322,7 +316,7 @@ define('_JSHOP_NO_PRICE_ADMIN_MESSAGE', 'Nachricht an den Admin senden');
 define('_JSHOP_NO_PRICE_SEND_TO_ADMIN', 'Senden');
 define('_JSHOP_PRICE_REQUEST', 'Preisanfrage');
 define('_JSHOP_SEND_MAIL_GOOD', 'E-Mail erfolgreich gesendet');
-define('_JSHOP_ERROR_SENDING_MAIL', 'Fehler beim Senden der Mail');
+define('_JSHOP_ERROR_SENDING_MAIL', 'Fehler beim Senden der E-Mail');
 
 // new version vars
 define('_JHOP_ERROR_STEP','Falscher Schritt');
@@ -337,9 +331,9 @@ define('_JSHOP_INC_TAX', 'Inkl. MwSt.');
 define('_JSHOP_PLUS_TAX', 'zzgl. MwSt.');   
 define('_JSHOP_ERROR_ORDERID', 'Fehler Bestellungs-ID');
 define('_JSHOP_PAYMENT_PRODUCT_IN_SITE', 'Bezahlung von Waren im Shop %s');
-define('_JSHOP_REDIRECT_TO_PAYMENT_PAGE', 'Umleitung auf die Zahlung Seite');   
+define('_JSHOP_REDIRECT_TO_PAYMENT_PAGE', 'Umleitung auf die Zahlungs-Seite');   
 define('_JSHOP_PAYMENT_CANCEL', 'Zahlung abgebrochen');
-define('_JSHOP_PAYMENT_CANCELED', 'Zahlung ist abgebrocht');
+define('_JSHOP_PAYMENT_CANCELED', 'Zahlung wurde abgebrochen');
 define('_JSHOP_PAYMENT_CANCEL_ORDER_NUM', 'Zahlung abgebrochen. Bestell-Nummer %s');
 define('_JSHOP_SESSION_FINISH', 'Fehler - Sitzungszeit abgelaufen');
 define('_JSHOP_SEARCH_RESULT', 'Suchen');
@@ -369,8 +363,8 @@ define('_JSHOP_PER_PIECE', 'pro Stück');
 define('_JSHOP_SELECT_PRODUCT_OPTIONS', 'Bitte wählen Sie die Produktoptionen');
 define('_JSHOP_ERROR_EXIST_QTY_PRODUCT', 'Einige Produkte sind nicht in der gewünschten Menge lieferbar.<br/>Die Höchstbestellmenge beträgt zur Zeit %s.');
 define('_JSHOP_ERROR_EXIST_QTY_PRODUCT_IN_CART', 'Einige Produkte sind nicht in der gewünschten Menge lieferbar.<br/>Ihr Warenkorb enthält bereits %s Artikel.<br/>Die Höchstbestellmenge beträgt  zur Zeit %s.');
-define('_JSHOP_ERROR_EXIST_QTY_PRODUCT_BASKET', 'Produkte "%s" die Höchstbestellmenge beträgt %s.');
-define('_JSHOP_BUY', 'Kaufen');
+define('_JSHOP_ERROR_EXIST_QTY_PRODUCT_BASKET', 'Die Höchstbestellmenge für das Produkt "%s" beträgt %s.');
+define('_JSHOP_BUY', 'In den Warenkorb');
 define('_JSHOP_PRODUCT_NOT_AVAILABLE', 'Dieser Artikel ist zur Zeit leider nicht verfügbar.');
 define('_JSHOP_PRODUCT_NOT_AVAILABLE_THIS_OPTION', 'Die ausgewählte Option ist nicht verfügbar.');
 define('_JSHOP_X_COMENTAR', 'Kommentare (%s)');
@@ -381,13 +375,13 @@ define('_JSHOP_SHIPPING', 'Versandkosten');
 define('_JSHOP_DELIVERY_TIME', 'Lieferzeit');
 define('_JSHOP_IDENTIFICATION_NUMBER', 'Steueridentifikations-Nr.');
 define('_JSHOP_TAX_NUMBER', 'MwSt-Nr.');
-define('_JSHOP_READ_MORE', 'Weiterlesen');
+define('_JSHOP_READ_MORE', 'weiterlesen');
 define('_JSHOP_MANUFACTURER_INFO', 'Hersteller Info');
 define('_JSHOP_MY_ORDERS', 'Meine Bestellungen');
 define('_JSHOP_FROM', 'ab');
 define('_JSHOP_TO', 'bis');
 define('_JSHOP_AND', 'und');
-define('_JSHOP_CONFIRM', 'bestätigen');
+define('_JSHOP_CONFIRM', 'wurden von mir gelesen. Ich bin damit einverstanden.');
 define('_JSHOP_ERROR_MAX_COUNT_ORDER_ONE_PRODUCT', 'Die maximale Anzahl der Wareneinheiten in der Bestellung - %s');
 define('_JSHOP_ERROR_MIN_COUNT_ORDER_ONE_PRODUCT', 'Die minimale Anzahl der Wareneinheiten für die Möglichkeit der Bestellung - %s');
 define('_JSHOP_ERROR_MIN_SUM_ORDER', 'Mindestbestellmenge Preis - %s');
@@ -418,7 +412,7 @@ define('_JSHOP_TOP_RATING','Top-Bewertung');
 define('_JSHOP_TOP_HITS','Top-Hits');
 define('_JSHOP_PRINT','Drucken');
 
-define('_JSHOP_DEFAULT_PRICE','Preis ohne Rabatt');
+define('_JSHOP_DEFAULT_PRICE','Preis für Basic-Mitglieder');
 define('_JSHOP_QTY_IN_STOCK','Menge auf Lager');
 define('_JSHOP_UNLIMITED','Unbegrenzt');
 define('_JSHOP_OF','von');
@@ -427,5 +421,28 @@ define('_JSHOP_SEARCH_FOR','Suche nach');
 define('_JSHOP_ANY_WORDS','Irgendein Wort');
 define('_JSHOP_ALL_WORDS','Alle Wörter');
 define('_JSHOP_EXACT_WORDS','Exakter Ausdruck');
+
+define('_JSHOP_ORDER_DETAILS','Bestellen Details');
+define('_JSHOP_CART_EMPTY','Es befinden sich keine Artikel im Warenkorb.');
+define('_JSHOP_ORDER_DELIVERY_TIME', 'Lieferdatum');
+define('_JSHOP_GROUP', 'Gruppen');
+define('_JSHOP_TITLE', 'Titel');
+define('_JSHOP_DISCOUNT', 'Rabatt');
+define('_JSHOP_USER_GROUPS_INFO', 'Alle Gruppen');
+define('_JSHOP_BILL_ADDRESS', 'Rechnungsadresse');
+define('_JSHOP_ZOOM_IMAGE', 'vergrößern');
+define('_JSHOP_INVOICE_DATE','Rechnungs-Datum');
+define('_JSHOP_PRIVACY_STATEMENT','Datenschutzerklärung akzeptieren');
+define('_JSHOP_PACKAGE_PRICE','Verpackungskosten');
+define('_JSHOP_DELIVERY_DATE','Lieferdatum');
+define('_JSHOP_ERROR_AGB','Lesen und prüfen "AGB"');
+define('_JSHOP_ERROR_SHIPPING','Fehler Lieferart');
+define('_JSHOP_M_NAME', 'zweiter Vorname');
+define('_JSHOP_BIRTHDAY', 'Geburtstag');
+define('_JSHOP_REGWARN_MNAME','Bitte geben Sie Ihren zweiter Vorname ein.');
+define('_JSHOP_REGWARN_BIRTHDAY','Bitte geben Sie Ihren Geburtstag ein.');
+define('_JSHOP_REGWARN_MNAME_DELIVERY','Bitte wählen Sie das zweiter Vorname des Empfängers aus.');
+define('_JSHOP_REGWARN_BIRTHDAY_DELIVERY','Bitte wählen Sie das Geburtstag des Empfängers aus.');
+
 
 ?>

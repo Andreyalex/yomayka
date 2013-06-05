@@ -18,7 +18,7 @@ class jshopProductLabel extends JTable{
     }
     
     function getListLabels(){
-        $db =& JFactory::getDBO();            
+        $db = JFactory::getDBO();            
         $query = "SELECT * FROM `#__jshopping_product_labels` ORDER BY name";
         $db->setQuery($query);
         $list = $db->loadObjectList();

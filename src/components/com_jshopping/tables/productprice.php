@@ -20,8 +20,8 @@ class jshopProductPrice extends JTable{
     }
     
     function getAddPrices($product_id){        
-        $db = &JFactory::getDBO();
-        $query = "SELECT * FROM `#__jshopping_products_prices` WHERE product_id = '".$db->getEscaped($product_id)."' ORDER BY product_quantity_start DESC";
+        $db = JFactory::getDBO();
+        $query = "SELECT * FROM `#__jshopping_products_prices` WHERE product_id = '".$db->escape($product_id)."' ORDER BY product_quantity_start DESC";
         $db->setQuery($query);
         return $db->loadObjectList();
     }

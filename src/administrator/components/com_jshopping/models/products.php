@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.5.0 18.02.2012
+* @version      3.13.0 18.02.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -13,42 +13,43 @@ jimport( 'joomla.application.component.model');
 class JshoppingModelProducts extends JModel{
     
     function _getAllProductsQueryForFilter($filter){
-        $lang = &JSFactory::getLang();
-        $db =& JFactory::getDBO();
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO();
         $where = "";
         if ($filter['without_product_id']){
-            $where .= " AND pr.product_id <> '".$db->getEscaped($filter['without_product_id'])."' ";    
+            $where .= " AND pr.product_id <> '".$db->escape($filter['without_product_id'])."' ";    
         }
         if ($filter['category_id']){
             $category_id = $filter['category_id'];
-            $where .= " AND pr_cat.category_id = '".$db->getEscaped($filter['category_id'])."' ";    
+            $where .= " AND pr_cat.category_id = '".$db->escape($filter['category_id'])."' ";    
         }
         if ($filter['text_search']){
             $text_search = $filter['text_search'];
-            $word = addcslashes($db->getEscaped($text_search), "_%");
+            $word = addcslashes($db->escape($text_search), "_%");
             $where .=  "AND (LOWER(pr.`".$lang->get('name')."`) LIKE '%" . $word . "%' OR LOWER(pr.`".$lang->get('short_description')."`) LIKE '%" . $word . "%' OR LOWER(pr.`".$lang->get('description')."`) LIKE '%" . $word . "%' OR pr.product_ean LIKE '%" . $word . "%' OR pr.product_id LIKE '%" . $word . "%')";            
         }
         if ($filter['manufacturer_id']){
-            $where .= " AND pr.product_manufacturer_id = '".$db->getEscaped($filter['manufacturer_id'])."' ";    
+            $where .= " AND pr.product_manufacturer_id = '".$db->escape($filter['manufacturer_id'])."' ";    
         }
         if ($filter['label_id']){
-            $where .= " AND pr.label_id = '".$db->getEscaped($filter['label_id'])."' ";    
+            $where .= " AND pr.label_id = '".$db->escape($filter['label_id'])."' ";    
         }
         if ($filter['publish']){
             if ($filter['publish']==1) $_publish = 1; else $_publish = 0;            
-            $where .= " AND pr.product_publish = '".$db->getEscaped($_publish)."' ";
+            $where .= " AND pr.product_publish = '".$db->escape($_publish)."' ";
         }
         if ($filter['vendor_id']){
-            $where .= " AND pr.vendor_id = '".$db->getEscaped($filter['vendor_id'])."' ";
+            $where .= " AND pr.vendor_id = '".$db->escape($filter['vendor_id'])."' ";
         }
     return $where;
     }
     
     function _allProductsOrder($order = null, $orderDir = null, $category_id = 0){
         if ($order && $orderDir){
-            $fields = array("product_id"=>"pr.product_id", "name"=>"name",'category'=>"namescats","manufacturer"=>"man_name","vendor"=>"v_f_name","ean"=>"ean","qty"=>"qty","price"=>"pr.product_price","hits"=>"pr.hits","date"=>"pr.product_date_added");
+            $fields = array("product_id"=>"pr.product_id", "name"=>"name",'category'=>"namescats","manufacturer"=>"man_name","vendor"=>"v_f_name","ean"=>"ean","qty"=>"pr.unlimited, qty","price"=>"pr.product_price","hits"=>"pr.hits","date"=>"pr.product_date_added", "product_name_image"=>"pr.product_name_image");
             if ($category_id) $fields['ordering'] = "pr_cat.product_ordering";
             if (strtolower($orderDir)!="asc") $orderDir = "desc";
+            if ($orderDir=="desc") $fields['qty'] ='pr.unlimited desc, qty';
             if (!$fields[$order]) return "";
             return "order by ".$fields[$order]." ".$orderDir;
         }else{
@@ -57,9 +58,9 @@ class JshoppingModelProducts extends JModel{
     }
     
     function getAllProducts($filter, $limitstart = null, $limit = null, $order = null, $orderDir = null){
-        $jshopConfig = &JSFactory::getConfig();
-        $lang = &JSFactory::getLang();
-        $db =& JFactory::getDBO(); 
+        $jshopConfig = JSFactory::getConfig();
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO(); 
         if($limit > 0){
             $limit = " LIMIT ".$limitstart." , ".$limit;
         }else{
@@ -100,8 +101,8 @@ class JshoppingModelProducts extends JModel{
     }
     
     function getCountAllProducts($filter){
-        $lang = &JSFactory::getLang();
-        $db =& JFactory::getDBO();                
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO();                
         $category_id = $filter['category_id'];
         $where = $this->_getAllProductsQueryForFilter($filter);
         if ($category_id) {
@@ -119,40 +120,39 @@ class JshoppingModelProducts extends JModel{
     }
     
     function productInCategory($product_id, $category_id) {
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = "SELECT prod_cat.category_id FROM `#__jshopping_products_to_categories` AS prod_cat
-                   WHERE prod_cat.product_id = '".$db->getEscaped($product_id)."' AND prod_cat.category_id = '".$db->getEscaped($category_id)."'";
+                   WHERE prod_cat.product_id = '".$db->escape($product_id)."' AND prod_cat.category_id = '".$db->escape($category_id)."'";
         $db->setQuery($query);
         $res = $db->query();
         return $db->getNumRows($res);
     }
     
     function getMaxOrderingInCategory($category_id) {
-        $db =& JFactory::getDBO();
-        $query = "SELECT MAX(product_ordering) as k FROM `#__jshopping_products_to_categories` WHERE category_id = '".$db->getEscaped($category_id)."'";
+        $db = JFactory::getDBO();
+        $query = "SELECT MAX(product_ordering) as k FROM `#__jshopping_products_to_categories` WHERE category_id = '".$db->escape($category_id)."'";
         $db->setQuery($query);
         return $db->loadResult();
     }
     
     function setCategoryToProduct($product_id, $categories = array()){
-        $db =& JFactory::getDBO();
-        foreach ($categories as $cat_id) {
-            if(!$this->productInCategory($product_id, $cat_id)){
+        $db = JFactory::getDBO();
+        foreach($categories as $cat_id){
+            if (!$this->productInCategory($product_id, $cat_id)){
                 $ordering = $this->getMaxOrderingInCategory($cat_id)+1;
-                $query = "INSERT INTO `#__jshopping_products_to_categories`
-                      SET `product_id` = '".$db->getEscaped($product_id)."', `category_id` = '".$db->getEscaped($cat_id)."', `product_ordering` = '".$db->getEscaped($ordering)."'";
+                $query = "INSERT INTO `#__jshopping_products_to_categories` SET `product_id` = '".$db->escape($product_id)."', `category_id` = '".$db->escape($cat_id)."', `product_ordering` = '".$db->escape($ordering)."'";
                 $db->setQuery($query);
                 $db->query();
             }
         }
 
         //delete other cat for product        
-        $query = "select `category_id` from `#__jshopping_products_to_categories` where `product_id` = '".$db->getEscaped($product_id)."'";
+        $query = "select `category_id` from `#__jshopping_products_to_categories` where `product_id` = '".$db->escape($product_id)."'";
         $db->setQuery($query);
         $listcat = $db->loadObjectList();
         foreach($listcat as $val){
             if (!in_array($val->category_id, $categories)){
-                $query = "delete from `#__jshopping_products_to_categories` where `product_id` = '".$db->getEscaped($product_id)."' and `category_id` = '".$db->getEscaped($val->category_id)."'";
+                $query = "delete from `#__jshopping_products_to_categories` where `product_id` = '".$db->escape($product_id)."' and `category_id` = '".$db->escape($val->category_id)."'";
                 $db->setQuery($query);
                 $db->query();
             }
@@ -161,19 +161,19 @@ class JshoppingModelProducts extends JModel{
     }
     
     function getRelatedProducts($product_id){
-        $db =& JFactory::getDBO();
-        $lang = &JSFactory::getLang();
+        $db = JFactory::getDBO();
+        $lang = JSFactory::getLang();
         $query = "SELECT relation.product_related_id AS product_id, prod.`".$lang->get('name')."` as name, prod.product_thumb_image as image 
                 FROM `#__jshopping_products_relations` AS relation
                 LEFT JOIN `#__jshopping_products` AS prod ON prod.product_id=relation.product_related_id
-                WHERE relation.product_id = '".$db->getEscaped($product_id)."'";
+                WHERE relation.product_id = '".$db->escape($product_id)."'";
         $db->setQuery($query);
         return $db->loadObjectList();
     }
     
     function saveAditionalPrice($product_id, $product_add_discount, $quantity_start, $quantity_finish){
-        $db =& JFactory::getDBO();
-        $query = "DELETE FROM `#__jshopping_products_prices` WHERE `product_id` = '".$db->getEscaped($product_id)."'";
+        $db = JFactory::getDBO();
+        $query = "DELETE FROM `#__jshopping_products_prices` WHERE `product_id` = '".$db->escape($product_id)."'";
         $db->setQuery($query);
         $db->query();
         
@@ -184,8 +184,8 @@ class JshoppingModelProducts extends JModel{
                 if ((!$quantity_start[$key] && !$quantity_finish[$key])) continue;
                 
                 $query = "INSERT INTO `#__jshopping_products_prices` SET 
-                            `product_id` = '" . $db->getEscaped($product_id) . "',
-                            `discount` = '" . $db->getEscaped(saveAsPrice($product_add_discount[$key])) . "',
+                            `product_id` = '" . $db->escape($product_id) . "',
+                            `discount` = '" . $db->escape(saveAsPrice($product_add_discount[$key])) . "',
                             `product_quantity_start` = '" . intval($quantity_start[$key]) . "',
                             `product_quantity_finish` = '" . intval($quantity_finish[$key]) . "'";
                 $db->setQuery($query);
@@ -193,21 +193,21 @@ class JshoppingModelProducts extends JModel{
                 $counter++;
             }
         }
-        $product =& JTable::getInstance('product', 'jshop');
+        $product = JTable::getInstance('product', 'jshop');
         $product->load($product_id);
         $product->product_is_add_price = ($counter>0) ? (1) : (0);
         $product->store();
     }
     
     function saveFreeAttributes($product_id, $attribs){
-        $db =& JFactory::getDBO();
-        $query = "DELETE FROM `#__jshopping_products_free_attr` WHERE `product_id` = '".$db->getEscaped($product_id)."'";
+        $db = JFactory::getDBO();
+        $query = "DELETE FROM `#__jshopping_products_free_attr` WHERE `product_id` = '".$db->escape($product_id)."'";
         $db->setQuery($query);
         $db->query();
         
         if (is_array($attribs)){
             foreach($attribs as $attr_id=>$v){
-                $query = "insert into `#__jshopping_products_free_attr` set `product_id` = '".$db->getEscaped($product_id)."', attr_id='".$db->getEscaped($attr_id)."'";
+                $query = "insert into `#__jshopping_products_free_attr` set `product_id` = '".$db->escape($product_id)."', attr_id='".$db->escape($attr_id)."'";
                 $db->setQuery($query);
                 $db->query();
             }
@@ -248,7 +248,7 @@ class JshoppingModelProducts extends JModel{
         }
         
         if ($is_add_price && is_array($add_discounts)){
-            $jshopConfig = &JSFactory::getConfig();
+            $jshopConfig = JSFactory::getConfig();
             $max_discount = max($add_discounts);
             if ($jshopConfig->product_price_qty_discount == 1){
                 $minprice = $minprice - $max_discount; //discount value
@@ -260,68 +260,104 @@ class JshoppingModelProducts extends JModel{
     }
     
     function copyProductBuildQuery($table, $array, $product_id){
-        $db = &JFactory::getDBO();
-        $query = "INSERT INTO `#__jshopping_products_" . $table . "` SET ";
+        $db = JFactory::getDBO();
+        $query = "INSERT INTO `#__jshopping_products_".$table."` SET ";
         $array_keys = array('image_id', 'price_id', 'review_id', 'video_id', 'product_attr_id', 'value_id', 'id');
         foreach ($array as $key=>$value){
             if (in_array($key, $array_keys)) continue;
             if ($key=='product_id') $value = $product_id;
-            $query .= "`" . $key . "` = '" . $db->getEscaped($value) . "', ";
+            $query .= "`".$key."` = '".$db->escape($value)."', ";
         }
         return $query = substr($query, 0, strlen($query) - 2);
     }
     
     function uploadVideo($product, $product_id, $post){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         
-        for($i=0; $i<$jshopConfig->product_video_upload_count; $i++){
-            $upload = new UploadFile($_FILES['product_video_'.$i]);
-            $upload->setDir($jshopConfig->video_product_path);
-            if ($upload->upload()){
-                $image_prev_video = "";
-                $file_video = $upload->getName();
-                @chmod($jshopConfig->video_product_path."/".$file_video, 0777);
-                
-                $upload2 = new UploadFile($_FILES['product_video_preview_'.$i]);
-                $upload2->setAllowFile(array('jpeg','jpg','gif','png'));
-                $upload2->setDir($jshopConfig->video_product_path);
-                if ($upload2->upload()){
-                    $image_prev_video = $upload2->getName();
-                    @chmod($jshopConfig->video_product_path."/".$image_prev_video, 0777);
-                }else{
-                    if ($upload2->getError() != 4){
-                        JError::raiseWarning("", _JSHOP_ERROR_UPLOADING_VIDEO_PREVIEW);
-                        saveToLog("error.log", "SaveProduct - Error upload video preview. code: ".$upload2->getError());
-                    }    
-                }
-                unset($upload2);                
-                $this->addToProductVideo($product_id, $file_video, $image_prev_video);
-            }else{
-                if ($upload->getError() != 4){
-                    JError::raiseWarning("", _JSHOP_ERROR_UPLOADING_VIDEO);
-                    saveToLog("error.log", "SaveProduct - Error upload video. code: ".$upload->getError());
-                }
-            }
-            unset($upload);
+        for($i=0;$i<$jshopConfig->product_video_upload_count;$i++){
+			if (!(isset($post['product_insert_code_'.$i]) && ($post['product_insert_code_'.$i] == 1))) {
+				$upload = new UploadFile($_FILES['product_video_'.$i]);
+				$upload->setDir($jshopConfig->video_product_path);
+                $upload->setFileNameMd5(0);
+                $upload->setFilterName(1);
+				if ($upload->upload()){
+					$image_prev_video = "";
+					$file_video = $upload->getName();
+					@chmod($jshopConfig->video_product_path."/".$file_video, 0777);
+					
+					$upload2 = new UploadFile($_FILES['product_video_preview_'.$i]);
+					$upload2->setAllowFile(array('jpeg','jpg','gif','png'));
+					$upload2->setDir($jshopConfig->video_product_path);
+                    $upload2->setFileNameMd5(0);
+                    $upload2->setFilterName(1);
+					if ($upload2->upload()){
+						$image_prev_video = $upload2->getName();
+						@chmod($jshopConfig->video_product_path."/".$image_prev_video, 0777);
+					}else{
+						if ($upload2->getError() != 4){
+							JError::raiseWarning("", _JSHOP_ERROR_UPLOADING_VIDEO_PREVIEW);
+							saveToLog("error.log", "SaveProduct - Error upload video preview. code: ".$upload2->getError());
+						}    
+					}
+					unset($upload2);
+					$this->addToProductVideo($product_id, $file_video, $image_prev_video);
+				}else{
+					if ($upload->getError() != 4){
+						JError::raiseWarning("", _JSHOP_ERROR_UPLOADING_VIDEO);
+						saveToLog("error.log", "SaveProduct - Error upload video. code: ".$upload->getError());
+					}
+				}
+				unset($upload);
+			} else {
+				$code_video = JRequest::getVar('product_video_code_'.$i, null, 'default', 'none', JREQUEST_ALLOWRAW);
+				if ($code_video) {
+					$upload2 = new UploadFile($_FILES['product_video_preview_'.$i]);
+					$upload2->setAllowFile(array('jpeg','jpg','gif','png'));
+					$upload2->setDir($jshopConfig->video_product_path);
+                    $upload2->setFileNameMd5(0);
+                    $upload2->setFilterName(1);
+					if ($upload2->upload()){
+						$image_prev_video = $upload2->getName();
+						@chmod($jshopConfig->video_product_path."/".$image_prev_video, 0777);
+					}else{
+						if ($upload2->getError() != 4){
+							JError::raiseWarning("", _JSHOP_ERROR_UPLOADING_VIDEO_PREVIEW);
+							saveToLog("error.log", "SaveProduct - Error upload video preview. code: ".$upload2->getError());
+						}    
+					}
+					unset($upload2);
+					$this->addToProductVideoCode($product_id, $code_video, $image_prev_video);
+				}
+			}
         }
     }
     
     function addToProductVideo($product_id, $name_video, $preview_image = '') {
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = "INSERT INTO `#__jshopping_products_videos`
-                   SET `product_id` = '" . $db->getEscaped($product_id) . "', `video_name` = '" . $db->getEscaped($name_video) . "', `video_preview` = '" . $db->getEscaped($preview_image) . "'";
+                   SET `product_id` = '" . $db->escape($product_id) . "', `video_name` = '" . $db->escape($name_video) . "', `video_preview` = '" . $db->escape($preview_image) . "'";
+        $db->setQuery($query);
+        $db->query();
+    }
+
+	function addToProductVideoCode($product_id, $code_video, $preview_image = '') {
+        $db = JFactory::getDBO();
+        $query = "INSERT INTO `#__jshopping_products_videos`
+                   SET `product_id` = '" . $db->escape($product_id) . "', `video_code` = '" . $db->escape($code_video) . "', `video_preview` = '" . $db->escape($preview_image) . "'";
         $db->setQuery($query);
         $db->query();
     }
 
     function uploadImages($product, $product_id, $post){
-        $jshopConfig = &JSFactory::getConfig();
-        $dispatcher =& JDispatcher::getInstance();
+        $jshopConfig = JSFactory::getConfig();
+        $dispatcher = JDispatcher::getInstance();
         
         for($i=0; $i<$jshopConfig->product_image_upload_count; $i++){
             $upload = new UploadFile($_FILES['product_image_'.$i]);
             $upload->setAllowFile(array('jpeg','jpg','gif','png'));
             $upload->setDir($jshopConfig->image_product_path);
+            $upload->setFileNameMd5(0);
+            $upload->setFilterName(1);
             if ($upload->upload()){
                 $name_image = $upload->getName();
                 $name_thumb = 'thumb_'.$name_image;
@@ -374,7 +410,7 @@ class JshoppingModelProducts extends JModel{
                     @chmod($path_image, 0777);
                     unset($img);
                 }
-                                                
+
                 if (!$error){
                     $this->addToProductImage($product_id, $name_full, $name_image, $name_thumb, $post["product_image_descr_".$i]);
                     $dispatcher->trigger('onAfterSaveProductImage', array($product_id, $name_full, $name_image, $name_thumb));
@@ -388,12 +424,24 @@ class JshoppingModelProducts extends JModel{
             }
                         
             unset($upload);    
-        }        
+        }
+		
+		for($i=0; $i<$jshopConfig->product_image_upload_count; $i++){
+			if ($post['product_folder_image_'.$i] != '') {
+				if (file_exists($jshopConfig->image_product_path .'/'.$post['product_folder_image_'.$i])) {
+					$name_image = $post['product_folder_image_'.$i];
+					$name_thumb = 'thumb_'.$name_image;
+					$name_full = 'full_'.$name_image;
+					$this->addToProductImage($product_id, $name_full, $name_image, $name_thumb, $post["product_image_descr_".$i]);
+					$dispatcher->trigger('onAfterSaveProductFolerImage', array($product_id, $name_full, $name_image, $name_thumb));
+				}
+			}
+		}
         
-        if (!$product->product_name_image){
+		if (!$product->product_name_image){
             $list_images = $product->getImages();
             if (count($list_images)){
-                $product =& JTable::getInstance('product', 'jshop');
+                $product = JTable::getInstance('product', 'jshop');
                 $product->load($product_id);
                 $product->product_thumb_image = $list_images[0]->image_thumb;
                 $product->product_name_image = $list_images[0]->image_name;
@@ -408,7 +456,7 @@ class JshoppingModelProducts extends JModel{
     }
     
     function addToProductImage($product_id, $name_full, $name_image, $name_thumb, $image_descr) {
-        $image =& JTable::getInstance('image', 'jshop');
+        $image = JTable::getInstance('image', 'jshop');
         $image->set("image_id", 0);
         $image->set("product_id", $product_id);
         $image->set("image_thumb", $name_thumb);
@@ -420,50 +468,52 @@ class JshoppingModelProducts extends JModel{
     }
     
     function renameProductImageOld($image_descr, $image_ordering){
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         foreach($image_descr as $id=>$v){
-            $query = "update `#__jshopping_products_images` set `name`='".$db->getEscaped($image_descr[$id])."', `ordering`='".$db->getEscaped($image_ordering[$id])."' where `image_id`='".$db->getEscaped($id)."'";
+            $query = "update `#__jshopping_products_images` set `name`='".$db->escape($image_descr[$id])."', `ordering`='".$db->escape($image_ordering[$id])."' where `image_id`='".$db->escape($id)."'";
             $db->setQuery($query);
             $db->query();
         }
     }
     
     function uploadFiles($product, $product_id, $post){
-        $jshopConfig = &JSFactory::getConfig();
-        $dispatcher =& JDispatcher::getInstance();
+        $jshopConfig = JSFactory::getConfig();
+        $dispatcher = JDispatcher::getInstance();
         
         for($i=0; $i<$jshopConfig->product_file_upload_count; $i++){
-            $upload = new UploadFile($_FILES['product_demo_file_'.$i]);
-            $upload->setDir($jshopConfig->demo_product_path);
-            $upload->setFileNameMd5(0);
-            $upload->setFilterName(1);
-            if ($upload->upload()){
-                $file_demo = $upload->getName();
-                @chmod($jshopConfig->demo_product_path."/".$file_demo, 0777);
-            }else{
-                $file_demo = "";
-                if ($upload->getError() != 4){
-                    JError::raiseWarning("", _JSHOP_ERROR_UPLOADING_FILE_DEMO);
-                    saveToLog("error.log", "SaveProduct - Error upload demo. code: ".$upload->getError());    
-                }    
+            $file_demo = "";
+            $file_sale = "";
+            if ($jshopConfig->product_file_upload_via_ftp!=1){
+                $upload = new UploadFile($_FILES['product_demo_file_'.$i]);
+                $upload->setDir($jshopConfig->demo_product_path);
+                $upload->setFileNameMd5(0);
+                $upload->setFilterName(1);
+                if ($upload->upload()){
+                    $file_demo = $upload->getName();
+                    @chmod($jshopConfig->demo_product_path."/".$file_demo, 0777);
+                }else{
+                    if ($upload->getError() != 4){
+                        JError::raiseWarning("", _JSHOP_ERROR_UPLOADING_FILE_DEMO);
+                        saveToLog("error.log", "SaveProduct - Error upload demo. code: ".$upload->getError());    
+                    }    
+                }
+                unset($upload);
+                
+                $upload = new UploadFile($_FILES['product_file_'.$i]);
+                $upload->setDir($jshopConfig->files_product_path);
+                $upload->setFileNameMd5(0);
+                $upload->setFilterName(1);
+                if ($upload->upload()){
+                    $file_sale = $upload->getName();
+                    @chmod($jshopConfig->files_product_path."/".$file_sale, 0777);
+                }else{
+                    if ($upload->getError() != 4){
+                        JError::raiseWarning("", _JSHOP_ERROR_UPLOADING_FILE_SALE);
+                        saveToLog("error.log", "SaveProduct - Error upload file sale. code: ".$upload->getError());    
+                    }    
+                }
+                unset($upload);
             }
-            unset($upload);
-            
-            $upload = new UploadFile($_FILES['product_file_'.$i]);
-            $upload->setDir($jshopConfig->files_product_path);
-            $upload->setFileNameMd5(0);
-            $upload->setFilterName(1);
-            if ($upload->upload()){
-                $file_sale = $upload->getName();
-                @chmod($jshopConfig->files_product_path."/".$file_sale, 0777);
-            }else{
-                $file_sale = "";
-                if ($upload->getError() != 4){
-                    JError::raiseWarning("", _JSHOP_ERROR_UPLOADING_FILE_SALE);
-                    saveToLog("error.log", "SaveProduct - Error upload file sale. code: ".$upload->getError());    
-                }    
-            }
-            unset($upload);
             
             if (!$file_demo && $post['product_demo_file_name_'.$i]){
                 $file_demo = $post['product_demo_file_name_'.$i];
@@ -481,22 +531,21 @@ class JshoppingModelProducts extends JModel{
     }
     
     function addToProductFiles($product_id, $file_demo, $demo_descr, $file_sale, $file_descr, $sort){
-        $db = &JFactory::getDBO();
-        $query = "INSERT INTO `#__jshopping_products_files`
-                   SET `product_id` = '" . $db->getEscaped($product_id) . "', `demo` = '" . $db->getEscaped($file_demo) . "',  `demo_descr` = '" . $db->getEscaped($demo_descr) . "', `file` = '" . $db->getEscaped($file_sale) . "', `file_descr` = '".$db->getEscaped($file_descr)."', `ordering`='".$db->getEscaped($sort)."'";
+        $db = JFactory::getDBO();
+        $query = "INSERT INTO `#__jshopping_products_files` SET `product_id` = '".$db->escape($product_id)."', `demo` = '".$db->escape($file_demo)."',  `demo_descr` = '".$db->escape($demo_descr)."', `file` = '".$db->escape($file_sale)."', `file_descr` = '".$db->escape($file_descr)."', `ordering`='".$db->escape($sort)."'";
         $db->setQuery($query);
         $db->query();
     }
     
     function productUpdateDescriptionFiles($demo_descr, $file_descr, $ordering){
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         if (is_array($demo_descr)){
             foreach($demo_descr as $file_id=>$value){
                 $query = "update `#__jshopping_products_files`SET 
-                            `demo_descr` = '".$db->getEscaped($demo_descr[$file_id])."', 
-                            `file_descr` = '".$db->getEscaped($file_descr[$file_id])."',
-                            `ordering` = '".$db->getEscaped($ordering[$file_id])."'
-                            where id='".$db->getEscaped($file_id)."'";
+                            `demo_descr` = '".$db->escape($demo_descr[$file_id])."', 
+                            `file_descr` = '".$db->escape($file_descr[$file_id])."',
+                            `ordering` = '".$db->escape($ordering[$file_id])."'
+                            where id='".$db->escape($file_id)."'";
                 $db->setQuery($query);
                 $db->query();    
             }
@@ -504,7 +553,7 @@ class JshoppingModelProducts extends JModel{
     }
     
     function saveAttributes($product, $product_id, $post){
-        $productAttribut =& JTable::getInstance('productAttribut', 'jshop');
+        $productAttribut = JTable::getInstance('productAttribut', 'jshop');
         $productAttribut->set("product_id", $product_id);
         
         $list_exist_attr = $product->getAttributes();
@@ -548,7 +597,7 @@ class JshoppingModelProducts extends JModel{
             }
         }        
         
-        $productAttribut2 =& JTable::getInstance('productAttribut2', 'jshop');
+        $productAttribut2 = JTable::getInstance('productAttribut2', 'jshop');
         $productAttribut2->set("product_id", $product_id);
         $productAttribut2->deleteAttributeForProduct();
         
@@ -573,10 +622,10 @@ class JshoppingModelProducts extends JModel{
     }
     
     function saveRelationProducts($product, $product_id, $post){
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         
         if ($post['edit']) {
-            $query = "DELETE FROM `#__jshopping_products_relations` WHERE `product_id` = '".$db->getEscaped($product_id)."'";
+            $query = "DELETE FROM `#__jshopping_products_relations` WHERE `product_id` = '".$db->escape($product_id)."'";
             $db->setQuery($query);
             $db->query();
         }
@@ -584,12 +633,71 @@ class JshoppingModelProducts extends JModel{
         $post['related_products'] = array_unique($post['related_products']);
         foreach($post['related_products'] as $key => $value){
             if ($value!=0){
-                $query = "INSERT INTO `#__jshopping_products_relations` SET `product_id` = '" . $db->getEscaped($product_id) . "', `product_related_id` = '" . $db->getEscaped($value) . "'";
+                $query = "INSERT INTO `#__jshopping_products_relations` SET `product_id` = '" . $db->escape($product_id) . "', `product_related_id` = '" . $db->escape($value) . "'";
                 $db->setQuery($query);
                 $db->query();
             }
         }
     }
+
+    function getModPrice($price, $newprice, $mod){
+        $result = 0;
+        switch($mod){
+            case '=':
+            $result = $newprice;
+            break;
+            case '+':
+            $result = $price + $newprice;
+            break;
+            case '-':
+            $result = $price - $newprice;
+            break;
+            case '*':
+            $result = $price * $newprice;
+            break;
+            case '/':
+            $result = $price / $newprice;
+            break;
+            case '%':
+            $result = $price * $newprice / 100;
+            break;
+        }
+    return $result;
+    }
     
+    function updatePriceAndQtyDependAttr($product_id, $post){
+        $db = JFactory::getDBO();
+        $_adv_query = array();
+        if ($post['product_price']!=""){
+            $price = saveAsPrice($post['product_price']);
+            if ($post['mod_price']=='%') 
+                $_adv_query[] = " `price`=`price` * '".$price."' / 100 ";
+            elseif($post['mod_price']=='=') 
+                $_adv_query[] = " `price`= '".$price."' ";
+            else 
+                $_adv_query[] = " `price`=`price` ".$post['mod_price']." '".$price."' ";
+        }
+        
+        if ($post['product_old_price']!=""){
+            $price = saveAsPrice($post['product_old_price']);
+            if ($post['mod_old_price']=='%') 
+                $_adv_query[] = " `old_price`=`old_price` * '".$price."' / 100 ";
+            elseif($post['mod_old_price']=='=') 
+                $_adv_query[] = " `old_price`= '".$price."' ";
+            else 
+                $_adv_query[] = " `old_price`=`old_price` ".$post['mod_old_price']." '".$price."' ";
+        }
+
+        if ($post['product_quantity']!=""){
+            $_adv_query[] = " `count`= '".$db->escape($post['product_quantity'])."' ";
+        }
+        
+        if (count($_adv_query)>0){
+            $adv_query = implode(" , ", $_adv_query);
+            $query = "update `#__jshopping_products_attr` SET ".$adv_query." where product_id='".$db->escape($product_id)."'";
+            $db->setQuery($query);
+            $db->query();
+        }
+    }
 }
 ?>

@@ -1,9 +1,10 @@
 <?php
-$jshopConfig = &JSFactory::getConfig();
-$lists = $this->lists;
-JHTML::_('behavior.tooltip');
+	defined('_JEXEC') or die();
+	$jshopConfig = JSFactory::getConfig();
+	$lists = $this->lists;
+	JHTML::_('behavior.tooltip');
 
-include(dirname(__FILE__)."/submenu.php");
+	include(dirname(__FILE__)."/submenu.php");
 ?>
 <form action = "index.php?option=com_jshopping&controller=config" method = "post" name = "adminForm" enctype = "multipart/form-data">
 <input type="hidden" name="task" value="">
@@ -86,7 +87,7 @@ include(dirname(__FILE__)."/submenu.php");
         <?php echo _JSHOP_SECURITYKEY?>
     </td>
     <td>
-        <input type = "input" name = "securitykey" size="50" value = "<?php print $jshopConfig->securitykey;?>" />
+        <input type = "text" name = "securitykey" size="50" value = "<?php print $jshopConfig->securitykey;?>" />
         <?php echo JHTML::tooltip(_JSHOP_INFO_SECURITYKEY);?>
     </td>
 </tr>
@@ -101,7 +102,7 @@ include(dirname(__FILE__)."/submenu.php");
         <?php echo _JSHOP_LICENSEKEY?>
     </td>
     <td>
-        <input type = "input" name = "licensekod" size="50" value = "<?php print $jshopConfig->licensekod;?>" />
+        <input type = "text" name = "licensekod" size="50" value = "<?php print $jshopConfig->licensekod;?>" />
         <a href="http://www.webdesigner-profi.de/joomla-webdesign/joomla-shop/forum/posts/22/373.html" target="_blank"><?php echo JHTML::tooltip(_JSHOP_INFO_LICENSEKEY);?></a>
     </td>
 </tr>

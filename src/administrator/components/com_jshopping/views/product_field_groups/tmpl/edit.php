@@ -1,5 +1,6 @@
 <?php
-$row = $this->row;
+	defined('_JEXEC') or die();
+	$row = $this->row;
 ?>
 <form action = "index.php?option=com_jshopping&controller=productfieldgroups" method = "post"name = "adminForm">
 

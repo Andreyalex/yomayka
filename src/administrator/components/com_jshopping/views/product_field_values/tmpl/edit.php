@@ -1,9 +1,10 @@
 <?php
-$row = $this->row;
-JHTML::_('behavior.tooltip');
+	defined('_JEXEC') or die();
+	$row = $this->row;
+	JHTML::_('behavior.tooltip');
 ?>
-<form action = "index.php?option=com_jshopping&controller=productfieldvalues&field_id=<?php print $this->field_id?>" method = "post"name = "adminForm">
-
+<div class="jshop_edit">
+<form action = "index.php?option=com_jshopping&controller=productfieldvalues&field_id=<?php print $this->field_id?>" method="post" name="adminForm" enctype="multipart/form-data">
 <div class="col100">
 <fieldset class="adminform">
 <table width = "100%" class="admintable">
@@ -30,3 +31,4 @@ JHTML::_('behavior.tooltip');
 <input type = "hidden" name = "task" value = "" />
 <input type = "hidden" name = "id" value = "<?php echo $row->id?>" />
 </form>
+</div>

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.0 31.10.2011
+* @version      3.14.1 28.04.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -180,6 +180,7 @@ define('_JSHOP_ERROR_PAYMENT_DELETED','Ошибка при удалении сп
 define('_JSHOP_ERROR_SHIPPING_DELETED','Ошибка при удалении способа доставки');
 define('_JSHOP_ORDER_STATUS_ERROR_DELETED','Ошибка при удалении статуса заказа');
 define('_JSHOP_ERROR_COUPON_EXIST','Купон уже существует');
+define('_JSHOP_ERROR_CREATE_THUMBAIL','Error create thumbail image');
 define('_JSHOP_ERROR_ALIAS_ALREADY_EXIST','Ошибка. Псевдоним уже существует');
 define('_JSHOP_PASSWORD_DONT_MATCH','Пароли не совпадают');
 define('_JSHOP_CERTAIN_METHODS_DELIVERY_NOT_SET_PRICE','Для некоторых методов доставки не установлена цена');
@@ -288,6 +289,7 @@ define('_JSHOP_VIDEO_PRODUCT_WIDTH','Ширина видео товара');
 define('_JSHOP_VIDEO_PRODUCT_HEIGHT','Высота видео товара');
 define('_JSHOP_SHOW_BAY_BUT_IN_CAT','Показать кнопку купить для списка товаров');
 define('_JSHOP_ORDER_EMAIL_DESCR','Описание заказа для клиента (в E-mail)');
+define('_JSHOP_ORDER_EMAIL_DESCR_END','Описание заказа для клиента (в E-mail, конец)');
 define('_JSHOP_USER_AS_CATALOG','Использовать как каталог');
 define('_JSHOP_SHOW_TAX','Показать НДС');
 define('_JSHOP_SHOW_TAX_IN_CART','Показать НДС для товаров в корзине');
@@ -383,6 +385,7 @@ define('_JSHOP_ERROR_COUPON_CODE', 'Ошибка в коде купона');
 define('_JSHOP_ERROR_COUPON_VALUE', 'Ошибка в значении купона');
 
 // Payments
+define('_JSHOP_PAYMENT','Система оплаты');
 define('_JSHOP_PAYMENTS','Системы оплаты');
 define('_JSHOP_LIST_PAYMENTS','Список оплат');
 define('_JSHOP_ALIAS_PAYMENT_INFO','Уникальный псевдоним оплаты');
@@ -469,7 +472,7 @@ define('_JSHOP_ATTRIBUT_VALUE_DELETED','Значение атрибута уда
 
 // Orders
 define('_JSHOP_ORDERS','Заказы');
-define('_JSHOP_ORDER_LIST','Список статусов');
+define('_JSHOP_ORDER_LIST','Список заказов');
 define('_JSHOP_ORDER_PURCHASE','Статус покупки');
 define('_JSHOP_STATUS_CHANGE','Смена статуса');
 define('_JSHOP_ORDER_HISTORY','История заказа');
@@ -599,6 +602,7 @@ define('_JSHOP_USERGROUPS', 'Группы');
 define('_JSHOP_USERGROUP_NAME','Группа');
 define('_JSHOP_USERGROUP_DISCOUNT','Скидка');
 define('_JSHOP_EDIT_USERGROUP','Редактировать группу пользователей');
+define('_JSHOP_NEW_USERGROUP','Создать группу пользователей');
 define('_JSHOP_USERGROUP_IS_DEFAULT', 'Установить по умолчанию');
 define('_JSHOP_USERGROUP_IS_DEFAULT_DESCRIPTION','Группа по умолчанию');
 
@@ -622,17 +626,12 @@ define('_JSHOP_ID','ID');
 define('_JSHOP_PRODUCT_COPY_TO','Скопировано товар ID %s в товар ID %s');
 define('_JSHOP_SUBCATEGORYS','Подкатегории');
 define('_JSHOP_ABOUT_AS','О нас');
-
 define("_JSHOP_EDIT_SHIPPING_PRICES","Изменить цены на доставку");
 define("_JSHOP_NEW_SHIPPING_PRICES","Новые цены на доставку");
-
 define('_JSHOP_OTHER_ELEMENTS','Опции');
-
 define('_JSHOP_PANEL_SHIPPINGS_PRICES','Цены на доставку');
- 
 define('_JSHOP_ORDER_DELETED_ID','Заказ ID %s был удален'); 
 define('_JSHOP_ERROR_PAYMENT_FILE_NOT_EXIST','Ошибка способа оплаты, файл "%s" не существует'); 
-
 define('_JSHOP_FILES','Файлы'); 
 define('_JSHOP_DEMO_FILE','Демо файл');
 define('_JSHOP_DESCRIPTION_DEMO_FILE','Описание для демо файла');
@@ -640,7 +639,6 @@ define('_JSHOP_FILE_SALE','Файл для продажи');
 define('_JSHOP_DESCRIPTION_FILE_SALE','Описание файла для продажи');
 define('_JSHOP_ERROR_UPLOADING_FILE_DEMO','Ошибка при загрузке демо файла'); 
 define('_JSHOP_ERROR_UPLOADING_FILE_SALE','Ошибка при загрузке файла для продажи');
-
 define('_JSHOP_UPLOAD_IMAGE','Загрузка изображений');
 define('_JSHOP_ERROR_ADD_ATTRIBUTE','Ошибка при добавлении атрибута');
 define('_JSHOP_ATTRIBUTE_EXIST','Ошибка, атрибут уже существует');
@@ -650,13 +648,10 @@ define('_JSHOP_PLUS_PERCENT_TAX', 'плюс %s %% НДС');
 define('_JSHOP_INSTALLED_NEW_LANGUAGES','Установлен новый язык');
 define('_JSHOP_EMAIL_ADMIN','E-mail администратора магазина'); 
 define('_JSHOP_EMAIL_ADMIN_INFO','Заказ будет выслан на этот E-mail адрес');
-
 define("_JSHOP_ERROR_MAIN_CURRENCY_VALUE",'Курс главной валюты должен быть = 1');
-
 define("_JSHOP_LIST_LANGUAGE","Языки");
 define("_JSHOP_LANGUAGE_NAME", "Язык");
 define("_JSHOP_DEFAULT", "По умолчанию");
-
 define("_JSHOP_DATE","Дата");
 define("_JSHOP_PRODUCT_REVIEW","Отзыв о товаре");
 define("_JSHOP_REVIEW_MARK","Рейтинг");
@@ -664,56 +659,44 @@ define("_JSHOP_LIST_PRODUCT_REVIEWS","Отзывы о товарах");
 define("_JSHOP_NEW_REVIEW","Новый отзыв");
 define("_JSHOP_EDIT_REVIEW","Редактировать отзыв");
 define("_JSHOP_PRODUCT_ID","Товар ID");
-
 define("_JSHOP_SELECT_PRODUCT","Выберите товар");
 define("_JSHOP_SELECT_CATEGORY","Выберите категорию");
-
 define("_JSHOP_DEFAULT_FRONT_LANG","Язык по умолчанию для сайта");
 define('_JSHOP_DEFAULT_FRONT_LANG_INFO','Язык по умолчанию для сайта. <a href="index.php?option=com_languages">Изменить</a>');
 define("_JSHOP_DEFAULT_LANG_FOR_COPY","Язык по умолчанию для копирования");
 define("_JSHOP_DEFAULT_LANG_FOR_COPY_INFO",'При установке нового языка будет скопирована информация с этого языка. <a href="index.php?option=com_jshopping&controller=config&task=general">Изменить</a>');
-
 define('_JSHOP_DATE_FROM','От');
 define('_JSHOP_DATE_TO','До');
-
 define('_JSHOP_FOR_USER_ID','Для клиента ID');
 define('_JSHOP_FOR_USER','Для клиента');
 define('_JSHOP_FINISHED_AFTER_USED','Завершается после использования');
-
 define('_JSHOP_ABOUT_UPLOAD_FILES','О загрузке файлов');
 define('_JSHOP_IMAGE_UPLOAD_EXT_INFO','Разрешено загружать файлы таких типов: jpg, gif, png');
 define('_JSHOP_SIZE_FILES_INFO','Размер одного файла не должен превышать %s<br>Размер всех файлов не должен превышать %s');
-
 define('_JSHOP_ERROR_UPLOADING_VIDEO','Ошибка загрузки видео');
 define('_JSHOP_ERROR_UPLOADING_VIDEO_PREVIEW','Ошибка загрузки превью для видео');
-
 define('_JSHOP_ERROR_UPLOADING_IMAGE','Ошибка при загрузке изображения');
-
-DEFINE ('_JSHOP_USER_TITLE', 'Пол');
+define('_JSHOP_USER_TITLE', 'Пол');
 define('_JSHOP_MR', 'Мужчина');
 define('_JSHOP_MS', 'Женщина');
-DEFINE ('_JSHOP_DELIVERY_ADRESS', 'Адрес доставки, если не совпадает');
+define('_JSHOP_DELIVERY_ADRESS', 'Адрес доставки, если не совпадает');
 define('_JSHOP_YOU_CANNOT_DELETE_YOURSELF','Вы не можете удалить себя!');
 define('_JSHOP_ADD_ATTRIBUT', 'Добавить атрибут');
 define('_JSHOP_PLEASE_ADD_CATEGORY', 'Пожалуйста добавьте категорию');
-
 define('_JSHOP_PURCHASE_WITHOUT_REGISTERING', 'Покупка без регистрации');
 define("_JSHOP_INSTALL_AND_UPDATE", "Установка и Обновление");
 define('_JSHOP_COMPLETED', 'Завершено');
-
 define('_JSHOP_DELIVERY_TIME', 'Срок поставки');
 define('_JSHOP_LIST_DELIVERY_TIMES', 'Сроки поставки');
 define('_JSHOP_DELIVERY_TIME_NEW', 'Добавить "Срок поставки"');
 define('_JSHOP_DELIVERY_TIME_EDIT', 'Изменить "Срок поставки"');
 define('_JSHOP_DELIVERY_TIME_DELETED', 'Срок поставки удалён');
 define('_JSHOP_DELIVERY_TIME_DELETED_ERROR_DELETED', 'Ошибка при удалении Срока поставки');
-
 define('_JSHOP_SINGLEPRICE', 'Цена за единицу');
 define('_JSHOP_ENDTOTAL', 'Сумма');
 define('_JSHOP_ENDTOTAL_INKL_TAX', 'Сумма в т.ч. НДС');
 define('_JSHOP_IDENTIFICATION_NUMBER', 'Идентификационный нр.');
 define('_JSHOP_TAX_NUMBER', 'НДС нр.');
-
 define('_JSHOP_ERROR_FILE_NOT_EXIST', 'Ошибка. Файл "%s" не существует');
 define('_JSHOP_IMPORT', 'Импорт');
 define('_JSHOP_EXPORT', 'Экспорт');
@@ -733,9 +716,7 @@ define('_JSHOP_URL', 'URL');
 define('_JSHOP_UPDATE_PACKAGE_FILE', 'Загрузка Файла');
 define('_JSHOP_UPDATE_UPLOAD_FROM_URL_PACKAGE_FILE', 'Установить из URL');
 define('_JSHOP_UPDATE_PACKAGE_UPLOAD', 'Загрузить');
-
 define('_JSHOP_INFO_LICENSEKEY', 'Узнайте, как получить ключ');
-
 define('_JSHOP_AUTOMATIC_EXECUTION', 'Автоматическое выполнение');
 define('_JSHOP_WEIGHT_VOLUME_UNITS', 'вес \ обьем \ штук');
 define('_JSHOP_BASIC_PRICE', 'Базовая цена');
@@ -803,15 +784,15 @@ define('_JSHOP_ORDERS_STATISTICS', 'Статистика заказов');
 define('_JSHOP_COUNT', 'К-во'); 
 define('_JSHOP_TOTAL_PAID', 'Всего оплачено'); 
 define('_JSHOP_CATEGORY_INVENTORY', 'Инвентаризация категорий');  
-define('_JSHOP_MANUFACTURE_INVENTORY', 'Инвентаризация производителей');  
+define('_JSHOP_MANUFACTURE_INVENTORY', 'Инвентаризация производителей');
 define('_JSHOP_ACTIVE', 'Активные');  
-define('_JSHOP_PRODUCT_INVENTORY', 'Инвентаризация товаров');  
+define('_JSHOP_PRODUCT_INVENTORY', 'Инвентаризация товаров');
 define('_JSHOP_INSTOK', 'В наличии'); 
-define('_JSHOP_OUTOFSTOK', 'Нет в наличии');   
-define('_JSHOP_DOWNLOAD', 'Загружаемые');   
-define('_JSHOP_CUSTOMERS', 'Клиенты');   
-define('_JSHOP_STAFF', 'Персонал');   
-define('_JSHOP_ENABLED', 'Подтверждённые');  
+define('_JSHOP_OUTOFSTOK', 'Нет в наличии');
+define('_JSHOP_DOWNLOAD', 'Загружаемые');
+define('_JSHOP_CUSTOMERS', 'Клиенты');
+define('_JSHOP_STAFF', 'Персонал');
+define('_JSHOP_ENABLED', 'Подтверждённые');
 define('_JSHOP_LOGGEDIN', 'Активные'); 
 define('_JSHOP_INVENTORY', 'Инвентаризация');
 
@@ -863,6 +844,7 @@ define('_JSHP_SEOPAGE_labelproducts',"Меченые продукты");
 define('_JSHP_SEOPAGE_topratingproducts',"Топ рейтинг продукты");
 define('_JSHP_SEOPAGE_tophitsproducts',"Наиболее просматриваемые продукты");
 define('_JSHP_SEOPAGE_all-products',"Все продукты");
+define('_JSHP_SEOPAGE_content-privacy_statement',"Заявление о конфиденциальности");
 
 //static text
 define('_JSHP_STPAGE_home', "Главная страница (Главная категория)");
@@ -870,10 +852,13 @@ define('_JSHP_STPAGE_manufacturer', "Производитель");
 define('_JSHP_STPAGE_agb', "Условия предоставления услуг");
 define('_JSHP_STPAGE_return_policy', "Условия возврата");
 define('_JSHP_STPAGE_order_email_descr', "Описание заказа для клиента (в E-mail)");
+define('_JSHP_STPAGE_order_email_descr_end', "Описание заказа для клиента (в E-mail, конец)");
 define('_JSHP_STPAGE_INFO_order_email_descr', "Допускается использовать переменные {name}, {family}, {email}");
+define('_JSHP_STPAGE_INFO_order_email_descr_end', "Допускается использовать переменные {name}, {family}, {email}");
 define('_JSHP_STPAGE_order_finish_descr', 'Страница "Заказ завершен"');
 define('_JSHP_STPAGE_shipping', "Описание доставки");
 define('_JSHP_STPAGE_INFO_shipping', 'Для опции товара: Показать "плюс доставка"');
+define('_JSHP_STPAGE_privacy_statement',"Заявление о конфиденциальности");
 
 define('_JSHOP_ATTRIBUTE_EXTEND_PARAMS','Дополнительные значения');
 define('_JSHOP_SHOW_DEFAULT_PRICE','Показывать цену без скидки');
@@ -882,15 +867,15 @@ define('_JSHOP_TYPE','Тип');
 define('_JSHOP_LIST','Список');
 define('_JSHOP_TEXT','Текст');
 define('_JSHOP_ACCESS','Доступ');
-define('_JSHOP_PRODUCT_EXTRA_FIELD_GROUPS','Групы характеристик товаров');
-define('_JSHOP_GROUP','Група');
+define('_JSHOP_PRODUCT_EXTRA_FIELD_GROUPS','Группы характеристик товаров');
+define('_JSHOP_GROUP','Группа');
 define('_JSHOP_SHOW_PRICE','Показывать цену');
 define('_JSHOP_ONLY_REGISTER_USER','Показать цену только для зарегистрированных пользователей');
 define('_JSHOP_ADDITIONAL_INFORMATION','Дополнительная информация');
 define('_JSHOP_USE_DECIMAL_QTY','Используется десятичное количество');
 define('_JSHOP_ADDITIONAL','Дополнительно');
 define('_JSHOP_EXTENDED_TAX_RULE_FOR','Расширенные налоговые правила для');
-define('_JSHOP_USER_WITH_TAX_ID_TAX','Tax (User with TAX ID)');
+define('_JSHOP_USER_WITH_TAX_ID_TAX','Налог (Клиент с Код НДС)');
 define('_JSHOP_SHIPPING_EXT_PRICE_CALC','Расширения для расчета цены');
 define('_JSHOP_DISPLAY_REVIEW_WITHOUT_CONFIRM','Посмотреть комментарии без подтверждения');
 define('_JSHOP_MANUFACTURER_SORTING','Сортировка производителей');
@@ -903,5 +888,81 @@ define('_JSHOP_FINISHED', 'Завершенный');
 define('_JSHOP_SAVE_ALIAS_AUTOMATICAL', 'Автоматически сохранять псевдоним');
 define('_JSHOP_WE_ALWAYS_SEND_ORDER', 'Всегда присылать заказ');
 define('_JSHOP_UPLOAD_FILE_VIA_FTP', 'Имя файла. Вам нужно загрузить файл через FTP');
+define('_JSHOP_ORDER_DETAILS','Детали заказа');
+define('_JSHOP_FINISH_ORDER','Завершить заказ');
+define('_JSHOP_ORDER_FINISHED','Заказ завершен');
+define('_JSHOP_ADDONS','Дополнения');
+define('_JSHOP_VERSION','Версия');
+define('_JSHOP_LOAD','Загрузить');
+
+define('_JSHOP_OC','Другие параметры');
+define('_JSHOP_OC_cart_back_to_shop','Назад в магазин (ссылка в корзине)');
+define('_JSHOP_OC_cart_back_to_shop_INFO', 'product / list / shop');
+define('_JSHOP_OC_product_button_back_use_end_list','Кнопка "Назад" в продукте (в конце списка)');
+define('_JSHOP_OC_display_tax_id_in_pdf', 'Показать идентификационный номер налогоплательщика в PDF');
+define('_JSHOP_OC_image_quality','Качество изображения');
+define('_JSHOP_OC_image_fill_color','Цвет заливки изображения');
+define('_JSHOP_OC_product_price_qty_discount','Скидка на партию');
+define('_JSHOP_OC_product_price_qty_discount_INFO', '1 - цена, 2 - процент');
+define('_JSHOP_OC_rating_starparts','Рейтинг части звезды');
+define('_JSHOP_OC_rating_starparts_INFO','звезда делится на {x} части');
+define('_JSHOP_OC_show_list_price_shipping_weight', 'Показать прайс-лист вес брутто');
+define('_JSHOP_OC_product_price_precision','Точность цены продукта');
+define('_JSHOP_OC_cart_decimal_qty_precision','Точность количества');
+define('_JSHOP_OC_default_frontend_currency', 'Frontend Валюта ID по умолчанию');
+define('_JSHOP_OC_product_file_upload_via_ftp','Загрузки файлов продукта (через FTP)');
+define('_JSHOP_OC_product_file_upload_via_ftp_INFO', '0 - загрузка файла, 1 - набор файлов имя, 2 - {0,1} ');
+define('_JSHOP_OC_product_file_upload_count','Количество файлов продукта');
+define('_JSHOP_OC_product_image_upload_count','Количество изображений продукта');
+define('_JSHOP_OC_product_video_upload_count','Количество видео продукта');
+define('_JSHOP_OC_show_insert_code_in_product_video', 'Видео продукта (возможность вставки кода)');
+define('_JSHOP_OC_max_number_download_sale_file','Максимальное количество скачиваний файла для продажи');
+define('_JSHOP_OC_max_number_download_sale_file_INFO', '0 - без ограничений');
+define('_JSHOP_OC_max_day_download_sale_file','Максимальное количество дней файла для продажи');
+define('_JSHOP_OC_max_day_download_sale_file_INFO', '0 - без ограничений');
+define('_JSHOP_OC_order_display_new_digital_products', 'Показать новую цифровую продукцию (заказ)');
+define('_JSHOP_OC_display_user_groups_info','Показать информацию группы пользователей');
+define('_JSHOP_OC_display_user_group','Показать группы пользователей');
+define('_JSHOP_OC_display_delivery_time_for_product_in_order_mail', 'Показывать время доставки продукта в заказе (электронная почта)');
+define('_JSHOP_OC_load_jquery','Использовать jQuery');
+define('_JSHOP_OC_load_jquery_version','Версия jQuery');
+define('_JSHOP_OC_load_jquery_lightbox','Использовать Lightbox');
+define('_JSHOP_OC_load_css','Использовать CSS');
+define('_JSHOP_OC_load_javascript','Загружать javascript');
+define('_JSHOP_OC_tax_on_delivery_address','Налог на адрес доставки');
+
+define('_JSHOP_SHOW_EXTRA_FIELDS_CART','Показать характеристики в Корзине');
+define('_JSHOP_OVERRIDING_ADDRESSES','Переопределение адресов');
+define('_JSHOP_DELIVERY_ORDER_DEPENDS_DELIVERY_PRODUCT','Доставка заказа зависит от доставки продукции');
+define('_JSHOP_DAYS','Дней');
+define('_JSHOP_ORDER_FINISH', 'Подтвердить заказ');
+define('_JSHOP_INSERT_CODE', 'Вставить код');
+define('_JSHOP_UPDATE_ARE_AVAILABLE', 'Доступно обновление до %s!');
+define('_JSHOP_MULTI_LIST','Множественный список');
+
+define('_JSHOP_SHOW_WEIGHT_IN_INVOICE','Вес в счет-фактуре');
+define('_JSHOP_SHOW_SHIPPING_IN_INVOICE','Доставка в счет-фактуре');
+define('_JSHOP_SHOW_PAYMENT_IN_INVOICE','Оплата в счет-фактуре');
+define('_JSHOP_INVOICE_DATE','Дата счета-фактуры');
+define('_JSHOP_FIELD_PRIVACY_STATEMENT','Заявление о конфиденциальности');
+define('_JSHOP_DELETE_ALL_DATA','Все данные будут удалены. Удалить?');
+define('_JSHOP_NUMERIC','Числовой');
+define('_JSHOP_PRODUCT_TAX_RATE','Налоговая ставка продукта');
+define('_JSHOP_PACKAGE_TAX', 'Налог на упаковку');
+define('_JSHOP_USE_OLD_VALUE_PRICE', 'Используйте старые значения цены');
+define('_JSHOP_SHOW_DELIVERY_DATE', 'Показать "Дата поставки"');
+define('_JSHOP_DELIVERY_DATE','Дата поставки');
+define('_JSHOP_STOCK','Склад');
+define('_JSHOP_ITEM_ALREADY_USE','"%s" уже используется');
+define('_JSHOP_SHORT_DESCR_MULTILINE','Многострочное краткое описание');
+define('_JSHOP_COUNT_DOWNLOAD', 'Количество скачанного');
+define('_JSHOP_CLEAR', 'Очистить');
+define('_JSHOP_SEND_MAIL', 'Отправить письмо');
+define('_JSHOP_MAIL_HAS_BEEN_SENT', 'E-mail отправлен');
+define('_JSHOP_SENT_INVOICE_MANUALLY', 'Отправлять счета-фактуру вручную');
+define('_JSHOP_FIELD_M_NAME', 'Отчество');
+define('_JSHOP_FIELD_BIRTHDAY', 'День рождения');
+define('_JSHOP_M_NAME', 'Отчество');
+define('_JSHOP_BIRTHDAY', 'День рождения');
 
 ?>

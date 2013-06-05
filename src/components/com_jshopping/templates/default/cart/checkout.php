@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <div class="jshop">
 <table class = "jshop cart">
   <tr>
@@ -26,13 +27,21 @@
         <img src = "<?php print $this->image_product_path ?>/<?php if ($prod['thumb_image']) print $prod['thumb_image']; else print $this->no_image; ?>" alt = "<?php print htmlspecialchars($prod['product_name']);?>" class = "jshop_img" />
       </a>
     </td>
-    <td style="text-align:left">
-        <?php print $prod['product_name']; ?>
-        <?php if ($this->config->show_product_code_in_cart) print "<span class='jshop_code_prod'>(".$prod['ean'].")</span>";?>
-        
+    <td class="product_name">
+        <a href="<?php print $prod['href']?>"><?php print $prod['product_name']?></a>
+        <?php if ($this->config->show_product_code_in_cart){?>
+        <span class="jshop_code_prod">(<?php print $prod['ean']?>)</span>
+        <?php }?>
+        <?php if ($prod['manufacturer']!=''){?>
+        <div class="manufacturer"><?php print _JSHOP_MANUFACTURER?>: <span><?php print $prod['manufacturer']?></span></div>
+        <?php }?>
         <?php print sprintAtributeInCart($prod['attributes_value']);?>
         <?php print sprintFreeAtributeInCart($prod['free_attributes_value']);?>
+        <?php print sprintFreeExtraFiledsInCart($prod['extra_fields']);?>
         <?php print $prod['_ext_attribute_html']?>
+        <?php if ($this->config->show_delivery_time_step5 && $this->step==5 && $prod['delivery_times_id']){?>
+        <div class="deliverytime"><?php print _JSHOP_DELIVERY_TIME?>: <?php print $this->deliverytimes[$prod['delivery_times_id']]?></div>
+        <?php }?>
     </td>    
     <td>
       <?php print formatprice($prod['price'])?>
@@ -85,7 +94,7 @@
     </td>
   </tr>
   <?php } ?>
-  <?php if (isset($this->summ_delivery)){ ?>
+  <?php if (isset($this->summ_delivery)){?>
   <tr>
     <td class = "name">
          <?php print _JSHOP_SHIPPING_PRICE;?>
@@ -95,7 +104,17 @@
     </td>
   </tr>
   <?php } ?>
-  <?php if ($this->summ_payment > 0){ ?>
+  <?php if (isset($this->summ_package)){?>
+  <tr>
+    <td class = "name">
+         <?php print _JSHOP_PACKAGE_PRICE;?>
+    </td>
+    <td class = "value">
+      <?php print formatprice($this->summ_package);?><?php print $this->_tmp_ext_shipping_package?>
+    </td>
+  </tr>
+  <?php } ?>
+  <?php if ($this->summ_payment != 0){ ?>
   <tr>
     <td class = "name">
          <?php print $this->payment_name;?>
@@ -118,7 +137,7 @@
   </tr>
   <?php } ?>
   <?php } ?>
-  <tr>
+  <tr class="total">
     <td class = "name">
       <?php print $this->text_total; ?>
     </td>

@@ -1,65 +1,70 @@
 <?php
 /**
-* @version      3.4.0 06.01.2012
+* @version      3.13.0 11.01.2013
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
 * @license      GNU/GPL
 */
 
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die('Restricted access');
 jimport('joomla.application.component.controller');
 
 class JshoppingControllerProduct extends JController{
 
-    function display(){
-        $mainframe =& JFactory::getApplication();
-        $db =& JFactory::getDBO();
-        $ajax = JRequest::getInt('ajax');    
-        $jshopConfig = &JSFactory::getConfig();
-        $user = &JFactory::getUser();
+    function display($cachable = false, $urlparams = false){
+        $mainframe =JFactory::getApplication();
+        $db =JFactory::getDBO();
+        $ajax = JRequest::getInt('ajax');
+        $jshopConfig = JSFactory::getConfig();
+        $user = JFactory::getUser();
         JSFactory::loadJsFilesLightBox();
-        $session =& JFactory::getSession();
+        $session =JFactory::getSession();
         $tmpl = JRequest::getVar("tmpl");
         if ($tmpl!="component"){
             $session->set("jshop_end_page_buy_product", $_SERVER['REQUEST_URI']);
         }
-
-        $Itemid = JRequest::getInt('Itemid');
         $product_id = JRequest::getInt('product_id');
         $category_id = JRequest::getInt('category_id');
-        
-        JPluginHelper::importPlugin('jshoppingproducts');        
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeLoadProduct', array() );
-        $dispatcher->trigger( 'onBeforeLoadProductList', array() );
-        
-        $product = &JTable::getInstance('product', 'jshop');
+        $attr = JRequest::getVar("attr");
+        $back_value = $session->get('product_back_value');
+        if ($back_value['pid']!=$product_id) $back_value = array();
+        if (!is_array($back_value['attr'])) $back_value['attr'] = array();
+        if (count($back_value['attr'])==0 && is_array($attr)) $back_value['attr'] = $attr;
+        JPluginHelper::importPlugin('jshoppingproducts');
+        $dispatcher =JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeLoadProduct', array(&$product_id, &$category_id, &$back_value));
+        $dispatcher->trigger('onBeforeLoadProductList', array());
+
+        $product = JTable::getInstance('product', 'jshop');
         $product->load($product_id);
-        
+        $listcategory = $product->getCategories(1);
+
         if (!getDisplayPriceForProduct($product->product_price)){
             $jshopConfig->attr_display_addprice = 0;
         }
         
-        $attributesDatas = $product->getAttributesDatas();
-        $product->setAttributeActive($attributesDatas['attributeActive']);        
+        $attributesDatas = $product->getAttributesDatas($back_value['attr']);
+        $product->setAttributeActive($attributesDatas['attributeActive']);
         $attributeValues = $attributesDatas['attributeValues'];
         
         $attributes = $product->getBuildSelectAttributes($attributeValues, $attributesDatas['attributeSelected']);
         if (count($attributes)){
-            $_attributevalue = &JTable::getInstance('AttributValue', 'jshop');
+            $_attributevalue = JTable::getInstance('AttributValue', 'jshop');
             $all_attr_values = $_attributevalue->getAllAttributeValues();
         }else{
             $all_attr_values = array();
-        }        
+        }
 
-        $product->getExtendsData();        
-            
-        $category = &JTable::getInstance('category', 'jshop');
+        $session->set('product_back_value',array());
+        $product->getExtendsData();
+
+        $category = JTable::getInstance('category', 'jshop');
         $category->load($category_id);
         $category->name = $category->getName();
         
-        if ($category->category_publish==0 || $product->product_publish==0 || !in_array($product->access, $user->getAuthorisedViewLevels())){
+        $dispatcher->trigger('onBeforeCheckProductPublish', array(&$product, &$category, &$category_id, &$listcategory));
+        if ($category->category_publish==0 || $product->product_publish==0 || !in_array($product->access, $user->getAuthorisedViewLevels()) || !in_array($category_id, $listcategory)){
             JError::raiseError( 404, _JSHOP_PAGE_NOT_FOUND);
             return;
         }
@@ -67,7 +72,7 @@ class JshoppingControllerProduct extends JController{
         if (getShopMainPageItemid()==JRequest::getInt('Itemid')){
             appendExtendPathway($category->getTreeChild(), 'product');
         }
-        appendPathWay($product->name);        
+        appendPathWay($product->name);
         if ($product->meta_title=="") $product->meta_title = $product->name;
         setMetaData($product->meta_title, $product->meta_keyword, $product->meta_description);
         
@@ -75,24 +80,24 @@ class JshoppingControllerProduct extends JController{
         
         $product->product_basic_price_unit_qty = 1;
         if ($jshopConfig->admin_show_product_basic_price){
-            $product->getBasicPriceInfo();        
+            $product->getBasicPriceInfo();
         }
         
         $view_name = "product";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
         
         if ($product->product_template=="") $product->product_template = "default";
         $view->setLayout("product_".$product->product_template);
         
-        $_review = &JTable::getInstance('review', 'jshop');
-        if(($allow_review = $_review->getAllowReview()) > 0) {
-            $arr_marks = array();        
+        $_review = JTable::getInstance('review', 'jshop');
+        if(($allow_review = $_review->getAllowReview()) > 0){
+            $arr_marks = array();
             $arr_marks[] = JHTML::_('select.option',  '0', _JSHOP_NOT, 'mark_id', 'mark_value' );
-            for ($i = 1; $i <= $jshopConfig->max_mark; $i++) {            
+            for($i=1;$i<=$jshopConfig->max_mark;$i++){
                 $arr_marks[] = JHTML::_('select.option', $i, $i, 'mark_id', 'mark_value' );
             }
-            $text_review = '';        
+            $text_review = '';
             $select_review = JHTML::_('select.genericlist', $arr_marks, 'mark', 'class="inputbox" size="1"','mark_id', 'mark_value' );
         } else {
             $select_review = '';
@@ -101,7 +106,7 @@ class JshoppingControllerProduct extends JController{
         if ($allow_review){
             JSFactory::loadJsFilesRating();
         }
-                
+
         if ($jshopConfig->product_show_manufacturer_logo || $jshopConfig->product_show_manufacturer){
             $product->manufacturer_info = $product->getManufacturerInfo();
         }else{
@@ -110,8 +115,8 @@ class JshoppingControllerProduct extends JController{
         
         if ($jshopConfig->product_show_vendor){
             $vendorinfo = $product->getVendorInfo();
-            $vendorinfo->urllistproducts = SEFLink("index.php?option=com_jshopping&controller=vendor&task=products&vendor_id=".$vendorinfo->id);
-            $vendorinfo->urlinfo = SEFLink("index.php?option=com_jshopping&controller=vendor&task=info&vendor_id=".$vendorinfo->id);
+            $vendorinfo->urllistproducts = SEFLink("index.php?option=com_jshopping&controller=vendor&task=products&vendor_id=".$vendorinfo->id,1);
+            $vendorinfo->urlinfo = SEFLink("index.php?option=com_jshopping&controller=vendor&task=info&vendor_id=".$vendorinfo->id,1);
             $product->vendor_info = $vendorinfo;
         }else{
             $product->vendor_info = null;
@@ -126,7 +131,7 @@ class JshoppingControllerProduct extends JController{
         if ($jshopConfig->admin_show_freeattributes){
             $product->getListFreeAttributes();
             foreach($product->freeattributes as $k=>$v){
-                $product->freeattributes[$k]->input_field = '<input type="text" class="inputbox" size="40" name="freeattribut['.$v->id.']" value="" />';
+                $product->freeattributes[$k]->input_field = '<input type="text" class="inputbox" size="40" name="freeattribut['.$v->id.']" value="'.$back_value['freeattr'][$v->id].'" />';
             }
             $attrrequire = $product->getRequireFreeAttribute();
             $product->freeattribrequire = count($attrrequire);
@@ -138,6 +143,7 @@ class JshoppingControllerProduct extends JController{
             $product->qty_in_stock = getDataProductQtyInStock($product);
         }
         
+        if (!$jshopConfig->admin_show_product_labels) $product->label_id = null;
         if ($product->label_id){
             $image = getNameImageLabel($product->label_id);
             if ($image){
@@ -145,11 +151,11 @@ class JshoppingControllerProduct extends JController{
             }
             $product->_label_name = getNameImageLabel($product->label_id, 2);
         }
-        
+
         $hide_buy = 0;
         if ($jshopConfig->user_as_catalog) $hide_buy = 1;
         if ($jshopConfig->hide_buy_not_avaible_stock && $product->product_quantity <= 0) $hide_buy = 1;
-        
+
         $available = "";
         if ( ($product->getQty() <= 0) && $product->product_quantity >0 ){
             $available = _JSHOP_PRODUCT_NOT_AVAILABLE_THIS_OPTION;
@@ -164,7 +170,7 @@ class JshoppingControllerProduct extends JController{
             $product->product_basic_price_show = 0;
             $product->product_is_add_price = 0;
             $product->product_tax = 0;
-            $jshopConfig->show_plus_shipping_in_product = 0;            
+            $jshopConfig->show_plus_shipping_in_product = 0;
         }
         
         if (!$product->_display_price) $hide_buy = 1;
@@ -172,6 +178,9 @@ class JshoppingControllerProduct extends JController{
         $default_count_product = 1;
         if ($jshopConfig->min_count_order_one_product>1){
             $default_count_product = $jshopConfig->min_count_order_one_product;
+        }
+        if ($back_value['qty']){
+            $default_count_product = $back_value['qty'];
         }
 
         if (trim($product->description)=="") $product->description = $product->short_description;
@@ -184,17 +193,20 @@ class JshoppingControllerProduct extends JController{
         if ($session->get('jshop_end_page_list_product') && $jshopConfig->product_button_back_use_end_list){
             $product->button_back_js_click = "location.href='".$session->get('jshop_end_page_list_product')."';";
         }
+
+        $displaybuttons = '';
+        if ($jshopConfig->hide_buy_not_avaible_stock && $product->getQty() <= 0) $displaybuttons = 'display:none;';
         
         $product_images = $product->getImages();
         $product_videos = $product->getVideos();
         $product_demofiles = $product->getDemoFiles();
 
-        $dispatcher->trigger( 'onBeforeDisplayProductList', array(&$product->product_related) );
-        $dispatcher->trigger( 'onBeforeDisplayProduct', array(&$product, &$view, &$product_images, &$product_videos, &$product_demofiles) );
-
+        $dispatcher->trigger('onBeforeDisplayProductList', array(&$product->product_related));
+        $dispatcher->trigger('onBeforeDisplayProduct', array(&$product, &$view, &$product_images, &$product_videos, &$product_demofiles) );
+        
         $view->assign('config', $jshopConfig);
-        $view->assign('image_path', $jshopConfig->live_path . '/images');
-        $view->assign('noimage', 'noimage.gif');
+        $view->assign('image_path', $jshopConfig->live_path.'/images');
+        $view->assign('noimage', $jshopConfig->noimage);
         $view->assign('image_product_path', $jshopConfig->image_product_live_path);
         $view->assign('video_product_path', $jshopConfig->video_product_live_path);
         $view->assign('video_image_preview_path', $jshopConfig->video_product_live_path);
@@ -205,53 +217,54 @@ class JshoppingControllerProduct extends JController{
         $view->assign('demofiles', $product_demofiles);
         $view->assign('attributes', $attributes);
         $view->assign('all_attr_values', $all_attr_values);
-        $view->assign('related_prod', $product->product_related);        
+        $view->assign('related_prod', $product->product_related);
         $view->assign('path_to_image', $jshopConfig->live_path . 'images/');
         $view->assign('live_path', JURI::root());
         $view->assign('enable_wishlist', $jshopConfig->enable_wishlist);
-        $view->assign('action', SEFLink('index.php?option=com_jshopping&controller=cart&task=add'));
-        $view->assign('urlupdateprice', SEFLink('index.php?option=com_jshopping&controller=product&task=ajax_attrib_select_and_price&product_id='.$product_id.'&ajax=1',0,1));
-
+        $view->assign('action', SEFLink('index.php?option=com_jshopping&controller=cart&task=add',1));
+        $view->assign('urlupdateprice', SEFLink('index.php?option=com_jshopping&controller=product&task=ajax_attrib_select_and_price&product_id='.$product_id.'&ajax=1',1,1));
         if ($allow_review){
             $context = "jshoping.list.front.product.review";
-            $limit = $mainframe->getUserStateFromRequest( $context.'limit', 'limit', 20, 'int');
+            $limit = $mainframe->getUserStateFromRequest($context.'limit', 'limit', 20, 'int');
             $limitstart = JRequest::getInt('limitstart');
             $total =  $product->getReviewsCount();
             $view->assign('reviews', $product->getReviews($limitstart, $limit));
             jimport('joomla.html.pagination');
-            $pagination = new JPagination($total, $limitstart, $limit);            
+            $pagination = new JPagination($total, $limitstart, $limit);
             $pagenav = $pagination->getPagesLinks();
             $view->assign('pagination', $pagenav);
+			$view->assign('pagination_obj', $pagination);
             $view->assign('display_pagination', $pagenav!="");
-        } 
-        
+        }
         $view->assign('allow_review', $allow_review);
         $view->assign('select_review', $select_review);
         $view->assign('text_review', $text_review);
         $view->assign('stars_count', floor($jshopConfig->max_mark / $jshopConfig->rating_starparts));
-        $view->assign('parts_count', $jshopConfig->rating_starparts);        
-        $view->assign('user', $user);        
-        $view->assign('shippinginfo', SEFLink('index.php?option=com_jshopping&controller=content&task=view&page=shipping'));
+        $view->assign('parts_count', $jshopConfig->rating_starparts);
+        $view->assign('user', $user);
+        $view->assign('shippinginfo', SEFLink('index.php?option=com_jshopping&controller=content&task=view&page=shipping',1));
         $view->assign('hide_buy', $hide_buy);
         $view->assign('available', $available);
         $view->assign('default_count_product', $default_count_product);
         $view->assign('folder_list_products', "list_products");
-        $dispatcher->trigger('onBeforeDisplayProductView', array(&$view) );
+        $view->assign('back_value', $back_value);
+        $view->assign('displaybuttons', $displaybuttons);
+        $dispatcher->trigger('onBeforeDisplayProductView', array(&$view));
         $view->display();
-        
-        $dispatcher->trigger( 'onAfterDisplayProduct', array(&$product) );
+        $dispatcher->trigger('onAfterDisplayProduct', array(&$product));
         if ($ajax) die();
     }
     
     function getfile(){
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
-        
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
+
         $id = JRequest::getInt('id'); 
         $oid = JRequest::getInt('oid');
         $hash = JRequest::getVar('hash');
+        $rl = JRequest::getInt('rl');
         
-        $order = &JTable::getInstance('order', 'jshop');
+        $order = JTable::getInstance('order', 'jshop');
         $order->load($oid);
         if ($order->file_hash!=$hash){
             JError::raiseError(500, "Error download file");
@@ -260,15 +273,39 @@ class JshoppingControllerProduct extends JController{
         
         if (!in_array($order->order_status, $jshopConfig->payment_status_enable_download_sale_file)){
             JError::raiseWarning(500, _JSHOP_FOR_DOWNLOAD_ORDER_MUST_BE_PAID);
-            return 0;    
+            return 0;
+        }
+
+        if ($rl==1){
+            //fix for IE
+            $newurl = JURI::root()."index.php?option=com_jshopping&controller=product&task=getfile&oid=".$oid."&id=".$id."&hash=".$hash; 
+            print "<script type='text/javascript'>location.href='".$newurl."';</script>";
+            die();
+        }
+
+        if ($jshopConfig->max_day_download_sale_file && (time() > ($order->getStatusTime()+(86400*$jshopConfig->max_day_download_sale_file))) ){
+            JError::raiseWarning(500, _JSHOP_TIME_DOWNLOADS_FILE_RESTRICTED);
+            return 0; 
         }
         
-        $items = $order->getAllItems(); 
-        $filesid = array();
-        foreach($items as $item){
-            $arrayfiles = unserialize($item->files);
-            foreach($arrayfiles as $_file){
-                $filesid[] = $_file->id;    
+        $items = $order->getAllItems();
+		$filesid = array();
+        if ($jshopConfig->order_display_new_digital_products){
+            $product = JTable::getInstance('product', 'jshop');
+            foreach($items as $item){
+                $product->product_id = $item->product_id;
+				$product->setAttributeActive(unserialize($item->attributes));
+                $files = $product->getSaleFiles();
+                foreach($files as $_file){
+                    $filesid[] = $_file->id;
+                }
+            }
+        }else{
+            foreach($items as $item){
+                $arrayfiles = unserialize($item->files);
+                foreach($arrayfiles as $_file){
+                    $filesid[] = $_file->id;
+                }
             }
         }
         
@@ -279,17 +316,17 @@ class JshoppingControllerProduct extends JController{
         
         $stat_download = $order->getFilesStatDownloads();
         
-        if ($stat_download[$id] >= $jshopConfig->max_number_download_sale_file){
+        if ($jshopConfig->max_number_download_sale_file>0 && $stat_download[$id] >= $jshopConfig->max_number_download_sale_file){
             JError::raiseWarning(500, _JSHOP_NUMBER_DOWNLOADS_FILE_RESTRICTED);
             return 0;
         }
         
-        $file = &JTable::getInstance('productFiles', 'jshop');
+        $file = JTable::getInstance('productFiles', 'jshop');
         $file->load($id);
         $downloadFile = $file->file;
         if ($downloadFile==""){
             JError::raiseWarning('', "Error download file");
-            return 0;        
+            return 0;
         }
         $file_name = $jshopConfig->files_product_path."/".$downloadFile;
         if (!file_exists($file_name)){
@@ -301,16 +338,16 @@ class JshoppingControllerProduct extends JController{
         $order->setFilesStatDownloads($stat_download);
         $order->store();
         
-        ob_end_clean();        
-        @set_time_limit(0);        
-        $fp = fopen($file_name, "rb");        
+        ob_end_clean();
+        @set_time_limit(0);
+        $fp = fopen($file_name, "rb");
         header("Cache-Control: no-cache, must-revalidate");
         header("Pragma: no-cache");
         header("Content-Type: application/octet-stream");
         header("Content-Length: " . (string)(filesize($file_name)));
         header('Content-Disposition: attachment; filename="' . basename($file_name) . '"');
         header("Content-Transfer-Encoding: binary");
-        
+
         while( (!feof($fp)) && (connection_status()==0) ){
             print(fread($fp, 1024*8));
             flush();
@@ -320,56 +357,54 @@ class JshoppingControllerProduct extends JController{
     }
     
     function reviewsave(){
-        $mainframe =& JFactory::getApplication();
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
-        $user = &JFactory::getUser(); 
+        $mainframe =JFactory::getApplication();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
+        $user = JFactory::getUser(); 
         $post = JRequest::get('post');
         $backlink = JRequest::getVar('back_link');
         $product_id = JRequest::getInt('product_id');
         
         JPluginHelper::importPlugin('jshoppingproducts');
-        $dispatcher =& JDispatcher::getInstance();
-        
-        $review = &JTable::getInstance('review', 'jshop');
-        
-        if ($review->getAllowReview() <= 0) {
+        $dispatcher =JDispatcher::getInstance();        
+        $review = JTable::getInstance('review', 'jshop');
+
+        if ($review->getAllowReview()<=0){
             JError::raiseWarning('', jshopReview::getText());
             $this->setRedirect($backlink);
             return 0;
         }
-                
+
         $review->bind($post);
-        $review->time = date("Y-m-d H:i:s",mktime());
+        $review->time = date("Y-m-d H:i:s",time());
         $review->user_id = $user->id;
         $review->ip = $_SERVER['REMOTE_ADDR'];
         if ($jshopConfig->display_reviews_without_confirm){
             $review->publish = 1;    
         }
-                                                         
-        $dispatcher->trigger( 'onBeforeSaveReview', array(&$review) );
+        $dispatcher->trigger('onBeforeSaveReview', array(&$review));
 
-        if (!$review->check()) {            
+        if (!$review->check()){
             JError::raiseWarning('', _JSHOP_ENTER_CORRECT_INFO_REVIEW);
             $this->setRedirect($backlink);
             return 0;
         }
-        $review->store();            
+        $review->store();
 
-        $dispatcher->trigger( 'onAfterSaveReview', array(&$review) );
-        
-        $product = &JTable::getInstance('product', 'jshop');
+        $dispatcher->trigger('onAfterSaveReview', array(&$review));
+
+        $product = JTable::getInstance('product', 'jshop');
         $product->load($product_id);
         $product->loadAverageRating();
         $product->loadReviewsCount();
         $product->store();
 
-        $lang = &JSFactory::getLang();
+        $lang = JSFactory::getLang();
         $name = $lang->get("name");
-        
+
         $view_name = "product";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, 'html', '', $view_config);
+        $view = $this->getView($view_name, 'html', '', $view_config);
         $view->setLayout("commentemail");
         $view->assign('product_name', $product->$name);
         $view->assign('user_name', $review->user_name);
@@ -377,18 +412,18 @@ class JshoppingControllerProduct extends JController{
         $view->assign('mark', $review->mark);
         $view->assign('review', $review->review);
         $message = $view->loadTemplate();
-        
+
         $mailfrom = $mainframe->getCfg('mailfrom');
         $fromname = $mainframe->getCfg('fromname');
-        
-        $mailer =& JFactory::getMailer();
+
+        $mailer =JFactory::getMailer();
         $mailer->setSender(array($mailfrom, $fromname));
         $mailer->addRecipient($jshopConfig->contact_email);
         $mailer->setSubject(_JSHOP_NEW_COMMENT);
-        $mailer->setBody($message);        
+        $mailer->setBody($message);
         $mailer->isHTML(true);
-        $send =& $mailer->Send();
-                
+        $send = $mailer->Send();
+
         if ($jshopConfig->display_reviews_without_confirm){
             $this->setRedirect($backlink, _JSHOP_YOUR_REVIEW_SAVE_DISPLAY);
         }else{
@@ -400,8 +435,8 @@ class JshoppingControllerProduct extends JController{
     * get attributes html selects, price for select attribute 
     */
     function ajax_attrib_select_and_price(){
-        $db = &JFactory::getDBO();        
-        $jshopConfig = &JSFactory::getConfig();
+        $db = JFactory::getDBO();        
+        $jshopConfig = JSFactory::getConfig();
                 
         $product_id = JRequest::getInt('product_id');
         $change_attr = JRequest::getInt('change_attr');
@@ -413,17 +448,21 @@ class JshoppingControllerProduct extends JController{
         if ($qty < 0) $qty = 0;
         $attribs = JRequest::getVar('attr');
         if (!is_array($attribs)) $attribs = array();
+        $freeattr = JRequest::getVar('freeattr');
+        if (!is_array($freeattr)) $freeattr = array();
         
-        JPluginHelper::importPlugin('jshoppingproducts');        
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger('onBeforeLoadDisplayAjaxAttrib', array(&$product_id, &$change_attr, &$qty, &$attribs));
+        JPluginHelper::importPlugin('jshoppingproducts');
+        $dispatcher =JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeLoadDisplayAjaxAttrib', array(&$product_id, &$change_attr, &$qty, &$attribs, &$freeattr));
         
-        $product = &JTable::getInstance('product', 'jshop'); 
+        $product = JTable::getInstance('product', 'jshop'); 
         $product->load($product_id);
+        $dispatcher->trigger('onBeforeLoadDisplayAjaxAttrib2', array(&$product));
         
         $attributesDatas = $product->getAttributesDatas($attribs);
-        $product->setAttributeActive($attributesDatas['attributeActive']);        
+        $product->setAttributeActive($attributesDatas['attributeActive']);
         $attributeValues = $attributesDatas['attributeValues'];
+        $product->setFreeAttributeActive($freeattr);
         
         $attributes = $product->getBuildSelectAttributes($attributeValues, $attributesDatas['attributeSelected']);
 
@@ -436,9 +475,10 @@ class JshoppingControllerProduct extends JController{
         $pricefloat = $product->getPrice($qty, 1, 1, 1);
         $price = formatprice($pricefloat);
         $available = intval($product->getQty() > 0);
+        $displaybuttons = intval(intval($product->getQty() > 0) || $jshopConfig->hide_buy_not_avaible_stock==0);
         $ean = $product->getEan();
         $weight = formatweight($product->getWeight());
-        $weight_volume_units = $product->getWeight_volume_units();        
+        $weight_volume_units = $product->getWeight_volume_units();
         
         $rows[] = '"price":"'.$price.'"';
         $rows[] = '"pricefloat":"'.$pricefloat.'"';
@@ -454,7 +494,7 @@ class JshoppingControllerProduct extends JController{
             $rows[] = '"pricedefault":"'.formatprice($product->product_price_default).'"';
         }
         if ($jshopConfig->product_show_qty_stock){
-            $qty_in_stock = getDataProductQtyInStock($product);        
+            $qty_in_stock = getDataProductQtyInStock($product);
             $rows[] = '"qty":"'.sprintQtyInStock($qty_in_stock).'"';
         }
         
@@ -469,37 +509,55 @@ class JshoppingControllerProduct extends JController{
             $old_price = formatprice($product->product_old_price);
             $rows[] = '"oldprice":"'.$old_price.'"';
         }
+        $rows[] = '"displaybuttons":"'.$displaybuttons.'"';
         
         if ($jshopConfig->use_extend_attribute_data){
             $images = $product->getImages();
             $videos = $product->getVideos();
-            $tmp = array();
-            foreach($images as $img){                
+			$demofiles = $product->getDemoFiles();
+			$tmp = array();
+            foreach($images as $img){
                 $tmp[] = '"'.$img->image_name.'"';
             }
             $displayimgthumb = intval( (count($images)>1) || (count($videos) && count($images)) );
             $rows[] = '"images":['.implode(",", $tmp).'],"displayimgthumb":"'.$displayimgthumb.'"';
+			
+			$view_name = "product";
+			$view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
+			$view = $this->getView($view_name, getDocumentType(), '', $view_config);
+			$view->setLayout("demofiles");
+			$view->assign('config', $jshopConfig);
+			$view->assign('demofiles', $demofiles);
+			$demofiles = $view->loadTemplate();
+			$demofiles = str_replace(array("\n","\r","\t"), "", $demofiles);
+            $rows[] = '"demofiles":"'.str_replace('"','\"',$demofiles).'"';
         }
         
         $dispatcher->trigger('onBeforeDisplayAjaxAttrib', array(&$rows, &$product) );
-        print '{'.implode(",",$rows).'}';        
+        print '{'.implode(",",$rows).'}';
         die();
     }
     
     function showmedia(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $media_id = JRequest::getInt('media_id');
-        $file = &JTable::getInstance('productfiles', 'jshop');
+        $file = JTable::getInstance('productfiles', 'jshop');
         $file->load($media_id);
+        
+        $scripts_load = '<script type="text/javascript" src="'.JURI::root().'components/com_jshopping/js/jquery/jquery-'.$jshopConfig->load_jquery_version.'.min.js"></script>';
+        $scripts_load .= '<script type="text/javascript" src="'.JURI::root().'components/com_jshopping/js/jquery/jquery-noconflict.js"></script>';
+        $scripts_load .= '<script type="text/javascript" src="'.JURI::root().'components/com_jshopping/js/jquery/jquery.media.js"></script>';
+        
         $view_name = "product";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
         $view->setLayout("playmedia");
         $view->assign('config', $jshopConfig);
         $view->assign('filename', $file->demo);
         $view->assign('description', $file->demo_descr);
-        JPluginHelper::importPlugin('jshoppingproducts');        
-        $dispatcher =& JDispatcher::getInstance();
+        $view->assign('scripts_load', $scripts_load);
+        JPluginHelper::importPlugin('jshoppingproducts');
+        $dispatcher =JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeDisplayProductShowMediaView', array(&$view) );
         $view->display(); 
         die();

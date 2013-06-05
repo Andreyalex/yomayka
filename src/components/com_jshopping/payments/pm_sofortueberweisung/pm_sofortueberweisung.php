@@ -13,7 +13,7 @@ class pm_sofortueberweisung extends PaymentRoot{
 	  foreach ($array_params as $key){
 	  	if (!isset($params[$key])) $params[$key] = '';
 	  } 
-	  $orders = &JModel::getInstance('orders', 'JshoppingModel'); //admin model
+	  $orders = JModel::getInstance('orders', 'JshoppingModel'); //admin model
       include(dirname(__FILE__)."/adminparamsform.php");
 	}
 
@@ -85,7 +85,7 @@ class pm_sofortueberweisung extends PaymentRoot{
 
 	function showEndForm($params, $order){
         
-        $jshopConfig = &JSFactory::getConfig();        
+        $jshopConfig = JSFactory::getConfig();        
 	    $item_name = sprintf(_JSHOP_PAYMENT_NUMBER, $order->order_number);
         
         $data = array( 

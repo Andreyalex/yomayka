@@ -21,9 +21,9 @@ class JshoppingModelCountries extends JModel{
     * @param int $orderConfig use order config
     * @return array
     */
-    function getAllCountries($publish = 1, $limitstart = null, $limit = null, $orderConfig = 1){
-        $db =& JFactory::getDBO();
-        $jshopConfig = &JSFactory::getConfig();
+    function getAllCountries($publish = 1, $limitstart = null, $limit = null, $orderConfig = 1, $order = null, $orderDir = null){
+        $db = JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
                 
         if ($publish == 0) {
             $where = " ";
@@ -38,7 +38,10 @@ class JshoppingModelCountries extends JModel{
         }
         $ordering = "ordering";
         if ($orderConfig && $jshopConfig->sorting_country_in_alphabet) $ordering = "name";
-        $lang = &JSFactory::getLang();
+        if ($order && $orderDir){
+            $ordering = $order." ".$orderDir;
+        }
+        $lang = JSFactory::getLang();
         $query = "SELECT country_id, country_publish, ordering, country_code, country_code_2, `".$lang->get("name")."` as name FROM `#__jshopping_countries` ".$where." ORDER BY ".$ordering;
         $db->setQuery($query, $limitstart, $limit);
         return $db->loadObjectList();
@@ -49,7 +52,7 @@ class JshoppingModelCountries extends JModel{
     * @return int
     */
     function getCountAllCountries() {
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $query = "SELECT COUNT(country_id) FROM `#__jshopping_countries`";
         $db->setQuery($query);
         return $db->loadResult();
@@ -61,7 +64,7 @@ class JshoppingModelCountries extends JModel{
     * @return int
     */
     function getCountPublishCountries($publish = 1) {
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $query = "SELECT COUNT(country_id) FROM `#__jshopping_countries` WHERE country_publish = '".intval($publish)."'";
         $db->setQuery($query);
         return $db->loadResult();

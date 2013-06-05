@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.9.4 03.11.2010
+* @version      3.13.0 03.11.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -17,57 +17,68 @@ class JshoppingControllerCurrencies extends JController{
 
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("currencies");
         addSubmenu("other");
     }
         
-    function display() {        
-        $jshopConfig = &JSFactory::getConfig();        
-        $current_currency = &JTable::getInstance('currency', 'jshop');
+    function display($cachable = false, $urlparams = false){        
+        $jshopConfig = JSFactory::getConfig();        
+        $mainframe = JFactory::getApplication();
+		$context = "jshoping.list.admin.currencies";
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "currency_ordering", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
+        
+        $current_currency = JTable::getInstance('currency', 'jshop');
         $current_currency->load($jshopConfig->mainCurrency);
         if ($current_currency->currency_value!=1){
             JError::raiseWarning("",_JSHOP_ERROR_MAIN_CURRENCY_VALUE);    
         }
         
-        $currencies = &$this->getModel("currencies");
-        $rows = $currencies->getAllCurrencies(0);
+        $currencies = $this->getModel("currencies");
+        $rows = $currencies->getAllCurrencies(0, $filter_order, $filter_order_Dir);
         
-        $view=&$this->getView("currencies", 'html');
+        $view=$this->getView("currencies", 'html');
         $view->setLayout("list");        
         $view->assign('rows', $rows);        
-        $view->assign('config', $jshopConfig);        
+        $view->assign('config', $jshopConfig);  
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayCourencies', array(&$view));
         $view->displayList();
     }
     
-    function edit() {        
-        $db = &JFactory::getDBO();        
-        $currency = &JTable::getInstance('currency', 'jshop');
-        $currencies = &$this->getModel("currencies");
+    function edit(){        
+        $db = JFactory::getDBO();        
+        $currency = JTable::getInstance('currency', 'jshop');
+        $currencies = $this->getModel("currencies");
         $currency_id = JRequest::getInt('currency_id');
         $currency->load($currency_id);
+        if ($currency->currency_value==0) $currency->currency_value = 1;
         $first[] = JHTML::_('select.option', '0',_JSHOP_ORDERING_FIRST,'currency_ordering','currency_name');
         $rows = array_merge($first, $currencies->getAllCurrencies() );
         $lists['order_currencies'] = JHTML::_('select.genericlist', $rows,'currency_ordering','class="inputbox" size="1"','currency_ordering','currency_name',$currency->currency_ordering);
         $edit = ($currency_id)?($edit = 1):($edit = 0);
         JFilterOutput::objectHTMLSafe( $currency, ENT_QUOTES);
         
-        $view=&$this->getView("currencies", 'html');
+        $view=$this->getView("currencies", 'html');
         $view->setLayout("edit");
         $view->assign('currency', $currency);        
         $view->assign('lists', $lists);        
         $view->assign('edit', $edit);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditCurrencies', array(&$view));        
         $view->displayEdit();
     }
 
     function save() {
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();        
+        $dispatcher = JDispatcher::getInstance();        
         $currency_id = JRequest::getInt("currency_id");
         $apply = JRequest::getVar("apply");
-        $currency = &JTable::getInstance('currency', 'jshop');
+        $currency = JTable::getInstance('currency', 'jshop');
         $post = JRequest::get("post");
         $post['currency_value'] = saveAsPrice($post['currency_value']);
         $dispatcher->trigger( 'onBeforeSaveCurrencie', array(&$post) );
@@ -76,6 +87,7 @@ class JshoppingControllerCurrencies extends JController{
             $this->setRedirect("index.php?option=com_jshopping&controller=currencies");
             return 0;
         }
+        if ($currency->currency_value==0) $currency->currency_value = 1;
 
         $this->_reorderCurrency($currency);
         if (!$currency->store()) {
@@ -95,7 +107,7 @@ class JshoppingControllerCurrencies extends JController{
     }
 
     function _reorderCurrency(&$currency) {
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = "UPDATE `#__jshopping_currencies`
                     SET `currency_ordering` = currency_ordering + 1
                     WHERE `currency_ordering` > '" . $currency->currency_ordering . "'";
@@ -105,13 +117,13 @@ class JshoppingControllerCurrencies extends JController{
     }
 
     function order() {
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         
         $order = JRequest::getVar("order");
         $cid = JRequest::getInt("id");
         $number = JRequest::getInt("number");
         
-        $currency = &JTable::getInstance('currency', 'jshop'); 
+        $currency = JTable::getInstance('currency', 'jshop'); 
         $currency->load($cid);
         switch ($order) {
             case 'up':
@@ -148,15 +160,15 @@ class JshoppingControllerCurrencies extends JController{
     }
 
     function remove() {
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $text = '';
         $cid = JRequest::getVar("cid");
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveCurrencie', array(&$cid) );
         
         foreach ($cid as $key => $value) {
-            $query = "DELETE FROM `#__jshopping_currencies` WHERE `currency_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_currencies` WHERE `currency_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             if($db->query())
                 $text .= _JSHOP_CURRENCY_DELETED."<br>";
@@ -179,14 +191,14 @@ class JshoppingControllerCurrencies extends JController{
 
     function publishCurrency($flag) {
         $cid = JRequest::getVar("cid");
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforePublishCurrencie', array(&$cid, &$flag) );
         foreach ($cid as $key => $value) {
             $query = "UPDATE `#__jshopping_currencies`
-                       SET `currency_publish` = '" . $db->getEscaped($flag) . "'
-                       WHERE `currency_id` = '" . $db->getEscaped($value) . "'";
+                       SET `currency_publish` = '" . $db->escape($flag) . "'
+                       WHERE `currency_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
         }
@@ -198,7 +210,7 @@ class JshoppingControllerCurrencies extends JController{
     
     function setdefault(){
         $cid = JRequest::getVar("cid");
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         if ($cid[0]){
             $config = new jshopConfig($db);
             $config->id = 1;

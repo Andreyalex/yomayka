@@ -1,4 +1,7 @@
-<?php $groupname = "";?>
+<?php 
+	defined('_JEXEC') or die();
+	$groupname = "";
+?>
 <table class="admintable" >
 <?php foreach($this->fields as $field){ ?>
 <?php if ($groupname!=$field->groupname){ $groupname=$field->groupname;?>

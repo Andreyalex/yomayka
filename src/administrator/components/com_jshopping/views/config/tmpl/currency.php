@@ -1,8 +1,9 @@
 <?php
-$jshopConfig = &JSFactory::getConfig();
-$lists = $this->lists;
-JHTML::_('behavior.tooltip');
-include(dirname(__FILE__)."/submenu.php");
+	defined('_JEXEC') or die();
+	$jshopConfig = JSFactory::getConfig();
+	$lists = $this->lists;
+	JHTML::_('behavior.tooltip');
+	include(dirname(__FILE__)."/submenu.php");
 ?>
 <form action = "index.php?option=com_jshopping&controller=config" method = "post" name = "adminForm" enctype = "multipart/form-data">
 <input type="hidden" name="task" value="">
@@ -23,16 +24,16 @@ include(dirname(__FILE__)."/submenu.php");
   <tr>
     <td class="key" >
       <?php echo _JSHOP_DECIMAL_COUNT;?>
+    </td>
     <td>
       <input type = "text" name = "decimal_count" id = "decimal_count" value  = "<?php echo $jshopConfig->decimal_count?>" />
       <?php echo JHTML::tooltip(_JSHOP_DECIMAL_COUNT_DESCRIPTION, _JSHOP_HINT);?>
-    </td>
-    <td>
     </td>
   </tr>
   <tr>
     <td class="key" >
       <?php echo _JSHOP_DECIMAL_SYMBOL;?>
+    </td>
     <td>
       <input type = "text" name = "decimal_symbol" id = "decimal_symbol" value  = "<?php echo $jshopConfig->decimal_symbol?>" />
       <?php echo JHTML::tooltip(_JSHOP_DECIMAL_SYMBOL_DESCRIPTION, _JSHOP_HINT);?>
@@ -43,6 +44,7 @@ include(dirname(__FILE__)."/submenu.php");
   <tr>
     <td class="key" >
       <?php echo _JSHOP_THOUSAND_SEPARATOR; ?>
+    </td>
     <td>
       <input type = "text" name = "thousand_separator" id = "thousand_separator" value  = "<?php echo $jshopConfig->thousand_separator?>" />
       <?php echo JHTML::tooltip(_JSHOP_THOUSAND_SEPARATOR_DESCRIPTION, _JSHOP_HINT);?>
@@ -53,6 +55,7 @@ include(dirname(__FILE__)."/submenu.php");
   <tr>
     <td class="key" >
       <?php echo _JSHOP_CURRENCY_FORMAT; ?>
+    </td>
     <td>
       <?php echo $lists['format_currency']; echo " ".JHTML::tooltip(_JSHOP_CURRENCY_FORMAT_DESCRIPTION, _JSHOP_HINT) ?>
     </td>

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.9.4 25.11.2010
+* @version      3.13.0 25.11.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,49 +14,58 @@ class JshoppingControllerTaxes extends JController{
     
     function __construct( $config = array() ){
         parent::__construct( $config );
-
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("taxes");
         addSubmenu("other");
     }
     
-    function display() {
-        $db = &JFactory::getDBO();
-        $taxes = &$this->getModel("taxes");
-        $rows = $taxes->getAllTaxes();
+    function display($cachable = false, $urlparams = false){
+        $db = JFactory::getDBO();
+        $mainframe = JFactory::getApplication();
+		$context = "jshoping.list.admin.taxes";
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "tax_name", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
         
-        $view=&$this->getView("taxes", 'html');
+        $taxes = $this->getModel("taxes");
+        $rows = $taxes->getAllTaxes($filter_order, $filter_order_Dir);
+        
+        $view=$this->getView("taxes", 'html');
         $view->setLayout("list");
         $view->assign('rows', $rows); 
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayTaxes', array(&$view));
         $view->displayList();
     }
     
     function edit() {
         $tax_id = JRequest::getInt("tax_id");        
-        $tax = &JTable::getInstance('tax', 'jshop');
+        $tax = JTable::getInstance('tax', 'jshop');
         $tax->load($tax_id);
         $edit = ($tax_id)?($edit = 1):($edit = 0);
                 
-        $view=&$this->getView("taxes", 'html');
+        $view=$this->getView("taxes", 'html');
         $view->setLayout("edit");
         JFilterOutput::objectHTMLSafe( $tax, ENT_QUOTES);
         $view->assign('tax', $tax); 
         $view->assign('edit', $edit);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditTaxes', array(&$view)); 
         $view->displayEdit();
     }
 
     function save(){    
         $tax_id = JRequest::getInt("tax_id");
-        $tax = &JTable::getInstance('tax', 'jshop');
+        $tax = JTable::getInstance('tax', 'jshop');
         $post = JRequest::get("post"); 
         $post['tax_value'] = saveAsPrice($post['tax_value']);
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeSaveTax', array(&$tax) );
 
         
@@ -84,31 +93,31 @@ class JshoppingControllerTaxes extends JController{
 
     function remove() {
         $cid = JRequest::getVar("cid");
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $text = '';
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveTax', array(&$cid) );
 
         foreach ($cid as $key => $value) {
-            $tax = &JTable::getInstance('tax', 'jshop');
+            $tax = JTable::getInstance('tax', 'jshop');
             $tax->load($value);
             $query2 = "SELECT pr.product_id
                        FROM `#__jshopping_products` AS pr
-                       WHERE pr.product_tax_id = '" . $db->getEscaped($value) . "'";
+                       WHERE pr.product_tax_id = '" . $db->escape($value) . "'";
             $db->setQuery($query2);
             $res = $db->query();
             if($db->getNumRows($res)) {
                 $text .= sprintf(_JSHOP_TAX_NO_DELETED, $tax->tax_name)."<br>";
                 continue;
             }
-            $query = "DELETE FROM `#__jshopping_taxes` WHERE `tax_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_taxes` WHERE `tax_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             if ($db->query()){
                 $text .= sprintf(_JSHOP_TAX_DELETED,$tax->tax_name)."<br>";
             }
-            $query = "DELETE FROM `#__jshopping_taxes_ext` WHERE `tax_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_taxes_ext` WHERE `tax_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();            
         }

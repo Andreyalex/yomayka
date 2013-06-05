@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.2 22.01.2012
+* @version      3.14.1 31.08.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,60 +14,53 @@ class JshoppingControllerCategories extends JController{
     
     function __construct( $config = array() ){
         parent::__construct( $config );
-
-        $this->registerTask( 'add',   'edit' );
-        $this->registerTask( 'apply', 'save' );
-        
+        $this->registerTask('add', 'edit');
+        $this->registerTask('apply', 'save');
+        checkAccessController("categories");
         addSubmenu("categories");
     }
     
-    function display(){
-        $mainframe =& JFactory::getApplication();
-        $jshopConfig = &JSFactory::getConfig();
-        $_categories = &$this->getModel("categories");
+    function display($cachable = false, $urlparams = false){
+        $mainframe = JFactory::getApplication();
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $_categories = $this->getModel("categories");
         
         $context = "jshopping.list.admin.category";
-        $catid = $mainframe->getUserStateFromRequest( $context.'catid', 'catid', 0, 'int');
-        
-        if ($catid){
-            $category = &JTable::getInstance('category', 'jshop');        
-            $category->load($catid);
-            $category->name = $category->getName();
-            $tree = $category->getTreeChild();
-        }else{
-            $tree = array();
-        }
-        
-        $countsubcat = $_categories->getAllCatCountSubCat();
-        $countproducts = $_categories->getAllCatCountProducts();
+        $limit = $mainframe->getUserStateFromRequest($context.'limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
+        $limitstart = $mainframe->getUserStateFromRequest($context.'limitstart', 'limitstart', 0, 'int');
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "ordering", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
 
-        $categories = $_categories->getSubCategories($catid, 'ordering');
-        $parentTop->category_id = 0;
-        $parentTop->name = _JSHOP_TOP_LEVEL;
-        $categories_select = buildTreeCategory(0,1,0);
-        array_unshift($categories_select, $parentTop);    
-        $lists['treecategories'] = JHTML::_('select.genericlist', $categories_select,'catid','class="inputbox" onchange = "document.adminForm.submit();"','category_id','name', $catid );
+        $categories = $_categories->getTreeAllCategories($filter_order, $filter_order_Dir);
+        $total = count($categories);
+
+        jimport('joomla.html.pagination');
+        $pagination = new JPagination($total, $limitstart, $limit);
         
-        $view=&$this->getView("category", 'html');
+        $countproducts = $_categories->getAllCatCountProducts();
+        
+        $categories = array_slice($categories, $pagination->limitstart, $pagination->limit);
+        $view = $this->getView("category", 'html');
         $view->setLayout("list");
         $view->assign('categories', $categories);
-        $view->assign('countsubcat', $countsubcat);
         $view->assign('countproducts', $countproducts);
-        $view->assign('lists', $lists);
-        $view->assign('tree', $tree);
-        $view->assign('category_parent_id', $catid);
+        $view->assign('pagination', $pagination);
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        $dispatcher->trigger('onBeforeDisplayListCategoryView', array(&$view));
         $view->displayList();
     }
     
     function edit() {
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();        
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         $cid = JRequest::getInt("category_id");
         
-        $category = &JTable::getInstance("category","jshop");
+        $category = JTable::getInstance("category","jshop");
         $category->load($cid);
         
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         $multilang = count($languages)>1;
         
@@ -83,10 +76,10 @@ class JshoppingControllerCategories extends JController{
             $rows = $this->_getAllCategoriesLevel($parentid);
         }
 
-        $lists['writeable'] = (is_writable($jshopConfig->image_category_path))?($jshopConfig->image_category_path . '::' . messageOutput(_JSHOP_WRITEABLE,'jshop_green')):($jshopConfig->image_category_path . '::' . messageOutput(_JSHOP_NON_WRITEABLE));
         $lists['templates'] = getTemplates('category', $category->category_template);
         $lists['onelevel'] = $rows;    
         
+        $parentTop = new stdClass();
         $parentTop->category_id = 0;
         $parentTop->name = _JSHOP_TOP_LEVEL;
         $categories = buildTreeCategory(0,1,0);
@@ -98,30 +91,30 @@ class JshoppingControllerCategories extends JController{
         $accessgroups = getAccessGroups();
         $lists['access'] = JHTML::_('select.genericlist', $accessgroups, 'access','class = "inputbox" size = "1"','id','title', $category->access);
 
-        $view=&$this->getView("category", 'html');
+        $view=$this->getView("category", 'html');
         $view->setLayout("edit");
         $view->assign('category', $category);
         $view->assign('lists', $lists);
         $view->assign('languages', $languages);
         $view->assign('multilang', $multilang);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditCategories', array(&$view));
         $view->displayEdit();
     }
     
     function save(){
-        $mainframe =& JFactory::getApplication();
-        $jshopConfig = &JSFactory::getConfig();
+        $mainframe = JFactory::getApplication();
+        $jshopConfig = JSFactory::getConfig();
         require_once ($jshopConfig->path.'lib/image.lib.php');
         require_once ($jshopConfig->path.'lib/uploadfile.class.php');
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
-        $_alias = &$this->getModel("alias"); 
-        $db = &JFactory::getDBO();
+        $_alias = $this->getModel("alias"); 
+        $db = JFactory::getDBO();
         
-        $category = &JTable::getInstance("category","jshop");
+        $category = JTable::getInstance("category","jshop");
         if (!$_POST["category_id"]){
             $_POST['category_add_date'] = date("Y-m-d H:i:s");
         }
@@ -130,7 +123,7 @@ class JshoppingControllerCategories extends JController{
         }
         
         $post = JRequest::get('post');
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         if ($post['category_parent_id']==$post['category_id']) $post['category_parent_id'] = 0;
         
@@ -158,11 +151,13 @@ class JshoppingControllerCategories extends JController{
         $upload = new UploadFile($_FILES['category_image']);
         $upload->setAllowFile(array('jpeg','jpg','gif','png'));
         $upload->setDir($jshopConfig->image_category_path);
-        if ($upload->upload()){            
-            if ($post['old_image']) {
+        $upload->setFileNameMd5(0);
+        $upload->setFilterName(1);
+        if ($upload->upload()){
+            $name = $upload->getName();
+            if ($post['old_image'] && $name!=$post['old_image']){
                 @unlink($jshopConfig->image_category_path."/".$post['old_image']);
             }
-            $name = $upload->getName();
             @chmod($jshopConfig->image_category_path."/".$name, 0777);
             
             if ($post['size_im_category'] < 3){
@@ -181,7 +176,7 @@ class JshoppingControllerCategories extends JController{
                     JError::raiseWarning("",_JSHOP_ERROR_CREATE_THUMBAIL);
                     saveToLog("error.log", "SaveCategory - Error create thumbail");
                 }
-                @chmod($jshopConfig->image_category_path."/".$name, 0777);    
+                @chmod($jshopConfig->image_category_path."/".$name, 0777);
                 unset($img);
             }
             
@@ -210,13 +205,13 @@ class JshoppingControllerCategories extends JController{
             $this->setRedirect('index.php?option=com_jshopping&controller=categories&task=edit&category_id='.$category->category_id, $success);
         }else{
             $this->setRedirect('index.php?option=com_jshopping&controller=categories', $success);
-        }        
+        }
     }
     
-    function order(){        
+    function order(){
         $id = JRequest::getInt("id");
-        $move = JRequest::getInt("move");        
-        $table = &JTable::getInstance('category', 'jshop');
+        $move = JRequest::getInt("move");
+        $table = JTable::getInstance('category', 'jshop');
         $table->load($id);
         $table->move($move, 'category_parent_id="'.$table->category_parent_id.'"');
         $this->setRedirect("index.php?option=com_jshopping&controller=categories");
@@ -228,7 +223,7 @@ class JshoppingControllerCategories extends JController{
         $category_parent_id = JRequest::getInt("category_parent_id");
         
         foreach ($cid as $k=>$id){
-            $table = &JTable::getInstance('category', 'jshop');
+            $table = JTable::getInstance('category', 'jshop');
             $table->load($id);
             if ($table->ordering!=$order[$k]){
                 $table->ordering = $order[$k];
@@ -236,16 +231,16 @@ class JshoppingControllerCategories extends JController{
             }        
         }
         
-        $table = &JTable::getInstance('category', 'jshop');
+        $table = JTable::getInstance('category', 'jshop');
         $table->ordering = null;
-        $table->reorder('category_parent_id="'.$category_parent_id.'"');        
+        $table->reorder('category_parent_id="'.$category_parent_id.'"');
                 
         $this->setRedirect("index.php?option=com_jshopping&controller=categories");
     }
 
     function _getAllCategoriesLevel($parentId, $currentOrdering = 0){
-        $jshopConfig = &JSFactory::getConfig();
-        $_categories = &$this->getModel("categories");
+        $jshopConfig = JSFactory::getConfig();
+        $_categories = $this->getModel("categories");
         $rows = $_categories->getSubCategories($parentId, "ordering");
         $first[] = JHTML::_('select.option', '0',_JSHOP_ORDERING_FIRST,'ordering','name');
         $rows = array_merge($first,$rows);
@@ -254,7 +249,7 @@ class JshoppingControllerCategories extends JController{
     }
     
     function _reorderCategory(&$category) {
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = "UPDATE `#__jshopping_categories` SET `ordering` = ordering + 1
                     WHERE `category_parent_id` = '" . $category->category_parent_id . "' AND `ordering` > '" . $category->ordering . "'";
         $db->setQuery($query);
@@ -272,39 +267,39 @@ class JshoppingControllerCategories extends JController{
         $this->setRedirect('index.php?option=com_jshopping&controller=categories');
     }
     
-    function publishCategory($flag) {        
-        $db = &JFactory::getDBO();
+    function publishCategory($flag) {
+        $db = JFactory::getDBO();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $cid = JRequest::getVar("cid");
         $dispatcher->trigger( 'onBeforePublishCategory', array(&$cid, &$flag) );
         foreach ($cid as $key => $value) {
-            $query = "UPDATE `#__jshopping_categories` SET `category_publish` = '" . $db->getEscaped($flag) . "' WHERE `category_id` = '" . $db->getEscaped($value) . "'";
+            $query = "UPDATE `#__jshopping_categories` SET `category_publish` = '" . $db->escape($flag) . "' WHERE `category_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
         }
-                
+
         $dispatcher->trigger( 'onAfterPublishCategory', array(&$cid, &$flag) );
     }
     
-    function remove() {
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
+    function remove(){
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();        
+        $dispatcher = JDispatcher::getInstance();
         $text = array();
         $cid = JRequest::getVar("cid");
-        $_categories = &$this->getModel("categories");
+        $_categories = $this->getModel("categories");
         
-        $dispatcher->trigger( 'onBeforeRemoveCategory', array(&$cid) );
-        
+        $dispatcher->trigger('onBeforeRemoveCategory', array(&$cid));
         $allCatCountProducts = $_categories->getAllCatCountProducts();
         
-        foreach ($cid as $key => $value){
-            $category = &JTable::getInstance("category", "jshop");
+        foreach($cid as $key=>$value){
+            $category = JTable::getInstance("category", "jshop");
             $category->load($value);
             $name_category = $category->getName();
-            if ($allCatCountProducts[$value]){                
+            $childs = $category->getChildCategories();
+            if ($allCatCountProducts[$value] || count($childs)){
                 JError::raiseWarning("",sprintf(_JSHOP_CATEGORY_NO_DELETED, $name_category));
                 continue;
             }
@@ -326,15 +321,13 @@ class JshoppingControllerCategories extends JController{
     
     function delete_foto(){
         $catid = JRequest::getInt("catid");
-        $jshopConfig = &JSFactory::getConfig();
-        $category = &JTable::getInstance("category", "jshop");
+        $jshopConfig = JSFactory::getConfig();
+        $category = JTable::getInstance("category", "jshop");
         $category->load($catid);
         @unlink($jshopConfig->image_category_path.'/'.$category->category_image);
         $category->category_image = "";
         $category->store();
-        die();
+    die();
     }
-    
-    
 }
 ?>

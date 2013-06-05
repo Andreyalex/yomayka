@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 16.01.2011
+* @version      3.14.1 18.08.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,7 +14,7 @@ class jshopUserShop extends JTable {
     }   
     
 	function isUserInShop($id) {
-		$query = "SELECT user_id FROM `#__jshopping_users` WHERE `user_id` = '" . $this->_db->getEscaped($id) . "'";
+		$query = "SELECT user_id FROM `#__jshopping_users` WHERE `user_id` = '".$this->_db->escape($id)."'";
 		$this->_db->setQuery($query);
 		$res = $this->_db->query();
 		return $this->_db->getNumRows($res);
@@ -24,33 +24,32 @@ class jshopUserShop extends JTable {
 		$this->u_name = $user->username;
 		$this->email = $user->email;
 		$this->user_id = $user->id;
-        
-        $usergroup = &JTable::getInstance('usergroup', 'jshop');
-        $default_usergroup = jshopUsergroup::getDefaultUsergroup();
-        
-		$query = "INSERT INTO `#__jshopping_users` SET `usergroup_id`='".$default_usergroup."', `u_name` = '" . $this->_db->getEscaped($user->username) . "', `email` = '" . $this->_db->getEscaped($user->email) . "', `user_id` = '" . $this->_db->getEscaped($user->id) . "' ";
+
+        $usergroup = JTable::getInstance('usergroup', 'jshop');
+        $default_usergroup = $usergroup->getDefaultUsergroup();
+
+		$query = "INSERT INTO `#__jshopping_users` SET `usergroup_id`='".$default_usergroup."', `u_name` = '" . $this->_db->escape($user->username) . "', `email` = '" . $this->_db->escape($user->email) . "', `user_id` = '" . $this->_db->escape($user->id) . "' ";
 		$this->_db->setQuery($query);
 		$this->_db->query();
 	}
 
-	function check($type){
+	function check($type=''){
 		jimport('joomla.mail.helper');
-        
         $types = explode(".",$type);
         $type = $types[0];
-        $type2 = $types[1];        
-        
-        $jshopConfig = &JSFactory::getConfig();
+        $type2 = $types[1];
+
+        $jshopConfig = JSFactory::getConfig();
         $tmp_fields = $jshopConfig->getListFieldsRegister();
-        $config_fields = $tmp_fields[$type];        
-        
+        $config_fields = $tmp_fields[$type];
+
         if ($config_fields['title']['require']){
             if (!intval($this->title)) {
                 $this->_error = addslashes(_JSHOP_REGWARN_TITLE);
                 return false;
             }
         }
-                		
+
         if ($config_fields['f_name']['require']){
 		    if(trim($this->f_name) == '') {
 			    $this->_error = addslashes(_JSHOP_REGWARN_NAME);
@@ -63,6 +62,13 @@ class jshopUserShop extends JTable {
 			    $this->_error = addslashes(_JSHOP_REGWARN_LNAME);
 			    return false;
 		    }
+        }
+        
+        if ($config_fields['m_name']['require']){
+            if(trim($this->m_name) == '') {
+                $this->_error = addslashes(_JSHOP_REGWARN_MNAME);
+                return false;
+            }
         }
         
         if ($config_fields['firma_name']['require']){
@@ -93,30 +99,33 @@ class jshopUserShop extends JTable {
                     return false;
                 }
             }
-        }        
+        }
 
-		if( (trim($this->email == "")) || ! JMailHelper::isEmailAddress($this->email)) {
+		if ((trim($this->email=="")) || !JMailHelper::isEmailAddress($this->email)){
 			$this->_error = addslashes(_JSHOP_REGWARN_MAIL);
 			return false;
-		}        
+		}
+        
+        if ($config_fields['birthday']['require']){
+            if(trim($this->birthday) == '') {
+                $this->_error = addslashes(_JSHOP_REGWARN_BIRTHDAY);
+                return false;
+            }
+        }
 
 		if ($type == "register"){
-            
+
 			if(trim($this->u_name) == '') {
 				$this->_error = addslashes(_JSHOP_REGWARN_UNAME);
 				return false;
 			}
-			if(strlen($this->u_name) > 25) {
-				$this->u_name = substr($this->u_name,0,25);
-			}
-
             if (preg_match( "#[<>\"'%;()&]#i", $this->u_name) || strlen(utf8_decode($this->u_name )) < 2) {
                 $this->_error = sprintf(addslashes(_JSHOP_VALID_AZ09),addslashes(_JSHOP_USERNAME),2);
                 return false;
             }
 
 			// check for existing username
-			$query = "SELECT id FROM #__users WHERE username = '" . $this->_db->getEscaped($this->u_name) . "' AND id != " . (int)$this->user_id;
+			$query = "SELECT id FROM #__users WHERE username = '".$this->_db->escape($this->u_name)."' AND id != ".(int)$this->user_id;
 			$this->_db->setQuery($query);
 			$xid = intval($this->_db->loadResult());
 			if($xid && $xid != intval($this->user_id)) {
@@ -132,40 +141,47 @@ class jshopUserShop extends JTable {
             if ($this->password!=$this->password2){
                 $this->_error = _JSHOP_REGWARN_PASSWORD_NOT_MATCH;
                 return false;
-            }			
+            }
 		}
         
-        if ($type2 == "edituser"){            
-            if(trim($this->u_name) == '') {
-                $this->_error = addslashes(_JSHOP_REGWARN_UNAME);
+        if ($type=='editaccount'){
+            if ($config_fields['password']['require']){
+                if(trim($this->password) == '') {
+                    $this->_error = addslashes(_JSHOP_REGWARN_PASSWORD);
+                    return false;
+                }
+            }
+            if ($this->password && $config_fields['password_2']['display'] && $this->password!=$this->password2){
+                $this->_error = _JSHOP_REGWARN_PASSWORD_NOT_MATCH;
                 return false;
             }
-            if(strlen($this->u_name) > 25) {
-                $this->u_name = substr($this->u_name,0,25);
-            }
-
+        }
+        
+        if ($type2 == "edituser"){
+            if (trim($this->u_name)==''){
+                $this->_error = addslashes(_JSHOP_REGWARN_UNAME);
+                return false;
+            }            
             if (preg_match( "#[<>\"'%;()&]#i", $this->u_name) || strlen(utf8_decode($this->u_name )) < 2) {
                 $this->_error = sprintf(addslashes(_JSHOP_VALID_AZ09),addslashes(_JSHOP_USERNAME),2);
                 return false;
             }
-
             // check for existing username
-            $query = "SELECT id FROM #__users WHERE username = '" . $this->_db->getEscaped($this->u_name) . "' AND id != " . (int)$this->user_id;
+            $query = "SELECT id FROM #__users WHERE username = '".$this->_db->escape($this->u_name)."' AND id != ".(int)$this->user_id;
             $this->_db->setQuery($query);
             $xid = intval($this->_db->loadResult());
             if($xid && $xid != intval($this->user_id)) {
                 $this->_error = addslashes(_JSHOP_REGWARN_INUSE);
                 return false;
             }
-            
             if ($this->password && $this->password!=$this->password2){
                 $this->_error = _JSHOP_REGWARN_PASSWORD_NOT_MATCH;
                 return false;
-            }            
+            }
         }
         
         // check for existing email
-        $query = "SELECT id FROM #__users WHERE email = '" . $this->_db->getEscaped($this->email) . "' AND id != " . (int)$this->user_id;
+        $query = "SELECT id FROM #__users WHERE email='".$this->_db->escape($this->email)."' AND id != ".(int)$this->user_id;
         $this->_db->setQuery($query);
         $xid = intval($this->_db->loadResult());
         if($xid && $xid != intval($this->id)) {
@@ -193,7 +209,7 @@ class jshopUserShop extends JTable {
 			    return false;
 		    }
         }
-		
+
         if ($config_fields['zip']['require']){
 		    if (trim($this->zip) == ""){
 		        $this->_error = addslashes( _JSHOP_REGWARN_ZIP );
@@ -220,8 +236,8 @@ class jshopUserShop extends JTable {
 			    $this->_error = addslashes(_JSHOP_REGWARN_COUNTRY);
 			    return false;
 		    }
-        }		
-        	
+        }
+    
         if ($config_fields['phone']['require']){	
 		    if(trim($this->phone) == '') {
 		        $this->_error = addslashes(_JSHOP_REGWARN_PHONE);
@@ -229,14 +245,14 @@ class jshopUserShop extends JTable {
 		    }
         }
         
-        if ($config_fields['mobil_phone']['require']){    
+        if ($config_fields['mobil_phone']['require']){
             if(trim($this->mobil_phone) == '') {
                 $this->_error = addslashes(_JSHOP_REGWARN_MOBIL_PHONE);
                 return false;
             }
         }
         
-        if ($config_fields['fax']['require']){    
+        if ($config_fields['fax']['require']){
             if(trim($this->fax) == '') {
                 $this->_error = addslashes(_JSHOP_REGWARN_FAX);
                 return false;
@@ -288,6 +304,13 @@ class jshopUserShop extends JTable {
 				    }
                 }
                 
+                if ($config_fields['d_m_name']['require']){
+                    if(trim($this->d_m_name) == '') {
+                        $this->_error = addslashes(_JSHOP_REGWARN_MNAME_DELIVERY);
+                        return false;
+                    }
+                }
+                
                 if ($config_fields['d_firma_name']['require']){
                     if(trim($this->d_firma_name) == '') {
                         $this->_error = addslashes(_JSHOP_REGWARN_FIRMA_NAME_DELIVERY);
@@ -307,11 +330,18 @@ class jshopUserShop extends JTable {
                         $this->_error = addslashes(_JSHOP_REGWARN_TAX_NUMBER_DELIVERY);
                         return false;
                     }
-                }                
+                }
 
                 if ($config_fields['d_email']['require']){
                     if ( (trim($this->d_email) == "") || ! JMailHelper::isEmailAddress($this->d_email)) {
                         $this->_error = addslashes(_JSHOP_REGWARN_MAIL_DELIVERY);
+                        return false;
+                    }
+                }
+                
+                if ($config_fields['d_birthday']['require']){
+                    if(trim($this->d_birthday) == '') {
+                        $this->_error = addslashes(_JSHOP_REGWARN_BIRTHDAY_DELIVERY);
                         return false;
                     }
                 }
@@ -363,7 +393,7 @@ class jshopUserShop extends JTable {
                         $this->_error = addslashes(_JSHOP_REGWARN_COUNTRY_DELIVERY);
                         return false;
                     }
-                }                                
+                }
 				
                 if ($config_fields['d_phone']['require']){
 				    if(trim($this->d_phone) == '') {
@@ -372,14 +402,14 @@ class jshopUserShop extends JTable {
 				    }
                 }
                 
-                if ($config_fields['d_mobil_phone']['require']){    
+                if ($config_fields['d_mobil_phone']['require']){
                     if(trim($this->d_mobil_phone) == '') {
                         $this->_error = addslashes(_JSHOP_REGWARN_MOBIL_PHONE_DELIVERY);
                         return false;
                     }
                 }
                 
-                if ($config_fields['d_fax']['require']){    
+                if ($config_fields['d_fax']['require']){
                     if (trim($this->d_fax) == '') {
                         $this->_error = addslashes(_JSHOP_REGWARN_FAX_DELIVERY);
                         return false;
@@ -399,33 +429,32 @@ class jshopUserShop extends JTable {
                         return false;
                     }
                 }
-                
+
                 if ($config_fields['d_ext_field_3']['require']){
                     if(trim($this->d_ext_field_3) == '') {
                         $this->_error = addslashes(_JSHOP_REGWARN_EXT_FIELD_3_DELIVERY);
                         return false;
                     }
                 }
-                                
+
 			}
-		}        
+		}
 
 		return true;
 	}
-    
+
 	function getCountryId($id_user) {
-		$db =& JFactory::getDBO(); 
-		$query = "SELECT country FROM `#__jshopping_users` WHERE user_id = '" . $db->getEscaped($id_user) . "'";
+		$db = JFactory::getDBO(); 
+		$query = "SELECT country FROM `#__jshopping_users` WHERE user_id = '".$db->escape($id_user)."'";
 		$db->setQuery($query);
 		return $db->loadResult();
-
 	}
 	
 	function getDiscount(){
-		$db =& JFactory::getDBO(); 
+		$db = JFactory::getDBO(); 
 		$query = "SELECT usergroup.usergroup_discount FROM `#__jshopping_usergroups` AS usergroup
 				  INNER JOIN `#__jshopping_users` AS users ON users.usergroup_id = usergroup.usergroup_id
-				  WHERE users.user_id = '" . $db->getEscaped($this->user_id) . "' ";
+				  WHERE users.user_id = '" . $db->escape($this->user_id) . "' ";
 		$db->setQuery($query);
 		return floatval($db->loadResult());
 	}
@@ -442,10 +471,132 @@ class jshopUserShop extends JTable {
         return 1;
     }
     
-    function getError(){
+    function getError($i = null, $toString = true){
         return $this->_error;
     }
     
-}
+    function setError($error){
+        $this->_error = $error;
+    }
+    
+    function activate($token){
+        $config = JFactory::getConfig();
+        $userParams = JComponentHelper::getParams('com_users');
+        $db = JFactory::getDBO();
 
+        // Get the user id based on the token.
+        $db->setQuery(
+            'SELECT '.$db->quoteName('id').' FROM '.$db->quoteName('#__users') .
+            ' WHERE '.$db->quoteName('activation').' = '.$db->Quote($token) .
+            ' AND '.$db->quoteName('block').' = 1' .
+            ' AND '.$db->quoteName('lastvisitDate').' = '.$db->Quote($db->getNullDate())
+        );
+        $userId = (int) $db->loadResult();
+        
+        // Check for a valid user id.
+        if (!$userId) {
+            $this->setError(JText::_('COM_USERS_ACTIVATION_TOKEN_NOT_FOUND'));
+            return false;
+        }
+
+        // Load the users plugin group.
+        JPluginHelper::importPlugin('user');
+
+        // Activate the user.
+        $user = JFactory::getUser($userId);
+
+        // Admin activation is on and user is verifying their email
+        if (($userParams->get('useractivation') == 2) && !$user->getParam('activate', 0)){
+            $uri = JURI::getInstance();
+
+            // Compile the admin notification mail values.
+            $data = $user->getProperties();
+            $data['activation'] = JApplication::getHash(JUserHelper::genRandomPassword());
+            $user->set('activation', $data['activation']);
+            $data['siteurl']    = JUri::base();
+            $base = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
+            $data['activate'] = $base.JRoute::_('index.php?option=com_jshopping&controller=user&task=activate&token='.$data['activation'], false);
+            $data['fromname'] = $config->get('fromname');
+            $data['mailfrom'] = $config->get('mailfrom');
+            $data['sitename'] = $config->get('sitename');
+            $user->setParam('activate', 1);
+            $emailSubject    = JText::sprintf(
+                'COM_USERS_EMAIL_ACTIVATE_WITH_ADMIN_ACTIVATION_SUBJECT',
+                $data['name'],
+                $data['sitename']
+            );
+
+            $emailBody = JText::sprintf(
+                'COM_USERS_EMAIL_ACTIVATE_WITH_ADMIN_ACTIVATION_BODY',
+                $data['sitename'],
+                $data['name'],
+                $data['email'],
+                $data['username'],
+                $data['siteurl'].'index.php?option=com_jshopping&controller=user&task=activate&token='.$data['activation']
+            );
+
+            // get all admin users
+            $query = 'SELECT name, email, sendEmail FROM #__users WHERE sendEmail=1';
+            $db->setQuery( $query );
+            $rows = $db->loadObjectList();
+
+            // Send mail to all superadministrators id
+            foreach( $rows as $row ){
+                $return = JFactory::getMailer()->sendMail($data['mailfrom'], $data['fromname'], $row->email, $emailSubject, $emailBody);
+                // Check for an error.
+                if ($return !== true){
+                    $this->setError(JText::_('COM_USERS_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED'));
+                    return false;
+                }
+            }
+        }
+        //Admin activation is on and admin is activating the account
+        elseif (($userParams->get('useractivation') == 2) && $user->getParam('activate', 0))
+        {
+            $user->set('activation', '');
+            $user->set('block', '0');
+
+            $uri = JURI::getInstance();
+
+            // Compile the user activated notification mail values.
+            $data = $user->getProperties();
+            $user->setParam('activate', 0);
+            $data['fromname'] = $config->get('fromname');
+            $data['mailfrom'] = $config->get('mailfrom');
+            $data['sitename'] = $config->get('sitename');
+            $data['siteurl']    = JUri::base();
+            $emailSubject    = JText::sprintf(
+                'COM_USERS_EMAIL_ACTIVATED_BY_ADMIN_ACTIVATION_SUBJECT',
+                $data['name'],
+                $data['sitename']
+            );
+
+            $emailBody = JText::sprintf(
+                'COM_USERS_EMAIL_ACTIVATED_BY_ADMIN_ACTIVATION_BODY',
+                $data['name'],
+                $data['siteurl'],
+                $data['username']
+            );
+
+            $return = JFactory::getMailer()->sendMail($data['mailfrom'], $data['fromname'], $data['email'], $emailSubject, $emailBody);
+
+            // Check for an error.
+            if ($return !== true) {
+                $this->setError(JText::_('COM_USERS_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED'));
+                return false;
+            }
+        }else{
+            $user->set('activation', '');
+            $user->set('block', '0');
+        }
+
+        // Store the user object.
+        if (!$user->save()){
+            $this->setError(JText::sprintf('COM_USERS_REGISTRATION_ACTIVATION_SAVE_FAILED', $user->getError()));
+            return false;
+        }
+        return $user;
+    }
+
+}
 ?>

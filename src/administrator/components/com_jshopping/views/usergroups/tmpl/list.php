@@ -1,6 +1,7 @@
 <?php
-displaySubmenuOptions();
-$usergroups = $this->rows;
+	defined('_JEXEC') or die();
+	displaySubmenuOptions();
+	$usergroups = $this->rows;
 ?>
 <form action = "index.php?option=com_jshopping&controller=usergroups" method = "post" name = "adminForm">
 
@@ -14,13 +15,13 @@ $usergroups = $this->rows;
 	  		<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $usergroups );?>);" />
     	</th>
     	<th width = "150" align = "left">
-      		<?php echo _JSHOP_TITLE; ?>
+      		<?php echo JHTML::_('grid.sort', _JSHOP_TITLE, 'usergroup_name', $this->filter_order_Dir, $this->filter_order); ?>
     	</th>
     	<th align = "left">
-      		<?php echo _JSHOP_DESCRIPTION; ?>
+      		<?php echo JHTML::_('grid.sort', _JSHOP_DESCRIPTION, 'usergroup_description', $this->filter_order_Dir, $this->filter_order); ?>
     	</th>
         <th width="80">
-            <?php print _JSHOP_USERGROUP_DISCOUNT;?>
+            <?php echo JHTML::_('grid.sort', _JSHOP_USERGROUP_DISCOUNT, 'usergroup_discount', $this->filter_order_Dir, $this->filter_order); ?>
         </th>
     	<th width = "100">
 			<?php echo _JSHOP_USERGROUP_IS_DEFAULT; ?>
@@ -29,7 +30,7 @@ $usergroups = $this->rows;
 	        <?php echo _JSHOP_EDIT; ?>
 	    </th>
         <th width = "40">
-            <?php echo _JSHOP_ID; ?>
+            <?php echo JHTML::_('grid.sort', _JSHOP_ID, 'usergroup_id', $this->filter_order_Dir, $this->filter_order); ?>
         </th>
   	</tr>
 </thead>
@@ -39,7 +40,7 @@ $usergroups = $this->rows;
 			<?php echo $i + 1;?>
 		</td>
 		<td align = "center">
-			<input type = "checkbox"  onclick = "isChecked(this.checked)" id = "cb<?php echo $i++?>" name = "cid[]" value = "<?php echo $usergroup->usergroup_id?>" />
+			<input type="checkbox" onclick="isChecked(this.checked)" id="cb<?php echo $i++?>" name = "cid[]" value = "<?php echo $usergroup->usergroup_id?>" />
 		</td>
 		<td>
 			<a href = "index.php?option=com_jshopping&controller=usergroups&task=edit&usergroup_id=<?php echo $usergroup->usergroup_id;?>"><?php echo $usergroup->usergroup_name; ?></a>
@@ -60,7 +61,9 @@ $usergroups = $this->rows;
 	</tr>	
 <?php } ?>
 </table>
-
+    
+<input type="hidden" name="filter_order" value="<?php echo $this->filter_order?>" />
+<input type="hidden" name="filter_order_Dir" value="<?php echo $this->filter_order_Dir?>" />
 <input type = "hidden" name = "task" value = "" />
 <input type = "hidden" name = "hidemainmenu" value = "0" />
 <input type = "hidden" name = "boxchecked" value = "0" />

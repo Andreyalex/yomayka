@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <form action = "index.php?option=com_jshopping&controller=importexport" method = "post" name = "adminForm" enctype = "multipart/form-data">
 <input type = "hidden" name = "task" value = "" />
 <input type = "hidden" name = "hidemainmenu" value = "0" />

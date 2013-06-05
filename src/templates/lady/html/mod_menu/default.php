@@ -10,6 +10,8 @@
 // No direct access.
 defined('_JEXEC') or die;
 
+JHtml::stylesheet(JUri::base() . 'templates/lady/assets/css/mod_menu/default.css');
+
 $nav_dropdown = empty($nav_dropdown)? false : true;
 $nav_list = empty($nav_list)? false : true;
 
@@ -30,7 +32,7 @@ if (empty($class)) {
 
 ?>
 
-<ul class="<?php echo $class.$class_sfx; ?>"<?php
+<ul class="<?php echo $class.$class_sfx; ?> level-top"<?php
 	$tag = '';
 	if ($params->get('tag_id')!=NULL) {
 		$tag = $params->get('tag_id').'';
@@ -83,21 +85,21 @@ foreach ($list as $i => &$item) :
 
 	// The next item is deeper.
 	if (($item->deeper) && ($nav_flyout)) {
-		echo '<ul class="flyout-menu">';
+		echo '<ul class="flyout-menu level-'.($item->level+1).'">';
 	}
 	elseif (($item->deeper) && ($nav_dropdown)){
 		if ($item->level < 2) {
-			echo '<ul class="dropdown-menu">';
+			echo '<ul class="dropdown-menu level-'.($item->level+1).'">';
 		}
 		else {
-			echo '<ul class="flyout-menu">';
+			echo '<ul class="flyout-menu level-'.($item->level+1).'">';
 		}
 	}
 	elseif (($item->deeper) && ($nav_list)){
-		echo '<ul class="nav nav-list">';
+		echo '<ul class="nav nav-list level-'.($item->level+1).'">';
 	}
 	elseif ($item->deeper) {
-		echo '<ul>';
+		echo '<ul class="level-'.($item->level+1).'">';
 	}
 	// The next item is shallower.
 	elseif ($item->shallower) {

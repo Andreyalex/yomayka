@@ -1,7 +1,7 @@
 <?php
-  echo $pane->startPanel(_JSHOP_FREE_ATTRIBUTES, 'product_freeattribute');
-?>
-   
+	defined('_JEXEC') or die();
+	echo $pane->startPanel(_JSHOP_FREE_ATTRIBUTES, 'product_freeattribute');
+?>   
    <div class="col100">
    <table class="admintable" width="90%">
    <?php foreach($this->listfreeattributes as $freeattrib){?>

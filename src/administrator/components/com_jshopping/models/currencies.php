@@ -12,10 +12,14 @@ jimport( 'joomla.application.component.model');
 
 class JshoppingModelCurrencies extends JModel{ 
 
-    function getAllCurrencies($publish = 1) {
-        $db =& JFactory::getDBO(); 
+    function getAllCurrencies($publish = 1, $order = null, $orderDir = null) {
+        $db = JFactory::getDBO(); 
         $query_where = ($publish)?("WHERE currency_publish = '1'"):("");
-        $query = "SELECT * FROM `#__jshopping_currencies` $query_where ORDER BY currency_ordering";
+        $ordering = 'currency_ordering';
+        if ($order && $orderDir){
+            $ordering = $order." ".$orderDir;
+        }
+        $query = "SELECT * FROM `#__jshopping_currencies` $query_where ORDER BY ".$ordering;
         $db->setQuery($query);
         return $db->loadObjectList();
     }      

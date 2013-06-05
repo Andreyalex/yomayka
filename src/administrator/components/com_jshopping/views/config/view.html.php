@@ -5,7 +5,6 @@ jimport( 'joomla.application.component.view');
 class JshoppingViewConfig extends JView
 {
     function display($tpl = null){
-        
         JToolBarHelper::title( _JSHOP_EDIT_CONFIG, 'generic.png' ); 
         JToolBarHelper::save();
         JToolBarHelper::spacer();
@@ -14,9 +13,11 @@ class JshoppingViewConfig extends JView
 		JToolBarHelper::cancel();
 		JToolBarHelper::spacer();
 		JToolBarHelper::custom('panel', 'jshop_panel.png', 'jshop_panel.png', _JSHOP_PANEL, false);
-        
         JToolBarHelper::divider();
-        JToolBarHelper::preferences('com_jshopping');        
+        if (JFactory::getUser()->authorise('core.admin')){
+            JToolBarHelper::preferences('com_jshopping');        
+            JToolBarHelper::divider();
+        }
         parent::display($tpl);
 	}
     

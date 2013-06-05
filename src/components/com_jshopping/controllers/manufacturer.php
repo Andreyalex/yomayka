@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.0 20.11.2011
+* @version      3.12.3 20.11.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -12,71 +12,68 @@ jimport('joomla.application.component.controller');
 
 class JshoppingControllerManufacturer extends JController{
 	
-	function display(){
-        $mainframe =& JFactory::getApplication();
+	function display($cachable = false, $urlparams = false){
+        $mainframe = JFactory::getApplication();
         $params = $mainframe->getParams();
-        $document =& JFactory::getDocument();
-		$jshopConfig = &JSFactory::getConfig();
-		$manufacturer = &JTable::getInstance('manufacturer', 'jshop');
+        $document = JFactory::getDocument();
+		$jshopConfig = JSFactory::getConfig();
+		$manufacturer = JTable::getInstance('manufacturer', 'jshop');
         $ordering = $jshopConfig->manufacturer_sorting==1 ? "ordering" : "name";
 		$rows = $manufacturer->getAllManufacturers(1, $ordering, 'asc');
         
         JPluginHelper::importPlugin('jshopping');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeDisplayListManufacturers', array(&$rows) );
 
-        $seo = &JTable::getInstance("seo", "jshop");
+        $seo = JTable::getInstance("seo", "jshop");
         $seodata = $seo->loadData("manufacturers");
-        if ($seodata->title==""){
-            $seodata->title = $params->get('page_title');
-        }
-        setMetaData($seodata->title, $seodata->keyword, $seodata->description);
+        setMetaData($seodata->title, $seodata->keyword, $seodata->description, $params);
         
-        $statictext = &JTable::getInstance("statictext","jshop");
+        $statictext = JTable::getInstance("statictext","jshop");
         $rowstatictext = $statictext->loadData("manufacturer");
         $manufacturer->description = $rowstatictext->text;
         
         $view_name = "manufacturer";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
 		$view->setLayout("manufacturers");
 		$view->assign("rows", $rows);
 		$view->assign("image_manufs_live_path", $jshopConfig->image_manufs_live_path);
-        $view->assign('noimage', 'noimage.gif');
-        $view->assign('count_manufacturer_to_row', $jshopConfig->count_category_to_row);        
+        $view->assign('noimage', $jshopConfig->noimage);
+        $view->assign('count_manufacturer_to_row', $jshopConfig->count_category_to_row);
         $view->assign('params', $params);        
 		$view->assign('manufacturer', $manufacturer);
-        $dispatcher->trigger('onBeforeDisplayManufacturerView', array(&$view) );        
+        $dispatcher->trigger('onBeforeDisplayManufacturerView', array(&$view) );
 		$view->display();
 	}	
 	
 	function view(){
-	    $mainframe =& JFactory::getApplication();
-		$jshopConfig = &JSFactory::getConfig();
-        $session =& JFactory::getSession();
+	    $mainframe = JFactory::getApplication();
+		$jshopConfig = JSFactory::getConfig();
+        $session = JFactory::getSession();
         $session->set("jshop_end_page_buy_product", $_SERVER['REQUEST_URI']);
         $session->set("jshop_end_page_list_product", $_SERVER['REQUEST_URI']);
         
         JPluginHelper::importPlugin('jshoppingproducts');
-        $dispatcher =& JDispatcher::getInstance();        
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeLoadProductList', array() );
 		
         $manufacturer_id = JRequest::getInt('manufacturer_id');
-        $category_id = JRequest::getInt('category_id');        
+        $category_id = JRequest::getInt('category_id');
         $label_id = JRequest::getInt('label_id');
         $vendor_id = JRequest::getInt('vendor_id');
-		$manufacturer = &JTable::getInstance('manufacturer', 'jshop');		
+		$manufacturer = JTable::getInstance('manufacturer', 'jshop');		
 		$manufacturer->load($manufacturer_id);
 		$manufacturer->getDescription();
         
-        JPluginHelper::importPlugin('jshopping');        
+        JPluginHelper::importPlugin('jshopping');
         $dispatcher->trigger( 'onBeforeDisplayManufacturer', array(&$manufacturer) );
         
         if ($manufacturer->manufacturer_publish==0){
-            JError::raiseError( 404, _JSHOP_PAGE_NOT_FOUND);
+            JError::raiseError(404, _JSHOP_PAGE_NOT_FOUND);
             return;
         }
-		
+
         if (getShopManufacturerPageItemid()==JRequest::getInt('Itemid')){
             appendPathWay($manufacturer->name);
         }
@@ -106,19 +103,19 @@ class JshoppingControllerManufacturer extends JController{
         $image_sort_dir = getImgSortDirection($order, $orderby);
         $field_order = $jshopConfig->sorting_products_field_s_select[$order];
         $filters = getBuildFilterListProduct($contextfilter, array("manufacturers"));
-				                
+
         $total = $manufacturer->getCountProducts($filters);
        
         jimport('joomla.html.pagination');
-        $pagination = new JPagination($total, $limitstart, $limit);            
+        $pagination = new JPagination($total, $limitstart, $limit);
         $pagenav = $pagination->getPagesLinks();
         
         if ($limitstart>=$total) $limitstart = 0;
-                        
+
 		$rows = $manufacturer->getProducts($filters, $field_order, $orderbyq, $limitstart, $limit);
 		addLinkToProducts($rows, 0, 1);		
 	
-		foreach ($jshopConfig->sorting_products_name_s_select as $key => $value) {            
+		foreach ($jshopConfig->sorting_products_name_s_select as $key => $value) {
             $sorts[] = JHTML::_('select.option', $key, $value, 'sort_id', 'sort_value' );
         }
 
@@ -129,27 +126,27 @@ class JshoppingControllerManufacturer extends JController{
         $sorting_sel = JHTML::_('select.genericlist', $sorts, 'order', 'class = "inputbox" size = "1" onchange = "submitListProductFilters()"','sort_id', 'sort_value', $order );
         $product_count_sel = JHTML::_('select.genericlist', $product_count, 'limit', 'class = "inputbox" size = "1" onchange = "submitListProductFilters()"','count_id', 'count_value', $limit );
         
-        $_review = &JTable::getInstance('review', 'jshop');
+        $_review = JTable::getInstance('review', 'jshop');
         $allow_review = $_review->getAllowReview();
         
         if ($jshopConfig->show_product_list_filters){
             $filter_categorys = $manufacturer->getCategorys();
             $first_category = array();
-            $first_category[] = JHTML::_('select.option', 0, _JSHOP_ALL, 'id', 'name' );        
+            $first_category[] = JHTML::_('select.option', 0, _JSHOP_ALL, 'id', 'name' );
             $categorys_sel = JHTML::_('select.genericlist', array_merge($first_category, $filter_categorys), 'categorys[]', 'class = "inputbox" onchange = "submitListProductFilters()"','id', 'name', $filters['categorys'][0]);
         }
         
-        if ($jshopConfig->use_plugin_content){        
+        if ($jshopConfig->use_plugin_content){
             changeDataUsePluginContent($manufacturer, "manufacturer");
         }
         
         $display_list_products = (count($rows)>0 || willBeUseFilter($filters));
-                
-        $dispatcher->trigger( 'onBeforeDisplayProductList', array(&$rows) );        
-        				
+
+        $dispatcher->trigger( 'onBeforeDisplayProductList', array(&$rows) );
+
         $view_name = "manufacturer";
         $view_config = array("template_path"=>JPATH_COMPONENT."/templates/".$jshopConfig->template."/".$view_name);
-        $view = &$this->getView($view_name, getDocumentType(), '', $view_config);        
+        $view = $this->getView($view_name, getDocumentType(), '', $view_config);
 		$view->setLayout("products");
         $view->assign('config', $jshopConfig);
         $view->assign('template_block_list_product', "list_products/list_products.php");
@@ -160,6 +157,7 @@ class JshoppingControllerManufacturer extends JController{
         $view->assign('filter_show_category', 1);
         $view->assign('filter_show_manufacturer', 0);
         $view->assign('pagination', $pagenav);
+		$view->assign('pagination_obj', $pagination);
         $view->assign('display_pagination', $pagenav!="");
 		$view->assign("rows", $rows);
 		$view->assign("count_product_to_row", $count_product_to_row);
@@ -171,8 +169,8 @@ class JshoppingControllerManufacturer extends JController{
         $view->assign('sorting', $sorting_sel);
         $view->assign('categorys_sel', $categorys_sel);
         $view->assign('filters', $filters);
-        $view->assign('display_list_products', $display_list_products);         
-        $view->assign('shippinginfo', SEFLink('index.php?option=com_jshopping&controller=content&task=view&page=shipping'));
+        $view->assign('display_list_products', $display_list_products);
+        $view->assign('shippinginfo', SEFLink('index.php?option=com_jshopping&controller=content&task=view&page=shipping',1));
         $dispatcher->trigger('onBeforeDisplayProductListView', array(&$view) );	
 		$view->display();
 	}	

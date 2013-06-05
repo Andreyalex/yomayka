@@ -17,7 +17,7 @@ class IeController extends JObject{
     }
     
     function loadLanguageFile(){
-        $adminlang = &JFactory::getLanguage();
+        $adminlang = JFactory::getLanguage();
         $alias = $this->get('alias'); 
         if(file_exists(dirname(__FILE__).'/'.$alias.'/lang/'.$adminlang->getTag().'.php')) {
             require_once (dirname(__FILE__).'/'.$alias.'/lang/'.$adminlang->getTag().'.php');

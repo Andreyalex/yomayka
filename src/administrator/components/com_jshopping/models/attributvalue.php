@@ -13,17 +13,21 @@ jimport('joomla.application.component.model');
 class JshoppingModelAttributValue extends JModel {
     
     function getNameValue($value_id) {
-        $db =& JFactory::getDBO();
-        $lang = &JSFactory::getLang();
-        $query = "SELECT `".$lang->get("name")."` as name FROM `#__jshopping_attr_values` WHERE value_id = '".$db->getEscaped($value_id)."'";
+        $db = JFactory::getDBO();
+        $lang = JSFactory::getLang();
+        $query = "SELECT `".$lang->get("name")."` as name FROM `#__jshopping_attr_values` WHERE value_id = '".$db->escape($value_id)."'";
         $db->setQuery($query);        
         return $db->loadResult();
     }
 
-    function getAllValues($attr_id) {
-        $db =& JFactory::getDBO(); 
-        $lang = &JSFactory::getLang();
-        $query = "SELECT value_id, image, `".$lang->get("name")."` as name, attr_id, value_ordering FROM `#__jshopping_attr_values` where attr_id='".$attr_id."' ORDER BY value_ordering, value_id";
+    function getAllValues($attr_id, $order = null, $orderDir = null) {
+        $db = JFactory::getDBO(); 
+        $lang = JSFactory::getLang();
+        $ordering = 'value_ordering, value_id';
+        if ($order && $orderDir){
+            $ordering = $order." ".$orderDir;
+        }
+        $query = "SELECT value_id, image, `".$lang->get("name")."` as name, attr_id, value_ordering FROM `#__jshopping_attr_values` where attr_id='".$attr_id."' ORDER BY ".$ordering;
         $db->setQuery($query);
         return $db->loadObjectList();
     }
@@ -35,8 +39,8 @@ class JshoppingModelAttributValue extends JModel {
     * @param mixed $resulttype
     */
     function getAllAttributeValues($resulttype=0){
-        $db =& JFactory::getDBO();
-        $lang = &JSFactory::getLang();
+        $db = JFactory::getDBO();
+        $lang = JSFactory::getLang();
         $query = "SELECT value_id, image, `".$lang->get("name")."` as name, attr_id, value_ordering FROM `#__jshopping_attr_values` ORDER BY value_ordering, value_id";
         $db->setQuery($query);
         $db->setQuery($query);
@@ -58,7 +62,6 @@ class JshoppingModelAttributValue extends JModel {
             return $attribs;
         }        
     }
-    
 }
 
 ?>

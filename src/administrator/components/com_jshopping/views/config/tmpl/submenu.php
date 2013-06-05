@@ -1,4 +1,7 @@
-<?php $menu = getItemsConfigPanelMenu(); ?> 
+<?php 
+	defined('_JEXEC') or die();
+	$menu = getItemsConfigPanelMenu(); 
+?> 
 
 <div class="jssubmenu">
     <div class="m">

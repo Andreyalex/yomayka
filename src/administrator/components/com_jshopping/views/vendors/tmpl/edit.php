@@ -1,7 +1,8 @@
 <?php
-$vendor = $this->vendor;
-$lists = $this->lists;
-$config_fields = $this->config_fields;
+	defined('_JEXEC') or die();
+	$vendor = $this->vendor;
+	$lists = $this->lists;
+	$config_fields = $this->config_fields;
 ?>
 <form action = "index.php?option=com_jshopping&controller=vendors" method = "post" name = "adminForm" >
 <div class="col100">

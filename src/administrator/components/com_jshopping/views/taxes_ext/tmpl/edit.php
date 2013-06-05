@@ -1,7 +1,8 @@
 <?php
-$row = $this->tax;
-$edit = $this->edit;
-JHTML::_('behavior.tooltip');
+	defined('_JEXEC') or die();
+	$row = $this->tax;
+	$edit = $this->edit;
+	JHTML::_('behavior.tooltip');
 ?>
 <form action = "index.php?option=com_jshopping&controller=exttaxes&back_tax_id=<?php print $this->back_tax_id;?>" method = "post"name = "adminForm">
 

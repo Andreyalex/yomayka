@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.8.0 18.09.2010
+* @version      3.12.3 18.09.2010
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -11,13 +11,17 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.application.component.controller');
 
 class JshoppingControllerContent extends JController{
+    
+    function display($cachable = false, $urlparams = false){
+        JError::raiseError(404, _JSHOP_PAGE_NOT_FOUND);
+    }
 
     function view(){
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO(); 
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO(); 
         
-        $page = JRequest::getVar('page');  	        
-        switch ($page) {
+        $page = JRequest::getVar('page');
+        switch($page){
             case 'agb':
                 $pathway = _JSHOP_AGB;
             break;
@@ -27,26 +31,33 @@ class JshoppingControllerContent extends JController{
             case 'shipping':
                 $pathway = _JSHOP_SHIPPING;
             break;
-        }        
+            case 'privacy_statement':
+                $pathway = _JSHOP_PRIVACY_STATEMENT;
+            break;
+        }
         appendPathWay($pathway);
-        
-        $seo = &JTable::getInstance("seo", "jshop");
+
+        $seo = JTable::getInstance("seo", "jshop");
         $seodata = $seo->loadData("content-".$page);
         if ($seodata->title==""){
             $seodata->title = $pathway;
         }
         setMetaData($seodata->title, $seodata->keyword, $seodata->description);
         
-        $statictext = &JTable::getInstance("statictext","jshop");
+        $statictext = JTable::getInstance("statictext","jshop");
         $row = $statictext->loadData($page);
+        if (!$row->id){
+            JError::raiseError(404, _JSHOP_PAGE_NOT_FOUND);
+            return;
+        }
         $text = $row->text;
         
         JPluginHelper::importPlugin('jshopping');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeDisplayContent', array($page, &$text) );
-        
-        echo $text;   
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayContent', array($page, &$text));
+
+        echo $text;
     }
-                
+
 }
 ?>

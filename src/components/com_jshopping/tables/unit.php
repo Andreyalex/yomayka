@@ -14,14 +14,14 @@ class jshopUnit extends JTableAvto {
     }
     
     function getName() {
-        $lang = &JSFactory::getLang();
+        $lang = JSFactory::getLang();
         $name = $lang->get('name');
         return $this->$name;
     }
     
     function getAllUnits(){
-        $lang = &JSFactory::getLang();
-        $db =& JFactory::getDBO(); 
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO(); 
         $query = "SELECT id, `".$lang->get("name")."` as name, qty FROM `#__jshopping_unit` ORDER BY id";
         $db->setQuery($query);
         $list = $db->loadObjectList();

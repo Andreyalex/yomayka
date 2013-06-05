@@ -1,7 +1,8 @@
 <?php
-displaySubmenuOptions();
-$languages = $this->rows;
-$i = 0;
+	defined('_JEXEC') or die();
+	displaySubmenuOptions();
+	$languages = $this->rows;
+	$i = 0;
 ?>
 <form action = "index.php?option=com_jshopping&controller=languages" method = "post" name = "adminForm">
 

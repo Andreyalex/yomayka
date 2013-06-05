@@ -1,13 +1,3 @@
-<div class="jshop-topbar">
-
-    <div class="submenu">
-        <?php 
-            $modules = JModuleHelper::getModules('jshopping-submenu');
-            echo JModuleHelper::renderModule($modules[0]);
-        ?>
-    </div>
-</div>
-    
 <div id="jshop-categories-list">
     <?php
     if (count($this->categories)){

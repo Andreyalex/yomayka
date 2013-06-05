@@ -1,4 +1,7 @@
-<?php $row = $this->row;?>
+<?php 
+	defined('_JEXEC') or die();
+	$row = $this->row;
+?>
 <div class="jshop_edit">
 <form action = "index.php?option=com_jshopping&controller=shippingextprice" method = "post" name = "adminForm">
 

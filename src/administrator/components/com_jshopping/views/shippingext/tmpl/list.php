@@ -1,6 +1,7 @@
 <?php
-displaySubmenuOptions("shippings");
-$rows = $this->rows;
+	defined('_JEXEC') or die();
+	displaySubmenuOptions("shippings");
+	$rows = $this->rows;
 ?>
 <form action = "index.php?option=com_jshopping&controller=shippingextprice" method = "post" name = "adminForm">
 <table class = "adminlist">

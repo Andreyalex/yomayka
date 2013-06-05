@@ -27,17 +27,19 @@ PRIMARY KEY  (`country_id`)
 
 CREATE TABLE IF NOT EXISTS `#__jshopping_currencies` (
 `currency_id` int(11) NOT NULL auto_increment,
-`currency_name` varchar(64) NOT NULL default '',
-`currency_code` varchar(20) NOT NULL default '',
-`currency_code_iso` VARCHAR( 3 ) NOT NULL DEFAULT '',
-`currency_ordering` int(11) NOT NULL default '0',
-`currency_value` DECIMAL(14,6) NOT NULL default '0',
-`currency_publish` tinyint(1) NOT NULL default '0',
+`currency_name` varchar(64) NOT NULL,
+`currency_code` varchar(20) NOT NULL,
+`currency_code_iso` VARCHAR(3) NOT NULL,
+`currency_code_num` VARCHAR(3) NOT NULL,
+`currency_ordering` int(11) NOT NULL,
+`currency_value` DECIMAL(14,6) NOT NULL,
+`currency_publish` tinyint(1) NOT NULL,
 PRIMARY KEY  (`currency_id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__jshopping_delivery_times` (
-`id` int(11) NOT NULL auto_increment,  
+`id` int(11) NOT NULL auto_increment,
+`days` DECIMAL(8,2) NOT NULL,
 PRIMARY KEY  (`id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
@@ -50,31 +52,31 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_products`(
 `product_availability` varchar(128) NOT NULL,
 `product_date_added` datetime NOT NULL default '0000-00-00 00:00:00',
 `date_modify` datetime NOT NULL default '0000-00-00 00:00:00',
-`product_publish` tinyint(1) NOT NULL default '0',
-`product_tax_id` tinyint(3) NOT NULL default '0',
-`currency_id` int(4) NOT NULL default '0',
+`product_publish` tinyint(1) NOT NULL,
+`product_tax_id` tinyint(3) NOT NULL,
+`currency_id` int(4) NOT NULL,
 `product_template` varchar(64) NOT NULL default "default",
-`product_url` varchar(255) NOT NULL default '',
-`product_old_price` DECIMAL(12,2) NOT NULL default '0',
-`product_buy_price` DECIMAL(12,2) NOT NULL default '0',
-`product_price` DECIMAL(18,6) NOT NULL default '0',
-`min_price` DECIMAL(12,2) NOT NULL default '0',
-`different_prices` TINYINT(1) NOT NULL default '0',
-`product_weight` DECIMAL(14,4) NOT NULL default '0',
+`product_url` varchar(255) NOT NULL,
+`product_old_price` DECIMAL(12,2) NOT NULL,
+`product_buy_price` DECIMAL(12,2) NOT NULL,
+`product_price` DECIMAL(18,6) NOT NULL,
+`min_price` DECIMAL(12,2) NOT NULL,
+`different_prices` TINYINT(1) NOT NULL,
+`product_weight` DECIMAL(14,4) NOT NULL,
 `product_thumb_image` varchar(255) NOT NULL,
 `product_name_image` varchar(255) NOT NULL,
 `product_full_image` varchar(255) NOT NULL,
-`product_manufacturer_id` int(11) NOT NULL default '0',
-`product_is_add_price` TINYINT(1) NOT NULL default '0',
-`add_price_unit_id` int(3) NOT NULL default '0',
-`average_rating` float(4,2) NOT NULL default '0',
-`reviews_count` int(11) NOT NULL default '0',
-`delivery_times_id` int(4) NOT NULL default '0',
-`hits` int(11) NOT NULL default '0',
-`weight_volume_units` DECIMAL(14,4) NOT NULL default '0',
-`basic_price_unit_id` int(3) NOT NULL default '0',
-`label_id` int(11) NOT NULL default '0',  
-`vendor_id` int(11) NOT NULL default '0',
+`product_manufacturer_id` int(11) NOT NULL,
+`product_is_add_price` TINYINT(1) NOT NULL,
+`add_price_unit_id` int(3) NOT NULL,
+`average_rating` float(4,2) NOT NULL,
+`reviews_count` int(11) NOT NULL,
+`delivery_times_id` int(4) NOT NULL,
+`hits` int(11) NOT NULL,
+`weight_volume_units` DECIMAL(14,4) NOT NULL,
+`basic_price_unit_id` int(3) NOT NULL,
+`label_id` int(11) NOT NULL,
+`vendor_id` int(11) NOT NULL,
 `access` int(3) NOT NULL default '1',
 PRIMARY KEY  (`product_id`),
 KEY `product_manufacturer_id` (`product_manufacturer_id`)
@@ -117,6 +119,7 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_products_videos` (
 `video_id` int(11) NOT NULL auto_increment,
 `product_id` int(11) NOT NULL default '0',
 `video_name` varchar(255) NOT NULL default '',
+`video_code` text NOT NULL default '',
 `video_preview` VARCHAR( 255 ) NOT NULL,
 PRIMARY KEY  (`video_id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
@@ -155,19 +158,19 @@ PRIMARY KEY  (`tax_id`)
 
 CREATE TABLE IF NOT EXISTS `#__jshopping_config` (
 `id` tinyint(1) NOT NULL default '0',
-`count_products_to_page` int(4) NOT NULL default '0',
-`count_products_to_row` int(2) NOT NULL default '0',
-`count_category_to_row` int(2) NOT NULL default '0',
-`image_category_width` int(4) NOT NULL default '0',
-`image_category_height` int(4) NOT NULL default '0',
-`image_product_width` int(4) NOT NULL default '0',
-`image_product_height` int(4) NOT NULL default '0',
-`image_product_full_width` int(4) NOT NULL default '0',
-`image_product_full_height` int(4) NOT NULL default '0',
-`video_product_width` int(4) NOT NULL default '0',
-`video_product_height` int(4) NOT NULL default '0',
-`adminLanguage` varchar(8) NOT NULL default '',
-`defaultLanguage` varchar(8) NOT NULL default '',
+`count_products_to_page` int(4) NOT NULL,
+`count_products_to_row` int(2) NOT NULL,
+`count_category_to_row` int(2) NOT NULL,
+`image_category_width` int(4) NOT NULL,
+`image_category_height` int(4) NOT NULL,
+`image_product_width` int(4) NOT NULL,
+`image_product_height` int(4) NOT NULL,
+`image_product_full_width` int(4) NOT NULL,
+`image_product_full_height` int(4) NOT NULL,
+`video_product_width` int(4) NOT NULL,
+`video_product_height` int(4) NOT NULL,
+`adminLanguage` varchar(8) NOT NULL,
+`defaultLanguage` varchar(8) NOT NULL,
 `mainCurrency` int(4) NOT NULL,
 `decimal_count` TINYINT( 1 ) NOT NULL ,
 `decimal_symbol` VARCHAR( 5 ) NOT NULL ,
@@ -248,12 +251,13 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_config` (
 `product_count_related_in_row` TINYINT(4) NOT NULL,
 `category_sorting` TINYINT(1) NOT NULL default '1',
 `product_sorting` TINYINT(1) NOT NULL default '1',
-`product_sorting_direction` TINYINT(1) NOT NULL default '0',
+`product_sorting_direction` TINYINT(1) NOT NULL,
 `show_product_list_filters` TINYINT(1) NOT NULL,
 `admin_show_product_extra_field` TINYINT(1) NOT NULL,
 `product_list_display_extra_fields` TEXT NOT NULL,
 `filter_display_extra_fields` TEXT NOT NULL,
 `product_hide_extra_fields` TEXT NOT NULL,
+`cart_display_extra_fields` TEXT NOT NULL,
 `default_country` int(11) NOT NULL,
 `show_return_policy_in_email_order` TINYINT(1) NOT NULL,
 `client_allow_cancel_order` TINYINT(1) NOT NULL,
@@ -288,7 +292,10 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_config` (
 `admin_show_units` TINYINT(1) NOT NULL,
 `main_unit_weight` TINYINT(3) NOT NULL,
 `create_alias_product_category_auto` TINYINT(1) NOT NULL,
-PRIMARY KEY  (`id`)  
+`delivery_order_depends_delivery_product` TINYINT(1) NOT NULL, 
+`show_delivery_time_step5` TINYINT(1) NOT NULL,
+`other_config` TEXT NOT NULL,
+PRIMARY KEY  (`id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__jshopping_manufacturers` (
@@ -326,11 +333,13 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_users` (
 `title` tinyint(1) NOT NULL,
 `f_name` VARCHAR( 255 ) NOT NULL,
 `l_name` VARCHAR( 255 ) NOT NULL,
+`m_name` VARCHAR( 255 ) NOT NULL,
 `firma_name` VARCHAR( 100 ) NOT NULL,
 `client_type` tinyint(1) NOT NULL,
 `firma_code` VARCHAR( 100 ) NOT NULL,
 `tax_number` VARCHAR( 100 ) NOT NULL,
 `email` VARCHAR( 255 ) NOT NULL,
+`birthday` DATE NOT NULL,
 `street` VARCHAR( 255 ) NOT NULL,
 `home` VARCHAR( 20 ) NOT NULL,
 `apartment` VARCHAR( 20 ) NOT NULL,
@@ -346,43 +355,47 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_users` (
 `ext_field_3` VARCHAR(255) NOT NULL,
 `delivery_adress` TINYINT ( 1 ) NOT NULL,
 `d_title` tinyint(1) NOT NULL,
-`d_f_name` VARCHAR( 255 ) NOT NULL,
-`d_l_name` VARCHAR( 255 ) NOT NULL,
-`d_firma_name` VARCHAR( 100 ) NOT NULL,
-`d_email` VARCHAR( 255 ) NOT NULL,
-`d_street` VARCHAR( 255 ) NOT NULL,
-`d_home` VARCHAR( 20 ) NOT NULL,
-`d_apartment` VARCHAR( 20 ) NOT NULL,
-`d_zip` VARCHAR( 20 ) NOT NULL,
-`d_city` VARCHAR( 100 ) NOT NULL,
-`d_state` VARCHAR( 100 ) NOT NULL,
+`d_f_name` VARCHAR(255) NOT NULL,
+`d_l_name` VARCHAR(255) NOT NULL,
+`d_m_name` VARCHAR(255) NOT NULL,
+`d_firma_name` VARCHAR(100) NOT NULL,
+`d_email` VARCHAR(255) NOT NULL,
+`d_birthday` DATE NOT NULL,
+`d_street` VARCHAR(255) NOT NULL,
+`d_home` VARCHAR(20) NOT NULL,
+`d_apartment` VARCHAR(20) NOT NULL,
+`d_zip` VARCHAR(20) NOT NULL,
+`d_city` VARCHAR(100) NOT NULL,
+`d_state` VARCHAR(100) NOT NULL,
 `d_country` int(11) NOT NULL,
-`d_phone` VARCHAR( 20 ) NOT NULL,
-`d_mobil_phone` VARCHAR( 20 ) NOT NULL,
-`d_fax` VARCHAR( 20 ) NOT NULL,
+`d_phone` VARCHAR(20) NOT NULL,
+`d_mobil_phone` VARCHAR(20) NOT NULL,
+`d_fax` VARCHAR(20) NOT NULL,
 `d_ext_field_1` VARCHAR(255) NOT NULL,
 `d_ext_field_2` VARCHAR(255) NOT NULL,
 `d_ext_field_3` VARCHAR(255) NOT NULL,
-UNIQUE KEY `user_id` (`user_id`)
+UNIQUE KEY `user_id` (`user_id`),
+KEY `u_name` (`u_name`),
+KEY `usergroup_id` (`usergroup_id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__jshopping_payment_method` (
-`payment_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`name_en-GB` VARCHAR( 100 ) NOT NULL,
-`description_en-GB` TEXT NOT NULL,
-`name_de-DE` VARCHAR( 100 ) NOT NULL,
-`description_de-DE` TEXT NOT NULL,
-`payment_code` VARCHAR( 32 ) NOT NULL ,
-`payment_class` VARCHAR( 100 ) NOT NULL,
-`payment_publish` TINYINT( 1 ) NOT NULL,
+`payment_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`payment_code` VARCHAR(32) NOT NULL ,
+`payment_class` VARCHAR(100) NOT NULL,
+`payment_publish` TINYINT(1) NOT NULL,
 `payment_ordering` INT NOT NULL,
 `payment_params` TEXT NOT NULL,
-`payment_type` TINYINT( 4 ) NOT NULL,
+`payment_type` TINYINT(4) NOT NULL,
 `price` DECIMAL(12,2) NOT NULL,
 `price_type` TINYINT(1) NOT NULL, 
 `tax_id` int(11) NOT NULL,
 `image` VARCHAR(255) NOT NULL,
-`show_descr_in_email` TINYINT( 1 ) NOT NULL
+`show_descr_in_email` TINYINT( 1 ) NOT NULL,
+`name_en-GB` VARCHAR(100) NOT NULL,
+`description_en-GB` TEXT NOT NULL,
+`name_de-DE` VARCHAR(100) NOT NULL,
+`description_de-DE` TEXT NOT NULL
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__jshopping_usergroups` (
@@ -395,14 +408,14 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_usergroups` (
 
 CREATE TABLE IF NOT EXISTS `#__jshopping_shipping_method` (
 `shipping_id` int(11) NOT NULL auto_increment,
-`name_en-GB` varchar(100) NOT NULL default '',
+`name_en-GB` varchar(100) NOT NULL,
 `description_en-GB` text NOT NULL,
-`name_de-DE` varchar(100) NOT NULL default '',
+`name_de-DE` varchar(100) NOT NULL,
 `description_de-DE` text NOT NULL,
-`published` tinyint(1) NOT NULL default '0',
-`payments` varchar(255) NOT NULL default '',
+`published` tinyint(1) NOT NULL,
+`payments` varchar(255) NOT NULL,
 `image` VARCHAR(255) NOT NULL,
-`ordering` int(6) NOT NULL default '0',
+`ordering` int(6) NOT NULL,
 PRIMARY KEY  (`shipping_id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
@@ -421,8 +434,11 @@ PRIMARY KEY  (`id`)
 CREATE TABLE IF NOT EXISTS `#__jshopping_shipping_method_price` (
 `sh_pr_method_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `shipping_method_id` INT NOT NULL ,
-`shipping_tax_id` int(11) NOT NULL default '0',
+`shipping_tax_id` int(11) NOT NULL,
 `shipping_stand_price` DECIMAL(12,2) NOT NULL,
+`package_tax_id` int(11) NOT NULL,
+`package_stand_price` DECIMAL(12,2) NOT NULL,
+`delivery_times_id` int(11) NOT NULL,
 `params` text NOT NULL
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
@@ -445,109 +461,127 @@ INDEX ( `country_id`) , INDEX( `sh_pr_method_id` )
 
 CREATE TABLE IF NOT EXISTS `#__jshopping_order_history` (
 `order_history_id` int(11) NOT NULL auto_increment,
-`order_id` int(11) NOT NULL default '0',
-`order_status_id` tinyint(1) NOT NULL default '0',
-`status_date_added` datetime NOT NULL default '0000-00-00 00:00:00',
-`customer_notify` int(1) default '0',
+`order_id` int(11) NOT NULL,
+`order_status_id` tinyint(1) NOT NULL,
+`status_date_added` datetime NOT NULL,
+`customer_notify` int(1),
 `comments` text,
 PRIMARY KEY  (`order_history_id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
-CREATE TABLE IF NOT EXISTS `#__jshopping_order_item` (
+CREATE TABLE IF NOT EXISTS `#__jshopping_order_item`(
 `order_item_id` int(11) NOT NULL auto_increment,
-`order_id` int(11) NOT NULL default '0',
-`product_id` int(11) NOT NULL default '0',
-`product_ean` varchar(50) NOT NULL default '',
-`product_name` varchar(100) NOT NULL default '',
-`product_quantity` DECIMAL(12,2) NOT NULL default '0',
+`order_id` int(11) NOT NULL,
+`product_id` int(11) NOT NULL,
+`product_ean` varchar(50) NOT NULL,
+`product_name` varchar(100) NOT NULL,
+`product_quantity` DECIMAL(12,2) NOT NULL,
 `product_item_price` DECIMAL(12,2) NOT NULL,
-`product_tax` DECIMAL(12,2) NOT NULL default '0.00',
-`product_attributes` text NOT NULL default '',
-`product_freeattributes` text NOT NULL default '',
-`attributes` text NOT NULL default '',
-`freeattributes` text NOT NULL default '',
+`product_tax` DECIMAL(12,2) NOT NULL,
+`product_attributes` text NOT NULL,
+`product_freeattributes` text NOT NULL,
+`attributes` text NOT NULL,
+`freeattributes` text NOT NULL,
+`extra_fields` TEXT NOT NULL,
 `files` text NOT NULL,
-`weight` float(8,4) NOT NULL default '0',
-`thumb_image` varchar(255) NOT NULL default '',
+`weight` float(8,4) NOT NULL,
+`thumb_image` varchar(255) NOT NULL,
+`manufacturer` varchar(255) NOT NULL,
+`delivery_times_id` int(4) NOT NULL,
 `vendor_id` int(11) NOT NULL,
+`params` text NOT NULL,
 PRIMARY KEY (`order_item_id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__jshopping_order_status` (
 `status_id` int(11) NOT NULL auto_increment,
-`status_code` char(1) NOT NULL default '',
-`name_en-GB` varchar(100) NOT NULL default '',
-`name_de-DE` varchar(100) NOT NULL default '',
+`status_code` char(1) NOT NULL,
+`name_en-GB` varchar(100) NOT NULL,
+`name_de-DE` varchar(100) NOT NULL,
 PRIMARY KEY  (`status_id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
-CREATE TABLE IF NOT EXISTS `#__jshopping_orders` (
+CREATE TABLE IF NOT EXISTS `#__jshopping_orders`(
 `order_id` int(11) NOT NULL auto_increment,
-`order_number` VARCHAR(50) NOT NULL DEFAULT '0',
-`user_id` int(11) NOT NULL default '0',
-`order_total` DECIMAL(12,2) NOT NULL default '0.00',
-`order_subtotal` DECIMAL(12,2) NOT NULL default '0.00',
-`order_tax` DECIMAL(12,2) NOT NULL default '0.00',
+`order_number` VARCHAR(50) NOT NULL,
+`user_id` int(11) NOT NULL,
+`order_total` DECIMAL(12,2) NOT NULL,
+`order_subtotal` DECIMAL(12,2) NOT NULL,
+`order_tax` DECIMAL(12,2) NOT NULL,
 `order_tax_ext` text NOT NULL,
-`order_shipping` DECIMAL(12,2) NOT NULL default '0.00',
-`order_payment` DECIMAL(12,2) NOT NULL default '0.00',
-`order_discount` DECIMAL(12,2) NOT NULL default '0.00',
-`currency_code` VARCHAR( 20 ) NOT NULL DEFAULT '',
-`currency_code_iso` VARCHAR( 3 ) NOT NULL DEFAULT '',
-`currency_exchange` DECIMAL(14,6) NOT NULL default '0',
-`order_status` varchar(1) NOT NULL default '',
+`order_shipping` DECIMAL(12,2) NOT NULL,
+`order_payment` DECIMAL(12,2) NOT NULL,
+`order_discount` DECIMAL(12,2) NOT NULL,
+`shipping_tax` DECIMAL(8,2) NOT NULL,
+`shipping_tax_ext` text NOT NULL,
+`payment_tax` DECIMAL(8,2) NOT NULL,
+`payment_tax_ext` text NOT NULL,
+`order_package` DECIMAL(12,2) NOT NULL,
+`package_tax_ext` text NOT NULL,
+`currency_code` VARCHAR( 20 ) NOT NULL,
+`currency_code_iso` VARCHAR( 3 ) NOT NULL,
+`currency_exchange` DECIMAL(14,6) NOT NULL,
+`order_status` tinyint(4) NOT NULL,
 `order_created` tinyint(1) NOT NULL,
 `order_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 `order_m_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`shipping_method_id` int(11) NOT NULL default '0',
-`payment_method_id` int(11) NOT NULL default '0',
+`shipping_method_id` int(11) NOT NULL,
+`delivery_times_id` int(11) NOT NULL,
+`payment_method_id` int(11) NOT NULL,
 `payment_params` text NOT NULL,
 `payment_params_data` text NOT NULL,
-`ip_address` varchar(15) NOT NULL default '',
+`delivery_time` VARCHAR(100) NOT NULL,
+`delivery_date` DATETIME NOT NULL,
+`coupon_id` int(11) NOT NULL,
+`ip_address` varchar(15) NOT NULL,
 `order_add_info` text NOT NULL,
-`title` tinyint(1) NOT NULL default '0',
-`f_name` varchar(255) NOT NULL default '',
-`l_name` varchar(255) NOT NULL default '',
-`firma_name` varchar(255) NOT NULL default '',
+`title` tinyint(1) NOT NULL ,
+`f_name` varchar(255) NOT NULL,
+`l_name` varchar(255) NOT NULL,
+`m_name` varchar(255) NOT NULL,
+`firma_name` varchar(255) NOT NULL,
 `client_type` tinyint(1) NOT NULL,
 `client_type_name` VARCHAR(100) NOT NULL,
 `firma_code` VARCHAR( 100 ) NOT NULL,
 `tax_number` VARCHAR( 100 ) NOT NULL,
-`email` varchar(255) NOT NULL default '',
-`street` varchar(100) NOT NULL default '',
+`email` varchar(255) NOT NULL ,
+`birthday` DATE NOT NULL,
+`street` varchar(100) NOT NULL,
 `home` VARCHAR( 20 ) NOT NULL,
 `apartment` VARCHAR( 20 ) NOT NULL,
-`zip` varchar(20) NOT NULL default '',
-`city` varchar(100) NOT NULL default '',
-`state` varchar(100) NOT NULL default '',
+`zip` varchar(20) NOT NULL,
+`city` varchar(100) NOT NULL,
+`state` varchar(100) NOT NULL,
 `country` int(11) NOT NULL,
-`phone` varchar(20) NOT NULL default '',
+`phone` varchar(20) NOT NULL,
 `mobil_phone` VARCHAR( 20 ) NOT NULL,
-`fax` varchar(20) NOT NULL default '',
+`fax` varchar(20) NOT NULL,
 `ext_field_1` VARCHAR(255) NOT NULL,
 `ext_field_2` VARCHAR(255) NOT NULL,
 `ext_field_3` VARCHAR(255) NOT NULL,
-`d_title` tinyint(1) NOT NULL default '0',
-`d_f_name` varchar(255) NOT NULL default '',
-`d_l_name` varchar(255) NOT NULL default '',
-`d_firma_name` varchar(255) NOT NULL default '',
-`d_email` varchar(255) NOT NULL default '',
-`d_street` varchar(100) NOT NULL default '',
+`d_title` tinyint(1) NOT NULL,
+`d_f_name` varchar(255) NOT NULL,
+`d_l_name` varchar(255) NOT NULL,
+`d_m_name` varchar(255) NOT NULL,
+`d_firma_name` varchar(255) NOT NULL,
+`d_email` varchar(255) NOT NULL,
+`d_birthday` DATE NOT NULL,
+`d_street` varchar(100) NOT NULL,
 `d_home` VARCHAR( 20 ) NOT NULL,
 `d_apartment` VARCHAR( 20 ) NOT NULL,
-`d_zip` varchar(20) NOT NULL default '',
-`d_city` varchar(100) NOT NULL default '',
-`d_state` varchar(100) NOT NULL default '',
+`d_zip` varchar(20) NOT NULL,
+`d_city` varchar(100) NOT NULL,
+`d_state` varchar(100) NOT NULL,
 `d_country` int(11) NOT NULL,
-`d_phone` varchar(30) NOT NULL default '',
+`d_phone` varchar(30) NOT NULL,
 `d_mobil_phone` VARCHAR( 20 ) NOT NULL,
-`d_fax` varchar(20) NOT NULL default '',  
+`d_fax` varchar(20) NOT NULL,
 `d_ext_field_1` VARCHAR(255) NOT NULL,
 `d_ext_field_2` VARCHAR(255) NOT NULL,
 `d_ext_field_3` VARCHAR(255) NOT NULL,  
 `pdf_file` VARCHAR( 50 ) NOT NULL,
-`order_hash` varchar(32) NOT NULL default '',
-`file_hash` varchar(64) NOT NULL default '',
+`order_hash` varchar(32) NOT NULL,
+`file_hash` varchar(64) NOT NULL,
 `file_stat_downloads` text  NOT NULL,
 `order_custom_info` text NOT NULL,
 `display_price` tinyint(1) NOT NULL,
@@ -563,6 +597,8 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_attr` (
 `attr_ordering` int(11) NOT NULL default '0',
 `attr_type` TINYINT( 1 ) NOT NULL,
 `independent` TINYINT( 1 ) NOT NULL,
+`allcats` tinyint(1) NOT NULL default '1',
+`cats` text NOT NULL,
 PRIMARY KEY  (`attr_id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
@@ -583,7 +619,7 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_products_attr` (
 `count` int(11) NOT NULL,
 `ean` varchar(100) NOT NULL,
 `weight` DECIMAL(12,4) NOT NULL,
-`weight_volume_units` DECIMAL(12,2) NOT NULL,
+`weight_volume_units` DECIMAL(14,4) NOT NULL,
 `ext_attribute_product_id` int(11) NOT NULL,
 PRIMARY KEY  (`product_attr_id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
@@ -662,6 +698,7 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_products_extra_fields` (
 `allcats` tinyint(1) NOT NULL,
 `cats` text NOT NULL,
 `type` TINYINT(1) NOT NULL,
+`multilist` tinyint(1) NOT NULL,
 `group` TINYINT(4) NOT NULL,
 `ordering` int(6) NOT NULL,
 PRIMARY KEY  (`id`)
@@ -714,11 +751,14 @@ CREATE TABLE IF NOT EXISTS `#__jshopping_vendors`(
   PRIMARY KEY  (`id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
-CREATE TABLE IF NOT EXISTS `#__jshopping_addons` (
+CREATE TABLE IF NOT EXISTS `#__jshopping_addons`(
 `id` int(11) NOT NULL auto_increment,
 `alias` varchar(255) NOT NULL,
+`name` varchar(255) NOT NULL,
 `key` text NOT NULL,
+`usekey` tinyint(1) NOT NULL,
 `version` varchar(255) NOT NULL,
+`uninstall` varchar(255) NOT NULL,
 `params` text NOT NULL,
 PRIMARY KEY  (`id`)
 ) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
@@ -1012,7 +1052,7 @@ VALUES (1, 12, 3, 1,  160, 0,  100, 0,  200, 0,  320, 240, '1', 2, '.', '', 2, 1
 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 3, 1, 1, 1,
 'a:3:{s:8:"register";a:15:{s:5:"title";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:6:"l_name";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:10:"firma_name";a:1:{s:7:"display";s:1:"1";}s:6:"street";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:3:"zip";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:4:"city";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:5:"state";a:1:{s:7:"display";s:1:"1";}s:7:"country";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:5:"phone";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:3:"fax";a:1:{s:7:"display";s:1:"1";}s:6:"f_name";a:2:{s:7:"require";i:1;s:7:"display";i:1;}s:5:"email";a:2:{s:7:"require";i:1;s:7:"display";i:1;}s:6:"u_name";a:2:{s:7:"require";i:1;s:7:"display";i:1;}s:8:"password";a:2:{s:7:"require";i:1;s:7:"display";i:1;}s:10:"password_2";a:2:{s:7:"require";i:1;s:7:"display";i:1;}}s:7:"address";a:22:{s:5:"title";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:6:"l_name";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:10:"firma_name";a:1:{s:7:"display";s:1:"1";}s:6:"street";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:3:"zip";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:4:"city";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:5:"state";a:1:{s:7:"display";s:1:"1";}s:7:"country";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:5:"phone";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:3:"fax";a:1:{s:7:"display";s:1:"1";}s:7:"d_title";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:8:"d_f_name";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:8:"d_l_name";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:12:"d_firma_name";a:1:{s:7:"display";s:1:"1";}s:8:"d_street";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:5:"d_zip";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:6:"d_city";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:7:"d_state";a:1:{s:7:"display";s:1:"1";}s:9:"d_country";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:7:"d_phone";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:6:"f_name";a:2:{s:7:"require";i:1;s:7:"display";i:1;}s:5:"email";a:2:{s:7:"require";i:1;s:7:"display";i:1;}}s:11:"editaccount";a:22:{s:5:"title";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:6:"l_name";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:10:"firma_name";a:1:{s:7:"display";s:1:"1";}s:6:"street";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:3:"zip";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:4:"city";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:5:"state";a:1:{s:7:"display";s:1:"1";}s:7:"country";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:5:"phone";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:3:"fax";a:1:{s:7:"display";s:1:"1";}s:7:"d_title";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:8:"d_f_name";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:8:"d_l_name";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:12:"d_firma_name";a:1:{s:7:"display";s:1:"1";}s:8:"d_street";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:5:"d_zip";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:6:"d_city";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:7:"d_state";a:1:{s:7:"display";s:1:"1";}s:9:"d_country";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:7:"d_phone";a:2:{s:7:"display";s:1:"1";s:7:"require";s:1:"1";}s:6:"f_name";a:2:{s:7:"require";i:1;s:7:"display";i:1;}s:5:"email";a:2:{s:7:"require";i:1;s:7:"display";i:1;}}}');
 
-INSERT INTO `#__jshopping_currencies` ( `currency_id` , `currency_name` , `currency_code`, `currency_code_iso` , `currency_ordering` , `currency_publish` , `currency_value` ) VALUES ( NULL , 'Euro', 'EUR', 'EUR', '1', '1', '1.00');
+INSERT INTO `#__jshopping_currencies` ( `currency_id` , `currency_name` , `currency_code`, `currency_code_iso`, `currency_code_num` , `currency_ordering` , `currency_publish` , `currency_value` ) VALUES ( NULL , 'Euro', 'EUR', 'EUR', '978', '1', '1', '1.00');
 
 INSERT INTO `#__jshopping_order_status` (`status_id`, `status_code`, `name_en-GB`, `name_de-DE`) VALUES (1, 'P', 'Pending', 'Offen'),(2, 'C', 'Confirmed', 'Bestätigt'),(3, 'X', 'Cancelled', 'Abgebrochen'),(4, 'R', 'Refunded', 'Gutschrift'),(5, 'S', 'Shipped', 'Gesendet'),(6, 'O', 'Paid', 'Bezahlt'),(7, 'F', 'Complete', 'Abgeschlossen');
 
@@ -1027,7 +1067,7 @@ INSERT INTO `#__jshopping_shipping_method` ( `shipping_id` , `name_en-GB` , `nam
 
 INSERT INTO `#__jshopping_taxes` ( `tax_id` , `tax_name` , `tax_value` ) VALUES (1, 'Normal', '19%');
 
-INSERT INTO `#__jshopping_shipping_method_price` VALUES (1, 1, 1, 10.00,''),(2, 2, 1, 25.00,'');
+INSERT INTO `#__jshopping_shipping_method_price` VALUES (1, 1, 1, 10.00, 1, 0, 0, ''),(2, 2, 1, 25.00, 1, 0, 0, '');
 
 INSERT INTO `#__jshopping_shipping_method_price_countries` VALUES (1, 239, 1), (2, 238, 1), (3, 237, 1), (4, 236, 1), (5, 235, 1), (6, 234, 1), (7, 233, 1), (8, 232, 1), (9, 231, 1), (10, 230, 1), (11, 229, 1), (12, 228, 1), (13, 227, 1), (14, 226, 1), (15, 225, 1), (16, 224, 1), (17, 223, 1), (18, 222, 1), (19, 221, 1), (20, 220, 1), (21, 219, 1), (22, 218, 1), (23, 217, 1), (24, 216, 1), (25, 215, 1), (26, 214, 1), (27, 213, 1), (28, 212, 1), (29, 211, 1), (30, 210, 1), (31, 209, 1), (32, 208, 1), (33, 207, 1), (34, 206, 1), (35, 205, 1), (36, 204, 1), (37, 203, 1), (38, 202, 1), (39, 201, 1), (40, 200, 1), (41, 199, 1), (42, 198, 1), (43, 197, 1), (44, 196, 1), (45, 195, 1), (46, 194, 1), (47, 193, 1), (48, 192, 1), (49, 191, 1), (50, 190, 1), (51, 189, 1), (52, 188, 1), (53, 187, 1), (54, 186, 1), (55, 185, 1), (56, 184, 1), (57, 183, 1), (58, 182, 1), (59, 181, 1), (60, 180, 1), (61, 179, 1), (62, 178, 1), (63, 177, 1), (64, 176, 1), (65, 175, 1), (66, 174, 1), (67, 173, 1), (68, 172, 1), (69, 171, 1), (70, 170, 1), (71, 169, 1), (72, 168, 1), (73, 167, 1), (74, 166, 1), (75, 165, 1), (76, 164, 1), (77, 163, 1), (78, 162, 1), (79, 161, 1), (80, 160, 1), (81, 159, 1), (82, 158, 1), (83, 157, 1), (84, 156, 1), (85, 155, 1), (86, 154, 1), (87, 153, 1), (88, 152, 1), (89, 151, 1), (90, 150, 1), (91, 149, 1), (92, 148, 1), (93, 147, 1), (94, 146, 1), (95, 145, 1), (96, 144, 1), (97, 143, 1), (98, 142, 1), (99, 141, 1), (100, 140, 1), (101, 139, 1), (102, 138, 1), (103, 137, 1), (104, 136, 1), (105, 135, 1), (106, 134, 1), (107, 133, 1), (108, 132, 1), (109, 131, 1), (110, 130, 1), (111, 129, 1), (112, 128, 1), (113, 127, 1), (114, 126, 1), (115, 125, 1), (116, 124, 1), (117, 123, 1), (118, 122, 1), (119, 121, 1), (120, 120, 1), (121, 119, 1), (122, 118, 1), (123, 117, 1), (124, 116, 1), (125, 115, 1), (126, 114, 1), (127, 113, 1), (128, 112, 1), (129, 111, 1), (130, 110, 1), (131, 109, 1), (132, 108, 1), (133, 107, 1), (134, 106, 1), (135, 105, 1), (136, 104, 1), (137, 103, 1), (138, 102, 1), (139, 101, 1), (140, 100, 1), (141, 99, 1), (142, 98, 1), (143, 97, 1), (144, 96, 1), (145, 95, 1), (146, 94, 1), (147, 93, 1), (148, 92, 1), (149, 91, 1), (150, 90, 1), (151, 89, 1), (152, 88, 1), (153, 87, 1), (154, 86, 1), (155, 85, 1), (156, 84, 1), (157, 83, 1), (158, 82, 1), (159, 81, 1), (160, 80, 1), (161, 79, 1), (162, 78, 1), (163, 77, 1), (164, 76, 1), (165, 75, 1), (166, 74, 1), (167, 73, 1), (168, 72, 1), (169, 71, 1), (170, 70, 1), (171, 69, 1), (172, 68, 1), (173, 67, 1), (174, 66, 1), (175, 65, 1), (176, 64, 1), (177, 63, 1), (178, 62, 1), (179, 61, 1), (180, 60, 1), (181, 59, 1), (182, 58, 1), (183, 57, 1), (184, 56, 1), (185, 55, 1), (186, 54, 1), (187, 53, 1), (188, 52, 1), (189, 51, 1), (190, 50, 1), (191, 49, 1), (192, 48, 1), (193, 47, 1), (194, 46, 1), (195, 45, 1), (196, 44, 1), (197, 43, 1), (198, 42, 1), (199, 41, 1), (200, 40, 1), (201, 39, 1), (202, 38, 1), (203, 37, 1), (204, 36, 1), (205, 35, 1), (206, 34, 1), (207, 33, 1), (208, 32, 1), (209, 31, 1), (210, 30, 1), (211, 29, 1), (212, 28, 1), (213, 27, 1), (214, 26, 1), (215, 25, 1), (216, 24, 1), (217, 23, 1), (218, 22, 1), (219, 21, 1), (220, 20, 1), (221, 19, 1), (222, 18, 1), (223, 17, 1), (224, 16, 1), (225, 15, 1), (226, 14, 1), (227, 13, 1), (228, 12, 1), (229, 11, 1), (230, 10, 1), (231, 9, 1), (232, 8, 1), (233, 7, 1), (234, 6, 1), (235, 5, 1), (236, 4, 1), (237, 3, 1), (238, 2, 1), (239, 1, 1), (240, 239, 2), (241, 238, 2), (242, 237, 2), (243, 236, 2), (244, 235, 2), (245, 234, 2), (246, 233, 2), (247, 232, 2), (248, 231, 2), (249, 230, 2), (250, 229, 2), (251, 228, 2), (252, 227, 2), (253, 226, 2), (254, 225, 2), (255, 224, 2), (256, 223, 2), (257, 222, 2), (258, 221, 2), (259, 220, 2), (260, 219, 2), (261, 218, 2), (262, 217, 2), (263, 216, 2), (264, 215, 2), (265, 214, 2), (266, 213, 2), (267, 212, 2), (268, 211, 2), (269, 210, 2), (270, 209, 2), (271, 208, 2), (272, 207, 2), (273, 206, 2), (274, 205, 2), (275, 204, 2), (276, 203, 2), (277, 202, 2), (278, 201, 2), (279, 200, 2), (280, 199, 2), (281, 198, 2), (282, 197, 2), (283, 196, 2), (284, 195, 2), (285, 194, 2), (286, 193, 2), (287, 192, 2), (288, 191, 2), (289, 190, 2), (290, 189, 2), (291, 188, 2), (292, 187, 2), (293, 186, 2), (294, 185, 2), (295, 184, 2), (296, 183, 2), (297, 182, 2), (298, 181, 2), (299, 180, 2), (300, 179, 2), (301, 178, 2), (302, 177, 2), (303, 176, 2), (304, 175, 2), (305, 174, 2), (306, 173, 2), (307, 172, 2), (308, 171, 2), (309, 170, 2), (310, 169, 2), (311, 168, 2), (312, 167, 2), (313, 166, 2), (314, 165, 2), (315, 164, 2), (316, 163, 2), (317, 162, 2), (318, 161, 2), (319, 160, 2), (320, 159, 2), (321, 158, 2), (322, 157, 2), (323, 156, 2), (324, 155, 2), (325, 154, 2), (326, 153, 2), (327, 152, 2), (328, 151, 2), (329, 150, 2), (330, 149, 2), (331, 148, 2), (332, 147, 2), (333, 146, 2), (334, 145, 2), (335, 144, 2), (336, 143, 2), (337, 142, 2), (338, 141, 2), (339, 140, 2), (340, 139, 2), (341, 138, 2), (342, 137, 2), (343, 136, 2), (344, 135, 2), (345, 134, 2), (346, 133, 2), (347, 132, 2), (348, 131, 2), (349, 130, 2), (350, 129, 2), (351, 128, 2), (352, 127, 2), (353, 126, 2), (354, 125, 2), (355, 124, 2), (356, 123, 2), (357, 122, 2), (358, 121, 2), (359, 120, 2), (360, 119, 2), (361, 118, 2), (362, 117, 2), (363, 116, 2), (364, 115, 2), (365, 114, 2), (366, 113, 2), (367, 112, 2), (368, 111, 2), (369, 110, 2), (370, 109, 2), (371, 108, 2), (372, 107, 2), (373, 106, 2), (374, 105, 2), (375, 104, 2), (376, 103, 2), (377, 102, 2), (378, 101, 2), (379, 100, 2), (380, 99, 2), (381, 98, 2), (382, 97, 2), (383, 96, 2), (384, 95, 2), (385, 94, 2), (386, 93, 2), (387, 92, 2), (388, 91, 2), (389, 90, 2), (390, 89, 2), (391, 88, 2), (392, 87, 2), (393, 86, 2), (394, 85, 2), (395, 84, 2), (396, 83, 2), (397, 82, 2), (398, 81, 2), (399, 80, 2), (400, 79, 2), (401, 78, 2), (402, 77, 2), (403, 76, 2), (404, 75, 2), (405, 74, 2), (406, 73, 2), (407, 72, 2), (408, 71, 2), (409, 70, 2), (410, 69, 2), (411, 68, 2), (412, 67, 2), (413, 66, 2), (414, 65, 2), (415, 64, 2), (416, 63, 2), (417, 62, 2), (418, 61, 2), (419, 60, 2), (420, 59, 2), (421, 58, 2), (422, 57, 2), (423, 56, 2), (424, 55, 2), (425, 54, 2), (426, 53, 2), (427, 52, 2), (428, 51, 2), (429, 50, 2), (430, 49, 2), (431, 48, 2), (432, 47, 2), (433, 46, 2), (434, 45, 2), (435, 44, 2), (436, 43, 2), (437, 42, 2), (438, 41, 2), (439, 40, 2), (440, 39, 2), (441, 38, 2), (442, 37, 2), (443, 36, 2), (444, 35, 2), (445, 34, 2), (446, 33, 2), (447, 32, 2), (448, 31, 2), (449, 30, 2), (450, 29, 2), (451, 28, 2), (452, 27, 2), (453, 26, 2), (454, 25, 2), (455, 24, 2), (456, 23, 2), (457, 22, 2), (458, 21, 2), (459, 20, 2), (460, 19, 2), (461, 18, 2), (462, 17, 2), (463, 16, 2), (464, 15, 2), (465, 14, 2), (466, 13, 2), (467, 12, 2), (468, 11, 2), (469, 10, 2), (470, 9, 2), (471, 8, 2), (472, 7, 2), (473, 6, 2), (474, 5, 2), (475, 4, 2), (476, 3, 2), (477, 2, 2), (478, 1, 2);
 
@@ -1035,9 +1075,9 @@ INSERT INTO `#__jshopping_shipping_ext_calc` (`id`, `name`, `alias`, `descriptio
 
 INSERT INTO `#__jshopping_usergroups` VALUES (1 , 'Default', '0.00', 'Default', 1);
 
-INSERT INTO `#__jshopping_config_seo` (`alias`, `ordering`) VALUES ('category', 10),('manufacturers', 20), ('cart', 30), ('wishlist', 40), ('login', 50), ('register', 60), ('editaccount', 70), ('myorders', 80), ('myaccount', 90), ('search', 100), ('search-result', 110), ('myorder-detail', 120), ('vendors', 130),('content-agb', 140),('content-return_policy', 150),('content-shipping', 160),('checkout-address', 170),('checkout-payment', 180),('checkout-shipping', 190),('checkout-preview', 200),('lastproducts', 210),('randomproducts', 220),('bestsellerproducts', 230),('labelproducts', 240),('topratingproducts', 250),('tophitsproducts', 260),('all-products', 270);
+INSERT INTO `#__jshopping_config_seo` (`alias`, `ordering`) VALUES ('category', 10),('manufacturers', 20), ('cart', 30), ('wishlist', 40), ('login', 50), ('register', 60), ('editaccount', 70), ('myorders', 80), ('myaccount', 90), ('search', 100), ('search-result', 110), ('myorder-detail', 120), ('vendors', 130),('content-agb', 140),('content-return_policy', 150),('content-shipping', 160),('content-privacy_statement',161),('checkout-address', 170),('checkout-payment', 180),('checkout-shipping', 190),('checkout-preview', 200),('lastproducts', 210),('randomproducts', 220),('bestsellerproducts', 230),('labelproducts', 240),('topratingproducts', 250),('tophitsproducts', 260),('all-products', 270);
 
-INSERT INTO `#__jshopping_config_statictext` (`alias`) VALUES ('home'),('manufacturer'),('agb'),('return_policy'),('order_email_descr'),('order_finish_descr'),('shipping');
+INSERT INTO `#__jshopping_config_statictext` (`alias`) VALUES ('home'),('manufacturer'),('agb'),('return_policy'),('order_email_descr'),('order_email_descr_end'),('order_finish_descr'),('shipping'),('privacy_statement');
 
 INSERT INTO `#__jshopping_vendors` (`id`, `shop_name`, `company_name`, `url`, `logo`, `adress`, `city`, `zip`, `state`, `country`, `f_name`, `l_name`, `middlename`, `phone`, `fax`, `email`, `benef_bank_info`, `benef_bic`, `benef_conto`, `benef_payee`, `benef_iban`, `benef_swift`, `interm_name`, `interm_swift`, `identification_number`, `tax_number`, `additional_information`, `user_id`, `main`, `publish`) VALUES
 (1, 'Shop name', 'Company', '', '', 'Address', 'City', 'Postal Code ', 'State', 81, 'First name ', 'Last name', '', '00000000', '00000000', 'email@email.com', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', '', '', 'Additional information', 0, 1, 1);

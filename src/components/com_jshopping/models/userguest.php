@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 20.11.2011
+* @version      3.14.0 20.11.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -8,7 +8,6 @@
 */
 
 class jshopUserGust extends JObject {
-    
     var $user_id = null;
     var $usergroup_id = null;
     var $payment_id = null;
@@ -18,11 +17,13 @@ class jshopUserGust extends JObject {
     var $u_name = null;
     var $f_name = null;
     var $l_name = null;
+    var $m_name = null;
     var $firma_name = null;
     var $client_type = null;
     var $firma_code = null;
     var $tax_number = null;
     var $email = null;    
+    var $birthday = null;
     var $home = null;
     var $apartment = null;
     var $street = null;
@@ -41,8 +42,10 @@ class jshopUserGust extends JObject {
     var $d_title = null;
     var $d_f_name = null;
     var $d_l_name = null;
+    var $d_m_name = null;
     var $d_firma_name = null;
     var $d_email = null;
+    var $d_birthday = null;
     var $d_home = null;
     var $d_apartment = null;
     var $d_street = null;
@@ -57,9 +60,8 @@ class jshopUserGust extends JObject {
     var $d_ext_field_2 = null;
     var $d_ext_field_3 = null;
     
-    
     function load(){
-        $session =& JFactory::getSession();
+        $session = JFactory::getSession();
         $objuser = $session->get('user_shop_guest');
         if (isset($objuser) && $objuser!=''){
             $tmp = unserialize($objuser);
@@ -68,6 +70,8 @@ class jshopUserGust extends JObject {
             }
         }
         $this->user_id = -1;
+        $usergroup = JTable::getInstance('usergroup', 'jshop');
+        $this->usergroup_id = jshopUsergroup::getDefaultUsergroup();
     return true;
     }
         
@@ -93,16 +97,16 @@ class jshopUserGust extends JObject {
     
     function store(){
         $this->user_id = -1;
-        $session =& JFactory::getSession();
+        $session = JFactory::getSession();
         $session->set('user_shop_guest', serialize($this));
     return true;
     }
     
     function check($type) {
         jimport('joomla.mail.helper');
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $tmp_fields = $jshopConfig->getListFieldsRegister();
         $config_fields = $tmp_fields[$type];
         
@@ -123,6 +127,13 @@ class jshopUserGust extends JObject {
         if ($config_fields['l_name']['require']){
             if(trim($this->l_name) == '') {
                 $this->_error = addslashes(_JSHOP_REGWARN_LNAME);
+                return false;
+            }
+        }
+        
+        if ($config_fields['m_name']['require']){
+            if(trim($this->m_name) == '') {
+                $this->_error = addslashes(_JSHOP_REGWARN_MNAME);
                 return false;
             }
         }
@@ -162,15 +173,13 @@ class jshopUserGust extends JObject {
             return false;
         }
         
-        // check for existing email
-        /*$query = "SELECT id FROM #__users WHERE email = '" . $db->getEscaped($this->email) . "' AND id != " . (int)$this->user_id;
-        $db->setQuery($query);
-        $xid = intval($db->loadResult());
-        if($xid && $xid != intval($this->id)) {
-            $this->_error = addslashes(_JSHOP_REGWARN_EMAIL_INUSE);
-            return false;
-        }*/
-        
+        if ($config_fields['birthday']['require']){
+            if(trim($this->birthday) == '') {
+                $this->_error = addslashes(_JSHOP_REGWARN_BIRTHDAY);
+                return false;
+            }
+        }
+
         if ($config_fields['home']['require']){
             if(trim($this->home) == '') {
                 $this->_error = addslashes(_JSHOP_REGWARN_HOME);
@@ -286,6 +295,13 @@ class jshopUserGust extends JObject {
                     }
                 }
                 
+                if ($config_fields['d_m_name']['require']){
+                    if(trim($this->d_m_name) == '') {
+                        $this->_error = addslashes(_JSHOP_REGWARN_MNAME_DELIVERY);
+                        return false;
+                    }
+                }
+                
                 if ($config_fields['d_firma_name']['require']){
                     if(trim($this->d_firma_name) == '') {
                         $this->_error = addslashes(_JSHOP_REGWARN_FIRMA_NAME_DELIVERY);
@@ -310,6 +326,13 @@ class jshopUserGust extends JObject {
                 if ($config_fields['d_email']['require']){
                     if ( (trim($this->d_email) == "") || ! JMailHelper::isEmailAddress($this->d_email)) {
                         $this->_error = addslashes(_JSHOP_REGWARN_MAIL_DELIVERY);
+                        return false;
+                    }
+                }
+                
+                if ($config_fields['d_birthday']['require']){
+                    if(trim($this->d_birthday) == '') {
+                        $this->_error = addslashes(_JSHOP_REGWARN_BIRTHDAY_DELIVERY);
                         return false;
                     }
                 }

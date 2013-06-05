@@ -12,13 +12,17 @@ jimport( 'joomla.application.component.model');
 
 class JshoppingModelPayments extends JModel{
     
-    function getAllPaymentMethods($publish = 1) {
-        $database =& JFactory::getDBO(); 
+    function getAllPaymentMethods($publish = 1, $order = null, $orderDir = null) {
+        $database = JFactory::getDBO(); 
         $query_where = ($publish)?("WHERE payment_publish = '1'"):("");
-        $lang = &JSFactory::getLang();
+        $lang = JSFactory::getLang();
+        $ordering = 'payment_ordering';
+        if ($order && $orderDir){
+            $ordering = $order." ".$orderDir;
+        }
         $query = "SELECT payment_id, `".$lang->get("name")."` as name, `".$lang->get("description")."` as description , payment_code, payment_class, payment_publish, payment_ordering, payment_params, payment_type FROM `#__jshopping_payment_method`
                   $query_where
-                  ORDER BY payment_ordering";
+                  ORDER BY ".$ordering;
         $database->setQuery($query);
         return $database->loadObjectList();
     }
@@ -28,7 +32,7 @@ class JshoppingModelPayments extends JModel{
     }
     
     function getMaxOrdering(){
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $query = "select max(payment_ordering) from `#__jshopping_payment_method`";
         $db->setQuery($query);
         return $db->loadResult();

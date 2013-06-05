@@ -12,16 +12,21 @@ jimport( 'joomla.application.component.model');
 
 class JshoppingModelDeliveryTimes extends JModel{    
 
-    function getDeliveryTimes(){
-        $db =& JFactory::getDBO();    
-        $lang = &JSFactory::getLang();     
-        $query = "SELECT id, `".$lang->get('name')."` as name FROM `#__jshopping_delivery_times` ORDER BY name";
+    function getDeliveryTimes($order = null, $orderDir = null){
+        $db = JFactory::getDBO();    
+        $lang = JSFactory::getLang();    
+        
+        $ordering = "name";
+        if ($order && $orderDir){
+            $ordering = $order." ".$orderDir;
+        }
+        $query = "SELECT id, `".$lang->get('name')."` as name FROM `#__jshopping_delivery_times` ORDER BY ".$ordering;
         $db->setQuery($query);
         return $db->loadObjectList();
     }
     
     function getCountDeliveryTimes() {
-        $db =& JFactory::getDBO();         
+        $db = JFactory::getDBO();         
         $query = "SELECT count(id) FROM `#__jshopping_delivery_times`";
         $db->setQuery($query);
         return $db->loadResult();

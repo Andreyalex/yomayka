@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <div class="jshop">
 <h1><?php print _JSHOP_SEARCH_RESULT?> <?php if ($this->search) print '"'.$this->search.'"';?></h1>
 

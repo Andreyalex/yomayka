@@ -13,8 +13,8 @@ jimport( 'joomla.application.component.model');
 class JshoppingModelSeo extends JModel{ 
 
     function getList(){
-        $lang = &JSFactory::getLang();
-        $db =& JFactory::getDBO();         
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO();         
         $query = "SELECT id, alias, `".$lang->get('title')."` as title, `".$lang->get('keyword')."` as keyword, `".$lang->get('description')."` as description FROM `#__jshopping_config_seo` ORDER BY ordering";
         $db->setQuery($query);
         return $db->loadObjectList();

@@ -1,14 +1,14 @@
 <?php
-$user = $this->user;
-$lists = $this->lists;
-$config_fields = $this->config_fields;
+	defined('_JEXEC') or die();
+	$user = $this->user;
+	$lists = $this->lists;
+	$config_fields = $this->config_fields;
 ?>
 <script type="text/javascript">
 function enableFields(val){
     if (val==1){
         jQuery('.endes').removeAttr("disabled");    
-    }
-    else{            
+    }else{            
         jQuery('.endes').attr('disabled','disabled'); 
     }
 }
@@ -17,7 +17,7 @@ function enableFields(val){
 <form action = "index.php?option=com_jshopping&controller=users" method = "post" name = "adminForm" >
 <?php
 jimport('joomla.html.pane');
-$pane =& JPane::getInstance('Tabs');
+$pane = JPane::getInstance('Tabs');
 echo $pane->startPane('myPane');
 echo $pane->startPanel(_JSHOP_GENERAL, "firstpage1");
 ?>
@@ -79,6 +79,7 @@ echo $pane->startPanel(_JSHOP_GENERAL, "firstpage1");
 </div>
 <div class="clr"></div>
 <?php
+$pkey = "etemplatevar0";if ($this->$pkey){print $this->$pkey;}
 echo $pane->endPanel();
 
 echo $pane->startPanel(_JSHOP_BILL_TO, "secondpage2");
@@ -114,6 +115,16 @@ echo $pane->startPanel(_JSHOP_BILL_TO, "secondpage2");
   </td>
   <td>
     <input type = "text" class = "inputbox" name = "l_name" value = "<?php echo $user->l_name ?>" />
+  </td>
+</tr>
+<?php } ?>
+<?php if ($config_fields['m_name']['display']){?>
+<tr>
+  <td class="key">
+    <?php print _JSHOP_M_NAME ?>
+  </td>
+  <td>
+    <input type = "text" name = "m_name" id = "m_name" value = "<?php print $user->m_name ?>" class = "inputbox" />
   </td>
 </tr>
 <?php } ?>
@@ -155,6 +166,16 @@ echo $pane->startPanel(_JSHOP_BILL_TO, "secondpage2");
   </td>
   <td>
     <input type = "text" name = "tax_number" id = "tax_number" value = "<?php print $user->tax_number ?>" class = "inputbox" />
+  </td>
+</tr>
+<?php } ?>
+<?php if ($config_fields['birthday']['display']){?>
+<tr>
+  <td class="key">
+    <?php print _JSHOP_BIRTHDAY?>
+  </td>
+  <td>
+    <?php echo JHTML::_('calendar', $user->birthday, 'birthday', 'birthday', $this->config->field_birthday_format, array('class'=>'inputbox', 'size'=>'25', 'maxlength'=>'19'));?>
   </td>
 </tr>
 <?php } ?>
@@ -294,6 +315,7 @@ echo $pane->startPanel(_JSHOP_BILL_TO, "secondpage2");
 </div>
 <div class="clr"></div>
 <?php
+$pkey = "etemplatevar1";if ($this->$pkey){print $this->$pkey;}
 echo $pane->endPanel();
 
 if ($this->count_filed_delivery > 0){
@@ -342,6 +364,16 @@ echo $pane->startPanel(_JSHOP_SHIP_TO, "thirdpage3");
   </td>
 </tr>
 <?php } ?>
+<?php if ($config_fields['d_m_name']['display']){?>
+<tr>
+  <td class="key">
+    <?php print _JSHOP_M_NAME ?>
+  </td>
+  <td>
+    <input type = "text" name = "d_m_name" id = "d_m_name" value = "<?php print $user->d_m_name ?>" class = "inputbox endes" />
+  </td>
+</tr>
+<?php } ?>
 <?php if ($config_fields['d_firma_name']['display']){?>
 <tr>
   <td class="key">
@@ -349,6 +381,16 @@ echo $pane->startPanel(_JSHOP_SHIP_TO, "thirdpage3");
   </td>
   <td>
     <input type = "text" class = "inputbox endes" name = "d_firma_name" value = "<?php echo $user->d_firma_name ?>" />
+  </td>
+</tr>
+<?php } ?>
+<?php if ($config_fields['d_birthday']['display']){?>
+<tr>
+  <td class="key">
+    <?php print _JSHOP_BIRTHDAY?>
+  </td>
+  <td>
+    <?php echo JHTML::_('calendar', $user->d_birthday, 'd_birthday', 'd_birthday', $this->config->field_birthday_format, array('class'=>'inputbox endes', 'size'=>'25', 'maxlength'=>'19'));?>
   </td>
 </tr>
 <?php } ?>
@@ -495,7 +537,7 @@ echo $pane->startPanel(_JSHOP_SHIP_TO, "thirdpage3");
 <?php
 echo $pane->endPanel();
 }
-  
+$pkey = "etemplatevarend";if ($this->$pkey){print $this->$pkey;}
 echo $pane->endPane();
 ?>
 <input type="hidden" name="task" value="">

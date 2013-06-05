@@ -1,41 +1,41 @@
 <?php
 /**
-* @version      3.4.2 22.01.2012
+* @version      3.13.0 27.10.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
 * @license      GNU/GPL
 */
-
-JTable::addIncludePath(JPATH_ROOT.DS.'components'.DS.'com_jshopping'.DS.'tables');
-include_once(JPATH_ROOT . "/components/com_jshopping/lib/jtableauto.php");
-include_once(JPATH_ROOT . "/components/com_jshopping/lib/multilangfield.php");
-include_once(JPATH_ROOT . "/components/com_jshopping/tables/config.php");
+error_reporting(error_reporting() & ~E_NOTICE);
+JTable::addIncludePath(JPATH_ROOT.'/components/com_jshopping/tables');
+include_once(JPATH_ROOT."/components/com_jshopping/lib/jtableauto.php");
+include_once(JPATH_ROOT."/components/com_jshopping/lib/multilangfield.php");
+include_once(JPATH_ROOT."/components/com_jshopping/tables/config.php");
+require_once(JPATH_ROOT."/components/com_jshopping/lib/functions.php");
 
 class JSFactory{
-    
-    function &getConfig(){
+
+    public static function getConfig(){
     static $config;
         if (!is_object($config)){
-            $db = &JFactory::getDBO();
+            $db = JFactory::getDBO();
             $config = new jshopConfig($db);
-            include(dirname(__FILE__)."/static_config.php");
+            include(dirname(__FILE__)."/default_config.php");
+            if (file_exists(dirname(__FILE__)."/user_config.php")) include(dirname(__FILE__)."/user_config.php");
             $config->load("1");
+            $config->loadOtherConfig();
             $config->loadCurrencyValue();
 
-            $params = JComponentHelper::getParams('com_languages');
+			$params = JComponentHelper::getParams('com_languages');
             $frontend_lang = $params->get('site', 'en-GB');
             $config->frontend_lang = $frontend_lang;
 
-            $lang = &JFactory::getLanguage();
+            $lang = JFactory::getLanguage();
             $config->cur_lang = $lang->getTag();
-
-            $config->thousand_separator = (!$config->thousand_separator)?(" "):($config->thousand_separator);
 
             list($config->pdf_header_width, $config->pdf_header_height, $config->pdf_footer_width, $config->pdf_footer_height) = explode(":", $config->pdf_parameters);
             $config->pdf_header_width = ($config->pdf_header_width > 208) ? (208) : (intval($config->pdf_header_width));
             $config->pdf_footer_width = ($config->pdf_footer_width > 208) ? (208) : (intval($config->pdf_footer_width));
-
             if (!$config->allow_reviews_prod){
                 unset($config->sorting_products_field_select[5]);
                 unset($config->sorting_products_name_select[5]);
@@ -47,6 +47,13 @@ class JSFactory{
 
             if ($config->user_as_catalog){
                 $config->show_buy_in_category = 0;
+            }
+            if (!$config->stock){
+                $config->hide_product_not_avaible_stock = 0;
+                $config->hide_buy_not_avaible_stock = 0;
+                $config->hide_text_product_not_available = 1;
+                $config->product_list_show_qty_stock = 0;
+                $config->product_show_qty_stock = 0;
             }
 
             if ($config->hide_product_not_avaible_stock || $config->hide_buy_not_avaible_stock){
@@ -84,20 +91,32 @@ class JSFactory{
                 $config->image_cut = 0;
                 $config->image_fill = 0;
             }
+            if (!$config->tax){
+                $config->show_tax_in_product = 0;
+                $config->show_tax_product_in_cart = 0;
+                $config->hide_tax = 1;
+            }
+            if (!$config->admin_show_delivery_time){
+                $config->show_delivery_time = 0;
+                $config->show_delivery_time_checkout = 0;
+                $config->show_delivery_time_step5 = 0;
+                $config->display_delivery_time_for_product_in_order_mail = 0;
+                $config->show_delivery_date = 0;
+            }
 
             JPluginHelper::importPlugin('jshopping');
-            $dispatcher =& JDispatcher::getInstance();
+            $dispatcher = JDispatcher::getInstance();
             $dispatcher->trigger('onLoadJshopConfig', array(&$config));
         }
     return $config;
     }
-    
-    function &getUserShop(){
+
+    public static function getUserShop(){
     static $usershop;
         if (!is_object($usershop)){
-            $user = &JFactory::getUser();
-            $db = &JFactory::getDBO();
-            require_once(JPATH_ROOT . "/components/com_jshopping/tables/usershop.php");
+            $user = JFactory::getUser();
+            $db = JFactory::getDBO();
+            require_once(JPATH_ROOT."/components/com_jshopping/tables/usershop.php");
             $usershop = new jshopUserShop($db);
             if($user->id){
                 if(!$usershop->isUserInShop($user->id)) {
@@ -112,10 +131,10 @@ class JSFactory{
     return $usershop;
     }
 
-    function &getUserShopGuest(){
+    public static function getUserShopGuest(){
     static $userguest;
         if (!is_object($userguest)){
-            require_once(JPATH_ROOT . "/components/com_jshopping/models/userguest.php");
+            require_once(JPATH_ROOT."/components/com_jshopping/models/userguest.php");
             $userguest = new jshopUserGust();
             $userguest->load();
             $userguest->percent_discount = 0;
@@ -123,47 +142,62 @@ class JSFactory{
     return $userguest;
     }
 
-    function loadCssFiles(){
+    public static function loadCssFiles(){
     static $load;
+        $jshopConfig = JSFactory::getConfig();
+        if (!$jshopConfig->load_css) return 0;
         if (!$load){
-            $document =& JFactory::getDocument();
-            $jshopConfig = &JSFactory::getConfig();
-            $document->addCustomTag('<link type = "text/css" rel = "stylesheet" href = "'.JURI::root().'components/com_jshopping/css/'.$jshopConfig->template.'.css" />');
+            $document = JFactory::getDocument();
+            $jshopConfig = JSFactory::getConfig();
+            $document->addStyleSheet(JURI::root().'components/com_jshopping/css/'.$jshopConfig->template.'.css');            
+            if (file_exists(JPATH_ROOT.'/components/com_jshopping/css/'.$jshopConfig->template.'.custom.css')){
+                $document->addStyleSheet(JURI::root().'components/com_jshopping/css/'.$jshopConfig->template.'.custom.css');
+            }
             $load = 1;
         }
     }
 
-    function loadJsFiles(){
+    public static function loadJsFiles(){
     static $load;
         if (!$load){
-            $document =& JFactory::getDocument();
-            $document->addCustomTag('<script type = "text/javascript" src = "'.JURI::root().'components/com_jshopping/js/jquery/jquery-1.6.2.min.js"></script>');
-            $document->addCustomTag('<script type = "text/javascript">jQuery.noConflict();</script>');
-            $document->addCustomTag('<script type = "text/javascript" src = "'.JURI::root().'components/com_jshopping/js/jquery/jquery.media.js"></script>');
-            $document->addCustomTag('<script type = "text/javascript" src = "'.JURI::root().'components/com_jshopping/js/functions.js"></script>');
-            $document->addCustomTag('<script type = "text/javascript" src = "'.JURI::root().'components/com_jshopping/js/validateForm.js"></script>');
+            $jshopConfig = JSFactory::getConfig();
+            $document = JFactory::getDocument();
+            if ($jshopConfig->load_jquery){
+                $document->addScript(JURI::root().'components/com_jshopping/js/jquery/jquery-'.$jshopConfig->load_jquery_version.'.min.js');
+				$document->addScript(JURI::root().'components/com_jshopping/js/jquery/jquery-noconflict.js');
+            }
+            if ($jshopConfig->load_javascript){
+                $document->addScript(JURI::root().'components/com_jshopping/js/jquery/jquery.media.js');
+                $document->addScript(JURI::root().'components/com_jshopping/js/functions.js');
+                $document->addScript(JURI::root().'components/com_jshopping/js/validateForm.js');
+            }
             $load = 1;
         }
     }
-    
-    function loadJsFilesRating(){
+
+    public static function loadJsFilesRating(){
     static $load;
         if (!$load){
-            $document =& JFactory::getDocument();
-            $document->addCustomTag('<script type = "text/javascript" src = "'.JURI::root().'components/com_jshopping/js/jquery/jquery.MetaData.js"></script>');
-            $document->addCustomTag('<script type = "text/javascript" src = "'.JURI::root().'components/com_jshopping/js/jquery/jquery.rating.pack.js"></script>');
-            $document->addCustomTag('<link type = "text/css" rel = "stylesheet" href = "'.JURI::root().'components/com_jshopping/css/jquery.rating.css" />');      
+            $jshopConfig = JSFactory::getConfig();
+            if ($jshopConfig->load_javascript){
+                $document = JFactory::getDocument();
+                $document->addScript(JURI::root().'components/com_jshopping/js/jquery/jquery.MetaData.js');
+                $document->addScript(JURI::root().'components/com_jshopping/js/jquery/jquery.rating.pack.js');
+                $document->addStyleSheet(JURI::root().'components/com_jshopping/css/jquery.rating.css');
+            }
             $load = 1;
         }
     }
-    
-    function loadJsFilesLightBox(){
+
+    public static function loadJsFilesLightBox(){
     static $load;
+        $jshopConfig = JSFactory::getConfig();
+        if (!$jshopConfig->load_jquery_lightbox) return 0;
         if (!$load){
-            $document =& JFactory::getDocument();
-            $document->addCustomTag('<script type = "text/javascript" src = "'.JURI::root().'components/com_jshopping/js/jquery/jquery.lightbox-0.5.pack.js"></script>');
-            $document->addCustomTag('<link type = "text/css" rel = "stylesheet" href = "'.JURI::root().'components/com_jshopping/css/jquery.lightbox-0.5.css" media="screen" />');
-            $document->addCustomTag('<script type = "text/javascript">function initJSlightBox(){
+            $document = JFactory::getDocument();
+            $document->addScript(JURI::root().'components/com_jshopping/js/jquery/jquery.lightbox-0.5.pack.js');
+            $document->addStyleSheet(JURI::root().'components/com_jshopping/css/jquery.lightbox-0.5.css');
+            $document->addScriptDeclaration('function initJSlightBox(){
                 jQuery("a.lightbox").lightBox({
                     imageLoading: "'.JURI::root().'components/com_jshopping/images/loading.gif",
                     imageBtnClose: "'.JURI::root().'components/com_jshopping/images/close.gif",
@@ -174,59 +208,65 @@ class JSFactory{
                     txtOf: "'._JSHOP_OF.'"
                 });
             }
-            jQuery(function() { initJSlightBox(); });</script>');
+            jQuery(function() { initJSlightBox(); });');
             $load = 1;
         }
     }
-    
-    function loadLanguageFile($langtag = ""){
-        $lang = &JFactory::getLanguage();
+
+    public static function loadLanguageFile($langtag = ""){
+        $lang = JFactory::getLanguage();
         if ($langtag==""){
             $langtag = $lang->getTag();
         }
-        if(file_exists(JPATH_ROOT . '/components/com_jshopping/lang/'.$langtag.'.php'))
-            require_once (JPATH_ROOT . '/components/com_jshopping/lang/'.$langtag.'.php');
+        $langpatch = JPATH_ROOT.'/components/com_jshopping/lang/';        
+        if (file_exists($langpatch.'override/'.$langtag.'.php')) 
+            require_once($langpatch.'override/'.$langtag.'.php');
+        if (file_exists($langpatch.$langtag.'.php'))
+            require_once($langpatch.$langtag.'.php');
         else 
-            require_once (JPATH_ROOT . '/components/com_jshopping/lang/en-GB.php');
+            require_once($langpatch.'en-GB.php');
     }
-    
-    function loadExtLanguageFile($extname, $langtag = ""){
-        $lang = &JFactory::getLanguage();
+
+    public static function loadExtLanguageFile($extname, $langtag = ""){
+        $lang = JFactory::getLanguage();
+        if ($langtag==""){
+            $langtag = $lang->getTag();
+        }        
+        if(file_exists(JPATH_ROOT.'/components/com_jshopping/lang/'.$extname.'/'.$langtag.'.php'))
+            require_once(JPATH_ROOT.'/components/com_jshopping/lang/'.$extname.'/'.$langtag.'.php');
+        else 
+            require_once(JPATH_ROOT.'/components/com_jshopping/lang/'.$extname.'/en-GB.php');
+    }
+
+    public static function loadAdminLanguageFile($langtag = ""){
+        $lang = JFactory::getLanguage();
         if ($langtag==""){
             $langtag = $lang->getTag();
         }
-        if(file_exists(JPATH_ROOT . '/components/com_jshopping/lang/'.$extname.'/'.$langtag.'.php'))
-            require_once (JPATH_ROOT . '/components/com_jshopping/lang/'.$extname.'/'.$langtag.'.php');
+        $langpatch = JPATH_ROOT.'/administrator/components/com_jshopping/lang/';        
+        if (file_exists($langpatch.'override/'.$langtag.'.php'))
+            require_once($langpatch.'override/'.$langtag.'.php');
+        if (file_exists($langpatch.$langtag.'.php'))
+            require_once($langpatch.$langtag.'.php');
         else 
-            require_once (JPATH_ROOT . '/components/com_jshopping/lang/'.$extname.'/en-GB.php');
+            require_once($langpatch.'en-GB.php');
     }
-    
-    function loadAdminLanguageFile($langtag = ""){
-        $lang = &JFactory::getLanguage();
+
+    public static function loadExtAdminLanguageFile($extname, $langtag = ""){
+        $lang = JFactory::getLanguage();
         if ($langtag==""){
             $langtag = $lang->getTag();
         }
-        if(file_exists(JPATH_ROOT . '/administrator/components/com_jshopping/lang/'.$langtag.'.php'))
-            require_once (JPATH_ROOT . '/administrator/components/com_jshopping/lang/'.$langtag.'.php');
+        if(file_exists(JPATH_ROOT.'/administrator/components/com_jshopping/lang/'.$extname.'/'.$langtag.'.php'))
+            require_once(JPATH_ROOT.'/administrator/components/com_jshopping/lang/'.$extname.'/'.$langtag.'.php');
         else 
-            require_once (JPATH_ROOT . '/administrator/components/com_jshopping/lang/en-GB.php');            
+            require_once(JPATH_ROOT.'/administrator/components/com_jshopping/lang/'.$extname.'/en-GB.php');
     }
-    
-    function loadExtAdminLanguageFile($extname, $langtag = ""){
-        $lang = &JFactory::getLanguage();
-        if ($langtag==""){
-            $langtag = $lang->getTag();
-        }
-        if(file_exists(JPATH_ROOT . '/administrator/components/com_jshopping/lang/'.$extname.'/'.$langtag.'.php'))
-            require_once (JPATH_ROOT . '/administrator/components/com_jshopping/lang/'.$extname.'/'.$langtag.'.php');
-        else 
-            require_once (JPATH_ROOT . '/administrator/components/com_jshopping/lang/'.$extname.'/en-GB.php');
-    }
-       
-    function &getLang($langtag = ""){
+
+    public static function getLang($langtag = ""){
     static $ml;
         if (!is_object($ml)){
-            $jshopConfig = &JSFactory::getConfig();
+            $jshopConfig = JSFactory::getConfig();
             $ml = new multiLangField();
             if ($langtag==""){
                 $langtag = $jshopConfig->cur_lang;
@@ -235,8 +275,8 @@ class JSFactory{
         }
     return $ml;
     }
-    
-    function &getReservedFirstAlias(){
+
+    public static function getReservedFirstAlias(){
     static $alias;
         if (!is_array($alias)){
             jimport('joomla.filesystem.folder');
@@ -248,12 +288,12 @@ class JSFactory{
         }
     return $alias;
     }
-    
-    function &getAliasCategory(){
+
+    public static function getAliasCategory(){
     static $alias;
         if (!is_array($alias)){
-            $db = &JFactory::getDBO();
-            $lang = &JSFactory::getLang();
+            $db = JFactory::getDBO();
+            $lang = JSFactory::getLang();
             $dbquery = "select category_id as id, `".$lang->get('alias')."` as alias from #__jshopping_categories where `".$lang->get('alias')."`!=''"; 
             $db->setQuery($dbquery);
             $rows = $db->loadObjectList();
@@ -265,12 +305,12 @@ class JSFactory{
         }
     return $alias;
     }
-    
-    function &getAliasManufacturer(){
+
+    public static function getAliasManufacturer(){
     static $alias;
         if (!is_array($alias)){
-            $db = &JFactory::getDBO();
-            $lang = &JSFactory::getLang();
+            $db = JFactory::getDBO();
+            $lang = JSFactory::getLang();
             $dbquery = "select manufacturer_id as id, `".$lang->get('alias')."` as alias from #__jshopping_manufacturers where `".$lang->get('alias')."`!=''";
             $db->setQuery($dbquery);
             $rows = $db->loadObjectList();
@@ -282,12 +322,12 @@ class JSFactory{
         }
     return $alias;
     }
-    
-    function &getAliasProduct(){
+
+    public static function getAliasProduct(){
     static $alias;
         if (!is_array($alias)){
-            $db = &JFactory::getDBO();
-            $lang = &JSFactory::getLang();
+            $db = JFactory::getDBO();
+            $lang = JSFactory::getLang();
             $dbquery = "select product_id as id, `".$lang->get('alias')."` as alias from #__jshopping_products where `".$lang->get('alias')."`!=''"; 
             $db->setQuery($dbquery);
             $rows = $db->loadObjectList();
@@ -300,15 +340,15 @@ class JSFactory{
         }
     return $alias;
     }
-    
-    function &getAllAttributes($resformat = 0){
+
+    public static function getAllAttributes($resformat = 0){
     static $attributes;
         if (!is_array($attributes)){
-            $_attrib = &JTable::getInstance("attribut","jshop");
+            $_attrib = JTable::getInstance("attribut","jshop");
             $attributes = $_attrib->getAllAttributes();
         }
         if ($resformat==0){
-            return $attributes;    
+            return $attributes;
         }
         if ($resformat==1){
             $attributes_format1 = array();
@@ -328,41 +368,58 @@ class JSFactory{
             return $attributes_format2;
         }
     }
-    
-    function &getAllUnits(){
+
+    public static function getAllUnits(){
     static $rows;
         if (!is_array($rows)){
-            $_unit = &JTable::getInstance("unit","jshop");    
+            $_unit = JTable::getInstance("unit","jshop");
             $rows = $_unit->getAllUnits();
         }
     return $rows;
     }
     
-    function &getAllTaxes(){
+    public static function getAllTaxesOriginal(){
     static $rows;
         if (!is_array($rows)){
-            $jshopConfig = &JSFactory::getConfig();
-            $_tax = &JTable::getInstance('tax', 'jshop');
+            $_tax = JTable::getInstance('tax', 'jshop');
             $_rows = $_tax->getAllTaxes();
             $rows = array();
             foreach($_rows as $row){
                 $rows[$row->tax_id] = $row->tax_value;
             }
-            unset($_rows);
+        }
+    return $rows;
+    }
+
+    public static function getAllTaxes(){
+    static $rows;
+        if (!is_array($rows)){
+            $jshopConfig = JSFactory::getConfig();
+            JPluginHelper::importPlugin('jshopping');
+            $dispatcher = JDispatcher::getInstance();            
+            $_tax = JTable::getInstance('tax', 'jshop');            
+            $rows = JSFactory::getAllTaxesOriginal();
             if ($jshopConfig->use_extend_tax_rule){
                 $country_id = 0;
-                $adv_user = &JSFactory::getUserShop();
+                $adv_user = JSFactory::getUserShop();
                 $country_id = $adv_user->country;
+                if ($jshopConfig->tax_on_delivery_address && $adv_user->delivery_adress && $adv_user->d_country){
+                    $country_id = $adv_user->d_country;
+                }
                 $client_type = $adv_user->client_type;
                 $enter_tax_id = $adv_user->tax_number!="";
                 if (!$country_id){
-                    $adv_user = &JSFactory::getUserShopGuest();
+                    $adv_user = JSFactory::getUserShopGuest();
                     $country_id = $adv_user->country;
+                    if ($jshopConfig->tax_on_delivery_address && $adv_user->delivery_adress && $adv_user->d_country){
+                        $country_id = $adv_user->d_country;
+                    }
                     $client_type = $adv_user->client_type;
                     $enter_tax_id = $adv_user->tax_number!="";
                 }
                 if ($country_id){
                     $_rowsext = $_tax->getExtTaxes();
+                    $dispatcher->trigger('beforeGetAllTaxesRowsext', array(&$_rowsext, &$country_id, &$adv_user, &$rows) );
                     foreach($_rowsext as $v){
                         if (in_array($country_id, $v->countries)){
                             if ($jshopConfig->ext_tax_rule_for==1){
@@ -380,19 +437,25 @@ class JSFactory{
                             }
                         }
                     }
+                    $dispatcher->trigger('afterGetAllTaxesRowsext', array(&$_rowsext, &$country_id, &$adv_user, &$rows) );
                     unset($_rowsext);
                 }
             }
+        $dispatcher->trigger('afterGetAllTaxes', array(&$rows) );
         }
     return $rows;
     }
-    
-    function &getAllManufacturer(){
+
+    public static function getAllManufacturer(){
     static $rows;
         if (!is_array($rows)){
-            $db = &JFactory::getDBO();
-            $lang = &JSFactory::getLang();
-            $query = "select manufacturer_id as id, `".$lang->get('name')."` as name, manufacturer_logo, manufacturer_url from #__jshopping_manufacturers where manufacturer_publish='1'";
+            $db = JFactory::getDBO();
+            $lang = JSFactory::getLang();
+            JPluginHelper::importPlugin('jshopping');
+            $dispatcher = JDispatcher::getInstance();
+            $adv_result = "manufacturer_id as id, `".$lang->get('name')."` as name, manufacturer_logo, manufacturer_url";
+            $dispatcher->trigger('onBeforeQueryGetAllManufacturer', array(&$adv_result));
+            $query = "select ".$adv_result." from #__jshopping_manufacturers where manufacturer_publish='1'";
             $db->setQuery($query);
             $_rows = $db->loadObjectList();
             $rows = array();
@@ -403,25 +466,25 @@ class JSFactory{
         }
     return $rows;
     }
-    
-    function &getMainVendor(){
+
+    public static function getMainVendor(){
     static $row;
         if (!isset($row)){
-            $row = &JTable::getInstance('vendor', 'jshop');
+            $row = JTable::getInstance('vendor', 'jshop');
             $row->loadMain();
         }
     return $row;
     }
-    
-    function &getAllVendor(){
+
+    public static function getAllVendor(){
     static $rows;
         if (!is_array($rows)){
-            $db = &JFactory::getDBO();            
+            $db = JFactory::getDBO();
             $query = "select id, shop_name, l_name, f_name from #__jshopping_vendors";
             $db->setQuery($query);
             $_rows = $db->loadObjectList();
             $rows = array();
-            $mainvendor = &JSFactory::getMainVendor();
+            $mainvendor = JSFactory::getMainVendor();
             $rows[0] = $mainvendor;
             foreach($_rows as $row){
                 $rows[$row->id] = $row;
@@ -430,12 +493,12 @@ class JSFactory{
         }
     return $rows;
     }
-    
-    function &getAllDeliveryTime(){
+
+    public static function getAllDeliveryTime(){
     static $rows;
         if (!is_array($rows)){
-            $db = &JFactory::getDBO();
-            $lang = &JSFactory::getLang();
+            $db = JFactory::getDBO();
+            $lang = JSFactory::getLang();
             $query = "select id, `".$lang->get('name')."` as name from #__jshopping_delivery_times";
             $db->setQuery($query);
             $_rows = $db->loadObjectList();
@@ -447,40 +510,56 @@ class JSFactory{
         }
     return $rows;
     }
-    
-    function &getAllProductExtraField(){
+
+    public static function getAllDeliveryTimeDays(){
+    static $rows;
+        if (!is_array($rows)){
+            $db = JFactory::getDBO();
+            $lang = JSFactory::getLang();
+            $query = "select id, days from #__jshopping_delivery_times";
+            $db->setQuery($query);
+            $_rows = $db->loadObjectList();
+            $rows = array();
+            foreach($_rows as $row){
+                $rows[$row->id] = $row->days;
+            }
+            unset($_rows);
+        }
+    return $rows;
+    }
+
+    public static function getAllProductExtraField(){
     static $list;
         if (!is_array($list)){
-            $productfield =& JTable::getInstance('productfield', 'jshop');
+            $productfield = JTable::getInstance('productfield', 'jshop');
             $list = $productfield->getList();
         }
     return $list;
     }
-    
-    function &getAllProductExtraFieldValue(){
+
+    public static function getAllProductExtraFieldValue(){
     static $list;
         if (!is_array($list)){
-            $productfieldvalue =& JTable::getInstance('productfieldvalue', 'jshop');
+            $productfieldvalue = JTable::getInstance('productfieldvalue', 'jshop');
             $list = $productfieldvalue->getAllList(1);
         }
     return $list;
     }
-    
-    function &getAllProductExtraFieldValueDetail(){
+
+    public static function getAllProductExtraFieldValueDetail(){
     static $list;
         if (!is_array($list)){
-            $productfieldvalue =& JTable::getInstance('productfieldvalue', 'jshop');
+            $productfieldvalue = JTable::getInstance('productfieldvalue', 'jshop');
             $list = $productfieldvalue->getAllList(2);
         }
     return $list;
     }
-    
 
-    function &getDisplayListProductExtraFieldForCategory($cat_id){
+    public static function getDisplayListProductExtraFieldForCategory($cat_id){
     static $listforcat;
         if (!isset($listforcat[$cat_id])){
             $fields = array();
-            $list = &JSFactory::getAllProductExtraField();
+            $list = JSFactory::getAllProductExtraField();
             foreach($list as $val){
                 if ($val->allcats){
                     $fields[] = $val->id;
@@ -488,8 +567,8 @@ class JSFactory{
                     if (in_array($cat_id, $val->cats)) $fields[] = $val->id;
                 }
             }
-            
-            $jshopConfig = &JSFactory::getConfig();
+
+            $jshopConfig = JSFactory::getConfig();
             $config_list = $jshopConfig->getProductListDisplayExtraFields();
             foreach($fields as $k=>$val){
                 if (!in_array($val, $config_list)) unset($fields[$k]);
@@ -498,12 +577,12 @@ class JSFactory{
         }
     return $listforcat[$cat_id];
     }
-    
-    function &getDisplayFilterExtraFieldForCategory($cat_id){
+
+    public static function getDisplayFilterExtraFieldForCategory($cat_id){
     static $listforcat;
         if (!isset($listforcat[$cat_id])){
             $fields = array();
-            $list = &JSFactory::getAllProductExtraField();
+            $list = JSFactory::getAllProductExtraField();
             foreach($list as $val){
                 if ($val->allcats){
                     $fields[] = $val->id;
@@ -512,7 +591,7 @@ class JSFactory{
                 }
             }
             
-            $jshopConfig = &JSFactory::getConfig();
+            $jshopConfig = JSFactory::getConfig();
             $config_list = $jshopConfig->getFilterDisplayExtraFields();
             foreach($fields as $k=>$val){
                 if (!in_array($val, $config_list)) unset($fields[$k]);
@@ -521,11 +600,11 @@ class JSFactory{
         }
     return $listforcat[$cat_id];
     }
-    
-    function &getAllCurrency(){
+
+    public static function getAllCurrency(){
     static $list;
         if (!is_array($list)){
-            $currency =&JTable::getInstance('currency', 'jshop');
+            $currency =JTable::getInstance('currency', 'jshop');
             $_list = $currency->getAllCurrencies();
             $list = array();
             foreach($_list as $row){
@@ -534,13 +613,13 @@ class JSFactory{
         }
     return $list;
     }
-    
-    function &getShippingExtList($for_shipping = 0){
+
+    public static function getShippingExtList($for_shipping = 0){
     static $list;
         if (!is_array($list)){
-            $jshopConfig = &JSFactory::getConfig();
+            $jshopConfig = JSFactory::getConfig();
             $path = $jshopConfig->path."shippings";
-            $shippingext =&JTable::getInstance('shippingext', 'jshop');
+            $shippingext = JTable::getInstance('shippingext', 'jshop');
             $_list = $shippingext->getList(1);
             $list = array();
             foreach($_list as $row){

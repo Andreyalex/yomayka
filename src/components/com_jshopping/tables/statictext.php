@@ -17,9 +17,9 @@ class jshopStaticText extends JTableAvto{
     }
     
     function loadData($alias){
-        $lang = &JSFactory::getLang();
-        $db =& JFactory::getDBO();         
-        $query = "SELECT id, alias, `".$lang->get('text')."` as text FROM `#__jshopping_config_statictext` where alias='".$db->getEscaped($alias)."'";
+        $lang = JSFactory::getLang();
+        $db = JFactory::getDBO();         
+        $query = "SELECT id, alias, `".$lang->get('text')."` as text FROM `#__jshopping_config_statictext` where alias='".$db->escape($alias)."'";
         $db->setQuery($query);
         return $db->loadObject();
     }

@@ -39,8 +39,8 @@ class jshopProductAttribut2 extends JTable{
     }
     
     function deleteAttributeForProduct(){
-        $db = &JFactory::getDBO();
-        $query = "DELETE FROM `#__jshopping_products_attr2` WHERE `product_id` = '".$db->getEscaped($this->product_id)."'";
+        $db = JFactory::getDBO();
+        $query = "DELETE FROM `#__jshopping_products_attr2` WHERE `product_id` = '".$db->escape($this->product_id)."'";
         $db->setQuery($query);
         $db->query();    
     }

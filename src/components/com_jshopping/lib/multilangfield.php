@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.4.0 10.12.2011
+* @version      3.10.0 17.03.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -52,7 +52,7 @@ class multiLangField{
     
     function addNewFieldLandInTables($lang, $defaultLang = ""){
         $finish = 1;
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         foreach($this->tableFields as $table_name_end=>$table){
             $table_name = "#__jshopping_".$table_name_end;
             
@@ -141,6 +141,7 @@ class multiLangField{
         
         $f=array();
         $f[] = array("name","varchar(255) NOT NULL");
+		$f[] = array("description","text NOT NULL");
         $this->tableFields["attr"] = $f;
         
         $f=array();
@@ -149,6 +150,7 @@ class multiLangField{
         
         $f=array();
         $f[] = array("name","varchar(255) NOT NULL");
+		$f[] = array("description","text NOT NULL");
         $this->tableFields["products_extra_fields"] = $f;
         
         $f=array();
@@ -161,6 +163,7 @@ class multiLangField{
         
         $f=array();
         $f[] = array("name","varchar(255) NOT NULL");
+		$f[] = array("description","text NOT NULL");
         $this->tableFields["free_attr"] = $f;
         
         $f=array();
@@ -201,7 +204,11 @@ class multiLangField{
         $f[] = array("meta_title","varchar(255) NOT NULL");
         $f[] = array("meta_description","text NOT NULL");
         $f[] = array("meta_keyword","text NOT NULL");
-        $this->tableFields["products"] = $f;        
+        $this->tableFields["products"] = $f;
+        
+        JPluginHelper::importPlugin('jshopping');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onLoadMultiLangTableField', array(&$this));
     }
     
 }

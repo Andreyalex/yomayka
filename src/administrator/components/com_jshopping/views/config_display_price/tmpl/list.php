@@ -1,7 +1,7 @@
 <?php
-
-$rows = $this->rows;
-$i = 0;
+	defined('_JEXEC') or die();
+	$rows = $this->rows;
+	$i = 0;
 ?>
 <form action = "index.php?option=com_jshopping&controller=configdisplayprice" method = "post" name = "adminForm">
 <table class = "adminlist">
@@ -41,13 +41,13 @@ $i = 0;
      <input type = "checkbox" onclick = "isChecked(this.checked)" name = "cid[]" id = "cb<?php echo $i++;?>" value = "<?php echo $row->id?>" />
    </td>
    <td>
-    <?php echo $row->countries;?></a>
+    <?php echo $row->countries;?>
    </td>
    <td>
-    <?php echo $this->typedisplay[$row->display_price];?></a>
+    <?php echo $this->typedisplay[$row->display_price];?>
    </td>
    <td>
-    <?php echo $this->typedisplay[$row->display_price_firma];?></a>
+    <?php echo $this->typedisplay[$row->display_price_firma];?>
    </td>
    <td align="center">
         <?php print "<a href='index.php?option=com_jshopping&controller=configdisplayprice&task=edit&id=".$row->id."'><img src='components/com_jshopping/images/icon-16-edit.png'></a>";?>

@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 20.12.2011
+* @version      3.13.0 20.12.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -25,10 +25,16 @@ class JshoppingControllerShippings extends JController{
         addSubmenu("other");
     }
     
-    function display(){
-		$db = &JFactory::getDBO();
-		$shippings = &$this->getModel("shippings");
-		$rows = $shippings->getAllShippings(0);
+    function display($cachable = false, $urlparams = false){
+		$db = JFactory::getDBO();
+        
+        $mainframe = JFactory::getApplication();
+		$context = "jshoping.list.admin.shippings";
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "ordering", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
+        
+		$shippings = $this->getModel("shippings");
+		$rows = $shippings->getAllShippings(0, $filter_order, $filter_order_Dir);
         
         $not_set_price = 0;
         $rowsprices = $shippings->getAllShippingPrices(0);        
@@ -49,22 +55,27 @@ class JshoppingControllerShippings extends JController{
             JError::raiseNotice("", _JSHOP_CERTAIN_METHODS_DELIVERY_NOT_SET_PRICE);
         }
 		
-		$view=&$this->getView("shippings", 'html');
+		$view=$this->getView("shippings", 'html');
         $view->setLayout("list");
 		$view->assign('rows', $rows);
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayShippings', array(&$view));
 		$view->displayList();
 	}
 	
-	function edit() {
+	function edit(){
 		$shipping_id = JRequest::getInt("shipping_id");
-		$shipping = &JTable::getInstance('shippingMethod', 'jshop');
+		$shipping = JTable::getInstance('shippingMethod', 'jshop');
 		$shipping->load($shipping_id);
 		$edit = ($shipping_id)?($edit = 1):($edit = 0);
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         $multilang = count($languages)>1;
         
-        $_payments = &$this->getModel("payments");
+        $_payments = $this->getModel("payments");
         $list_payments = $_payments->getAllPaymentMethods(0);
         
         $lists['payments'] = JHTML::_('select.genericlist', $list_payments, 'listpayments[]', 'class="inputbox" size="10" multiple = "multiple"', 'payment_id', 'name', $shipping->getPayments());
@@ -72,7 +83,7 @@ class JshoppingControllerShippings extends JController{
         $nofilter = array();
         JFilterOutput::objectHTMLSafe( $shipping, ENT_QUOTES, $nofilter);
         
-		$view=&$this->getView("shippings", 'html');
+		$view=$this->getView("shippings", 'html');
         $view->setLayout("edit");        
 		$view->assign('shipping', $shipping);
 		$view->assign('edit', $edit);
@@ -80,14 +91,14 @@ class JshoppingControllerShippings extends JController{
         $view->assign('multilang', $multilang);
         $view->assign('lists', $lists);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditShippings', array(&$view));
 		$view->displayEdit();
 	}
 	
 	function save() {
 		$shipping_id = JRequest::getInt("shipping_id", 0);
-		$shipping = &JTable::getInstance('shippingMethod', 'jshop');
+		$shipping = JTable::getInstance('shippingMethod', 'jshop');
         $post = JRequest::get("post");
         if (!isset($post['published'])) $post['published'] = 0;
         if (!$post['listpayments']){
@@ -96,10 +107,10 @@ class JshoppingControllerShippings extends JController{
         $shipping->setPayments($post['listpayments']);        
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeSaveShipping', array(&$post) );
         
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         foreach($languages as $lang){            
             $post['description_'.$lang->language] = JRequest::getVar('description'.$lang->id,'','post',"string",2);
@@ -110,7 +121,7 @@ class JshoppingControllerShippings extends JController{
 			return 0;
 		}
         
-        $_shippings = &$this->getModel("shippings");
+        $_shippings = $this->getModel("shippings");
         if (!$shipping->shipping_id){
             $shipping->ordering = $_shippings->getMaxOrdering() + 1;
         }	
@@ -133,32 +144,32 @@ class JshoppingControllerShippings extends JController{
 	
 	function remove() {
 		$cid = JRequest::getVar("cid");
-		$db = &JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$text = array();
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveShipping', array(&$cid) );
 
 		foreach ($cid as $key => $value) {
-			$query = "DELETE FROM `#__jshopping_shipping_method` WHERE `shipping_id` = '" . $db->getEscaped($value) . "'";
+			$query = "DELETE FROM `#__jshopping_shipping_method` WHERE `shipping_id` = '" . $db->escape($value) . "'";
 			$db->setQuery($query);
 			if($db->query()) {
 				$text[] = _JSHOP_SHIPPING_DELETED;
 				
-				$query = "SELECT `sh_pr_method_id` FROM `#__jshopping_shipping_method_price` WHERE `shipping_method_id` = '" . $db->getEscaped($value) . "'";
+				$query = "SELECT `sh_pr_method_id` FROM `#__jshopping_shipping_method_price` WHERE `shipping_method_id` = '" . $db->escape($value) . "'";
 				$db->setQuery($query);
 				$sh_pr_ids = $db->loadObjectList();
 				
 				if (count($sh_pr_ids)){
 					foreach ($sh_pr_ids as $key2=>$value2){
-						$query = "DELETE FROM `#__jshopping_shipping_method_price_weight` WHERE `sh_pr_method_id` = '" . $db->getEscaped($value2). "'";
+						$query = "DELETE FROM `#__jshopping_shipping_method_price_weight` WHERE `sh_pr_method_id` = '" . $db->escape($value2). "'";
 						$db->setQuery($query);
 						$db->query();
 					}
 				}
 				
-				$query = "DELETE FROM `#__jshopping_shipping_method_price` WHERE `shipping_method_id` = '" . $db->getEscaped($value). "'";
+				$query = "DELETE FROM `#__jshopping_shipping_method_price` WHERE `shipping_method_id` = '" . $db->escape($value). "'";
 				$db->setQuery($query);
 				$db->query();
                 					
@@ -176,9 +187,9 @@ class JshoppingControllerShippings extends JController{
 		$cid = JRequest::getVar("cid");
         $flag = ($this->getTask() == 'publish') ? 1 : 0;
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforePublishShipping', array(&$cid,&$flag) );
-		$obj = &JTable::getInstance('shippingMethod', 'jshop');
+		$obj = JTable::getInstance('shippingMethod', 'jshop');
         $obj->publish($cid, $flag);
         $dispatcher->trigger('onAfterPublishShipping', array(&$cid,&$flag) );        
 		$this->setRedirect("index.php?option=com_jshopping&controller=shippings");
@@ -187,7 +198,7 @@ class JshoppingControllerShippings extends JController{
     function reorder(){
         $ids = JRequest::getVar('cid', null, 'post', 'array');        
         $move = ($this->getTask() == 'orderup') ? -1 : +1;
-        $obj = &JTable::getInstance('shippingMethod', 'jshop');
+        $obj = JTable::getInstance('shippingMethod', 'jshop');
         $obj->load($ids[0]);
         $obj->move($move);
         $this->setRedirect("index.php?option=com_jshopping&controller=shippings");

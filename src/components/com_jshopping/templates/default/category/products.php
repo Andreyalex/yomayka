@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <?php if ($this->display_list_products){?>
 <div class="jshop_list_product">    
 <?php

@@ -41,7 +41,7 @@ class jshopVendor extends JTableAvto{
             return false;
         }
         if ($this->user_id){
-            $query = "SELECT id FROM #__jshopping_vendors WHERE `user_id`='".$this->_db->getEscaped($this->user_id)."' AND id != '".(int)$this->id."'";
+            $query = "SELECT id FROM #__jshopping_vendors WHERE `user_id`='".$this->_db->escape($this->user_id)."' AND id != '".(int)$this->id."'";
             $this->_db->setQuery($query);
             $xid = intval($this->_db->loadResult());
             if ($xid){
@@ -54,10 +54,10 @@ class jshopVendor extends JTableAvto{
 	}
     
     function getAllVendors($publish=1, $limitstart, $limit) {
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $where = "";
         if (isset($publish)){
-            $where = "and `publish`='".$db->getEscaped($publish)."'";
+            $where = "and `publish`='".$db->escape($publish)."'";
         }
         $query = "SELECT * FROM `#__jshopping_vendors` where 1 ".$where." ORDER BY shop_name";
         $db->setQuery($query, $limitstart, $limit);        
@@ -65,10 +65,10 @@ class jshopVendor extends JTableAvto{
     }
     
     function getCountAllVendors($publish=1){
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $where = "";
         if (isset($publish)){
-            $where = "and `publish`='".$db->getEscaped($publish)."'";
+            $where = "and `publish`='".$db->escape($publish)."'";
         }
         $query = "SELECT COUNT(id) FROM `#__jshopping_vendors` where 1 ".$where;
         $db->setQuery($query);
@@ -76,8 +76,8 @@ class jshopVendor extends JTableAvto{
     }
     
     function getProducts($filters, $order = null, $orderby = null, $limitstart = 0, $limit = 0){
-        $jshopConfig = &JSFactory::getConfig();
-        $lang = &JSFactory::getLang();
+        $jshopConfig = JSFactory::getConfig();
+        $lang = JSFactory::getLang();
         $adv_query = ""; $adv_from = ""; $adv_result = $this->getBuildQueryListProductDefaultResult();
         $this->getBuildQueryListProduct("vendor", "list", $filters, $adv_query, $adv_from, $adv_result);
         
@@ -89,7 +89,7 @@ class jshopVendor extends JTableAvto{
         $order_query = $this->getBuildQueryOrderListProduct($order, $orderby, $adv_from);
 
         JPluginHelper::importPlugin('jshoppingproducts');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeQueryGetProductList', array("vendor", &$adv_result, &$adv_from, &$adv_query, &$order_query, &$filters) );
         
         $query = "SELECT $adv_result FROM `#__jshopping_products` AS prod
@@ -109,7 +109,7 @@ class jshopVendor extends JTableAvto{
     }    
     
     function getCountProducts($filters) {
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $adv_query = ""; $adv_from = ""; $adv_result = "";
         $this->getBuildQueryListProduct("vendor", "count", $filters, $adv_query, $adv_from, $adv_result);
         
@@ -120,10 +120,10 @@ class jshopVendor extends JTableAvto{
         }
         
         JPluginHelper::importPlugin('jshoppingproducts');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeQueryCountProductList', array("vendor", &$adv_result, &$adv_from, &$adv_query, &$filters) );
         
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $query = "SELECT COUNT(distinct prod.product_id) FROM `#__jshopping_products` as prod
                   LEFT JOIN `#__jshopping_products_to_categories` AS pr_cat USING (product_id)
                   LEFT JOIN `#__jshopping_categories` AS cat ON pr_cat.category_id = cat.category_id

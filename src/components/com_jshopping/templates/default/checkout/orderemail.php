@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <?php $order = $this->order;?>
 <html>
 <title></title>
@@ -8,7 +9,7 @@ html{
     line-height:100%;
 }
 body, td{
-/*    font-size:12px;*/
+    font-size:12px;
     font-family:Tahoma;
 }
 td.bg_gray, tr.bg_gray td {
@@ -32,15 +33,15 @@ tr.vertical td{
     padding-bottom:10px;
 }
 h3{
-/*    font-size:14px;*/
+    font-size:14px;
     margin:2px;
 }
 .jshop_cart_attribute{
     padding-top: 5px;
-/*    font-size:11px;*/
+    font-size:11px;
 }
 .taxinfo{
-/*    font-size:11px;*/
+    font-size:11px;
 }
 </style>
 </head>
@@ -102,16 +103,28 @@ h3{
         <tr>
           <td colspan="2"><b><?php print _JSHOP_EMAIL_BILL_TO?></b></td>
         </tr>
+        <?php if ($this->config_fields['title']['display']){?>
+        <tr>
+          <td width="100"><?php print _JSHOP_REG_TITLE?>:</td>
+          <td><?php print $this->order->title?></td>
+        </tr>
+        <?php } ?>
         <?php if ($this->config_fields['firma_name']['display']){?>
         <tr>
-          <td width = "100"><?php print _JSHOP_FIRMA_NAME?>:</td>
+          <td width="100"><?php print _JSHOP_FIRMA_NAME?>:</td>
           <td><?php print $this->order->firma_name?></td>
         </tr>
         <?php } ?>
         <?php if ($this->config_fields['f_name']['display']){?>
         <tr>
-          <td width = "100"><?php print _JSHOP_FULL_NAME?>:</td>
-          <td><?php print $this->order->f_name?> <?php print $this->order->l_name?></td>
+          <td width="100"><?php print _JSHOP_FULL_NAME?>:</td>
+          <td><?php print $this->order->f_name?> <?php print $this->order->l_name?> <?php print $this->order->m_name?></td>
+        </tr>
+        <?php } ?>
+        <?php if ($this->config_fields['birthday']['display']){?>
+        <tr>
+          <td><?php print _JSHOP_BIRTHDAY?>:</td>
+          <td><?php print $this->order->birthday;?></td>
         </tr>
         <?php } ?>
         <?php if ($this->config_fields['client_type']['display']){?>
@@ -226,7 +239,13 @@ h3{
     <table cellspacing="0" cellpadding="0" style="line-height:100%;">
         <tr>
             <td colspan=2><b><?php print _JSHOP_EMAIL_SHIP_TO?></b></td>
-        </tr>      
+        </tr>
+        <?php if ($this->config_fields['d_title']['display']){?>
+        <tr>
+          <td width="100"><?php print _JSHOP_REG_TITLE?>:</td>
+          <td><?php print $this->order->d_title?></td>
+        </tr>
+        <?php } ?>      
         <?php if ($this->config_fields['d_firma_name']['display']){?>
         <tr>
             <td width="100"><?php print _JSHOP_FIRMA_NAME?>:</td>
@@ -236,7 +255,13 @@ h3{
         <?php if ($this->config_fields['d_f_name']['display']){?>
         <tr>
             <td width="100"><?php print _JSHOP_FULL_NAME?> </td>
-            <td><?php print $this->order->d_f_name?> <?php print $this->order->d_l_name?></td>
+            <td><?php print $this->order->d_f_name?> <?php print $this->order->d_l_name?> <?php print $this->order->d_m_name?></td>
+        </tr>
+        <?php } ?>
+        <?php if ($this->config_fields['birthday']['display']){?>
+        <tr>
+          <td><?php print _JSHOP_BIRTHDAY?>:</td>
+          <td><?php print $this->order->d_birthday;?></td>
         </tr>
         <?php } ?>
         <?php if ($this->config_fields['d_home']['display']){?>
@@ -352,12 +377,22 @@ h3{
          foreach($this->products as $key_id=>$prod){
              $files = unserialize($prod->files);
          ?>
-         <tr class = "vertical">
+         <tr class="vertical">
            <td>
                 <img src="<?php print $this->config->image_product_live_path?>/<?php if ($prod->thumb_image) print $prod->thumb_image; else print $this->noimage;?>" align="left" style="margin-right:5px;">
-                <?php print $prod->product_name;?>                
-                <div class = "jshop_cart_attribute"><?php print sprintAtributeInOrder($prod->product_attributes).sprintFreeAtributeInOrder($prod->product_freeattributes);?></div>
+                <?php print $prod->product_name;?>
+                <?php if ($prod->manufacturer!=''){?>
+                <div class="manufacturer"><?php print _JSHOP_MANUFACTURER?>: <span><?php print $prod->manufacturer?></span></div>
+                <?php }?>
+                <div class="jshop_cart_attribute">
+                <?php print sprintAtributeInOrder($prod->product_attributes)?>
+                <?php print sprintFreeAtributeInOrder($prod->product_freeattributes)?>
+                <?php print sprintExtraFiledsInOrder($prod->extra_fields)?>
+                </div>
                 <?php print $prod->_ext_attribute_html;?>
+                <?php if ($this->config->display_delivery_time_for_product_in_order_mail && $prod->delivery_time){?>
+                <div class="deliverytime"><?php print _JSHOP_DELIVERY_TIME?>: <?php print $prod->delivery_time?></div>
+                <?php }?>
            </td>           
            <td><?php if ($this->config->show_product_code_in_order){?><?php print $prod->product_ean;?><?php } ?></td>
            <td><?php print formatqty($prod->product_quantity);?><?php print $prod->_qty_unit;?></td>
@@ -380,7 +415,7 @@ h3{
          <tr>
             <td colspan="5">
             <?php foreach($files as $file){?>
-                <div><?php print $file->file_descr?> <a href="<?php print JURI::root()?>index.php?option=com_jshopping&controller=product&task=getfile&oid=<?php print $this->order->order_id?>&id=<?php print $file->id?>&hash=<?php print $this->order->file_hash;?>"><?php print _JSHOP_DOWNLOAD?></a></div>
+                <div><?php print $file->file_descr?> <a href="<?php print JURI::root()?>index.php?option=com_jshopping&controller=product&task=getfile&oid=<?php print $this->order->order_id?>&id=<?php print $file->id?>&hash=<?php print $this->order->file_hash?>&rl=1"><?php print _JSHOP_DOWNLOAD?></a></div>
             <?php }?>    
             </td>
          </tr>
@@ -401,38 +436,44 @@ h3{
          <?php if (!$this->hide_subtotal){?>
          <tr>
            <td colspan="4" align="right" style="padding-right:15px;"><?php print _JSHOP_SUBTOTAL ?>:</td>
-           <td class = "price"><?php print formatprice($this->order->order_subtotal, $order->currency_code); ?><?php print $this->_tmp_ext_subtotal?></td>
+           <td class="price"><?php print formatprice($this->order->order_subtotal, $order->currency_code); ?><?php print $this->_tmp_ext_subtotal?></td>
          </tr>
          <?php } ?>
          <?php if ($this->order->order_discount > 0){?>
          <tr>
            <td colspan="4" align="right" style="padding-right:15px;"><?php print _JSHOP_RABATT_VALUE ?>: </td>
-           <td class = "price">-<?php print formatprice($this->order->order_discount, $order->currency_code); ?><?php print $this->_tmp_ext_discount?></td>
+           <td class="price">-<?php print formatprice($this->order->order_discount, $order->currency_code); ?><?php print $this->_tmp_ext_discount?></td>
          </tr>
          <?php } ?>
          <?php if (!$this->config->without_shipping){?>
          <tr>
            <td colspan="4" align="right" style="padding-right:15px;"><?php print _JSHOP_SHIPPING_PRICE ?>:</td>
-           <td class = "price"><?php print formatprice($this->order->order_shipping, $order->currency_code); ?><?php print $this->_tmp_ext_shipping?></td>
+           <td class="price"><?php print formatprice($this->order->order_shipping, $order->currency_code); ?><?php print $this->_tmp_ext_shipping?></td>
          </tr>
          <?php } ?>
-         <?php if ($this->order->order_payment > 0){?>
+         <?php if (!$this->config->without_shipping && ($order->order_package>0 || $this->config->display_null_package_price)){?>
+         <tr>
+           <td colspan="4" align="right" style="padding-right:15px;"><?php print _JSHOP_PACKAGE_PRICE?>:</td>
+           <td class="price"><?php print formatprice($this->order->order_package, $order->currency_code); ?><?php print $this->_tmp_ext_shipping_package?></td>
+         </tr>
+         <?php } ?>
+         <?php if ($this->order->order_payment != 0){?>
          <tr>
            <td colspan="4" align="right" style="padding-right:15px;"><?php print $this->order->payment_name;?>:</td>
-           <td class = "price"><?php print formatprice($this->order->order_payment, $order->currency_code); ?><?php print $this->_tmp_ext_payment?></td>
+           <td class="price"><?php print formatprice($this->order->order_payment, $order->currency_code); ?><?php print $this->_tmp_ext_payment?></td>
          </tr>
          <?php } ?>
          <?php if (!$this->config->hide_tax){ ?>                           
          <?php foreach($this->order->order_tax_list as $percent=>$value){?>
          <tr>
            <td colspan="4" align="right" style="padding-right:15px;"><?php print displayTotalCartTaxName($order->display_price);?><?php if ($this->show_percent_tax) print " ".formattax($percent)."%";?>:</td>
-             <td class = "price"><?php print formatprice($value, $order->currency_code); ?><?php print $this->_tmp_ext_tax[$percent]?></td>
+             <td class="price"><?php print formatprice($value, $order->currency_code); ?><?php print $this->_tmp_ext_tax[$percent]?></td>
          </tr>
          <?php } ?>
          <?php } ?>
          <tr>
            <td colspan="4" align="right" style="padding-right:15px;"><b><?php print $this->text_total ?>:</b></td>
-           <td class = "price"><?php print formatprice($this->order->order_total, $order->currency_code); ?><?php print $this->_tmp_ext_total?></td>
+           <td class="price"><b><?php print formatprice($this->order->order_total, $order->currency_code)?><?php print $this->_tmp_ext_total?></b></td>
          </tr>
          <tr>
            <td colspan="5">&nbsp;</td>
@@ -481,6 +522,12 @@ h3{
         <?php 
         if (!$this->config->without_shipping){
             print nl2br($this->order->shipping_information);
+            if ($this->config->show_delivery_time_checkout && $this->order->order_delivery_time){
+                print "<div>"._JSHOP_ORDER_DELIVERY_TIME.": ".$this->order->order_delivery_time."</div>";
+            }            
+            if ($this->config->show_delivery_date && $order->delivery_date_f){
+                print "<div>"._JSHOP_DELIVERY_DATE.": ".$order->delivery_date_f."</div>";
+            }
         }
         ?>
     </td>  
@@ -489,7 +536,14 @@ h3{
 <?php }?>
   <?php if ($this->config->show_return_policy_in_email_order){?>
   <tr>
-    <td colspan="2"><br/><br/><a class = "policy" target="_blank" href="<?php print $this->liveurlhost.SEFLink('index.php?option=com_jshopping&controller=content&task=view&page=return_policy&tmpl=component');?>"><?php print _JSHOP_RETURN_POLICY?></a></td>
+    <td colspan="2"><br/><br/><a class = "policy" target="_blank" href="<?php print $this->liveurlhost.SEFLink('index.php?option=com_jshopping&controller=content&task=view&page=return_policy&tmpl=component', 1);?>"><?php print _JSHOP_RETURN_POLICY?></a></td>
+  </tr>
+  <?php }?>
+  <?php if ($this->client){?>
+  <tr>
+     <td colspan = "2" style="padding-bottom:10px;">
+       <?php print $this->order_email_descr_end;?>
+     </td>
   </tr>
   <?php }?>
 </table>

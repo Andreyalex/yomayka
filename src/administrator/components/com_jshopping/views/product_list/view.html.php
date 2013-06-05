@@ -8,6 +8,7 @@ class JshoppingViewProduct_list extends JView
         JToolBarHelper::title( _JSHOP_LIST_PRODUCT, 'generic.png' ); 
         JToolBarHelper::addNewX();
         JToolBarHelper::custom('copy', 'copy', 'copy_f2.png', 'Copy');
+        JToolBarHelper::editList('editlist');
         JToolBarHelper::publishList();
         JToolBarHelper::unpublishList();
         JToolBarHelper::deleteList();

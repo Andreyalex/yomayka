@@ -1,25 +1,23 @@
 <?php
 /**
-* @version      3.3.0 18.04.2011
+* @version      3.13.0 18.04.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
 * @license      GNU/GPL
 */
 
-class jshopPaymentMethod extends JTableAvto {
+class jshopPaymentMethod extends JTableAvto{
 
-    function __construct( &$_db ){
-        parent::__construct( '#__jshopping_payment_method', 'payment_id', $_db );
+    function __construct(&$_db){
+        parent::__construct('#__jshopping_payment_method', 'payment_id', $_db);
     }
 
     function getAllPaymentMethods($publish = 1) {
-        $db =& JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $query_where = ($publish)?("WHERE payment_publish = '1'"):("");
-        $lang = &JSFactory::getLang();
-        $query = "SELECT payment_id, `".$lang->get("name")."` as name, `".$lang->get("description")."` as description , payment_code, payment_class, payment_publish, payment_ordering, payment_params, payment_type, price, price_type, tax_id, image FROM `#__jshopping_payment_method`
-                  $query_where
-                  ORDER BY payment_ordering";
+        $lang = JSFactory::getLang();
+        $query = "SELECT payment_id, `".$lang->get("name")."` as name, `".$lang->get("description")."` as description , payment_code, payment_class, payment_publish, payment_ordering, payment_params, payment_type, price, price_type, tax_id, image FROM `#__jshopping_payment_method` $query_where ORDER BY payment_ordering";
         $db->setQuery($query);
         return $db->loadObjectList();
     }
@@ -28,8 +26,8 @@ class jshopPaymentMethod extends JTableAvto {
     * get id payment for payment_class
     */
     function getId(){
-        $db =& JFactory::getDBO();
-        $query = "SELECT payment_id FROM `#__jshopping_payment_method` WHERE payment_class = '".$db->getEscaped($this->class)."'";
+        $db = JFactory::getDBO();
+        $query = "SELECT payment_id FROM `#__jshopping_payment_method` WHERE payment_class = '".$db->escape($this->class)."'";
         $db->setQuery($query);
         return $db->loadResult();
     }
@@ -38,35 +36,77 @@ class jshopPaymentMethod extends JTableAvto {
         $this->_cart = $cart;
     }
     
-    function &getCart(){
+    function getCart(){
         return $this->_cart;
     }
     
     function getPrice(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         if ($this->price_type==2){
-            $cart = &$this->getCart();
-            $price = $cart->getSummForCalculePlusPayment() * $this->price / 100;            
+            $cart = $this->getCart();
+            $price = $cart->getSummForCalculePlusPayment() * $this->price / 100;
             if ($jshopConfig->display_price_front_current){
-                $price = $price / (1 + $this->getTax() / 100);
+                $price = getPriceCalcParamsTax($price, $this->tax_id, $cart->products);
             }
         }else{
+            $cart = $this->getCart();
             $price = $this->price * $jshopConfig->currency_value; 
-            $price = getPriceCalcParamsTax($price, $this->tax_id);
+            $price = getPriceCalcParamsTax($price, $this->tax_id, $cart->products);
         }
         return $price;
     }
     
-    function getTax(){        
-        $taxes = &JSFactory::getAllTaxes();        
+    function getTax(){
+        $taxes = JSFactory::getAllTaxes();
         return $taxes[$this->tax_id];
     }
     
     function calculateTax(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $price = $this->getPrice();
         $pricetax = getPriceTaxValue($price, $this->getTax(), $jshopConfig->display_price_front_current);
         return $pricetax;
+    }
+   
+    function getPriceForTaxes($price){
+        if ($this->tax_id==-1){
+            $cart = $this->getCart();
+            $prodtaxes = getPriceTaxRatioForProducts($cart->products);
+            $prices = array();
+            foreach($prodtaxes as $k=>$v){
+                $prices[$k] = $price*$v;
+            }
+        }else{
+            $prices = array();
+            $prices[$this->getTax()] = $price;
+        }
+    return $prices;
+    }
+    
+    function calculateTaxList($price){
+        $cart = $this->getCart();
+        $jshopConfig = JSFactory::getConfig();
+        if ($this->tax_id==-1){
+            $prodtaxes = getPriceTaxRatioForProducts($cart->products);
+            $prices = array();
+            foreach($prodtaxes as $k=>$v){
+                $prices[] = array('tax'=>$k, 'price'=>$price*$v);
+            }
+            $taxes = array();
+            if ($jshopConfig->display_price_front_current==0){
+                foreach($prices as $v){
+                    $taxes[$v['tax']] = $v['price']*$v['tax']/(100+$v['tax']);
+                }
+            }else{
+                foreach($prices as $v){
+                    $taxes[$v['tax']] = $v['price']*$v['tax']/100;
+                }
+            }    
+        }else{
+            $taxes = array();
+            $taxes[$this->getTax()] = $this->calculateTax();
+        }        
+    return $taxes;
     }
     
     /**
@@ -74,8 +114,8 @@ class jshopPaymentMethod extends JTableAvto {
     * get config payment for classname
     */
     function getConfigsForClassName($classname) {
-        $db =& JFactory::getDBO(); 
-        $query = "SELECT payment_params FROM `#__jshopping_payment_method` WHERE payment_class = '".$db->getEscaped($classname)."'";
+        $db = JFactory::getDBO(); 
+        $query = "SELECT payment_params FROM `#__jshopping_payment_method` WHERE payment_class = '".$db->escape($classname)."'";
         $db->setQuery($query);
         $params_str = $db->loadResult();
         $parseString = new parseString($params_str);
@@ -98,6 +138,34 @@ class jshopPaymentMethod extends JTableAvto {
             return 0;
         }
         return 1;
+    }
+    
+    function getPaymentSystemData($class=''){
+        $jshopConfig = JSFactory::getConfig();
+        if ($class==''){
+            $class = $this->payment_class;
+        }else{
+            $class = str_replace(array('.','/'),'', $class);
+        }
+        $data = new stdClass();
+        
+        if (!file_exists($jshopConfig->path.'payments/'.$class."/".$class.'.php')){
+            $data->paymentSystemVerySimple = 1;
+            $data->paymentSystemError = 0;
+            $data->paymentSystem = null;
+        }else{
+            include_once($jshopConfig->path.'payments/'.$class."/".$class.'.php');
+            if (!class_exists($class)){
+                $data->paymentSystemVerySimple = 0;
+                $data->paymentSystemError = 1;
+                $data->paymentSystem = null;
+            }else{
+                $data->paymentSystemVerySimple = 0;
+                $data->paymentSystemError = 0;
+                $data->paymentSystem = new $class();
+            }
+        }
+    return $data;
     }
 }
 ?>

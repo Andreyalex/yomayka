@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <?php $in_row = $this->config->product_count_related_in_row;?>
 <?php if (count($this->related_prod)){?>    
     <div class="related_header"><?php print _JSHOP_RELATED_PRODUCTS?></div>

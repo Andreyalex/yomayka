@@ -1,4 +1,7 @@
-<?php $menu = getItemsOptionPanelMenu(); ?>
+<?php 
+	defined('_JEXEC') or die();
+	$menu = getItemsOptionPanelMenu(); 
+?>
 <div class="jssubmenu">
     <div class="m">
         <ul id="submenu">

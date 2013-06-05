@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.9.4 25.09.2010
+* @version      3.13.0 12.04.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -17,71 +17,90 @@ class JshoppingControllerAttributes extends JController{
 
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("attributes");
         addSubmenu("other");
     }
 
-    function display(){
-    	$attributes = &$this->getModel("attribut");
-    	$attributesvalue = &$this->getModel("attributValue");
-        $rows = $attributes->getAllAttributes();
+    function display($cachable = false, $urlparams = false){ 
+        $mainframe = JFactory::getApplication();
+		$context = "jshoping.list.admin.attributes";
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "attr_ordering", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
+        
+    	$attributes = $this->getModel("attribut");
+    	$attributesvalue = $this->getModel("attributValue");
+        $rows = $attributes->getAllAttributes(0, null, $filter_order, $filter_order_Dir);
 		foreach ($rows as $key => $value){
 			$rows[$key]->values = splitValuesArrayObject( $attributesvalue->getAllValues($rows[$key]->attr_id), 'name');
             $rows[$key]->count_values = count($attributesvalue->getAllValues($rows[$key]->attr_id));
 		}        
-        $view = &$this->getView("attributes", 'html');
+        $view = $this->getView("attributes", 'html');
         $view->setLayout("list");
 		$view->assign('rows', $rows);
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayAttributes', array(&$view));
         $view->displayList();
     }
 	
-	function edit() {
-		$jshopConfig = &JSFactory::getConfig();
-		$db = &JFactory::getDBO();
+	function edit(){
+		$jshopConfig = JSFactory::getConfig();
+		$db = JFactory::getDBO();
 		$attr_id = JRequest::getInt("attr_id");
 	
-        $attribut = &JTable::getInstance('attribut', 'jshop');
+        $attribut = JTable::getInstance('attribut', 'jshop');
         $attribut->load($attr_id);
         
         if (!$attribut->independent) $attribut->independent = 0;
     
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
-        $multilang = count($languages)>1;
-        
-        JFilterOutput::objectHTMLSafe($attribut, ENT_QUOTES);
+        $multilang = count($languages)>1;        
 	
 		$types[] = JHTML::_('select.option', '1','Select','attr_type_id','attr_type');
 		$types[] = JHTML::_('select.option', '2','Radio','attr_type_id','attr_type');
 		$type_attribut = JHTML::_('select.genericlist', $types, 'attr_type','class = "inputbox" size = "1"','attr_type_id','attr_type',$attribut->attr_type);
-        
-        
+
         $dependent[] = JHTML::_('select.option', '0',_JSHOP_YES,'id','name');
         $dependent[] = JHTML::_('select.option', '1',_JSHOP_NO,'id','name');
         $dependent_attribut = JHTML::_('select.radiolist', $dependent, 'independent','class = "inputbox" size = "1"','id','name', $attribut->independent);
+        
+        $all = array();
+        $all[] = JHTML::_('select.option', 1, _JSHOP_ALL, 'id','value');
+        $all[] = JHTML::_('select.option', 0, _JSHOP_SELECTED, 'id','value');
+        if (!isset($attribut->allcats)) $attribut->allcats = 1;
+        $lists['allcats'] = JHTML::_('select.radiolist', $all, 'allcats','onclick="PFShowHideSelectCats()"','id','value', $attribut->allcats);
+        
+        $categories_selected = $attribut->getCategorys();
+        $categories = buildTreeCategory(0,1,0);
+        $lists['categories'] = JHTML::_('select.genericlist', $categories,'category_id[]','class="inputbox" size="10" multiple = "multiple"','category_id','name', $categories_selected);
+        
+        JFilterOutput::objectHTMLSafe($attribut, ENT_QUOTES);
 	    
-		$view=&$this->getView("attributes", 'html');
+		$view=$this->getView("attributes", 'html');
         $view->setLayout("edit");
 		$view->assign('attribut', $attribut);
         $view->assign('type_attribut', $type_attribut);
 		$view->assign('dependent_attribut', $dependent_attribut);
         $view->assign('languages', $languages);
         $view->assign('multilang', $multilang);
+        $view->assign('lists', $lists);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditAtribut', array(&$view, &$attribut));
         $view->displayEdit();		
 	}
 	
-	function save() {
-	
-        $db = &JFactory::getDBO(); 
+	function save(){
+        $db = JFactory::getDBO(); 
 		$attr_id = JRequest::getInt('attr_id');
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
-        $attribut = &JTable::getInstance('attribut', 'jshop');    
+        $attribut = JTable::getInstance('attribut', 'jshop');    
         $post = JRequest::get("post");
         
         $dispatcher->trigger( 'onBeforeSaveAttribut', array(&$post) );
@@ -98,6 +117,11 @@ class JshoppingControllerAttributes extends JController{
             $this->setRedirect("index.php?option=com_jshopping&controller=attributes");
             return 0;
         }
+        
+        $categorys = $post['category_id'];
+        if (!is_array($categorys)) $categorys = array();
+        
+        $attribut->setCategorys($categorys);
 
         if (!$attribut->store()) {
             JError::raiseWarning("",_JSHOP_ERROR_SAVE_DATABASE);
@@ -125,17 +149,17 @@ class JshoppingControllerAttributes extends JController{
 	
 	function remove() {
 		$cid = JRequest::getVar("cid");
-        $jshopConfig = &JSFactory::getConfig();
-		$db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+		$db = JFactory::getDBO();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
         $dispatcher->trigger( 'onBeforeRemoveAttribut', array(&$cid) );
         
 		$text = '';
 		foreach ($cid as $key => $value) {
             $value = intval($value);
-			$query = "DELETE FROM `#__jshopping_attr` WHERE `attr_id` = '".$db->getEscaped($value)."'";
+			$query = "DELETE FROM `#__jshopping_attr` WHERE `attr_id` = '".$db->escape($value)."'";
 			$db->setQuery($query);
 			$db->query();
             
@@ -143,13 +167,13 @@ class JshoppingControllerAttributes extends JController{
             $db->setQuery($query);
             $db->query();
             
-            $query = "select * from `#__jshopping_attr_values` where `attr_id` = '".$db->getEscaped($value)."' ";
+            $query = "select * from `#__jshopping_attr_values` where `attr_id` = '".$db->escape($value)."' ";
             $db->setQuery($query);
             $attr_values = $db->loadObjectList();
             foreach ($attr_values as $attr_val){
                 @unlink($jshopConfig->image_attributes_path."/".$attr_val->image);
             }
-            $query = "delete from `#__jshopping_attr_values` where `attr_id` = '".$db->getEscaped($value)."' ";
+            $query = "delete from `#__jshopping_attr_values` where `attr_id` = '".$db->escape($value)."' ";
             $db->setQuery($query);
             $db->query();
                                                   
@@ -165,7 +189,7 @@ class JshoppingControllerAttributes extends JController{
 		$order = JRequest::getVar("order");
 		$cid = JRequest::getInt("id");
 		$number = JRequest::getInt("number");
-		$db = &JFactory::getDBO();
+		$db = JFactory::getDBO();
 		switch ($order) {
 			case 'up':
 				$query = "SELECT a.attr_id, a.attr_ordering
@@ -196,6 +220,22 @@ class JshoppingControllerAttributes extends JController{
 		
 		$this->setRedirect("index.php?option=com_jshopping&controller=attributes");
 	}
+    
+    function saveorder(){
+        $cid = JRequest::getVar('cid', array(), 'post', 'array' );
+        $order = JRequest::getVar('order', array(), 'post', 'array' );        
+        
+        foreach($cid as $k=>$id){
+            $table = JTable::getInstance('attribut', 'jshop');
+            $table->load($id);
+            if ($table->attr_ordering!=$order[$k]){
+                $table->attr_ordering = $order[$k];
+                $table->store();
+            }
+        }
+                
+        $this->setRedirect("index.php?option=com_jshopping&controller=attributes");
+    }
       
 }
 ?>

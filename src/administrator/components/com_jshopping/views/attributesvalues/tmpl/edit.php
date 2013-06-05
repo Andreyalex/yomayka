@@ -1,4 +1,7 @@
-<?php $attr_id = $this->attr_id; ?>
+<?php 
+	defined('_JEXEC') or die();
+	$attr_id = $this->attr_id; 
+?>
 <form action = "index.php?option=com_jshopping&controller=attributesvalues&attr_id=<?php echo $attr_id?>" method = "post" name = "adminForm" enctype = "multipart/form-data">
 
 <div class="col100">

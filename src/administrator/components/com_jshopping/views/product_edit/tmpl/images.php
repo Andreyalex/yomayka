@@ -1,3 +1,12 @@
+<?php
+	defined('_JEXEC') or die();
+	JHtml::_('script', 'system/modal.js', true, true);
+	JHtml::_('stylesheet', 'system/modal.css', array(), true);
+?>
+<script type="text/javascript">
+	var _JSHOP_IMAGE_SELECT = "<?php echo _JSHOP_IMAGE_SELECT;?>";
+</script>
+
 <?php echo $pane->startPanel(_JSHOP_PRODUCT_IMAGES, 'product_images');?>
    <table >
    <tr>
@@ -36,7 +45,9 @@
         <?php for($i = 0; $i < $jshopConfig->product_image_upload_count; $i++){?>
         <div style="padding-bottom:6px;">
             <input type="text" name="product_image_descr_<?php print $i;?>" size="35" title="<?php print _JSHOP_TITLE?>" />
-            <input type="file" name="product_image_<?php print $i;?>" />
+			<input type="file" class="product_image" name="product_image_<?php print $i;?>" />
+			<input type="text" class="product_folder_image" name="product_folder_image_<?php print $i;?>"/><input type="button" name="select_image_<?php print $i;?>" value="<?php echo _JSHOP_IMAGE_SELECT;?>" onclick="SqueezeBox_init(); product_images_request(<?php echo $i;?>, 'index.php?option=com_jshopping&controller=product_images&task=display');" class="product_folder_image"/>
+			<br/><input type="checkbox" value="1" name="image_from_folder_<?php print $i;?>" id="image_from_folder_<?php print $i;?>" onclick="changeProductField(this);"/><label for="image_from_folder_<?php print $i;?>"><?php print _JSHOP_IMAGE_SELECT?></label>
         </div>
         <?php } ?>        
         </fieldset>

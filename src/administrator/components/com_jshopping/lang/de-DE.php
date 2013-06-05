@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.5.0 14.02.2012
+* @version      3.14.0 14.02.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -181,6 +181,7 @@ define('_JSHOP_ERROR_PAYMENT_DELETED','Fehler bei der Entfernung von Zahlungsart
 define('_JSHOP_ERROR_SHIPPING_DELETED','Fehler bei der Entfernung von Lieferungsweise');
 define('_JSHOP_ORDER_STATUS_ERROR_DELETED','Fehler bei der Entfernung vom Bestellungsstatus');
 define('_JSHOP_ERROR_COUPON_EXIST','Ein Gutschein mit diesem Code ist schon vorhanden');
+define('_JSHOP_ERROR_CREATE_THUMBAIL','Error create thumbail image');
 define('_JSHOP_ERROR_ALIAS_ALREADY_EXIST','Fehler. Alias bereits vorhanden');
 define('_JSHOP_PASSWORD_DONT_MATCH','Passwörter stimmen nicht überein');
 define('_JSHOP_CERTAIN_METHODS_DELIVERY_NOT_SET_PRICE','Für bestimmte Methoden der Lieferung ist nicht auf den Preis festgelegt');
@@ -294,8 +295,9 @@ define('_JSHOP_HIDE_PAYMENT_STEP','Ausblenden Schritt Zahlung (oberste Bezahlart
 define('_JSHOP_HIDE_PRODUCT_NOT_AVAIBLE_STOCK','Verbergen der Produkte, die nicht ab Lager lieferbar sind');
 define('_JSHOP_VIDEO_PRODUCT_WIDTH','Breite für Video-Größe');
 define('_JSHOP_VIDEO_PRODUCT_HEIGHT','Höhe für Video-Größe');
-define('_JSHOP_SHOW_BAY_BUT_IN_CAT','Anzeigen des Link "Kaufen"');
+define('_JSHOP_SHOW_BAY_BUT_IN_CAT','Anzeigen des Link "In den Warenkorb"');
 define('_JSHOP_ORDER_EMAIL_DESCR','Beschreibung des Auftrags für den Kunden (in E-Mail)');
+define('_JSHOP_ORDER_EMAIL_DESCR_END','Beschreibung des Auftrags für den Kunden (in E-Mail, Ende)');
 define('_JSHOP_USER_AS_CATALOG','Verwendung des Shop als Katalog');
 define('_JSHOP_SHOW_TAX','"Steuersätze" anzeigen');
 define('_JSHOP_SHOW_TAX_IN_CART','Die Steuersätze der Produkte im Warenkorb anzeigen');
@@ -390,6 +392,7 @@ define('_JSHOP_ERROR_COUPON_CODE', 'Fehler Gutschein-Code');
 define('_JSHOP_ERROR_COUPON_VALUE', 'Fehler Coupon-Wert');
 
 // Payments
+define('_JSHOP_PAYMENT','Bezahlung');
 define('_JSHOP_PAYMENTS','Bezahlung');
 define('_JSHOP_LIST_PAYMENTS','Bezahlungsliste');
 define('_JSHOP_ALIAS_PAYMENT_INFO','Eine einzigartige alias Zahlung');
@@ -541,7 +544,7 @@ define('_JSHOP_CUSTOMER_COMMENT','Kundenkommentar');
 define('_JSHOP_FIRMA', 'Firma');
 define('_JSHOP_FIRMA_CODE', 'Firma Kode');
 define('_JSHOP_VAT_NUMBER', 'UID');
-define('_JSHOP_MOBIL_PHONE', 'Mobiltelepnon');
+define('_JSHOP_MOBIL_PHONE', 'Mobiltelefon');
 define('_JSHOP_EXT_FIELD_1', 'Zusätzliche Feld 1');
 define('_JSHOP_EXT_FIELD_2', 'Zusätzliche Feld 2');
 define('_JSHOP_EXT_FIELD_3', 'Zusätzliche Feld 3');
@@ -601,6 +604,7 @@ define('_JSHOP_USERGROUPS','Benutzergruppen');
 define('_JSHOP_USERGROUP_NAME', 'Benutzergruppen');
 define('_JSHOP_USERGROUP_DISCOUNT', 'Rabatt');
 define('_JSHOP_EDIT_USERGROUP','Benutzergruppe editieren');
+define('_JSHOP_NEW_USERGROUP','Neu usergroup');
 define('_JSHOP_USERGROUP_IS_DEFAULT', 'Default');
 define('_JSHOP_USERGROUP_IS_DEFAULT_DESCRIPTION','If user register then in this usergroup');
 
@@ -771,21 +775,8 @@ define('_JSHOP_FIELD_PASSWORD', 'Passwort');
 define('_JSHOP_FIELD_PASSWORD_2', 'Passwort bestätigen');
 
 define('_JSHOP_REG_TITLE', 'Anrede');
-define('_JSHOP_USERNAME', 'Benutzername');
 define('_JSHOP_F_NAME', 'Vorname');
 define('_JSHOP_L_NAME', 'Nachname');
-define('_JSHOP_FULL_NAME', 'Vollständiger Name');
-define('_JSHOP_FIRMA_NAME', 'Firma');
-define('_JSHOP_STREET_NR', 'Straße / Nr.');
-define('_JSHOP_ZIP', 'Postleitzahl');
-define('_JSHOP_STATE', 'Bundesland');
-define('_JSHOP_CITY', 'Stadt');
-define('_JSHOP_COUNTRY', 'Land');
-define('_JSHOP_TELEFON', 'Telefon');
-define('_JSHOP_FAX', 'Telefax');
-define('_JSHOP_PASSWORD', 'Passwort');
-define('_JSHOP_PASSWORD_2', 'Passwort bestätigen');
-
 define('_JSHOP_FIELD_FIRMA_CODE', 'Firma Kode');
 define('_JSHOP_FIELD_TAX_NUMBER', 'UID');
 define('_JSHOP_FIELD_MOBIL_PHONE', 'Mobiltelefon');
@@ -881,6 +872,7 @@ define('_JSHP_SEOPAGE_labelproducts',"Label Produkte");
 define('_JSHP_SEOPAGE_topratingproducts',"Top-Bewertung Produkte");
 define('_JSHP_SEOPAGE_tophitsproducts',"Top-Hits Produkte");
 define('_JSHP_SEOPAGE_all-products',"Alle Produkte");
+define('_JSHP_SEOPAGE_content-privacy_statement',"Datenschutzerklärung");
 
 //static text
 define('_JSHP_STPAGE_home', "Main page (main category)");
@@ -888,13 +880,16 @@ define('_JSHP_STPAGE_manufacturer', "Manufacturer");
 define('_JSHP_STPAGE_agb', "AGB");
 define('_JSHP_STPAGE_return_policy', "Rückgaberecht");
 define('_JSHP_STPAGE_order_email_descr', "Beschreibung des Auftrags für den Kunden (in E-Mail)");
+define('_JSHP_STPAGE_order_email_descr_end', "Beschreibung des Auftrags für den Kunden (in E-Mail, Ende)");
 define('_JSHP_STPAGE_INFO_order_email_descr', "erlaubt use vars {name}, {family}, {email}");
+define('_JSHP_STPAGE_INFO_order_email_descr_end', "erlaubt use vars {name}, {family}, {email}");
 define('_JSHP_STPAGE_order_finish_descr', 'Seite "Auftrag beenden"');
 define('_JSHP_STPAGE_shipping', "Versandkosten Hinweistext");
 define('_JSHP_STPAGE_INFO_shipping', 'Text wird angezeigt, wenn die Option: "Versandkosten" anzeigen, im Bereich Kategorien/Produkte, aktiv ist.');
+define('_JSHP_STPAGE_privacy_statement',"Datenschutzerklärung");
 
 define('_JSHOP_ATTRIBUTE_EXTEND_PARAMS','Weitere Werte');
-define('_JSHOP_SHOW_DEFAULT_PRICE','Anzeigen Preis ohne Rabatt');
+define('_JSHOP_SHOW_DEFAULT_PRICE','Anzeigen Preis für Basic-Mitglieder');
 define('_JSHOP_QTY_IN_STOCK','Menge auf Lager');
 define('_JSHOP_TYPE','Typ');
 define('_JSHOP_LIST','List');
@@ -921,5 +916,81 @@ define('_JSHOP_FINISHED', 'Beendet');
 define('_JSHOP_SAVE_ALIAS_AUTOMATICAL', 'Automatisches Speichern der Alias');
 define('_JSHOP_WE_ALWAYS_SEND_ORDER', 'Senden Bestellung immer');
 define('_JSHOP_UPLOAD_FILE_VIA_FTP', 'Name Datei. Brauchen Sie Upload-Datei über FTP');
+define('_JSHOP_ORDER_DETAILS','Bestellen Details');
+define('_JSHOP_FINISH_ORDER','Finish Bestellung');
+define('_JSHOP_ORDER_FINISHED','Aufträge abgeschlossen');
+define('_JSHOP_ADDONS','Addons');
+define('_JSHOP_VERSION','Version');
+define('_JSHOP_LOAD','Laden');
+
+define('_JSHOP_OC', 'Andere Config');
+define('_JSHOP_OC_cart_back_to_shop', 'Back to-Shop (Link im Warenkorb)');
+define('_JSHOP_OC_cart_back_to_shop_INFO', 'product / list / shop');
+define('_JSHOP_OC_product_button_back_use_end_list', 'Produkt-Taste zurück (Ende verwenden Liste)');
+define('_JSHOP_OC_display_tax_id_in_pdf', 'Steuer-ID-Anzeige, wenn PDF');
+define('_JSHOP_OC_image_quality', 'Bildqualität');
+define('_JSHOP_OC_image_fill_color', 'Bild Füllfarbe');
+define('_JSHOP_OC_product_price_qty_discount', 'Produkt Preis Menge Rabatt');
+define('_JSHOP_OC_product_price_qty_discount_INFO', '1 - Preis, 2 - Prozent ');
+define('_JSHOP_OC_rating_starparts', 'Bewertung stratparts');
+define('_JSHOP_OC_rating_starparts_INFO', 'Stern ist auf {2} Teil geteilt');
+define('_JSHOP_OC_show_list_price_shipping_weight', 'Zeige Listenpreis Gewicht');
+define('_JSHOP_OC_product_price_precision', 'Produktpreis Präzision');
+define('_JSHOP_OC_cart_decimal_qty_precision', 'Zeige dezimal Menge Präzision');
+define('_JSHOP_OC_default_frontend_currency', 'Standard-Frontend Währung ID');
+define('_JSHOP_OC_product_file_upload_via_ftp', 'Produkt-Datei-Upload (über FTP)');
+define('_JSHOP_OC_product_file_upload_via_ftp_INFO', '0 - Upload-Datei, 1 - Set-Namen-Datei, 2 - {0,1}');
+define('_JSHOP_OC_product_file_upload_count', 'Datei-Upload Produkt count');
+define('_JSHOP_OC_product_image_upload_count', 'Produkt-Bild-Upload count');
+define('_JSHOP_OC_product_video_upload_count', 'Produkt-Video-Upload count');
+define('_JSHOP_OC_show_insert_code_in_product_video', 'Produkt-Video (Möglichkeit der Code einfügen)');
+define('_JSHOP_OC_max_number_download_sale_file', 'Max insgesamt Verkauf Download-Datei');
+define('_JSHOP_OC_max_number_download_sale_file_INFO', '0 - unbegrenzt ');
+define('_JSHOP_OC_max_day_download_sale_file', 'Max insgesamt Day Sale-Datei');
+define('_JSHOP_OC_max_day_download_sale_file_INFO', '0 - unbegrenzt ');
+define('_JSHOP_OC_order_display_new_digital_products', 'Anzeige neuen digitalen Produkten (Bestellung)');
+define('_JSHOP_OC_display_user_groups_info', 'Zeige Benutzergruppen info');
+define('_JSHOP_OC_display_user_group', 'Zeige Benutzergruppe');
+define('_JSHOP_OC_display_delivery_time_for_product_in_order_mail', 'Zeige Lieferzeit für Produkt in Ordnung ist (E-Mail)');
+define('_JSHOP_OC_load_jquery', 'Load jQuery');
+define('_JSHOP_OC_load_jquery_version', 'jQuery-Version');
+define('_JSHOP_OC_load_jquery_lightbox', 'Load Lightbox');
+define('_JSHOP_OC_load_css', 'Load css');
+define('_JSHOP_OC_load_javascript','Load javascript');
+define('_JSHOP_OC_tax_on_delivery_address','Steuer auf Zustelladresse');
+
+define('_JSHOP_SHOW_EXTRA_FIELDS_CART','Produktcharakteristik anzeigen (Warenkorb)');
+define('_JSHOP_OVERRIDING_ADDRESSES','Overriding Addresses');
+define('_JSHOP_DELIVERY_ORDER_DEPENDS_DELIVERY_PRODUCT','Lieferung der Bestellung hängt davon ab, Bereitstellung von Produktinformationen');
+define('_JSHOP_DAYS','Tag');
+define('_JSHOP_ORDER_FINISH', 'Kaufen');
+define('_JSHOP_INSERT_CODE', 'Fügen Kode');
+define('_JSHOP_UPDATE_ARE_AVAILABLE', 'Aktualisieren auf %s sind vorhanden!');
+define('_JSHOP_MULTI_LIST','Multiple List');
+
+define('_JSHOP_SHOW_WEIGHT_IN_INVOICE','Gewicht in Rechnung');
+define('_JSHOP_SHOW_SHIPPING_IN_INVOICE','Versand in Rechnung');
+define('_JSHOP_SHOW_PAYMENT_IN_INVOICE','Zahlung in Rechnung');
+define('_JSHOP_INVOICE_DATE','Rechnungs-Datum');
+define('_JSHOP_FIELD_PRIVACY_STATEMENT','Datenschutzerklärung');
+define('_JSHOP_DELETE_ALL_DATA','Alle Daten werden gelöscht. Löschen?');
+define('_JSHOP_NUMERIC','numerisch');
+define('_JSHOP_PRODUCT_TAX_RATE','Steuersatz Produkt');
+define('_JSHOP_PACKAGE_TAX', 'Paket Mwst');
+define('_JSHOP_USE_OLD_VALUE_PRICE', 'Use old value of price');
+define('_JSHOP_SHOW_DELIVERY_DATE', '"Lieferdatum" anzeigen');
+define('_JSHOP_DELIVERY_DATE','Lieferdatum');
+define('_JSHOP_STOCK','Lager');
+define('_JSHOP_ITEM_ALREADY_USE','"%s" ist bereits in Gebrauch');
+define('_JSHOP_SHORT_DESCR_MULTILINE','Kurzbeschreibung mehrzeilige');
+define('_JSHOP_COUNT_DOWNLOAD', 'Number of downloaded');
+define('_JSHOP_CLEAR', 'Klar');
+define('_JSHOP_SEND_MAIL', 'Mail senden');
+define('_JSHOP_MAIL_HAS_BEEN_SENT', 'Die Email wurde verschickts');
+define('_JSHOP_SENT_INVOICE_MANUALLY', 'schicken Sie die Rechnung manuell');
+define('_JSHOP_FIELD_M_NAME', 'zweiter Vorname');
+define('_JSHOP_FIELD_BIRTHDAY', 'Geburtstag');
+define('_JSHOP_M_NAME', 'zweiter Vorname');
+define('_JSHOP_BIRTHDAY', 'Geburtstag');
 
 ?>

@@ -1,10 +1,11 @@
 <?php
-$jshopConfig = &JSFactory::getConfig();
-JFilterOutput::objectHTMLSafe( $jshopConfig, ENT_QUOTES);
-$vendor = $this->vendor;
-$lists = $this->lists;
-JHTML::_('behavior.tooltip');
-include(dirname(__FILE__)."/submenu.php");
+	defined('_JEXEC') or die();
+	$jshopConfig = JSFactory::getConfig();
+	JFilterOutput::objectHTMLSafe( $jshopConfig, ENT_QUOTES);
+	$vendor = $this->vendor;
+	$lists = $this->lists;
+	JHTML::_('behavior.tooltip');
+	include(dirname(__FILE__)."/submenu.php");
 ?>
 <form action = "index.php?option=com_jshopping&controller=config" method = "post" name = "adminForm" enctype = "multipart/form-data">
 <input type="hidden" name="task" value="">
@@ -143,6 +144,7 @@ include(dirname(__FILE__)."/submenu.php");
      <td>
        <input size="55" type = "text" class = "inputbox" name = "fax" value = "<?php echo $vendor->fax?>" />
      </td>
+    </tr> 
     <tr>
      <td  class="key">
        <?php echo _JSHOP_EMAIL;?>

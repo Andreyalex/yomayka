@@ -14,7 +14,9 @@ class JshoppingViewPanel extends JView
     }
     function displayConfig($tpl = null){
         JToolBarHelper::title( _JSHOP_CONFIG, 'generic.png' );
-        JToolBarHelper::preferences('com_jshopping');
+        if (JFactory::getUser()->authorise('core.admin')){
+            JToolBarHelper::preferences('com_jshopping');
+        }
         parent::display($tpl);
     }
     function displayOptions($tpl = null){

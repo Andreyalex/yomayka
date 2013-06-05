@@ -10,7 +10,7 @@
 defined('_JEXEC') or die('Restricted access');
 error_reporting(E_ALL & ~E_NOTICE);
 
-$adminlang = &JFactory::getLanguage();
+$adminlang = JFactory::getLanguage();
 if (file_exists(JPATH_SITE . '/administrator/components/com_jshopping/lang/' . $adminlang->getTag() . '.php')) {
 	require_once (JPATH_SITE . '/administrator/components/com_jshopping/lang/' . $adminlang->getTag() . '.php');
 } else {
@@ -30,7 +30,7 @@ $query = 'SELECT email FROM #__users AS U LEFT JOIN #__user_usergroup_map AS UM 
 $db->setQuery( $query );
 $email_admin = $db->loadResult();
         
-$db = &JFactory::getDBO();
+$db = JFactory::getDBO();
 $config = new jshopConfig($db);
 $config->id = 1;
 $config->adminLanguage = $adminlang->getTag();
@@ -41,7 +41,7 @@ if ($email_admin){
 $config->securitykey = md5($email_admin.time().JPATH_SITE);
 $config->store();
 
-$session =& JFactory::getSession();
+$session = JFactory::getSession();
 $checkedlanguage = array();
 $session->set("jshop_checked_language", $checkedlanguage);
 
@@ -64,7 +64,7 @@ installNewLanguages("en-GB", 0);
 @chmod(JPATH_SITE . '/components/com_jshopping/files/importexport/simpleexport', 0755);
 @chmod(JPATH_SITE . '/components/com_jshopping/files/importexport/simpleimport', 0755);
 print "<br>";
-$jshopConfig = &JSFactory::getConfig();
+$jshopConfig = JSFactory::getConfig();
 print '<link rel = "stylesheet" type = "text/css" href = "'.$jshopConfig->live_admin_path.'css/style.css" />';
 include_once(JPATH_ADMINISTRATOR."/components/com_jshopping/views/panel/view.html.php");
 $view_config = array("base_path"=>JPATH_ADMINISTRATOR."/components/com_jshopping/","template_path"=>JPATH_ADMINISTRATOR."/components/com_jshopping/views/panel/tmpl/");

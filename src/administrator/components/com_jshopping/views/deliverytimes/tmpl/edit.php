@@ -1,4 +1,8 @@
-<?php $row = $this->deliveryTimes; $edit = $this->edit; ?>
+<?php 
+	defined('_JEXEC') or die();
+	$row = $this->deliveryTimes; 
+	$edit = $this->edit; 
+?>
 <form action = "index.php?option=com_jshopping&controller=deliverytimes" method = "post" name = "adminForm">
 <div class="col100">
 <fieldset class="adminform">
@@ -9,13 +13,21 @@
    ?>
    <tr>
      <td class="key">
-       <?php echo _JSHOP_TITLE;?> <?php if ($this->multilang) print "(".$lang->lang.")";?>*
+       <?php echo _JSHOP_TITLE?> <?php if ($this->multilang) print "(".$lang->lang.")";?>*
      </td>
      <td>
        <input type = "text" class = "inputbox" id = "<?php print $field;?>" name = "<?php print $field;?>" value = "<?php echo $row->$field;?>" />
      </td>
    </tr>
    <?php }?>
+   <tr>
+     <td class="key">
+       <?php echo _JSHOP_DAYS?>*
+     </td>
+     <td>
+       <input type="text" class="inputbox" name="days" value = "<?php echo $row->days?>" />
+     </td>
+   </tr>
    <?php $pkey = "etemplatevar";if ($this->$pkey){print $this->$pkey;}?>   
 </table>
 </fieldset>

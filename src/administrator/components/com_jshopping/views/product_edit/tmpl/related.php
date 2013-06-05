@@ -1,13 +1,14 @@
 <?php
-echo $pane->startPanel(_JSHOP_PRODUCT_RELATED, 'product_related');
+	defined('_JEXEC') or die();
+	echo $pane->startPanel(_JSHOP_PRODUCT_RELATED, 'product_related');
 ?>
    <div class="col100">
     <fieldset class="adminform">
         <legend><?php echo _JSHOP_PRODUCT_RELATED ?></legend>
         <div id="list_related">
         <?php
-            foreach ($this->related_products as $row_related){
-                if (!$row_related->image) $row_related->image = "noimage.gif";
+            foreach($this->related_products as $row_related){
+                if (!$row_related->image) $row_related->image = $jshopConfig->noimage;
             ?>      
             <div class="block_related" id="related_product_<?php print $row_related->product_id;?>">
                 <div class="block_related_inner">

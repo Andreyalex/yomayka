@@ -1,8 +1,9 @@
 <?php
-$jshopConfig = &JSFactory::getConfig();
-include(dirname(__FILE__)."/submenu.php");
-$rows = $this->rows;
-$i = 0;
+	defined('_JEXEC') or die();
+	$jshopConfig = JSFactory::getConfig();
+	include(dirname(__FILE__)."/submenu.php");
+	$rows = $this->rows;
+	$i = 0;
 ?>
 <form action = "index.php?option=com_jshopping&controller=config" method = "post" name = "adminForm">
 <table class = "adminlist">

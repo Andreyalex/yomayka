@@ -12,10 +12,10 @@ jimport('joomla.application.component.controller');
 
 class JshoppingControllerOther extends JController{
 
-    function display(){
-                
+    function display($cachable = false, $urlparams = false){
+        checkAccessController("other");
         addSubmenu("other");
-        $view=&$this->getView("panel", 'html');
+        $view=$this->getView("panel", 'html');
         $view->setLayout("options");
         $view->displayOptions();
     }

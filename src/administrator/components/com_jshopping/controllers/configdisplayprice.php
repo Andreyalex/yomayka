@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 03.11.2011
+* @version      3.13.0 03.01.2013
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -17,16 +17,16 @@ class JshoppingControllerConfigDisplayPrice extends JController{
 
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("configdisplayprice");
         addSubmenu("config");        
     }
     
-    function display(){
-        $db = &JFactory::getDBO();
-        $_configdisplayprice = &$this->getModel("configDisplayPrice");
+    function display($cachable = false, $urlparams = false){
+        $db = JFactory::getDBO();
+        $_configdisplayprice = $this->getModel("configDisplayPrice");
         $rows = $_configdisplayprice->getList();
         
-        $countries = &$this->getModel("countries");
+        $countries = $this->getModel("countries");
         $list = $countries->getAllCountries(0);    
         $countries_name = array();
         foreach($list as $v){
@@ -49,17 +49,20 @@ class JshoppingControllerConfigDisplayPrice extends JController{
         
         $typedisplay = array(0=>_JSHOP_PRODUCT_BRUTTO_PRICE, 1=>_JSHOP_PRODUCT_NETTO_PRICE);
         
-        $view = &$this->getView("config_display_price", 'html');
+        $view = $this->getView("config_display_price", 'html');
         $view->setLayout("list");
         $view->assign('rows', $rows); 
-        $view->assign('typedisplay', $typedisplay); 
+        $view->assign('typedisplay', $typedisplay);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayConfigDisplayPrice', array(&$view)); 
         $view->displayList();
     }
     
-    function edit() {        
+    function edit(){        
         $id = JRequest::getInt("id");
         
-        $configdisplayprice = &JTable::getInstance('configDisplayPrice', 'jshop');
+        $configdisplayprice = JTable::getInstance('configDisplayPrice', 'jshop');
         $configdisplayprice->load($id);
         
         $list_c = $configdisplayprice->getZones();
@@ -77,28 +80,28 @@ class JshoppingControllerConfigDisplayPrice extends JController{
         $lists['display_price'] = JHTML::_('select.genericlist', $display_price_list, 'display_price', '', 'id', 'name', $configdisplayprice->display_price);
         $lists['display_price_firma'] = JHTML::_('select.genericlist', $display_price_list, 'display_price_firma', '', 'id', 'name', $configdisplayprice->display_price_firma);
         
-        $countries = &$this->getModel("countries");
+        $countries = $this->getModel("countries");
         $lists['countries'] = JHTML::_('select.genericlist', $countries->getAllCountries(0), 'countries_id[]', 'size = "10", multiple = "multiple"', 'country_id', 'name', $zone_countries);        
         
         JFilterOutput::objectHTMLSafe($configdisplayprice, ENT_QUOTES);
 
-        $view = &$this->getView("config_display_price", 'html');
+        $view = $this->getView("config_display_price", 'html');
         $view->setLayout("edit");
         $view->assign('row', $configdisplayprice);
         $view->assign('lists', $lists);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditConfigDisplayPrice', array(&$view));
         $view->displayEdit();
     }
 
     function save(){        
         $id = JRequest::getInt("id");
-        $configdisplayprice = &JTable::getInstance('configDisplayPrice', 'jshop');        
+        $configdisplayprice = JTable::getInstance('configDisplayPrice', 'jshop');        
         $post = JRequest::get("post");
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
         $dispatcher->trigger( 'onBeforeSaveConfigDisplayPrice', array(&$post) );
                 
@@ -123,7 +126,7 @@ class JshoppingControllerConfigDisplayPrice extends JController{
         
         updateCountConfigDisplayPrice();
         
-        $dispatcher->trigger( 'onAftetSaveConfigDisplayPrice', array(&$configdisplayprice) );
+        $dispatcher->trigger('onAftetSaveConfigDisplayPrice', array(&$configdisplayprice));
         
         if ($this->getTask()=='apply'){
             $this->setRedirect("index.php?option=com_jshopping&controller=configdisplayprice&task=edit&id=".$configdisplayprice->id);
@@ -135,14 +138,14 @@ class JshoppingControllerConfigDisplayPrice extends JController{
 
     function remove(){
         $cid = JRequest::getVar("cid");
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
-        $dispatcher->trigger( 'onBeforeDeleteConfigDisplayPrice', array(&$cid) );
+        $dispatcher->trigger('onBeforeDeleteConfigDisplayPrice', array(&$cid));
         $text = array();
         foreach ($cid as $key => $value) {            
-            $query = "DELETE FROM `#__jshopping_config_display_prices` WHERE `id` = '".$db->getEscaped($value)."'";
+            $query = "DELETE FROM `#__jshopping_config_display_prices` WHERE `id` = '".$db->escape($value)."'";
             $db->setQuery($query);
             if ($db->query()){
                 $text[] = _JSHOP_ITEM_DELETED;
@@ -151,7 +154,7 @@ class JshoppingControllerConfigDisplayPrice extends JController{
         
         updateCountConfigDisplayPrice();
         
-        $dispatcher->trigger( 'onAfterDeleteConfigDisplayPrice', array(&$cid) );
+        $dispatcher->trigger('onAfterDeleteConfigDisplayPrice', array(&$cid));
         
         $this->setRedirect("index.php?option=com_jshopping&controller=configdisplayprice", implode("</li><li>",$text));
     }

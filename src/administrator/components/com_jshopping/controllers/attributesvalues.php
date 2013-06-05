@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.3.0 20.12.2011
+* @version      3.13.0 20.09.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -17,26 +17,36 @@ class JshoppingControllerAttributesValues extends JController{
 
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
+        checkAccessController("attributesvalues");
         addSubmenu("other");
     }
 
-    function display(){
+    function display($cachable = false, $urlparams = false){
 		$attr_id = JRequest::getInt("attr_id");
-		$db = &JFactory::getDBO();
-        $jshopConfig = &JSFactory::getConfig();
+		$db = JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
         
-		$attributValues = &$this->getModel("AttributValue");
-		$rows = $attributValues->getAllValues($attr_id);
-		$attribut = &$this->getModel("attribut");
+        $mainframe = JFactory::getApplication();
+		$context = "jshoping.list.admin.attr_values";
+        $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "value_ordering", 'cmd');
+        $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
+        
+		$attributValues = $this->getModel("AttributValue");
+		$rows = $attributValues->getAllValues($attr_id, $filter_order, $filter_order_Dir);
+		$attribut = $this->getModel("attribut");
 
 		$attr_name = $attribut->getName($attr_id);
-		$view=&$this->getView("attributesvalues", 'html');
+		$view=$this->getView("attributesvalues", 'html');
         $view->setLayout("list");
         $view->assign('rows', $rows);        
         $view->assign('attr_id', $attr_id);
         $view->assign('config', $jshopConfig);
         $view->assign('attr_name', $attr_name);
+        $view->assign('filter_order', $filter_order);
+        $view->assign('filter_order_Dir', $filter_order_Dir);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayAttributesValues', array(&$view));
 		$view->displayList(); 
 	}
 	
@@ -44,19 +54,19 @@ class JshoppingControllerAttributesValues extends JController{
 		$value_id = JRequest::getInt("value_id");
 		$attr_id = JRequest::getInt("attr_id");
         
-		$jshopConfig = &JSFactory::getConfig();
-		$db = &JFactory::getDBO();		
+		$jshopConfig = JSFactory::getConfig();
+		$db = JFactory::getDBO();		
         
-        $attributValue = &JTable::getInstance('attributValue', 'jshop');
+        $attributValue = JTable::getInstance('attributValue', 'jshop');
         $attributValue->load($value_id);
         
-        $_lang = &$this->getModel("languages");
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         $multilang = count($languages)>1;	
         
         JFilterOutput::objectHTMLSafe($attributValue, ENT_QUOTES);
 		
-		$view=&$this->getView("attributesvalues", 'html');
+		$view=$this->getView("attributesvalues", 'html');
         $view->setLayout("edit");		
         $view->assign('attributValue', $attributValue);        
         $view->assign('attr_id', $attr_id);        
@@ -64,32 +74,34 @@ class JshoppingControllerAttributesValues extends JController{
         $view->assign('languages', $languages);
         $view->assign('multilang', $multilang);
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger('onBeforeEditAtributesValues', array(&$view));
 		$view->displayEdit();
 	}
     
 	function save() {
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         require_once ($jshopConfig->path.'lib/uploadfile.class.php');
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
 		$value_id = JRequest::getInt("value_id");
 		$attr_id = JRequest::getInt("attr_id");
         
         $post = JRequest::get("post");
-        $attributValue = &JTable::getInstance('attributValue', 'jshop');
+        $attributValue = JTable::getInstance('attributValue', 'jshop');
         
         $dispatcher->trigger( 'onBeforeSaveAttributValue', array(&$post) );
         
         $upload = new UploadFile($_FILES['image']);
         $upload->setAllowFile(array('jpeg','jpg','gif','png'));
         $upload->setDir($jshopConfig->image_attributes_path);
+        $upload->setFileNameMd5(0);
+        $upload->setFilterName(1);
         if ($upload->upload()){
             if ($post['old_image']){
-                @unlink($jshopConfig->image_attributes_path . "/" . $post['old_image']);
+                @unlink($jshopConfig->image_attributes_path."/".$post['old_image']);
             }
             $post['image'] = $upload->getName();
             @chmod($jshopConfig->image_attributes_path."/".$post['image'], 0777);
@@ -101,7 +113,7 @@ class JshoppingControllerAttributesValues extends JController{
         }
         
         if (!$value_id){
-            $query = "SELECT MAX(value_ordering) AS value_ordering FROM `#__jshopping_attr_values` where attr_id='".$db->getEscaped($attr_id)."'";
+            $query = "SELECT MAX(value_ordering) AS value_ordering FROM `#__jshopping_attr_values` where attr_id='".$db->escape($attr_id)."'";
             $db->setQuery($query);
             $row = $db->loadObject();
             $post['value_ordering'] = $row->value_ordering + 1;
@@ -132,21 +144,21 @@ class JshoppingControllerAttributesValues extends JController{
 	function remove(){
 		$cid = JRequest::getVar("cid");
 		$attr_id = JRequest::getInt("attr_id");
-        $jshopConfig = &JSFactory::getConfig();
-		$db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+		$db = JFactory::getDBO();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         
         $dispatcher->trigger( 'onBeforeRemoveAttributValue', array(&$cid) );
         
 		$text = '';
 		foreach ($cid as $key => $value){
-            $query = "SELECT image FROM `#__jshopping_attr_values` WHERE value_id = '" . $db->getEscaped($value) . "'";
+            $query = "SELECT image FROM `#__jshopping_attr_values` WHERE value_id = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $image = $db->loadResult();
             @unlink($jshopConfig->image_attributes_path."/".$image);
             	
-			$query = "DELETE FROM `#__jshopping_attr_values` WHERE `value_id` = '" . $db->getEscaped($value) . "'";
+			$query = "DELETE FROM `#__jshopping_attr_values` WHERE `value_id` = '" . $db->escape($value) . "'";
 			$db->setQuery($query);
 			$db->query();
 			$text = _JSHOP_ATTRIBUT_VALUE_DELETED;
@@ -158,12 +170,12 @@ class JshoppingControllerAttributesValues extends JController{
 	}
 	
 	
-	function order() {
+	function order(){
 		$order = JRequest::getVar("order");
 		$cid = JRequest::getInt("id");
 		$number = JRequest::getInt("number");
 		$attr_id = JRequest::getInt("attr_id");
-		$db = &JFactory::getDBO();
+		$db = JFactory::getDBO();
 		switch ($order) {
 			case 'up':
 				$query = "SELECT value_id, value_ordering FROM `#__jshopping_attr_values`					   
@@ -190,15 +202,32 @@ class JshoppingControllerAttributesValues extends JController{
 		$this->setRedirect("index.php?option=com_jshopping&controller=attributesvalues&attr_id=".$attr_id, $text);
 	}
     
+    function saveorder(){
+        $cid = JRequest::getVar('cid', array(), 'post', 'array');
+        $order = JRequest::getVar('order', array(), 'post', 'array');
+        $attr_id = JRequest::getInt("attr_id");
+
+        foreach($cid as $k=>$id){
+            $table = JTable::getInstance('attributValue', 'jshop');
+            $table->load($id);
+            if ($table->value_ordering!=$order[$k]){
+                $table->value_ordering = $order[$k];
+                $table->store();
+            }
+        }
+
+        $this->setRedirect("index.php?option=com_jshopping&controller=attributesvalues&attr_id=".$attr_id);
+    }
+    
     function back(){
         $this->setRedirect("index.php?option=com_jshopping&controller=attributes");
     }
     
     function delete_foto(){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         
         $id = JRequest::getInt("id");
-        $attributValue = &JTable::getInstance('attributValue', 'jshop');
+        $attributValue = JTable::getInstance('attributValue', 'jshop');
         $attributValue->load($id);
         @unlink($jshopConfig->image_attributes_path."/".$attributValue->image);
         $attributValue->image = "";

@@ -1,7 +1,8 @@
 <?php
-$row = $this->country;
-$lists = $this->lists;
-$edit = $this->edit;
+	defined('_JEXEC') or die();
+	$row = $this->country;
+	$lists = $this->lists;
+	$edit = $this->edit;
 ?>
 <div class="jshop_edit">
 <form action = "index.php?option=com_jshopping&controller=countries" method = "post"name = "adminForm">

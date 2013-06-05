@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      3.5.0 16.02.2012
+* @version      3.12.2 15.12.2012
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,35 +14,33 @@ class JshoppingControllerProducts extends JController{
     
     function __construct( $config = array() ){
         parent::__construct( $config );
-
-        $this->registerTask( 'add',   'edit' );
-        $this->registerTask( 'apply', 'save' );
-        
+        $this->registerTask('add', 'edit' );
+        $this->registerTask('apply', 'save');
+        checkAccessController("products");
         addSubmenu("products");
     }
     
-    function display(){    
-        $mainframe =& JFactory::getApplication();    
-        $db = &JFactory::getDBO();
-        $jshopConfig = &JSFactory::getConfig();
-        $products = &$this->getModel("products");
+    function display($cachable = false, $urlparams = false){
+        $mainframe = JFactory::getApplication();
+        $db = JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $products = $this->getModel("products");
         $id_vendor_cuser = getIdVendorForCUser();
 
         $context = "jshoping.list.admin.product";
         $limit = $mainframe->getUserStateFromRequest($context.'limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
         $limitstart = $mainframe->getUserStateFromRequest($context.'limitstart', 'limitstart', 0, 'int' );
-        
         $filter_order = $mainframe->getUserStateFromRequest($context.'filter_order', 'filter_order', "product_id", 'cmd');
         $filter_order_Dir = $mainframe->getUserStateFromRequest($context.'filter_order_Dir', 'filter_order_Dir', "asc", 'cmd');
         
-        if (isset($_GET['category_id']) && $_GET['category_id']==="0"){            
+        if (isset($_GET['category_id']) && $_GET['category_id']==="0"){
             $mainframe->setUserState( $context.'category_id', 0);
             $mainframe->setUserState( $context.'manufacturer_id', 0);
             $mainframe->setUserState( $context.'label_id', 0);
             $mainframe->setUserState( $context.'publish', 0);
             $mainframe->setUserState( $context.'text_search', '');
-        }                
-        
+        }
+
         $category_id = $mainframe->getUserStateFromRequest( $context.'category_id', 'category_id', 0, 'int' );
         $manufacturer_id = $mainframe->getUserStateFromRequest( $context.'manufacturer_id', 'manufacturer_id', 0, 'int' );
         $label_id = $mainframe->getUserStateFromRequest( $context.'label_id', 'label_id', 0, 'int' );
@@ -53,19 +51,19 @@ class JshoppingControllerProducts extends JController{
         if ($id_vendor_cuser){
             $filter["vendor_id"] = $id_vendor_cuser;
         }
-        
+
         $show_vendor = $jshopConfig->admin_show_vendors;
         if ($id_vendor_cuser) $show_vendor = 0;
-                
+
         $total = $products->getCountAllProducts($filter);
-        
+
         jimport('joomla.html.pagination');
         $pagination = new JPagination($total, $limitstart, $limit);
-        
+
         $rows = $products->getAllProducts($filter, $pagination->limitstart, $pagination->limit, $filter_order, $filter_order_Dir);
-        
+
         if ($show_vendor){
-            $main_vendor = &JTable::getInstance('vendor', 'jshop');
+            $main_vendor = JTable::getInstance('vendor', 'jshop');
             $main_vendor->loadMain();
             foreach($rows as $k=>$v){
                 if ($v->vendor_id){
@@ -75,38 +73,40 @@ class JshoppingControllerProducts extends JController{
                 }
             }
         }
-        
+
+        $parentTop = new stdClass();
         $parentTop->category_id = 0;
         $parentTop->name = " - - - ";
         $categories_select = buildTreeCategory(0,1,0);
-        array_unshift($categories_select, $parentTop);    
+        array_unshift($categories_select, $parentTop);
         $lists['treecategories'] = JHTML::_('select.genericlist', $categories_select,'category_id','onchange="document.adminForm.submit();"', 'category_id', 'name', $category_id );
         
         $manuf1 = array();
+        $manuf1[0] = new stdClass();
         $manuf1[0]->manufacturer_id = '0';
         $manuf1[0]->name = " - - - ";
 
-        $_manufacturer =&$this->getModel('manufacturers');
-        $manufs = $_manufacturer->getAllManufacturers(0);
+        $_manufacturer = $this->getModel('manufacturers');
+        $manufs = $_manufacturer->getList();
         $manufs = array_merge($manuf1, $manufs);
         $lists['manufacturers'] = JHTML::_('select.genericlist', $manufs, 'manufacturer_id','onchange="document.adminForm.submit();"', 'manufacturer_id', 'name', $manufacturer_id);
         
         // product labels
         if ($jshopConfig->admin_show_product_labels) {
-            $_labels = &$this->getModel("productLabels");
+            $_labels = $this->getModel("productLabels");
             $alllabels = $_labels->getList();
             $first = array();
-            $first[] = JHTML::_('select.option', '0'," - - - ", 'id','name');        
+            $first[] = JHTML::_('select.option', '0'," - - - ", 'id','name');
             $lists['labels'] = JHTML::_('select.genericlist', array_merge($first, $alllabels), 'label_id','onchange="document.adminForm.submit();"','id','name', $label_id);
         }
         //
-        
+
         $f_option = array();
         $f_option[] = JHTML::_('select.option', 0, " - - - ", 'id', 'name');
         $f_option[] = JHTML::_('select.option', 1, _JSHOP_PUBLISH, 'id', 'name');
         $f_option[] = JHTML::_('select.option', 2, _JSHOP_UNPUBLISH, 'id', 'name');
         $lists['publish'] = JHTML::_('select.genericlist', $f_option, 'publish', 'onchange="document.adminForm.submit();"', 'id', 'name', $publish);
-        
+
         foreach($rows as $key=>$v){
             if ($rows[$key]->label_id){
                 $image = getNameImageLabel($rows[$key]->label_id);
@@ -118,10 +118,10 @@ class JshoppingControllerProducts extends JController{
         }
 
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
-        $dispatcher->trigger( 'onBeforeDisplayListProducts', array(&$rows) );
-        
-        $view=&$this->getView("product_list", 'html');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayListProducts', array(&$rows));
+
+        $view=$this->getView("product_list", 'html');
         $view->assign('rows', $rows);
         $view->assign('lists', $lists);
         $view->assign('filter_order', $filter_order);
@@ -132,29 +132,32 @@ class JshoppingControllerProducts extends JController{
         $view->assign('text_search', $text_search);
         $view->assign('config', $jshopConfig);
         $view->assign('show_vendor', $show_vendor);
-        $view->display();        
+        $dispatcher->trigger('onBeforeDisplayListProductsView', array(&$view));
+        $view->display();
     }
-    
+
     function edit(){
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
+        $lang = JSFactory::getLang();
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onLoadEditProduct', array());
         $id_vendor_cuser = getIdVendorForCUser();
         
         $product_id = JRequest::getInt('product_id');
-        $product_attr_id = JRequest::getInt('product_attr_id');        
-        
+        $product_attr_id = JRequest::getInt('product_attr_id');
+        $category_id = JRequest::getInt('category_id');
+		
         //parent product
         if ($product_attr_id){
             JRequest::setVar("hidemainmenu", 1);
-            $product_attr =& JTable::getInstance('productAttribut', 'jshop');
+            $product_attr = JTable::getInstance('productAttribut', 'jshop');
             $product_attr->load($product_attr_id);
-            if ($product_attr->ext_attribute_product_id){
+			if ($product_attr->ext_attribute_product_id){
                 $product_id = $product_attr->ext_attribute_product_id;
             }else{
-                $product =& JTable::getInstance('product', 'jshop');
+                $product = JTable::getInstance('product', 'jshop');
                 $product->parent_id = $product_attr->product_id;
                 $product->store();
                 $product_id = $product->product_id;
@@ -167,51 +170,63 @@ class JshoppingControllerProducts extends JController{
             checkAccessVendorToProduct($id_vendor_cuser, $product_id);
         }
         
-        $products = &$this->getModel("products");
+        $products = $this->getModel("products");
         
-        $product =& JTable::getInstance('product', 'jshop');
+        $product = JTable::getInstance('product', 'jshop');
         $product->load($product_id);
-
-        $_productprice =& JTable::getInstance('productPrice', 'jshop');
-        $product->product_add_prices = $_productprice->getAddPrices($product_id);        
+        $_productprice = JTable::getInstance('productPrice', 'jshop');
+        $product->product_add_prices = $_productprice->getAddPrices($product_id);
         $product->product_add_prices = array_reverse($product->product_add_prices);
-        
-        $_lang = &$this->getModel("languages");
+        $name = $lang->get("name");
+        $product->name = $product->$name;
+
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
         $multilang = count($languages)>1;
-        
+ 
         $nofilter = array();
         JFilterOutput::objectHTMLSafe( $product, ENT_QUOTES, $nofilter);
 
         $edit = intval($product_id);
-        
+
         if (!$product_id) {
             $rows = array();
             $product->product_quantity = 1;
             $product->product_publish = 1;
         }
  
-        $_tax = &$this->getModel("taxes");
+        $_tax = $this->getModel("taxes");
         $all_taxes = $_tax->getAllTaxes();
         
         if ($edit){
             $images = $product->getImages();
             $videos = $product->getVideos();
-            $files  = $product->getFiles();            
+            $files  = $product->getFiles();
             $categories_select = $product->getCategories();
+            $categories_select_list = array();
+            foreach($categories_select as $v){
+                $categories_select_list[] = $v->category_id;
+            }
             $related_products = $products->getRelatedProducts($product_id);
         } else {
             $images = array();
             $videos = array();
             $files = array();
             $categories_select = null;
+			if ($category_id) {
+                $categories_select = $category_id;
+            }
             $related_products = array();
         }
-        $list_tax = array();        
-        foreach ($all_taxes as $tax){
-            $list_tax[] = JHTML::_('select.option', $tax->tax_id, $tax->tax_name . ' (' . $tax->tax_value . '%)','tax_id','tax_name');
+        if ($jshopConfig->tax){
+            $list_tax = array();
+            foreach ($all_taxes as $tax){
+                $list_tax[] = JHTML::_('select.option', $tax->tax_id, $tax->tax_name . ' (' . $tax->tax_value . '%)','tax_id','tax_name');
+            }
+            $withouttax = 0;
+        }else{
+            $withouttax = 1;
         }
-        if (count($all_taxes)==0) $withouttax = 1; else $withouttax = 0;
 
         $categories = buildTreeCategory(0,1,0);
         if (count($categories)==0) JError::raiseNotice(0, _JSHOP_PLEASE_ADD_CATEGORY);
@@ -220,22 +235,23 @@ class JshoppingControllerProducts extends JController{
         $lists['files'] = $files;
 
         $manuf1 = array();
+        $manuf1[0] = new stdClass();
         $manuf1[0]->manufacturer_id = '0';
         $manuf1[0]->name = _JSHOP_NONE;
 
-        $_manufacturer =&$this->getModel('manufacturers');
-        $manufs = $_manufacturer->getAllManufacturers(0);
+        $_manufacturer =$this->getModel('manufacturers');
+        $manufs = $_manufacturer->getList();
         $manufs = array_merge($manuf1, $manufs);
 
         //Attributes
-        $_attribut = &$this->getModel('attribut');
-        $list_all_attributes = $_attribut->getAllAttributes(2);
-        $_attribut_value =&$this->getModel('attributValue');
+        $_attribut = $this->getModel('attribut');
+        $list_all_attributes = $_attribut->getAllAttributes(2, $categories_select_list);
+        $_attribut_value =$this->getModel('attributValue');
         $lists['attribs'] = $product->getAttributes();
         $lists['ind_attribs'] = $product->getAttributes2();
         $lists['attribs_values'] = $_attribut_value->getAllAttributeValues(2);
         $all_attributes = $list_all_attributes['dependent'];
-        
+
         $lists['ind_attribs_gr'] = array();
         foreach($lists['ind_attribs'] as $v){
             $lists['ind_attribs_gr'][$v->attr_id][] = $v;
@@ -244,7 +260,7 @@ class JshoppingControllerProducts extends JController{
         $first = array();
         $first[] = JHTML::_('select.option', '0',_JSHOP_SELECT, 'value_id','name');
 
-        foreach ($all_attributes as $key => $value){
+        foreach($all_attributes as $key=>$value){
             $values_for_attribut = $_attribut_value->getAllValues($value->attr_id);
             $all_attributes[$key]->values_select = JHTML::_('select.genericlist', array_merge($first, $values_for_attribut),'value_id['.$value->attr_id.']','class = "inputbox" size = "5" multiple="multiple" id = "value_id_'.$value->attr_id.'"','value_id','name');
             $all_attributes[$key]->values = $values_for_attribut;
@@ -263,8 +279,8 @@ class JshoppingControllerProducts extends JController{
         $price_modification[] = JHTML::_('select.option', '=','=', 'id','name');
         $price_modification[] = JHTML::_('select.option', '%','%', 'id','name');
         
-        foreach ($all_independent_attributes as $key => $value){
-            $values_for_attribut = $_attribut_value->getAllValues($value->attr_id);            
+        foreach($all_independent_attributes as $key=>$value){
+            $values_for_attribut = $_attribut_value->getAllValues($value->attr_id);
             $all_independent_attributes[$key]->values_select = JHTML::_('select.genericlist', array_merge($first, $values_for_attribut),'attr_ind_id_tmp_'.$value->attr_id.'','class = "inputbox" ','value_id','name');
             $all_independent_attributes[$key]->values = $values_for_attribut;
             $all_independent_attributes[$key]->price_modification_select = JHTML::_('select.genericlist', $price_modification,'attr_price_mod_tmp_'.$value->attr_id.'','class = "inputbox" ','id','name');
@@ -275,17 +291,18 @@ class JshoppingControllerProducts extends JController{
 
         // delivery Times
         if ($jshopConfig->admin_show_delivery_time) {
-            $_deliveryTimes = &$this->getModel("deliveryTimes");
-            $all_delivery_times = $_deliveryTimes->getDeliveryTimes();                
+            $_deliveryTimes = $this->getModel("deliveryTimes");
+            $all_delivery_times = $_deliveryTimes->getDeliveryTimes();
             $all_delivery_times0 = array();
+            $all_delivery_times0[0] = new stdClass();
             $all_delivery_times0[0]->id = '0';
-            $all_delivery_times0[0]->name = _JSHOP_NONE;        
+            $all_delivery_times0[0]->name = _JSHOP_NONE;
             $lists['deliverytimes'] = JHTML::_('select.genericlist', array_merge($all_delivery_times0, $all_delivery_times),'delivery_times_id','class = "inputbox" size = "1"','id','name',$product->delivery_times_id);        
         }
         //
 
         // units
-        $_units = &$this->getModel("units");
+        $_units = $this->getModel("units");
         $allunits = $_units->getUnits();
         if ($jshopConfig->admin_show_product_basic_price){
             $lists['basic_price_units'] = JHTML::_('select.genericlist', $allunits, 'basic_price_unit_id','class = "inputbox"','id','name',$product->basic_price_unit_id);
@@ -295,17 +312,17 @@ class JshoppingControllerProducts extends JController{
         //
         
         // product labels
-        if ($jshopConfig->admin_show_product_labels) {
-            $_labels = &$this->getModel("productLabels");
+        if ($jshopConfig->admin_show_product_labels){
+            $_labels = $this->getModel("productLabels");
             $alllabels = $_labels->getList();
             $first = array();
-            $first[] = JHTML::_('select.option', '0',_JSHOP_SELECT, 'id','name');        
+            $first[] = JHTML::_('select.option', '0',_JSHOP_SELECT, 'id','name');
             $lists['labels'] = JHTML::_('select.genericlist', array_merge($first, $alllabels), 'label_id','class = "inputbox" size = "1"','id','name',$product->label_id);
         }
         //
         
         // access rights
-        $accessgroups = getAccessGroups();        
+        $accessgroups = getAccessGroups();
         $lists['access'] = JHTML::_('select.genericlist', $accessgroups, 'access','class = "inputbox" size = "1"','id','title', $product->access);
         
         //currency
@@ -318,13 +335,13 @@ class JshoppingControllerProducts extends JController{
         // vendors
         $display_vendor_select = 0;
         if ($jshopConfig->admin_show_vendors){
-            $_vendors = &$this->getModel("vendors");
+            $_vendors = $this->getModel("vendors");
             $listvebdorsnames = $_vendors->getAllVendorsNames(1);
             $first = array();
             $lists['vendors'] = JHTML::_('select.genericlist', array_merge($first, $listvebdorsnames), 'vendor_id','class = "inputbox" size = "1"', 'id', 'name', $product->vendor_id);
             
             $display_vendor_select = 1;
-            if ($id_vendor_cuser > 0) $display_vendor_select = 0;            
+            if ($id_vendor_cuser > 0) $display_vendor_select = 0;
         }
         //
         
@@ -334,7 +351,7 @@ class JshoppingControllerProducts extends JController{
             if (is_array($categories_select)){
                 foreach($categories_select as $tmp){
                     $categorys_id[] = $tmp->category_id;
-                }        
+                }
             }
             $tmpl_extra_fields = $this->_getHtmlProductExtraFields($categorys_id, $product);
         }
@@ -342,13 +359,13 @@ class JshoppingControllerProducts extends JController{
         
         //free attribute
         if ($jshopConfig->admin_show_freeattributes){
-            $_freeattributes = &$this->getModel("freeattribut");        
+            $_freeattributes = $this->getModel("freeattribut");        
             $listfreeattributes = $_freeattributes->getAll();
             $activeFreeAttribute = $product->getListFreeAttributes();
             $listIdActiveFreeAttribute = array();
             foreach($activeFreeAttribute as $_obj){
                 $listIdActiveFreeAttribute[] = $_obj->id;
-            }            
+            }
             foreach($listfreeattributes as $k=>$v){
                 if (in_array($v->id, $listIdActiveFreeAttribute)){
                     $listfreeattributes[$k]->pactive = 1;
@@ -359,13 +376,15 @@ class JshoppingControllerProducts extends JController{
         $lists['manufacturers'] = JHTML::_('select.genericlist', $manufs,'product_manufacturer_id','class = "inputbox" size = "1"','manufacturer_id','name',$product->product_manufacturer_id);
         
         $tax_value = 0;
-        foreach ($all_taxes as $tax){
-            if ($tax->tax_id == $product->product_tax_id){
-                $tax_value = $tax->tax_value;
-                break; 
+        if ($jshopConfig->tax){
+            foreach($all_taxes as $tax){
+                if ($tax->tax_id == $product->product_tax_id){
+                    $tax_value = $tax->tax_value;
+                    break; 
+                }
             }
         }
- 
+        
         if ($product_id){
             $product->product_price = round($product->product_price, $jshopConfig->product_price_precision);
             if ($jshopConfig->display_price_admin==0){
@@ -378,20 +397,21 @@ class JshoppingControllerProducts extends JController{
         $category_select_onclick = "";
         if ($jshopConfig->admin_show_product_extra_field) $category_select_onclick = 'onclick="reloadProductExtraField(\''.$product_id.'\')"';
         
-        $lists['tax'] = JHTML::_('select.genericlist', $list_tax,'product_tax_id','class = "inputbox" size = "1" onchange = "updatePrice2('.$jshopConfig->display_price_admin.');"','tax_id','tax_name',$product->product_tax_id);
+        if ($jshopConfig->tax){
+            $lists['tax'] = JHTML::_('select.genericlist', $list_tax,'product_tax_id','class = "inputbox" size = "1" onchange = "updatePrice2('.$jshopConfig->display_price_admin.');"','tax_id','tax_name',$product->product_tax_id);
+        }
         $lists['categories'] = JHTML::_('select.genericlist', $categories, 'category_id[]', 'class="inputbox" size="10" multiple = "multiple" '.$category_select_onclick, 'category_id', 'name', $categories_select);
-        $lists['writeable'] = (is_writable($jshopConfig->image_product_path))?($jshopConfig->image_product_path . '::' . messageOutput(_JSHOP_WRITEABLE,'jshop_green')):($jshopConfig->image_product_path . '::' . messageOutput(_JSHOP_NON_WRITEABLE));
         $lists['templates'] = getTemplates('product', $product->product_template);
         
         $dispatcher->trigger( 'onBeforeDisplayEditProduct', array(&$product, &$related_products, &$lists, &$listfreeattributes, &$tax_value) );
 
-        $view=&$this->getView("product_edit", 'html');
-        $view->setLayout("default");        
+        $view=$this->getView("product_edit", 'html');
+        $view->setLayout("default");
         $view->assign('product', $product);
         $view->assign('lists', $lists);
         $view->assign('related_products', $related_products);
         $view->assign('edit', $edit);
-        $view->assign('product_with_attribute', $product_with_attribute);        
+        $view->assign('product_with_attribute', $product_with_attribute);
         $view->assign('tax_value', $tax_value);
         $view->assign('languages', $languages);
         $view->assign('multilang', $multilang);
@@ -401,35 +421,34 @@ class JshoppingControllerProducts extends JController{
         $view->assign('listfreeattributes', $listfreeattributes);
         $view->assign('product_attr_id', $product_attr_id);
         $dispatcher->trigger('onBeforeDisplayEditProductView', array(&$view) );
-        $view->display();
+		$view->display();
     }
     
     function save(){
-        $jshopConfig = &JSFactory::getConfig();
-        require_once ($jshopConfig->path.'lib/image.lib.php');
-        require_once ($jshopConfig->path.'lib/uploadfile.class.php');
-        
+        $jshopConfig = JSFactory::getConfig();
+        require_once($jshopConfig->path.'lib/image.lib.php');
+        require_once($jshopConfig->path.'lib/uploadfile.class.php');
+
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
-        
-        $db = &JFactory::getDBO();
+        $dispatcher = JDispatcher::getInstance();
+
+        $db = JFactory::getDBO();
         $post = JRequest::get('post');
-        $_products = &$this->getModel("products");
-        $product =& JTable::getInstance('product', 'jshop');
-        $_alias = &$this->getModel("alias");
-        $_lang = &$this->getModel("languages");
+        $_products = $this->getModel("products");
+        $product = JTable::getInstance('product', 'jshop');
+        $_alias = $this->getModel("alias");
+        $_lang = $this->getModel("languages");
         $id_vendor_cuser = getIdVendorForCUser();
-        
+
         if ($id_vendor_cuser && $post['product_id']){
             checkAccessVendorToProduct($id_vendor_cuser, $post['product_id']);
         }
-        
-        $post['different_prices'] = 0;
+		$post['different_prices'] = 0;
         if ($post['product_is_add_price']) $post['different_prices'] = 1;
-               
+
         if (!isset($post['product_publish'])) $post['product_publish'] = 0;
-        if (!isset($post['product_is_add_price'])) $post['product_is_add_price'] = 0;        
-        if (!isset($post['unlimited'])) $post['unlimited'] = 0;        
+        if (!isset($post['product_is_add_price'])) $post['product_is_add_price'] = 0;
+        if (!isset($post['unlimited'])) $post['unlimited'] = 0;
         $post['product_price'] = saveAsPrice($post['product_price']);
         $post['product_old_price'] = saveAsPrice($post['product_old_price']);
         $post['product_buy_price'] = saveAsPrice($post['product_buy_price']);
@@ -453,7 +472,23 @@ class JshoppingControllerProducts extends JController{
         if ($post['unlimited']){
             $post['product_quantity'] = 1;
         }
-        
+        if (is_array($post['productfields'])){
+            foreach($post['productfields'] as $productfield=>$val){
+                if (is_array($val)){
+                    $post[$productfield] = implode(',', $val);
+                }
+            }
+        }
+        if ($jshopConfig->admin_show_product_extra_field){
+            $_productfields = $this->getModel("productFields");
+            $list_productfields = $_productfields->getList(1);
+            foreach($list_productfields as $v){
+                if ($v->type==0 && !isset($post['extra_field_'.$v->id])){
+                    $post['extra_field_'.$v->id] = '';
+                }
+            }
+        }
+
         if (is_array($post['attrib_price'])){
             if (count(array_unique($post['attrib_price']))>1) $post['different_prices'] = 1;
         }
@@ -464,7 +499,7 @@ class JshoppingControllerProducts extends JController{
             }
             if (count(array_unique($tmp_attr_ind_price))>1) $post['different_prices'] = 1;
         }
-                
+
         $languages = $_lang->getAllLanguages(1);
         foreach($languages as $lang){
             $post['name_'.$lang->language] = trim($post['name_'.$lang->language]);            
@@ -473,7 +508,7 @@ class JshoppingControllerProducts extends JController{
             if ($post['alias_'.$lang->language]!="" && !$_alias->checkExistAlias2Group($post['alias_'.$lang->language], $lang->language, $post['product_id'])){
                 $post['alias_'.$lang->language] = "";
                 JError::raiseWarning("", _JSHOP_ERROR_ALIAS_ALREADY_EXIST);
-            }            
+            }
             $post['description_'.$lang->language] = JRequest::getVar('description'.$lang->id,'','post',"string", 2);
             $post['short_description_'.$lang->language] = JRequest::getVar('short_description_'.$lang->language,'','post',"string", 2);
         }
@@ -491,7 +526,7 @@ class JshoppingControllerProducts extends JController{
         }
         
         if (isset($post['set_main_image'])) {
-            $image=& JTable::getInstance('image', 'jshop');
+            $image= JTable::getInstance('image', 'jshop');
             $image->load($post['set_main_image']);
             if($image->image_id) {
                 $product->product_thumb_image = $image->image_thumb;
@@ -516,7 +551,7 @@ class JshoppingControllerProducts extends JController{
 
         $_products->uploadImages($product, $product_id, $post);
 
-        if ($jshopConfig->admin_show_product_files && $product->parent_id==0){
+        if ($jshopConfig->admin_show_product_files){
             $_products->uploadFiles($product, $product_id, $post);
         }
 
@@ -539,7 +574,7 @@ class JshoppingControllerProducts extends JController{
         $dispatcher->trigger('onAfterSaveProductEnd', array($product->product_id) );
         
         if ($product->parent_id!=0){
-            print "<script type='text/javascript'>window.close();</script>";            
+            print "<script type='text/javascript'>window.close();</script>";
             die();
         }
         
@@ -550,7 +585,7 @@ class JshoppingControllerProducts extends JController{
         }
     }   
     
-    function publish(){        
+    function publish(){
         $this->_publishProduct(1);
         $this->setRedirect("index.php?option=com_jshopping&controller=products");
     }
@@ -561,54 +596,279 @@ class JshoppingControllerProducts extends JController{
     }    
     
     function _publishProduct($flag) {
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
-        $cid = JRequest::getVar('cid');        
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
+        $cid = JRequest::getVar('cid');
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforePublishProduct', array(&$cid, &$flag) );
-        foreach ($cid as $key => $value) {
-            $query = "UPDATE `#__jshopping_products`
-                       SET `product_publish` = '" . $db->getEscaped($flag) . "'
-                       WHERE `product_id` = '" . $db->getEscaped($value) . "'";
+        foreach($cid as $key => $value){
+            $query = "UPDATE `#__jshopping_products` SET `product_publish` = '" . $db->escape($flag) . "' WHERE `product_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
         }
         
         $dispatcher->trigger( 'onAfterPublishProduct', array(&$cid, &$flag) );
     }
+    
+    function editlist(){
+        $cid = JRequest::getVar('cid');
+        if (count($cid)==1){
+            $this->setRedirect("index.php?option=com_jshopping&controller=products&task=edit&product_id=".$cid[0]);
+            return 0;
+        }
+        $id_vendor_cuser = getIdVendorForCUser();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger( 'onLoadEditListProduct', array());
+        
+        $products = $this->getModel("products");
+        $product = JTable::getInstance('product', 'jshop');
+        $_lang = $this->getModel("languages");
+        
+        $_tax = $this->getModel("taxes");
+        $all_taxes = $_tax->getAllTaxes();
+        
+        $list_tax = array();
+        $list_tax[] = JHTML::_('select.option', -1, "- - -",'tax_id','tax_name');
+        foreach($all_taxes as $tax){
+            $list_tax[] = JHTML::_('select.option', $tax->tax_id, $tax->tax_name . ' (' . $tax->tax_value . '%)','tax_id','tax_name');
+        }
+        if (count($all_taxes)==0) $withouttax = 1; else $withouttax = 0;
+
+        $categories = buildTreeCategory(0,1,0);
+        
+        $manuf1 = array();
+        $manuf1[-1] = new stdClass();
+        $manuf1[-1]->manufacturer_id = '-1';
+        $manuf1[-1]->name = "- - -";
+        $manuf1[0] = new stdClass();
+        $manuf1[0]->manufacturer_id = '0';
+        $manuf1[0]->name = _JSHOP_NONE;
+
+        $_manufacturer =$this->getModel('manufacturers');
+        $manufs = $_manufacturer->getList();
+        $manufs = array_merge($manuf1, $manufs);
+        
+        $price_modification = array();
+        $price_modification[] = JHTML::_('select.option', '+','+', 'id','name');
+        $price_modification[] = JHTML::_('select.option', '-','-', 'id','name');
+        $price_modification[] = JHTML::_('select.option', '*','*', 'id','name');
+        $price_modification[] = JHTML::_('select.option', '/','/', 'id','name');
+        $price_modification[] = JHTML::_('select.option', '=','=', 'id','name');
+        $price_modification[] = JHTML::_('select.option', '%','%', 'id','name');
+        $lists['price_mod_price'] = JHTML::_('select.genericlist', $price_modification,'mod_price','','id','name');
+        $lists['price_mod_old_price'] = JHTML::_('select.genericlist', $price_modification,'mod_old_price','','id','name');
+        
+        if ($jshopConfig->admin_show_delivery_time) {
+            $_deliveryTimes = $this->getModel("deliveryTimes");
+            $all_delivery_times = $_deliveryTimes->getDeliveryTimes();
+            $all_delivery_times0 = array();
+            $all_delivery_times0[-1] = new stdClass();
+            $all_delivery_times0[-1]->id = '-1';
+            $all_delivery_times0[-1]->name = "- - -";
+            $all_delivery_times0[0] = new stdClass();
+            $all_delivery_times0[0]->id = '0';
+            $all_delivery_times0[0]->name = _JSHOP_NONE;
+            $lists['deliverytimes'] = JHTML::_('select.genericlist', array_merge($all_delivery_times0, $all_delivery_times),'delivery_times_id','class = "inputbox" size = "1"','id','name');
+        }
+        //
+
+        // units
+        $_units = $this->getModel("units");
+        $allunits = $_units->getUnits();
+        if ($jshopConfig->admin_show_product_basic_price){
+            $lists['basic_price_units'] = JHTML::_('select.genericlist', $allunits, 'basic_price_unit_id','class = "inputbox"','id','name');
+        }        
+        //
+        
+        // product labels
+        if ($jshopConfig->admin_show_product_labels) {
+            $_labels = $this->getModel("productLabels");
+            $alllabels = $_labels->getList();
+            $first = array();
+            $first[] = JHTML::_('select.option', '-1',"- - -", 'id','name');
+            $first[] = JHTML::_('select.option', '0',_JSHOP_SELECT, 'id','name');
+            $lists['labels'] = JHTML::_('select.genericlist', array_merge($first, $alllabels), 'label_id','class = "inputbox"','id','name');
+        }
+        //
+        
+        // access rights
+        $accessgroups = getAccessGroups();
+        $first = array();
+        $first[] = JHTML::_('select.option', '-1',"- - -", 'id','title');
+        $lists['access'] = JHTML::_('select.genericlist', array_merge($first, $accessgroups), 'access','class = "inputbox"','id','title');
+        
+        //currency
+        $current_currency = $product->currency_id;
+        if (!$current_currency) $current_currency = $jshopConfig->mainCurrency;
+        $_currency = $this->getModel("currencies");
+        $currency_list = $_currency->getAllCurrencies();
+        $lists['currency'] = JHTML::_('select.genericlist', $currency_list, 'currency_id','class = "inputbox"','currency_id','currency_code', $current_currency);
+        
+        // vendors
+        $display_vendor_select = 0;
+        if ($jshopConfig->admin_show_vendors){
+            $_vendors = $this->getModel("vendors");
+            $listvebdorsnames = $_vendors->getAllVendorsNames(1);
+            $first = array();
+            $first[] = JHTML::_('select.option', '-1',"- - -", 'id','name');
+            $lists['vendors'] = JHTML::_('select.genericlist', array_merge($first, $listvebdorsnames), 'vendor_id','class = "inputbox" size = "1"', 'id', 'name');
+            
+            $display_vendor_select = 1;
+            if ($id_vendor_cuser > 0) $display_vendor_select = 0;
+        }
+        //
+        
+        $published = array();
+        $published[] = JHTML::_('select.option', '-1', "- - -", 'value', 'name');
+        $published[] = JHTML::_('select.option', 0, _JSHOP_UNPUBLISH, 'value', 'name');
+        $published[] = JHTML::_('select.option', 1, _JSHOP_PUBLISH, 'value', 'name');       
+        $lists['product_publish'] = JHTML::_('select.genericlist', $published, 'product_publish', '', 'value', 'name');
+        
+        $lists['manufacturers'] = JHTML::_('select.genericlist', $manufs,'product_manufacturer_id','class = "inputbox" size = "1"','manufacturer_id','name');
+        
+        $lists['tax'] = JHTML::_('select.genericlist', $list_tax,'product_tax_id','class = "inputbox" size = "1"','tax_id','tax_name');
+        $lists['categories'] = JHTML::_('select.genericlist', $categories, 'category_id[]', 'class="inputbox" size="10" multiple = "multiple" ', 'category_id', 'name');
+        $lists['templates'] = getTemplates('product', "", 1);
+        
+        $view=$this->getView("product_edit", 'html');
+        $view->setLayout("editlist");
+        $view->assign('lists', $lists);
+        $view->assign('cid', $cid);
+        $view->assign('config', $jshopConfig);
+        $view->assign('withouttax', $withouttax);
+        $view->assign('display_vendor_select', $display_vendor_select);
+        $dispatcher->trigger('onBeforeDisplayEditListProductView', array(&$view) );
+        $view->editGroup();
+        
+    }
+    
+    function savegroup(){
+        $jshopConfig = JSFactory::getConfig();
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforSaveListProduct', array() );
+        
+        $cid = JRequest::getVar('cid');
+        $post = JRequest::get('post');
+        $_products = $this->getModel("products");
+        foreach($cid as $id){
+            $product = JTable::getInstance('product', 'jshop');
+            $product->load($id);
+            if ($post['access']!=-1){
+                $product->set('access', $post['access']);
+            }
+            if ($post['product_publish']!=-1){
+                $product->set('product_publish', $post['product_publish']);
+            }
+            if ($post['product_weight']!=""){
+                $product->set('product_weight', $post['product_weight']);
+            }
+            if ($post['product_quantity']!=""){
+                $product->set('product_quantity', $post['product_quantity']);
+                $product->set('unlimited', 0);
+            }
+            if ($post['unlimited']){
+                $product->set('product_quantity', 1);
+                $product->set('unlimited', 1);
+            }
+            if ($post['product_template']!=-1){
+                $product->set('product_template', $post['product_template']);
+            }
+            if ($post['product_tax_id']!=-1){
+                $product->set('product_tax_id', $post['product_tax_id']);
+            }
+            if ($post['product_manufacturer_id']!=-1){
+                $product->set('product_manufacturer_id', $post['product_manufacturer_id']);
+            }
+            if ($post['vendor_id']!=-1){
+                $product->set('vendor_id', $post['vendor_id']);
+            }
+            if ($post['delivery_times_id']!=-1){
+                $product->set('delivery_times_id', $post['delivery_times_id']);
+            }
+            if ($post['label_id']!=-1){
+                $product->set('label_id', $post['label_id']);
+            }
+            if ($post['weight_volume_units']!=""){
+                $product->set('weight_volume_units', $post['weight_volume_units']);
+                $product->set('basic_price_unit_id', $post['basic_price_unit_id']);
+            }
+            if ($post['product_price']!=""){
+                $oldprice = $product->product_price;
+                $price = $_products->getModPrice($product->product_price, saveAsPrice($post['product_price']), $post['mod_price']);
+                $product->set('product_price', $price);
+                if ($post['use_old_val_price']==1){
+                    $product->set('product_old_price', $oldprice);
+                }
+            }
+            if ($post['product_old_price']!=""){
+                $price = $_products->getModPrice($product->product_old_price, saveAsPrice($post['product_old_price']), $post['mod_old_price']);
+                $product->set('product_old_price', $price);
+            }
+            if ($post['product_price']!="" || $post['product_old_price']!=""){                
+                $product->set('currency_id', $post['currency_id']);
+            }
+            if ($post['category_id']){
+                $_products->setCategoryToProduct($id, $post['category_id']);
+            }
+            $_products->updatePriceAndQtyDependAttr($id, $post);            
+            $product->store();
+            
+            if ($post['product_price']!=""){
+                $mprice = $product->getMinimumPrice();
+                $product->set('min_price', $mprice);
+            }
+            if (!$product->unlimited){
+                $qty = $product->getFullQty();
+                $product->set('product_quantity', $qty);
+            }
+            $product->store();            
+            unset($product);
+        }
+
+        $dispatcher->trigger('onAfterSaveListProductEnd', array($cid, $post) );
+        $this->setRedirect("index.php?option=com_jshopping&controller=products", _JSHOP_PRODUCT_SAVED);
+    }
 
     function copy(){
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         $text = array();
         $cid = JRequest::getVar('cid');
-        
+
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeCopyProduct', array(&$cid) );
-        
-        $_lang = &$this->getModel("languages");
+
+        $_lang = $this->getModel("languages");
         $languages = $_lang->getAllLanguages(1);
-        $_products = &$this->getModel("products");
+        $_products = $this->getModel("products");
         // Get all data about products
         $tables = array('attr', 'attr2', 'images', 'prices', 'relations', 'to_categories', 'videos', 'files');
-        foreach ($cid as $key=>$value){
-            $product =& JTable::getInstance('product', 'jshop');
+        foreach($cid as $key=>$value){
+            $product = JTable::getInstance('product', 'jshop');
             $product->load($value);
-            $product->product_id = null;                        
+            $product->product_id = null;
             foreach($languages as $lang){
                 $name_alias = 'alias_'.$lang->language;
-                $product->$name_alias = $product->$name_alias.date('ymdHis');
+                if ($product->$name_alias){
+                    $product->$name_alias = $product->$name_alias.date('ymdHis');
+                }
             }
             $product->product_date_added = date('Y-m-d H:i:s');
             $product->date_modify = "";
+            $product->average_rating = 0;
+            $product->reviews_count = 0;
             $product->hits = 0;
             $product->store();
 
             $array = array();
             foreach($tables as $table){
-                $query = "SELECT * FROM `#__jshopping_products_".$table."` AS prod_table WHERE prod_table.product_id = '" . $db->getEscaped($value) . "'";
+                $query = "SELECT * FROM `#__jshopping_products_".$table."` AS prod_table WHERE prod_table.product_id = '" . $db->escape($value) . "'";
                 $db->setQuery($query);
                 $array[] = $db->loadAssocList();
             }
@@ -621,7 +881,7 @@ class JshoppingControllerProducts extends JController{
                         $db->query();
                     }
                 }
-                $i++;                
+                $i++;
             }
             
             //change order in category
@@ -637,7 +897,7 @@ class JshoppingControllerProducts extends JController{
                 $query = "update #__jshopping_products_to_categories set product_ordering='".$ordering."' where category_id='".$val->category_id."' and product_id='".$product->product_id."' ";
                 $db->setQuery($query);
                 $db->query();
-            }            
+            }
             
             $text[]= sprintf(_JSHOP_PRODUCT_COPY_TO, $value, $product->product_id)."<br>";
         }
@@ -653,7 +913,7 @@ class JshoppingControllerProducts extends JController{
         $number = JRequest::getInt("number");
         $category_id = JRequest::getInt("category_id");
 
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         switch ($order) {
             case 'up':
                 $query = "SELECT a.*
@@ -687,7 +947,7 @@ class JshoppingControllerProducts extends JController{
     }
     
     function saveorder(){
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         $category_id = JRequest::getInt("category_id");
         $cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
         $order = JRequest::getVar( 'order', array(), 'post', 'array' );
@@ -697,45 +957,45 @@ class JshoppingControllerProducts extends JController{
                      SET product_ordering = '".intval($order[$k])."'
                      WHERE product_id = '".intval($product_id)."' AND category_id = '".intval($category_id)."'";
             $db->setQuery($query);
-            $db->query();        
+            $db->query();
         }
         $this->setRedirect("index.php?option=com_jshopping&controller=products&category_id=".$category_id); 
     }
     
     function remove(){
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         $text = array();
         $cid = JRequest::getVar('cid');
         
         JPluginHelper::importPlugin('jshoppingadmin');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeRemoveProduct', array(&$cid) );
 
-        foreach ($cid as $key => $value) {
-            $product =& JTable::getInstance('product', 'jshop');
+        foreach($cid as $key => $value){
+            $product = JTable::getInstance('product', 'jshop');
             $product->load($value);
-            $query = "DELETE FROM `#__jshopping_products` WHERE `product_id` = '".$db->getEscaped($value)."' or `parent_id` = '".$db->getEscaped($value)."' ";
+            $query = "DELETE FROM `#__jshopping_products` WHERE `product_id` = '".$db->escape($value)."' or `parent_id` = '".$db->escape($value)."' ";
             $db->setQuery($query);
             $db->query();
 
-            $query = "DELETE FROM `#__jshopping_products_attr` WHERE `product_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_products_attr` WHERE `product_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
             
-            $query = "DELETE FROM `#__jshopping_products_attr2` WHERE `product_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_products_attr2` WHERE `product_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
             
-            $query = "DELETE FROM `#__jshopping_products_prices` WHERE `product_id` = '".$db->getEscaped($value)."'";
+            $query = "DELETE FROM `#__jshopping_products_prices` WHERE `product_id` = '".$db->escape($value)."'";
             $db->setQuery($query);
             $db->query();
             
-            $query = "DELETE FROM `#__jshopping_products_relations` WHERE `product_id` = '" . $db->getEscaped($value) . "' OR `product_related_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_products_relations` WHERE `product_id` = '" . $db->escape($value) . "' OR `product_related_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
 
-            $query = "DELETE FROM `#__jshopping_products_to_categories` WHERE `product_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_products_to_categories` WHERE `product_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
 
@@ -745,7 +1005,7 @@ class JshoppingControllerProducts extends JController{
 
             if (count($images)) {
                 foreach ($images as $image){
-                    $query = "select count(*) as k from #__jshopping_products_images where image_name='".$db->getEscaped($image->image_name)."' and product_id!='".$db->getEscaped($value)."'";                    
+                    $query = "select count(*) as k from #__jshopping_products_images where image_name='".$db->escape($image->image_name)."' and product_id!='".$db->escape($value)."'";                    
                     $db->setQuery($query);
                     if (!$db->loadResult()){
                         @unlink($jshopConfig->image_product_path . "/" . $image->image_thumb);
@@ -755,13 +1015,13 @@ class JshoppingControllerProducts extends JController{
                 }
             }
             
-            $query = "DELETE FROM `#__jshopping_products_images` WHERE `product_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_products_images` WHERE `product_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
 
             if (count($videos)) {
                 foreach ($videos as $video) {
-                    $query = "select count(*) as k from #__jshopping_products_videos where video_name='".$db->getEscaped($video->video_name)."' and product_id!='".$db->getEscaped($value)."'";                    
+                    $query = "select count(*) as k from #__jshopping_products_videos where video_name='".$db->escape($video->video_name)."' and product_id!='".$db->escape($value)."'";                    
                     $db->setQuery($query);
                     if (!$db->loadResult()){
                         @unlink($jshopConfig->video_product_path . "/" . $video->video_name);
@@ -772,19 +1032,19 @@ class JshoppingControllerProducts extends JController{
                 }
             }
             
-            $query = "DELETE FROM `#__jshopping_products_videos` WHERE `product_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_products_videos` WHERE `product_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
             
             if (count($files)){
                 foreach($files as $file){
-                    $query = "select count(*) as k from #__jshopping_products_files where demo='".$db->getEscaped($file->demo)."' and product_id!='".$db->getEscaped($value)."'";
+                    $query = "select count(*) as k from #__jshopping_products_files where demo='".$db->escape($file->demo)."' and product_id!='".$db->escape($value)."'";
                     $db->setQuery($query);
                     if (!$db->loadResult()){
                         @unlink($jshopConfig->demo_product_path."/".$file->demo);
                     }
                     
-                    $query = "select count(*) as k from #__jshopping_products_files where file='".$db->getEscaped($file->file)."' and product_id!='".$db->getEscaped($value)."'";
+                    $query = "select count(*) as k from #__jshopping_products_files where file='".$db->escape($file->file)."' and product_id!='".$db->escape($value)."'";
                     $db->setQuery($query);
                     if (!$db->loadResult()){
                         @unlink($jshopConfig->files_product_path."/".$file->file);
@@ -792,7 +1052,7 @@ class JshoppingControllerProducts extends JController{
                 }
             }
             
-            $query = "DELETE FROM `#__jshopping_products_files` WHERE `product_id` = '" . $db->getEscaped($value) . "'";
+            $query = "DELETE FROM `#__jshopping_products_files` WHERE `product_id` = '" . $db->escape($value) . "'";
             $db->setQuery($query);
             $db->query();
             
@@ -810,18 +1070,18 @@ class JshoppingControllerProducts extends JController{
     
     function delete_foto(){
         $image_id = JRequest::getInt("id");
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         
-        $query = "SELECT * FROM `#__jshopping_products_images` WHERE image_id = '" . $db->getEscaped($image_id) . "'";
+        $query = "SELECT * FROM `#__jshopping_products_images` WHERE image_id = '" . $db->escape($image_id) . "'";
         $db->setQuery($query);
         $row = $db->loadObject();
         
-        $query = "DELETE FROM `#__jshopping_products_images` WHERE `image_id` = '" . $db->getEscaped($image_id) . "'";
+        $query = "DELETE FROM `#__jshopping_products_images` WHERE `image_id` = '" . $db->escape($image_id) . "'";
         $db->setQuery($query);
         $db->query();
         
-        $query = "select count(*) as k from #__jshopping_products_images where image_name='".$db->getEscaped($row->image_name)."' and product_id!='".$db->getEscaped($row->product_id)."'";                    
+        $query = "select count(*) as k from #__jshopping_products_images where image_name='".$db->escape($row->image_name)."' and product_id!='".$db->escape($row->product_id)."'";                    
         $db->setQuery($query);
         if (!$db->loadResult()){        
             @unlink($jshopConfig->image_product_path . '/' . $row->image_full);
@@ -829,7 +1089,7 @@ class JshoppingControllerProducts extends JController{
             @unlink($jshopConfig->image_product_path . '/' . $row->image_thumb);
         }
         
-        $product =& JTable::getInstance('product', 'jshop');
+        $product = JTable::getInstance('product', 'jshop');
         $product->load($row->product_id);
         if ($product->product_name_image==$row->image_name){
             $product->product_thumb_image = '';
@@ -849,14 +1109,14 @@ class JshoppingControllerProducts extends JController{
     
     function delete_video(){
         $video_id = JRequest::getInt("id");
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         
-        $query = "SELECT * FROM `#__jshopping_products_videos` WHERE video_id = '" . $db->getEscaped($video_id) . "'";
+        $query = "SELECT * FROM `#__jshopping_products_videos` WHERE video_id = '" . $db->escape($video_id) . "'";
         $db->setQuery($query);
         $row = $db->loadObject();
         
-        $query = "select count(*) from #__jshopping_products_videos where video_name='".$db->getEscaped($row->video_name)."' and product_id!='".$db->getEscaped($row->product_id)."'";                    
+        $query = "select count(*) from #__jshopping_products_videos where video_name='".$db->escape($row->video_name)."' and product_id!='".$db->escape($row->product_id)."'";                    
         $db->setQuery($query);
         if (!$db->loadResult()){
             @unlink($jshopConfig->video_product_path . "/" . $row->video_name);
@@ -865,19 +1125,19 @@ class JshoppingControllerProducts extends JController{
             }
         }
 
-        $query = "DELETE FROM `#__jshopping_products_videos` WHERE `video_id` = '" . $db->getEscaped($video_id) . "'";
+        $query = "DELETE FROM `#__jshopping_products_videos` WHERE `video_id` = '" . $db->escape($video_id) . "'";
         $db->setQuery($query);
         $db->query();
         die();
     }
     
     function delete_file(){
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         $id = JRequest::getInt("id");
         $type = JRequest::getVar("type");
         
-        $query = "SELECT * FROM `#__jshopping_products_files` WHERE `id` = '" . $db->getEscaped($id) . "'";
+        $query = "SELECT * FROM `#__jshopping_products_files` WHERE `id` = '" . $db->escape($id) . "'";
         $db->setQuery($query);
         $row = $db->loadObject();
         
@@ -885,17 +1145,17 @@ class JshoppingControllerProducts extends JController{
                 
         if ($type=="demo"){
             if ($row->file==""){
-                $query = "DELETE FROM `#__jshopping_products_files` WHERE `id` = '" . $db->getEscaped($id) . "'";
+                $query = "DELETE FROM `#__jshopping_products_files` WHERE `id` = '" . $db->escape($id) . "'";
                 $db->setQuery($query);
                 $db->query();
                 $delete_row = 1;
             }else{
-                $query = "update `#__jshopping_products_files` set `demo`='', demo_descr='' WHERE `id` = '" . $db->getEscaped($id) . "'";
+                $query = "update `#__jshopping_products_files` set `demo`='', demo_descr='' WHERE `id` = '" . $db->escape($id) . "'";
                 $db->setQuery($query);
                 $db->query();
             }
             
-            $query = "select count(*) as k from #__jshopping_products_files where demo='".$db->getEscaped($row->demo)."'";
+            $query = "select count(*) as k from #__jshopping_products_files where demo='".$db->escape($row->demo)."'";
             $db->setQuery($query);
             if (!$db->loadResult()){
                 @unlink($jshopConfig->demo_product_path."/".$row->demo);
@@ -904,17 +1164,17 @@ class JshoppingControllerProducts extends JController{
         
         if ($type=="file"){
             if ($row->demo==""){
-                $query = "DELETE FROM `#__jshopping_products_files` WHERE `id` = '" . $db->getEscaped($id) . "'";
+                $query = "DELETE FROM `#__jshopping_products_files` WHERE `id` = '" . $db->escape($id) . "'";
                 $db->setQuery($query);
                 $db->query();
                 $delete_row = 1;
             }else{
-                $query = "update `#__jshopping_products_files` set `file`='', file_descr='' WHERE `id` = '" . $db->getEscaped($id) . "'";
+                $query = "update `#__jshopping_products_files` set `file`='', file_descr='' WHERE `id` = '" . $db->escape($id) . "'";
                 $db->setQuery($query);
                 $db->query();
             }
             
-            $query = "select count(*) as k from #__jshopping_products_files where file='".$db->getEscaped($row->file)."'";
+            $query = "select count(*) as k from #__jshopping_products_files where file='".$db->escape($row->file)."'";
             $db->setQuery($query);
             if (!$db->loadResult()){
                 @unlink($jshopConfig->files_product_path."/".$row->file);
@@ -925,11 +1185,10 @@ class JshoppingControllerProducts extends JController{
     }
     
     function search_related(){
-        $mainframe =& JFactory::getApplication();
-    
-        $db = &JFactory::getDBO();
-        $jshopConfig = &JSFactory::getConfig();        
-        $products = &$this->getModel("products");        
+        $mainframe = JFactory::getApplication();
+        $db = JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();        
+        $products = $this->getModel("products");        
         
         $text_search = JRequest::getVar("text");
         $limitstart = JRequest::getInt("start");
@@ -941,7 +1200,7 @@ class JshoppingControllerProducts extends JController{
         $rows = $products->getAllProducts($filter, $limitstart, $limit);
         $page = ceil($total/$limit);
 
-        $view=&$this->getView("product_list", 'html');
+        $view=$this->getView("product_list", 'html');
         $view->setLayout("search_related");
         $view->assign('rows', $rows);
         $view->assign('pagination', $pagination);
@@ -956,7 +1215,7 @@ class JshoppingControllerProducts extends JController{
     function product_extra_fields(){
         $product_id = JRequest::getInt("product_id");
         $cat_id = JRequest::getVar("cat_id");
-        $product =& JTable::getInstance('product', 'jshop');
+        $product = JTable::getInstance('product', 'jshop');
         $product->load($product_id);
         
         $categorys = array();
@@ -971,10 +1230,10 @@ class JshoppingControllerProducts extends JController{
     }
     
     function _getHtmlProductExtraFields($categorys, $product){
-        $_productfields = &$this->getModel("productFields");
+        $_productfields = $this->getModel("productFields");
         $list = $_productfields->getList(1);
-        
-        $_productfieldvalues = &$this->getModel("productFieldValues");
+
+        $_productfieldvalues = $this->getModel("productFieldValues");
         $listvalue = $_productfieldvalues->getAllList();
         
         $f_option = array();
@@ -1002,25 +1261,33 @@ class JshoppingControllerProducts extends JController{
                 }                
                 $name = 'extra_field_'.$v->id;
                 if ($v->type==0){
-                    $obj->values = JHTML::_('select.genericlist', array_merge($f_option, $tmp), $name, '', 'id', 'name', $product->$name);
+                    if ($v->multilist==1){
+                        $attr = 'multiple="multiple" size="10"';
+                    }else{
+                        $attr = "";
+                    }
+                    $obj->values = JHTML::_('select.genericlist', array_merge($f_option, $tmp), 'productfields['.$name.'][]', $attr, 'id', 'name', explode(',',$product->$name));
                 }else{
                     $obj->values = "<input type='text' name='".$name."' value='".$product->$name."' />";
                 }
                 $fields[] = $obj;
             }
         }
-        $view=&$this->getView("product_edit", 'html');
+        $view=$this->getView("product_edit", 'html');
         $view->setLayout("extrafields_inner");
         $view->assign('fields', $fields);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeLoadTemplateHtmlProductExtraFields', array(&$view));
         return $view->loadTemplate();
     }
 
     function getfilesale(){
-        $jshopConfig = &JSFactory::getConfig();
-        $db = &JFactory::getDBO();
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
         $id = JRequest::getVar('id');
 
-        $file = &JTable::getInstance('productFiles', 'jshop');
+        $file = JTable::getInstance('productFiles', 'jshop');
         $file->load($id);
         $downloadFile = $file->file;
 
@@ -1047,6 +1314,63 @@ class JshoppingControllerProducts extends JController{
         fclose($fp);
         die();
     }
+    
+    function loadproductinfo(){        
+        $jshopConfig = JSFactory::getConfig();
+        $db = JFactory::getDBO();
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onLoadInfoProduct', array());
+        $id_vendor_cuser = getIdVendorForCUser();        
+        $product_id = JRequest::getInt('product_id');
+        $layout = JRequest::getVar('layout','productinfo_json');
         
+        if ($id_vendor_cuser && $product_id){
+            checkAccessVendorToProduct($id_vendor_cuser, $product_id);
+        }
+        
+        $products = $this->getModel("products");
+        
+        $product = JTable::getInstance('product', 'jshop');
+        $product->load($product_id);
+        $product->getDescription();
+        
+        $res = array();
+        $res['product_id'] = $product->product_id;
+        $res['product_ean'] = $product->product_ean;
+        $res['product_price'] = $product->product_price;
+        $res['delivery_times_id'] = $product->delivery_times_id;
+        $res['vendor_id'] = fixRealVendorId($product->vendor_id);
+        $res['product_weight'] = $product->product_weight;
+        $res['product_tax'] = $product->getTax();
+        $res['product_name'] = $product->name;
+		$res['thumb_image'] = $product->product_thumb_image;
+
+        $view=$this->getView("product_edit", 'html');
+        $view->setLayout($layout);
+        $view->assign('res', $res);
+        $view->assign('product', $product);
+        $dispatcher->trigger('onBeforeDisplayLoadInfoProduct', array(&$view) );
+        $view->display();
+    die();
+    }
+
+	function getvideocode() {
+		$video_id = JRequest::getInt('video_id');
+		$productvideo = JTable::getInstance('productvideo', 'jshop');
+		$productvideo->load($video_id);
+		
+		JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onAfterLoadVideoCodeForProduct', array(&$productvideo));
+		
+		$view=$this->getView('product_edit', 'html');
+        $view->setLayout('product_video_code');
+        $view->assign('code', $productvideo->video_code);
+        
+		$dispatcher->trigger('onBeforeDisplayVideoCodeForProduct', array(&$view) );
+        $view->display();
+		die();
+	}
 }
 ?>

@@ -1,5 +1,5 @@
+<?php defined('_JEXEC') or die(); ?>
 <div class="jshop vendordetailinfo">
-
     <?php if ($this->header){?>
     <h1><?php print $this->header ?></h1>
     <?php }?>

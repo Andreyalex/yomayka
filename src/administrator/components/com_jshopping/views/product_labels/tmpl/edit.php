@@ -1,5 +1,6 @@
 <?php
-$row = $this->productLabel;
+	defined('_JEXEC') or die();
+	$row = $this->productLabel;
 ?>
 <div class="jshop_edit">
 <form action = "index.php?option=com_jshopping&controller=productlabels" method = "post" name = "adminForm" enctype = "multipart/form-data">

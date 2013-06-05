@@ -13,14 +13,14 @@ jimport( 'joomla.application.component.model');
 class JshoppingModelAlias extends JModel{
     
     function checkExistAlias1Group($alias, $lang, $category_id, $manufacture_id){
-        $db = &JFactory::getDBO();
-        $query = "select category_id as id from #__jshopping_categories where `alias_".$lang."` = '".$db->getEscaped($alias)."' and category_id!='".$db->getEscaped($category_id)."' 
+        $db = JFactory::getDBO();
+        $query = "select category_id as id from #__jshopping_categories where `alias_".$lang."` = '".$db->escape($alias)."' and category_id!='".$db->escape($category_id)."' 
                   union
-                  select manufacturer_id as id from #__jshopping_manufacturers where `alias_".$lang."` = '".$db->getEscaped($alias)."' and manufacturer_id!='".$db->getEscaped($manufacture_id)."'
+                  select manufacturer_id as id from #__jshopping_manufacturers where `alias_".$lang."` = '".$db->escape($alias)."' and manufacturer_id!='".$db->escape($manufacture_id)."'
                   ";
         $db->setQuery($query);
         $res = $db->loadResult();
-        $reservedFirstAlias = &JSFactory::getReservedFirstAlias();
+        $reservedFirstAlias = JSFactory::getReservedFirstAlias();
         if ($res || in_array($alias, $reservedFirstAlias)){
             return 0;//error
         }else{
@@ -29,8 +29,8 @@ class JshoppingModelAlias extends JModel{
     }
     
     function checkExistAlias2Group($alias, $lang, $product_id){
-        $db = &JFactory::getDBO();
-        $query = "select product_id from #__jshopping_products where `alias_".$lang."` = '".$db->getEscaped($alias)."' and product_id!='".$db->getEscaped($product_id)."'";
+        $db = JFactory::getDBO();
+        $query = "select product_id from #__jshopping_products where `alias_".$lang."` = '".$db->escape($alias)."' and product_id!='".$db->escape($product_id)."'";
         $db->setQuery($query);
         $res = $db->loadResult();        
         if ($res){

@@ -14,8 +14,8 @@ class jshopManufacturer extends JTableAvto{
     }
 
 	function getAllManufacturers($publish = 0, $order = "ordering", $dir ="asc" ) {
-		$lang = &JSFactory::getLang();
-		$db =& JFactory::getDBO();
+		$lang = JSFactory::getLang();
+		$db = JFactory::getDBO();
         if ($order=="id") $orderby = "manufacturer_id";
         if ($order=="name") $orderby = "name";
         if ($order=="ordering") $orderby = "ordering";
@@ -26,14 +26,24 @@ class jshopManufacturer extends JTableAvto{
 		$db->setQuery($query);
 		$list = $db->loadObjectList();
 		
-		foreach ($list as $key => $value){
+		foreach($list as $key=>$value){
             $list[$key]->link = SEFLink('index.php?option=com_jshopping&controller=manufacturer&task=view&manufacturer_id='.$list[$key]->manufacturer_id);
         }		
 		return $list;
 	}
+    
+    function getList(){
+        $jshopConfig = JSFactory::getConfig();
+        if ($jshopConfig->manufacturer_sorting==2){
+            $morder = 'name';
+        }else{
+            $morder = 'ordering';
+        }
+    return $this->getAllManufacturers(1, $morder, 'asc');
+    }
 	
 	function getName() {
-        $lang = &JSFactory::getLang();
+        $lang = JSFactory::getLang();
         $name = $lang->get('name');
         return $this->$name;
     }
@@ -44,7 +54,7 @@ class jshopManufacturer extends JTableAvto{
             return 1; 
         }
         
-        $lang = &JSFactory::getLang();
+        $lang = JSFactory::getLang();
         $name = $lang->get('name');        
         $description = $lang->get('description');
         $short_description = $lang->get('short_description');
@@ -61,14 +71,14 @@ class jshopManufacturer extends JTableAvto{
     }
 	
 	function getProducts($filters, $order = null, $orderby = null, $limitstart = 0, $limit = 0){
-        $jshopConfig = &JSFactory::getConfig();
-        $lang = &JSFactory::getLang();
+        $jshopConfig = JSFactory::getConfig();
+        $lang = JSFactory::getLang();
         $adv_query = ""; $adv_from = ""; $adv_result = $this->getBuildQueryListProductDefaultResult();
         $this->getBuildQueryListProduct("manufacturer", "list", $filters, $adv_query, $adv_from, $adv_result);
         $order_query = $this->getBuildQueryOrderListProduct($order, $orderby, $adv_from);
                         
         JPluginHelper::importPlugin('jshoppingproducts');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeQueryGetProductList', array("manufacturer", &$adv_result, &$adv_from, &$adv_query, &$order_query, &$filters) );
         
         $query = "SELECT $adv_result FROM `#__jshopping_products` AS prod
@@ -88,15 +98,15 @@ class jshopManufacturer extends JTableAvto{
     }    
 	
 	function getCountProducts($filters) {
-		$jshopConfig = &JSFactory::getConfig();
+		$jshopConfig = JSFactory::getConfig();
         $adv_query = ""; $adv_from = ""; $adv_result = "";
         $this->getBuildQueryListProduct("manufacturer", "count", $filters, $adv_query, $adv_from, $adv_result);
         
         JPluginHelper::importPlugin('jshoppingproducts');
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         $dispatcher->trigger( 'onBeforeQueryCountProductList', array("manufacturer", &$adv_result, &$adv_from, &$adv_query, &$filters) );
         
-		$db =& JFactory::getDBO(); 
+		$db = JFactory::getDBO(); 
 		$query = "SELECT COUNT(distinct prod.product_id) FROM `#__jshopping_products` as prod
                   LEFT JOIN `#__jshopping_products_to_categories` AS pr_cat USING (product_id)
                   LEFT JOIN `#__jshopping_categories` AS cat ON pr_cat.category_id = cat.category_id
@@ -110,9 +120,9 @@ class jshopManufacturer extends JTableAvto{
     * get List category
     */
     function getCategorys(){
-        $jshopConfig = &JSFactory::getConfig();
-        $user = &JFactory::getUser();
-        $lang = &JSFactory::getLang();
+        $jshopConfig = JSFactory::getConfig();
+        $user = JFactory::getUser();
+        $lang = JSFactory::getLang();
         $adv_query = "";
         $groups = implode(',', $user->getAuthorisedViewLevels());
         $adv_query .=' AND prod.access IN ('.$groups.') AND cat.access IN ('.$groups.')';
@@ -122,7 +132,7 @@ class jshopManufacturer extends JTableAvto{
         $query = "SELECT distinct cat.category_id as id, cat.`".$lang->get('name')."` as name FROM `#__jshopping_products` AS prod
                   LEFT JOIN `#__jshopping_products_to_categories` AS categ USING (product_id)
                   LEFT JOIN `#__jshopping_categories` as cat on cat.category_id=categ.category_id
-                  WHERE prod.product_publish = '1' AND prod.product_manufacturer_id='".$this->_db->getEscaped($this->manufacturer_id)."' AND cat.category_publish='1' ".$adv_query." order by name";
+                  WHERE prod.product_publish = '1' AND prod.product_manufacturer_id='".$this->_db->escape($this->manufacturer_id)."' AND cat.category_publish='1' ".$adv_query." order by name";
         $this->_db->setQuery($query);
         $list = $this->_db->loadObjectList();        
         return $list;

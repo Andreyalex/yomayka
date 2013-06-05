@@ -10,6 +10,6 @@
 
 <?php 
     $class = " ";
-    $nav_list = true;
+    $nav_list = false;
 	require JModuleHelper::getLayoutPath('mod_menu', 'default'); 
 ?>

@@ -1,3 +1,4 @@
+<?php defined('_JEXEC') or die(); ?>
 <div class="jshop">    
     <h1><?php print _JSHOP_LOGIN ?></h1>
     
@@ -10,7 +11,7 @@
         <td width="50%" valign="top" class="login_block">
               <span class="small_header"><?php print _JSHOP_HAVE_ACCOUNT ?></span>
               <span><?php print _JSHOP_PL_LOGIN ?></span>
-              <form method = "post" action = "<?php print SEFLink('index.php?option=com_jshopping&controller=user&task=loginsave', 0,0, $this->config->use_ssl)?>" name = "jlogin">
+              <form method = "post" action="<?php print SEFLink('index.php?option=com_jshopping&controller=user&task=loginsave', 1,0, $this->config->use_ssl)?>" name = "jlogin">
                 <table style="margin-top:3px;">
                 <tr>
                     <td><?php print _JSHOP_USERNAME ?>: </td>
@@ -29,8 +30,7 @@
                 </tr>
                 </table>
                 <input type = "hidden" name = "return" value = "<?php print $this->return ?>" />
-                <input type = "hidden" name = "Itemid" value = "<?php print $this->Itemid ?>" />
-                <input type = "hidden" name = "<?php print $this->validate ?>" value = "1" />
+                <?php echo JHtml::_('form.token');?>
               </form>   
         </td>
         

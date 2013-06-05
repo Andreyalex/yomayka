@@ -1,6 +1,6 @@
 <?php
 /**
-* @version      2.7.3 20.01.2011
+* @version      3.13.0 20.01.2011
 * @author       MAXXmarketing GmbH
 * @package      Jshopping
 * @copyright    Copyright (C) 2010 webdesigner-profi.de. All rights reserved.
@@ -14,27 +14,29 @@ class JshoppingControllerLicenseKeyAddon extends JController{
     
     function __construct( $config = array() ){
         parent::__construct( $config );
-
         $this->registerTask( 'add',   'edit' );
         $this->registerTask( 'apply', 'save' );
-        
-        addSubmenu("other");        
+        checkAccessController("licensekeyaddon");
+        addSubmenu("other");
     }
 
-	function display(){
+	function display($cachable = false, $urlparams = false){
         $alias = JRequest::getVar("alias");
 		$back = JRequest::getVar("back");
-		$addon = &JTable::getInstance('addon', 'jshop');
+		$addon = JTable::getInstance('addon', 'jshop');
 		$addon->loadAlias($alias);		
 
-		$view = &$this->getView("addonkey", 'html');
+		$view = $this->getView("addonkey", 'html');
         $view->assign('row', $addon);
         $view->assign('back', $back);
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onBeforeDisplayLicenseKeyAddons', array(&$view));
 		$view->display();
 	}
-	
+
 	function save() {
-        $addon = &JTable::getInstance('addon', 'jshop');
+        $addon = JTable::getInstance('addon', 'jshop');
         $post = JRequest::get("post");
 		if (!$addon->bind($post)) {
 			JError::raiseWarning("",_JSHOP_ERROR_BIND);
@@ -47,7 +49,10 @@ class JshoppingControllerLicenseKeyAddon extends JController{
 			$this->setRedirect("index.php?option=com_jshopping");
 			return 0;
 		}
-		
+        JPluginHelper::importPlugin('jshoppingadmin');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onAfterSaveLicenseKeyAddons', array(&$addon));
+
         $this->setRedirect(base64_decode($post['back']));
 	}
     

@@ -13,45 +13,51 @@ class pm_paypal extends PaymentRoot{
 	  foreach ($array_params as $key){
 	  	if (!isset($params[$key])) $params[$key] = '';
 	  } 
-	  $orders = &JModel::getInstance('orders', 'JshoppingModel'); //admin model
+	  $orders = JModel::getInstance('orders', 'JshoppingModel'); //admin model
       include(dirname(__FILE__)."/adminparamsform.php");	  
 	}
 
 	function checkTransaction($pmconfigs, $order, $act){
-        $jshopConfig = &JSFactory::getConfig();
+        $jshopConfig = JSFactory::getConfig();
         
         if ($pmconfigs['testmode']){
             $host = "www.sandbox.paypal.com";
         } else{
             $host = "www.paypal.com";
         }
+        $hostname = $host;
         
         if ($pmconfigs['use_ssl']){
             $host = "ssl://".$host;
         }
+
+        $order->order_total = $this->fixOrderTotal($order);
+		$email_received = $_POST['business'];
+		if ($email_received=="") $email_received = $_POST['receiver_email'];
                 
         if ($order->order_total != $_POST['mc_gross']){
             return array(0, 'Error mc_gross. Order ID '.$order->order_id);
         }
-        if (strtolower($pmconfigs['email_received']) != strtolower($_POST['business'])){
-            return array(0, 'Error business. Order ID '.$order->order_id);            
+        if (strtolower($pmconfigs['email_received']) != strtolower($email_received)){
+            return array(0, 'Error email received. Order ID '.$order->order_id);
         }
         if ($order->currency_code_iso != $_POST['mc_currency']){
-            return array(0, 'Error mc_currency. Order ID '.$order->order_id);            
+            return array(0, 'Error currency. Order ID '.$order->order_id);            
         }
         
         $req = 'cmd=_notify-validate';
-        foreach ($_POST as $key => $value){
+        foreach($_POST as $key => $value){
             $value = urlencode(stripslashes($value));
             $req .= "&$key=$value";
         }
         $payment_status = trim(stripslashes($_POST['payment_status']));
         
         $header = '';
-        // post back to PayPal system to validate
-        $header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
+        $header .= "POST /cgi-bin/webscr HTTP/1.1\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-        $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
+        $header .= "Host: ".$hostname."\r\n";
+		$header .= "Connection: close\r\n";
+        $header .= "Content-Length: ".strlen($req)."\r\n\r\n";
         $debug = "";
 
         $port = 80;
@@ -62,7 +68,8 @@ class pm_paypal extends PaymentRoot{
         } else {
             @fputs ($fp, $header . $req);
             while (!@feof($fp)) {
-                $res = @fgets ($fp, 1024);
+                $res = @fgets($fp, 1024);
+				$res = trim($res);
                 $debug .= $res."\n";
                 if (strcmp ($res, "VERIFIED") == 0) {
                     if ($payment_status == 'Completed'){
@@ -91,7 +98,7 @@ class pm_paypal extends PaymentRoot{
 	}
 
 	function showEndForm($pmconfigs, $order){
-        $jshopConfig = &JSFactory::getConfig();	    
+        $jshopConfig = JSFactory::getConfig();	    
         $item_name = sprintf(_JSHOP_PAYMENT_NUMBER, $order->order_number);
         
         if ($pmconfigs['testmode']){
@@ -100,20 +107,22 @@ class pm_paypal extends PaymentRoot{
             $host = "www.paypal.com";
         }        
         $email = $pmconfigs['email_received'];
+        $address_override = (int)$pmconfigs['address_override'];
+        
         $notify_url = JURI::root() . "index.php?option=com_jshopping&controller=checkout&task=step7&act=notify&js_paymentclass=pm_paypal&no_lang=1";
         $return = JURI::root(). "index.php?option=com_jshopping&controller=checkout&task=step7&act=return&js_paymentclass=pm_paypal";
         $cancel_return = JURI::root() . "index.php?option=com_jshopping&controller=checkout&task=step7&act=cancel&js_paymentclass=pm_paypal";
         
-        $_country = &JTable::getInstance('country', 'jshop');
-        $_country->load($order->country);
+        $_country = JTable::getInstance('country', 'jshop');
+        $_country->load($order->d_country);
         $country = $_country->country_code_2;
-        
+        $order->order_total = $this->fixOrderTotal($order);
         ?>
         <html>
-        <body>
         <head>
             <meta http-equiv="content-type" content="text/html; charset=utf-8" />            
         </head>
+        <body>
         <form id="paymentform" action="https://<?php print $host?>/cgi-bin/webscr" name = "paymentform" method = "post">
         <input type='hidden' name='cmd' value='_xclick'>
         <input type='hidden' name='business' value='<?php print $email?>'>        
@@ -130,7 +139,16 @@ class pm_paypal extends PaymentRoot{
         <input type='hidden' name='custom' value='<?php print $order->order_id?>'>
         <input type='hidden' name='amount' value='<?php print $order->order_total?>'>
         <input type='hidden' name='currency_code' value='<?php print $order->currency_code_iso?>'>
+        <input type='hidden' name='address_override' value='<?php print $address_override?>'>
         <input type='hidden' name='country' value='<?php print $country?>'>
+        <input type='hidden' name='first_name' value='<?php print $order->d_f_name?>'>
+        <input type='hidden' name='last_name' value='<?php print $order->d_l_name?>'>  
+        <input type='hidden' name='address1' value='<?php print $order->d_street?>'>  
+        <input type='hidden' name='city' value='<?php print $order->d_city?>'>  
+        <input type='hidden' name='state' value='<?php print $order->d_state?>'>
+        <input type='hidden' name='zip' value='<?php print $order->d_zip?>'>
+        <input type='hidden' name='night_phone_b' value='<?php print $order->d_phone?>'>
+        <input type='hidden' name='email' value='<?php print $order->email?>'>
         </form>        
         <?php print _JSHOP_REDIRECT_TO_PAYMENT_PAGE ?>
         <br>
@@ -141,13 +159,21 @@ class pm_paypal extends PaymentRoot{
         die();
 	}
     
-    function getUrlParams($pmconfigs){                        
+    function getUrlParams($pmconfigs){
         $params = array(); 
         $params['order_id'] = JRequest::getInt("custom");
         $params['hash'] = "";
         $params['checkHash'] = 0;
         $params['checkReturnParams'] = $pmconfigs['checkdatareturn'];
     return $params;
+    }
+    
+    function fixOrderTotal($order){
+        $total = $order->order_total;
+        if ($order->currency_code_iso=='HUF'){
+            $total = round($total);
+        }
+    return $total;
     }
     
 }

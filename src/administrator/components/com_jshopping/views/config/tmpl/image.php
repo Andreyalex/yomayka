@@ -1,8 +1,9 @@
 <?php
-$jshopConfig = &JSFactory::getConfig();
-$lists = $this->lists;
-JHTML::_('behavior.tooltip');
-include(dirname(__FILE__)."/submenu.php");
+	defined('_JEXEC') or die();
+	$jshopConfig = JSFactory::getConfig();
+	$lists = $this->lists;
+	JHTML::_('behavior.tooltip');
+	include(dirname(__FILE__)."/submenu.php");
 ?>
 <form action = "index.php?option=com_jshopping&controller=config" method = "post" name = "adminForm" enctype = "multipart/form-data">
 <input type="hidden" name="task" value="">

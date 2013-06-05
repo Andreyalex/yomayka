@@ -1,13 +1,14 @@
 <?php 
-$row = $this->category;
-$lists = $this->lists;
-$jshopConfig = &JSFactory::getConfig();
-jimport('joomla.html.pane');
+	defined('_JEXEC') or die();
+	$row = $this->category;
+	$lists = $this->lists;
+	$jshopConfig = JSFactory::getConfig();
+	jimport('joomla.html.pane');
 ?>
 <div class="jshop_edit">
 <form action = "index.php?option=com_jshopping&controller=categories" method = "post" enctype = "multipart/form-data" name = "adminForm" id='item-form'>
    <?php
-   $pane =& JPane::getInstance('Tabs');
+   $pane = JPane::getInstance('Tabs');
    echo $pane->startPane('catPane');
    
    foreach($this->languages as $lang){
@@ -55,7 +56,7 @@ jimport('joomla.html.pane');
          </td>
          <td>
            <?php
-              $editor = &JFactory::getEditor();
+              $editor = JFactory::getEditor();
               print $editor->display('description'.$lang->id, $row->$description , '100%', '350', '75', '20' ) ;              
            ?>
          </td>

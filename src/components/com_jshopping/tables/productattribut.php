@@ -18,23 +18,23 @@ class jshopProductAttribut extends JTableAvto {
     }
     
     function deleteAttributeForProduct(){
-        $db = &JFactory::getDBO();
-        $query = "DELETE FROM `#__jshopping_products_attr` WHERE `product_id` = '".$db->getEscaped($this->product_id)."'";
+        $db = JFactory::getDBO();
+        $query = "DELETE FROM `#__jshopping_products_attr` WHERE `product_id` = '".$db->escape($this->product_id)."'";
         $db->setQuery($query);
         $db->query();    
     }
     
     function deleteAttribute($id){
-        $db = &JFactory::getDBO();
+        $db = JFactory::getDBO();
         
         $this->load($id);
         if ($this->ext_attribute_product_id){
-            $query = "DELETE FROM `#__jshopping_products` WHERE `product_id` = '".$db->getEscaped($this->ext_attribute_product_id)."'";
+            $query = "DELETE FROM `#__jshopping_products` WHERE `product_id` = '".$db->escape($this->ext_attribute_product_id)."'";
             $db->setQuery($query);
             $db->query();
         }
         
-        $query = "DELETE FROM `#__jshopping_products_attr` WHERE `product_attr_id` = '".$db->getEscaped($id)."'";
+        $query = "DELETE FROM `#__jshopping_products_attr` WHERE `product_attr_id` = '".$db->escape($id)."'";
         $db->setQuery($query);
         $db->query();
     }
