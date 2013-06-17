@@ -68,30 +68,51 @@ foreach ($groups as $key => $group) {
 </div>
 <script language="javascript">
     
-    !function(){
-        var container = $$('#pos-apex-bottom .modtype-mod_menu-submenu .groups-container')[0];
-        $$('#pos-apex-bottom .modtype-mod_menu-submenu .group').each(function(group){
-            var parentId = $(group).getProperty('data-parent');
-            var parent = $$('#apex .modtype-mod_menu .level-top .item-'+parentId+' a');
+    !function($){
+        var container = $('#pos-apex-bottom .modtype-mod_menu-submenu .groups-container');
+        var levelTop = $('#apex .modtype-mod_menu .level-top');
+        var interval = null;
+        $('#pos-apex-bottom .modtype-mod_menu-submenu .group').each(function(){
+            var group = this;
+            var parentId = $(group).attr('data-parent');
+            var parent = $('#apex .modtype-mod_menu .level-top .item-'+parentId+' a');
             if (parent.length > 0) {
-                parent.addEvent('click', function(ev){
-                    ev.stop();
+                parent.click(function(ev){
+                    ev.preventDefault();
+
+                    var levelTopItem = $(this).parent('li');
 
                     var alreadyOpened = false;
-                    $$('#pos-apex-bottom .modtype-mod_menu-submenu .group').each(function(item){
+                    $('#pos-apex-bottom .modtype-mod_menu-submenu .group').each(function(){
+                        var item = this;
                         if (item == group) {
-                            alreadyOpened = item.hasClass('open');
-                            item.addClass('open');
+                            alreadyOpened = $(item).hasClass('open');
                         } else {
-                            item.removeClass('open');
-                        }               
+                            $(item).removeClass('open');
+                        }    
                     })
                     
-                    alreadyOpened? container.toggleClass('open') : container.addClass('open');
+                    levelTop.find('li').removeClass('open');
+                    
+                    if (alreadyOpened) {
+                        levelTop.removeClass('open');
+                        levelTopItem.removeClass('open');
+                        container.toggleClass('open');
+                        interval = setInterval(function(){
+                            $(group).removeClass('open');
+                            clearInterval(interval);
+                        }, 500)
+                    } else {    
+                        levelTop.addClass('open');
+                        levelTopItem.addClass('open');
+                        container.addClass('open');
+                        interval && clearInterval(interval);
+                        $(group).addClass('open');
+                    }    
 
                     return false;
                 })
             }
         })
-    }()
+    }(jQuery)
 </script>

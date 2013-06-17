@@ -56,7 +56,7 @@ function jshoppingBuildRoute(&$query){
             $segments[] = $prodalias[$query['product_id']];
             unset($query['product_id']);
         }elseif (isset($catalias[$query['category_id']]) && isset($prodalias[$query['product_id']])){
-            $segments[] = $catalias[$query['category_id']];
+            //$segments[] = $catalias[$query['category_id']];
             $segments[] = $prodalias[$query['product_id']];
             unset($query['controller']);
             unset($query['task']);
@@ -199,6 +199,9 @@ function jshoppingParseRoute($segments){
     $current_lang = $jshopConfig->cur_lang;
     $menu = JFactory::getApplication()->getMenu();
     $menuItem = $menu->getActive();
+    
+    array_unshift($segments, $menuItem->alias);
+    
     $segments[0] = getSeoSegment($segments[0]);
     if (isset($segments[1])){
         $segments[1] = getSeoSegment($segments[1]);
@@ -265,6 +268,7 @@ function jshoppingParseRoute($segments){
     if ($segments[0] && !in_array($segments[0], $reservedFirstAlias)){
         $catalias = JSFactory::getAliasCategory();
         $category_id = array_search($segments[0], $catalias, true);
+        
         if ($category_id && $segments[1]==""){
             $vars['controller'] = "category";
             $vars['task'] = "view";

@@ -4,7 +4,7 @@ defined('_JEXEC') or die;
 // detecting site title
 $app = JFactory::getApplication();
 
-JHtml::_('behavior.framework', true);
+//JHtml::_('behavior.framework', true);
 
 
 
@@ -100,8 +100,8 @@ $countModuleRightTop		= $this->countModules('right_top');
 $countModuleRightTab		= $this->countModules('right_tab');
 $countModuleRight			= $this->countModules('right');
 
-$countModuleFooterTop		= $this->countModules('footer_top');
-$countModuleFooterMiddle	= $this->countModules('footer_middle');
+$countModuleFooterTop		= $this->countModules('footer-top');
+$countModuleFooterMiddle	= $this->countModules('footer-middle');
 
 $isShowCenter		= ($countModuleInnerTop  || $countModuleInnerBottom
 					|| $countModuleInnerLeft || $countModuleInnerRight
@@ -143,16 +143,16 @@ if($apexFixed) {
     <jdoc:include type="head" />
 
     <?php // If there is other jQuery has been loaded then revert to our first one ?>
-    <script type="text/javascript">window.jQCustom = jQuery.noConflict(true);</script>
+    <!--<script type="text/javascript">window.jQCustom = jQuery.noConflict(true);</script>-->
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap-responsive.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/awesome/css/font-awesome.min.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/template.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/overrides.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/com_jshopping/default.css" type="text/css" media="screen" />
     <!--[if lt IE 8]>
         <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/ie7.css" type="text/css" />
     <![endif]-->
@@ -428,16 +428,16 @@ if($apexFixed) {
 
                             <?php if ($countModuleFooterTop): ?>
                             <div class="row">
-                                <div id="footer_top_place">
-                                        <jdoc:include type="modules" name="footer_top" style="standard" />
+                                <div id="footer_top_place" class="span12">
+                                        <jdoc:include type="modules" name="footer-top" style="standard" />
                                 </div>	
                             </div>    
                             <?php endif; ?>
 
                             <?php if ($countModuleFooterMiddle): ?>
                             <div class="row">
-                                <div id="footer_middle_place">
-                                        <jdoc:include type="modules" name="footer_middle" style="standard" />
+                                <div id="footer_middle_place" class="span12">
+                                        <jdoc:include type="modules" name="footer-middle" style="standard" />
                                 </div>	
                             </div>    
                             <?php endif; ?>

@@ -14,7 +14,7 @@
     
     $activeLevel = 'active-level-' . count($path);
     
-    $activeIsOpened = true;
+    $activeIsOpened = false;
     
 ?>
 

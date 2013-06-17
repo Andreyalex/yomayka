@@ -470,6 +470,9 @@ function SEFLink($link, $useDefaultItemId = 0, $redirect = 0, $ssl=null){
         $Itemid = JRequest::getInt('Itemid');
         if (!$Itemid) $Itemid = $defaultItemid;
     }
+    
+    $Itemid = JRequest::getInt('Itemid');
+    
     $dispatcher->trigger('onAfterLoadJshopSefLinkItemid', array(&$Itemid, &$link, &$useDefaultItemId, &$redirect, &$ssl));
     if ($link=="index.php") $link.='?Itemid='.$Itemid; else $link.='&Itemid='.$Itemid;
    	$link = JRoute::_($link, (($redirect) ? (false) : (true)), $ssl);
