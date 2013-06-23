@@ -77,6 +77,10 @@ $option = JRequest::getVar('option', null);
 
 $bodyClass = '';
 
+$menu = JFactory::getApplication()->getMenu();
+
+$isHomePage = ( $menu->getActive() == $menu->getDefault() );
+
 $countModuleHeaderTop		= $this->countModules('header-top');
 $countModuleHeaderBottom	= $this->countModules('header-bottom');
 $countModuleLogo			= $this->countModules('logo');
@@ -133,6 +137,12 @@ if($apexFixed) {
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/eurofurencelight/styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/tickertape/styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/awesome/css/font-awesome.min.css" type="text/css" media="screen" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+	
     <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/jquery.js"></script>
     <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js"></script>
     <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/bootstrap.js"></script>
@@ -145,12 +155,8 @@ if($apexFixed) {
     <?php // If there is other jQuery has been loaded then revert to our first one ?>
     <!--<script type="text/javascript">window.jQCustom = jQuery.noConflict(true);</script>-->
 
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap-responsive.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/awesome/css/font-awesome.min.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/template.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/overrides.css" type="text/css" media="screen" />
     <!--[if lt IE 8]>
@@ -244,7 +250,8 @@ if($apexFixed) {
 					
 					<?php if ($countModuleLogo): ?>
 					<div id="logo_place" class="pull-left">
-						<jdoc:include type="modules" name="logo" />
+                        <div class="logo">YOmayka</div>
+						<!--<jdoc:include type="modules" name="logo" />-->
 					</div><!--logo_place-->
 					<?php endif; ?>
 
@@ -309,9 +316,11 @@ if($apexFixed) {
 			</div><!--top_bar-->
 			<?php endif; ?>
 
-			
-			
-			<?php if ($countModuleLeft || $countModuleRight || $isShowCenter):?>
+			<?php 
+            if ($isHomePage) : 
+                require_once 'partial-home.php';
+            else:
+            if ($countModuleLeft || $countModuleRight || $isShowCenter):?>
 			<div id="main_place" class="layout-case">
 				<div class="container">
 					<div class="row">
@@ -411,6 +420,8 @@ if($apexFixed) {
 				</div>
 			</div><!--main_place-->
 			<?php endif; ?>
+
+            <?php endif; ?>
 
 			<?php if ($countModuleBottom): ?>
 			<div id="bottom_bar" class="group layout-case">
