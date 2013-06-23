@@ -1,0 +1,40 @@
+#product .slideshow {
+    position: absolute;
+}
+
+#product .details {
+    margin-left: 400px;
+    min-height: 350px;
+}
+
+#product .carousel {
+    width: 350px;
+    height: 350px;
+}    
+
+#product .carousel-inner {
+    height: 350px;
+}
+
+#product .carousel-inner .item {
+    height: 350px;
+}
+
+#product .carousel-inner .item a {
+    height: 350px;
+    display: block;
+    text-align: center;
+    line-height: 350px;
+}
+
+#product .carousel-inner .item a img {
+    display: inline-block;
+}
+
+#product .carousel .carousel-control {
+    top: 48%;
+}
+
+#product .jshop_prod_description {
+    min-height: 210px;
+}

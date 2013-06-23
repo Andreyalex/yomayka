@@ -10,7 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 include_once(dirname(__FILE__)."/lib/factory.php");
 include_once(dirname(__FILE__)."/lib/shop_item_menu.php");
 
-function jshoppingBuildRoute(&$query){ 
+function jshoppingBuildRoute(&$query){    
     $segments = array();
     JSFactory::loadLanguageFile();
     $jshopConfig = JSFactory::getConfig();
@@ -56,7 +56,7 @@ function jshoppingBuildRoute(&$query){
             $segments[] = $prodalias[$query['product_id']];
             unset($query['product_id']);
         }elseif (isset($catalias[$query['category_id']]) && isset($prodalias[$query['product_id']])){
-            //$segments[] = $catalias[$query['category_id']];
+            $segments[] = $catalias[$query['category_id']];
             $segments[] = $prodalias[$query['product_id']];
             unset($query['controller']);
             unset($query['task']);
@@ -262,10 +262,6 @@ function jshoppingParseRoute($segments){
         return $vars;
     }
 
-    
-    array_unshift($segments, $menuItem->alias);
-    
-    
     if ($segments[0] && !in_array($segments[0], $reservedFirstAlias)){
         $catalias = JSFactory::getAliasCategory();
         $category_id = array_search($segments[0], $catalias, true);

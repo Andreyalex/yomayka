@@ -1,0 +1,189 @@
+/* 
+    Document   : default
+    Created on : 31.03.2012, 15:05:43
+    Author     : Ololo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* Categories list page */
+#jshop-categories-list {
+    margin-top: 60px;
+}
+
+#jshop-categories-list .item {
+    position: relative;
+    overflow: hidden;
+    height: 151px;
+}
+
+#jshop-categories-list .grid-2col-item0 {
+    float: left;
+    width: 46%;
+    margin-bottom: 60px;
+}
+
+#jshop-categories-list .grid-2col-item1 {
+    float: right;
+    width: 46%;
+    margin-bottom: 60px;
+}
+
+#jshop-categories-list .item .image {
+    float: left;
+    border: 1px #dddddd solid;
+    padding: 20px;
+    margin: 8px 20px 10px 0;
+    width: 100px;
+    height: 100px;
+
+}
+
+#jshop-categories-list .item .title {
+    font-family: 'Open Sans Condensed';
+    margin: 0;
+}
+
+#jshop-categories-list .item .thin-line {
+    border-bottom: 1px solid #dddddd;
+    height: 0px;
+    margin: 5px 0 5px 162px;
+    clear: right;
+}
+
+#jshop-categories-list .item .description-short {
+    max-height: 81px;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+
+
+/* Products list page */
+#jshop-products-list {
+    margin-top: 30px;
+}
+
+#jshop-products-list.details .item {
+    position: relative;
+    overflow: hidden;
+    height: 151px;
+}
+
+#jshop-products-list.details .grid-2col-item0 {
+    float: left;
+    width: 46%;
+    margin-bottom: 60px;
+}
+
+#jshop-products-list.details .grid-2col-item1 {
+    float: right;
+    width: 46%;
+    margin-bottom: 60px;
+}
+
+#jshop-products-list.details .item img {
+    float: left;
+    border: 1px #dddddd solid;
+    padding: 20px;
+    margin: 8px 20px 10px 0;
+    width: 100px;
+    height: 100px;
+
+}
+
+#jshop-products-list.details .item .title {
+    font-family: 'Open Sans Condensed';
+    margin: 0;
+}
+
+#jshop-products-list.details .item .thin-line {
+    border-bottom: 1px solid #dddddd;
+    height: 0px;
+    margin: 5px 0 5px 162px;
+    clear: right;
+}
+
+#jshop-products-list.details .item .description-short {
+    max-height: 81px;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+/* Jshop products list - TILES */
+#jshop-products-list.tiles .item {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    float: left;
+}
+
+#jshop-products-list.tiles .item.grid-3col-item0 {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 60px;
+    
+}
+
+#jshop-products-list.tiles .item.grid-3col-item1 {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 60px;
+}
+
+#jshop-products-list.tiles .item.grid-3col-item2 {
+    float: right;
+    width: 33.3%;
+    margin-bottom: 60px;
+}
+
+#jshop-products-list.tiles .item .image {
+    text-align: center;
+    display: block;
+    position: relative;
+}
+
+#jshop-products-list.tiles .item .image .shadow {
+    display: inline-block;
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    background: url("../images/shadow-pilow-square.png") no-repeat center center;
+    opacity: 0.5;
+}
+
+#jshop-products-list.tiles .item img {
+    /*width: 200px;*/
+    height: 150px;
+    /*margin: 25px;*/
+}
+
+#jshop-products-list.tiles .item .title {
+    font-family: 'Open Sans Condensed';
+    font-size: 16px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+}
+
+#jshop-products-list.tiles .item .thin-line {
+    /*border-bottom: 1px solid #dddddd;*/
+    height: 0px;
+    margin: 5px 0 5px 162px;
+    clear: right;
+}
+
+#jshop-products-list.tiles .item .description-short {
+    display: none;
+}
+
+#jshop-products-list.tiles .item .price {
+    font-family: 'Open Sans Condensed';
+    font-size: 16px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+}
+/**/
+
+
