@@ -1,7 +1,24 @@
+<?php 
+
+    JHTML::stylesheet(JUri::root() . 'templates/lady/assets/css/com_jshopping/cart.css'); 
+    
+    $countprod = count($this->products);
+?>
+
 <div class="jshop">
+
+<div class="jshop-topbar">
+    <div class="category-title menuitem">
+        <span class="icon icon-shopping-cart"></span>
+        <span class="content"><?php echo JText::_("TPL_LADY_YOUR_CART"); ?></span>
+    </div>
+</div>    
+
 <form action = "<?php print SEFLink('index.php?option=com_jshopping&controller=cart&task=refresh')?>" method = "post" name = "updateCart">
 <?php print $this->_tmp_ext_html_cart_start?>
-<table class = "jshop cart">
+    
+<?php if($countprod > 0) : ?>    
+<table class = "jshop cart table table-striped table-bordered table-hover">
   <tr>
     <th width = "20%">
       <?php print _JSHOP_IMAGE?>
@@ -13,12 +30,8 @@
       <?php print _JSHOP_SINGLEPRICE ?>
     </th>
     <th width = "15%">
-      <table align="center">
-        <tr>
-            <th><?php print _JSHOP_NUMBER ?></th>
-            <th>&nbsp;<img style = "cursor:pointer" src = "<?php print $this->image_path ?>/images/save.png" title = "<?php print _JSHOP_UPDATE_CART ?>" alt = "<?php print _JSHOP_UPDATE_CART ?>" onclick = "document.updateCart.submit();" /></th>
-        </tr>
-        </table>
+      <?php print _JSHOP_NUMBER ?>
+      &nbsp;<img style = "cursor:pointer" src = "<?php print $this->image_path ?>/images/save.png" title = "<?php print _JSHOP_UPDATE_CART ?>" alt = "<?php print _JSHOP_UPDATE_CART ?>" onclick = "document.updateCart.submit();" /></th>
     </th>
     <th width = "15%">
       <?php print _JSHOP_PRICE_TOTAL ?>
@@ -29,7 +42,6 @@
   </tr>
   <?php 
   $i=1; 
-  $countprod = count($this->products);
   foreach($this->products as $key_id=>$prod){
   ?> 
   <tr class = "jshop_prod_cart <?php if ($i%2==0) print "even"; else print "odd"?>">
@@ -86,10 +98,9 @@
     </div>
   <?php } ?> 
   
-  <br/>
-<table class = "jshop jshop_subtotal">
+<!--<table class = "jshop jshop_subtotal pull-right">
   <?php if (!$this->hide_subtotal){?>
-  <tr>
+  <tr class="success">
     <td class = "name">
       <?php print _JSHOP_SUBTOTAL ?>
     </td>
@@ -99,7 +110,7 @@
   </tr>
   <?php } ?>
   <?php if ($this->discount > 0){ ?>
-  <tr>
+  <tr class="success">
     <td class = "name">
       <?php print _JSHOP_RABATT_VALUE ?>
     </td>
@@ -110,7 +121,7 @@
   <?php } ?>
   <?php if (!$this->config->hide_tax){?>
   <?php foreach($this->tax_list as $percent=>$value){ ?>
-  <tr>
+  <tr class="success">
     <td class = "name">
       <?php print displayTotalCartTaxName();?>
       <?php if ($this->show_percent_tax) print formattax($percent)."%"?>
@@ -121,7 +132,7 @@
   </tr>
   <?php } ?>
   <?php } ?>
-  <tr>
+  <tr class="success">
     <td class = "name">
       <?php print _JSHOP_PRICE_TOTAL ?>
     </td>
@@ -130,37 +141,49 @@
     </td>
   </tr>
   <?php if ($this->config->show_plus_shipping_in_product){?>  
-  <tr>
+  <tr class="success">
     <td colspan="2" align="right">    
         <span class="plusshippinginfo"><?php print sprintf(_JSHOP_PLUS_SHIPPING, $this->shippinginfo);?></span>  
     </td>
   </tr>
   <?php }?>
   <?php if ($this->free_discount > 0){?>  
-  <tr>
+  <tr class="success">
     <td colspan="2" align="right">    
         <span class="free_discount"><?php print _JSHOP_FREE_DISCOUNT;?>: <?php print formatprice($this->free_discount); ?></span>  
     </td>
   </tr>
   <?php }?>  
-</table>
+</table>-->
 
-<table class = "jshop" style = "margin-top:10px">
-  <tr id = "checkout">
-    <td width = "50%" class = "td_1">
-       <a href = "<?php print $this->href_shop ?>">
-         <img src = "<?php print $this->image_path ?>/images/arrow_left.gif" alt = "<?php print _JSHOP_BACK_TO_SHOP ?>" />
+<div id="price-total" class="pull-right span3">
+    <span class="">
+      <?php print _JSHOP_PRICE_TOTAL ?>
+    </span>
+    <span class="badge badge-warning">
+      <?php print formatprice($this->fullsumm)?><?php print $this->_tmp_ext_total?>
+    </span>
+</div>  
+
+<?php else: ?>    
+    <h3 style="text-align:center;display: block;"><?php echo JText::_('TPL_LADY_CART_IS_EMPTY'); ?></h3>
+<?php endif; ?>    
+    
+<div class="control-panel">  
+  <div class="back">
+      <a class="btn btn-large" href = "<?php print $this->href_shop ?>">
          <?php print _JSHOP_BACK_TO_SHOP ?>
        </a>
-    </td>
-    <td width = "50%" class = "td_2">
-       <a href = "<?php print $this->href_checkout ?>">
+  </div>
+  <?php if($countprod > 0) : ?>    
+  <div class="next">
+       <a class="btn btn-success btn-large" href = "<?php print $this->href_checkout ?>">
          <?php print _JSHOP_CHECKOUT ?>
-         <img src = "<?php print $this->image_path ?>/images/arrow_right.gif" alt = "<?php print _JSHOP_CHECKOUT ?>" />
        </a>
-    </td>
-  </tr>
-</table>
+  </div>
+  <?php endif; ?>    
+</div> 
+      
 </form>
 
 <?php print $this->_tmp_ext_html_before_discount?>

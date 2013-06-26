@@ -189,6 +189,9 @@ form {
     max-width:  160px;
 }
 
+a.btn-success {
+    color: #ffffff;
+}
 .control-group .star {
     color: red;
 }
@@ -210,3 +213,4 @@ form {
     color: #333;    
     font-family: 'Eurofurencelight';
 }
+
