@@ -1,7 +1,9 @@
 ﻿
-assets
-src/.htaccess
-src/configuration.php
-src/libraries/wurfl
+/assets
+/src/.htaccess
+/src/configuration.php
+/src/libraries/wurfl
 /src/nbproject
 /src_
+/src/components/com_jshopping/files/pdf_orders
+/.idea
