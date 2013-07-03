@@ -42,7 +42,7 @@ $product = $this->product;
         </div>        
 
         <div class="prod_price row">
-            <div class="pull-right"><?php //print _JSHOP_PRICE?><h1 id="block_price" class="well"><?php print formatprice($this->product->getPriceCalculate())?><?php print $this->product->_tmp_var_price_ext;?></h1></div>
+            <div class="pull-right"><?php //print _JSHOP_PRICE?><h1 id="block_price" class="badge badge-warning"><?php print formatprice($this->product->getPriceCalculate())?><?php print $this->product->_tmp_var_price_ext;?></h1></div>
         </div>
 
 
@@ -188,7 +188,7 @@ $product = $this->product;
                         <input class="input-mini" type = "text" name = "quantity" id = "quantity" onkeyup="reloadPrices();" value = "<?php print $this->default_count_product?>" /><?php print $this->_tmp_qty_unit;?>
                     </div>
                     <div class="btn-group pull-right">
-                        <input type = "submit" class = "btn btn-primary" value = "<?php print _JSHOP_ADD_TO_CART?>" onclick="jQuery('#to').val('cart');" />
+                        <input type = "submit" class = "btn btn-large btn-success" value = "<?php print _JSHOP_ADD_TO_CART?>" onclick="jQuery('#to').val('cart');" />
                         <?php if ($this->enable_wishlist){?>
                             <input type = "submit" class = "btn" value = "<?php print _JSHOP_ADD_TO_WISHLIST?>" onclick="jQuery('#to').val('wishlist');" />
                         <?php }?>

@@ -38,3 +38,16 @@
 #product .jshop_prod_description {
     min-height: 210px;
 }
+
+#block_price {
+    font-size: 32px;
+    line-height: 60px;
+}
+
+#quantity {
+    height: 34px;
+}
+
+.prod_qty {
+    line-height: 44px;
+}

@@ -222,11 +222,15 @@
     float: left;
 }
 
-#footer .modrole-socials [class*="icon-"] {
-    margin-right: 5px;
-    /*color: #bed5e8;*/
-    color: #7dabd1;
-    font-size: 16px;
+#footer .modrole-socials li a {
+    font-size: 0px;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+
+#footer .modrole-socials li a.vk {
+    background: url("../img/vkontakte.png");
 }
 
 #footer .modrole-contacts {
@@ -254,7 +258,7 @@
     margin-right: 5px;
     /*color: #bed5e8;*/
     color: #7dabd1;
-    font-size: 16px;
+    font-size: 22px;
 }
 
 /* Shopping cart on top */
@@ -536,4 +540,11 @@
 .jshop-topbar .category-title .icon {
     font-family: 'FontAwesome';
 }   
+
+#footer .socials .item {
+    font-size: 0px;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
 

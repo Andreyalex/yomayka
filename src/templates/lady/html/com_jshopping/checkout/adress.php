@@ -1,10 +1,33 @@
+<?php
+
+JHTML::stylesheet(JUri::root() . 'templates/lady/assets/css/com_jshopping/default.css');
+JHTML::stylesheet(JUri::root() . 'templates/lady/assets/css/com_jshopping/checkout.css');
+
+$countprod = count($this->products);
+?>
+
+<div class="jshop">
+
+<div class="jshop-topbar">
+    <div class="category-title menuitem">
+        <span class="icon icon-truck"></span>
+        <span class="content">&nbsp;<?php echo JText::_("TPL_LADY_CHECKOUT"); ?></span>
+    </div>
+</div>
+
+
 <div class="jshop address_block">
 <?php 
 $config_fields = $this->config_fields;
 include(dirname(__FILE__)."/adress.js.php");
 ?>
-<form action = "<?php print $this->action ?>" method = "post" name = "loginForm" onsubmit = "return validateCheckoutAdressForm('<?php print $this->live_path ?>', this.name)" >
+
+
+<form id="address-form" action = "<?php print $this->action ?>" method = "post" name = "loginForm" onsubmit = "return validateCheckoutAdressForm('<?php print $this->live_path ?>', this.name)" >
     <?php print $this->_tmp_ext_html_address_start?>
+    <blockquote>
+        <small><?php echo JText::_('TPL_LADY_CHECKOUT_INTRO_TEXT'); ?></small>
+    </blockquote>
     <div class = "jshop_register">
     <table>
         <?php if ($config_fields['title']['display']){?>
@@ -19,11 +42,11 @@ include(dirname(__FILE__)."/adress.js.php");
         <?php } ?>
         <?php if ($config_fields['f_name']['display']){?>
         <tr>
-          <td class="name">
-            <?php print _JSHOP_F_NAME ?> <?php if ($config_fields['f_name']['require']){?><span>*</span><?php } ?>
+          <td class="name"  width="100">
+            <?php print _JSHOP_F_NAME ?> <?php if ($config_fields['f_name']['require']){?><span class="required-mark">*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "f_name" id = "f_name" value = "<?php print $this->user->f_name ?>" class = "inputbox" />
+            <input type = "text" name = "f_name" id = "f_name" value = "<?php print $this->user->f_name ?>" class = "inputbox input-xlarge" required />
           </td>
         </tr>
         <?php } ?>
@@ -33,7 +56,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_L_NAME ?> <?php if ($config_fields['l_name']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "l_name" id = "l_name" value = "<?php print $this->user->l_name ?>" class = "inputbox" />
+            <input type = "text" name = "l_name" id = "l_name" value = "<?php print $this->user->l_name ?>" class = "inputbox  input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -43,7 +66,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_FIRMA_NAME ?> <?php if ($config_fields['firma_name']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "firma_name" id = "firma_name" value = "<?php print $this->user->firma_name ?>" class = "inputbox" />
+            <input type = "text" name = "firma_name" id = "firma_name" value = "<?php print $this->user->firma_name ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -63,7 +86,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_FIRMA_CODE ?> <?php if ($config_fields['firma_code']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "firma_code" id = "firma_code" value = "<?php print $this->user->firma_code ?>" class = "inputbox" />
+            <input type = "text" name = "firma_code" id = "firma_code" value = "<?php print $this->user->firma_code ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -73,17 +96,17 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_VAT_NUMBER ?> <?php if ($config_fields['tax_number']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "tax_number" id = "tax_number" value = "<?php print $this->user->tax_number ?>" class = "inputbox" />
+            <input type = "text" name = "tax_number" id = "tax_number" value = "<?php print $this->user->tax_number ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
         <?php if ($config_fields['email']['display']){?>
         <tr>
           <td class="name">
-            <?php print _JSHOP_EMAIL ?> <?php if ($config_fields['email']['require']){?><span>*</span><?php } ?>
+            <?php print _JSHOP_EMAIL ?> <?php if ($config_fields['email']['require']){?><span class="required-mark">*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "email" id = "email" value = "<?php print $this->user->email ?>" class = "inputbox" />
+            <input type = "text" name = "email" id = "email" value = "<?php print $this->user->email ?>" class = "inputbox input-xlarge" required />
           </td>
         </tr>
         <?php } ?>        
@@ -93,7 +116,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_HOME ?> <?php if ($config_fields['home']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "home" id = "home" value = "<?php print $this->user->home ?>" class = "inputbox" />
+            <input type = "text" name = "home" id = "home" value = "<?php print $this->user->home ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -103,7 +126,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_APARTMENT ?> <?php if ($config_fields['apartment']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "apartment" id = "apartment" value = "<?php print $this->user->apartment ?>" class = "inputbox" />
+            <input type = "text" name = "apartment" id = "apartment" value = "<?php print $this->user->apartment ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>        
@@ -113,7 +136,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_STREET_NR ?> <?php if ($config_fields['street']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "street" id = "street" value = "<?php print $this->user->street ?>" class = "inputbox" />
+            <input type = "text" name = "street" id = "street" value = "<?php print $this->user->street ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -123,7 +146,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_ZIP ?> <?php if ($config_fields['zip']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "zip" id = "zip" value = "<?php print $this->user->zip ?>" class = "inputbox" />
+            <input type = "text" name = "zip" id = "zip" value = "<?php print $this->user->zip ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -133,7 +156,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_CITY ?> <?php if ($config_fields['city']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "city" id = "city" value = "<?php print $this->user->city ?>" class = "inputbox" />
+            <input type = "text" name = "city" id = "city" value = "<?php print $this->user->city ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -143,7 +166,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_STATE ?> <?php if ($config_fields['state']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "state" id = "state" value = "<?php print $this->user->state ?>" class = "inputbox" />
+            <input type = "text" name = "state" id = "state" value = "<?php print $this->user->state ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -163,7 +186,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_TELEFON ?> <?php if ($config_fields['phone']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "phone" id = "phone" value = "<?php print $this->user->phone ?>" class = "inputbox" />
+            <input type = "text" name = "phone" id = "phone" value = "<?php print $this->user->phone ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -173,7 +196,7 @@ include(dirname(__FILE__)."/adress.js.php");
             <?php print _JSHOP_MOBIL_PHONE ?> <?php if ($config_fields['mobil_phone']['require']){?><span>*</span><?php } ?>
           </td>
           <td>
-            <input type = "text" name = "mobil_phone" id = "mobil_phone" value = "<?php print $this->user->mobil_phone ?>" class = "inputbox" />
+            <input type = "text" name = "mobil_phone" id = "mobil_phone" value = "<?php print $this->user->mobil_phone ?>" class = "inputbox input-xlarge" />
           </td>
         </tr>
         <?php } ?>
@@ -220,7 +243,7 @@ include(dirname(__FILE__)."/adress.js.php");
     </table>
     </div>
     
-    <?php if ($this->count_filed_delivery > 0){?>
+    <?php if (0 && $this->count_filed_delivery > 0){?>
     <div>
     <?php print _JSHOP_DELIVERY_ADRESS ?>
     <input type = "radio" name = "delivery_adress" id = "delivery_adress_1" value = "0" <?php if (!$this->delivery_adress) {?> checked = "checked" <?php } ?> onclick = "jQuery('#div_delivery').hide()" />
@@ -417,10 +440,10 @@ include(dirname(__FILE__)."/adress.js.php");
     </table>
     </div>
     <?php print $this->_tmp_ext_html_address_end?>
-    
-    <div style="padding-top:10px;">
-        <div class="requiredtext">* <?php print _JSHOP_REQUIRED?></div>
-        <input type = "submit" name = "next" value = "<?php print _JSHOP_NEXT ?>" class = "button" />
+
+    <div style="padding-top:10px; text-align: center">
+        <div class="requiredtext required-mark">* - <?php echo JText::_('TPL_LADY_REQUIRED_MARK_DESCRIPTION'); ?></div>
+        <input type = "submit" name = "next" value = "<?php print _JSHOP_NEXT ?>" class = "button btn btn-large btn-success" />
     </div>
 </form>
 </div>
