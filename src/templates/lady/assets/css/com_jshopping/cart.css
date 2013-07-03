@@ -1,0 +1,47 @@
+/* cart */
+.jshop_img_description_center img {
+    height: 50px;
+}
+
+.control-panel {
+    clear: both;
+    padding-top: 50px;
+}
+
+.back {
+    float: left;
+}
+
+.next {
+    float: right;
+}
+
+#price-total {
+    text-align: right;
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+#price-total .badge {
+    font-size: 26px;
+    line-height: 40px;
+}
+
+.jshop.cart.table {
+    margin: 25px 0 0;
+}
+
+.jshop.cart.table th,
+.jshop.cart.table td {
+    line-height: 60px;
+    padding: 0 10px;
+}
+
+.jshop.cart.table input {
+    margin-bottom: 0;
+}
+
+.jshop-topbar .icon-shopping-cart {
+    line-height: 44px !important;
+    margin-right: 30px !important;
+}
