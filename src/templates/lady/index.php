@@ -1,5 +1,4 @@
 <?php
-
 defined('_JEXEC') or die;
 // detecting site title
 $app = JFactory::getApplication();
@@ -137,6 +136,9 @@ if($apexFixed) {
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap-responsive.css" type="text/css" media="screen" />
+
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/eurofurencelight/styles.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/tickertape/styles.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/awesome/css/font-awesome.min.css" type="text/css" media="screen" />
@@ -155,8 +157,6 @@ if($apexFixed) {
     <?php // If there is other jQuery has been loaded then revert to our first one ?>
     <!--<script type="text/javascript">window.jQCustom = jQuery.noConflict(true);</script>-->
 
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap-responsive.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/template.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/overrides.css" type="text/css" media="screen" />
     <!--[if lt IE 8]>
@@ -316,9 +316,13 @@ if($apexFixed) {
 			</div><!--top_bar-->
 			<?php endif; ?>
 
-			<?php 
-            if ($isHomePage) : 
+			<?php
+            if ($GLOBALS['pageerror']) :
+                require_once 'partial-error.php';
+
+            elseif ($isHomePage) :
                 require_once 'partial-home.php';
+
             else:
             if ($countModuleLeft || $countModuleRight || $isShowCenter):?>
 			<div id="main_place" class="layout-case">
@@ -467,6 +471,12 @@ if($apexFixed) {
         <div id="back_to_top"></div>
 
 	<jdoc:include type="modules" name="debug" />
-	  
+
+    <style>
+        #main_place {
+            opacity: 1;
+        }
+    </style>
+
   </body>
 </html>

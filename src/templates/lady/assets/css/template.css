@@ -24,6 +24,7 @@ body, html {
 body {
     color: #222;
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    background: url("../img/bkg-crack.jpg");
 }
 
 @media (max-width:767px) {
@@ -74,8 +75,8 @@ form {
 }
 
 #layout {
-    background: url("../img/layout-shadow.png") repeat-x top center transparent;
-    background: #ffffff;
+    /*background: url("../img/layout-shadow.png") repeat-x top center transparent;*/
+    /*background: #ffffff;*/
 }
 
 
@@ -139,7 +140,7 @@ form {
     position: absolute;
     width: 100%;
     border-bottom: 1px solid #bed5e8;
-    margin-top: -1px;
+    margin-top: -5px;
     z-index: 100;
 }
 
@@ -149,6 +150,12 @@ form {
     padding: 0;
     margin: 0;
     border: none;
+}
+
+#main_place {
+    opacity: 0;
+    transition: opacity 1s;
+    -webkit-transition: opacity 0.5s; /* Safari */
 }
 
 #main_place.layout-case .container {
