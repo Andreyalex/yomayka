@@ -20,21 +20,17 @@ $upper_limit = $lang->getUpperLimitSearchWord();
 				<input type="text" name="searchword" id="search-searchword" size="30" maxlength="<?php echo $upper_limit; ?>" value="<?php echo $this->escape($this->origkeyword); ?>" class="inputbox" />
 			</div>
 		</div>
-		<div class="form-actions">
-			<button name="Search" onclick="this.form.submit()" class="btn btn-primary button"><?php echo JText::_('COM_SEARCH_SEARCH');?></button>
-		</div>
-		<input type="hidden" name="task" value="search" />
 	</fieldset>
-	<div class="searchintro<?php echo $this->params->get('pageclass_sfx'); ?>">
-		<?php if (!empty($this->searchword)):?>
-		<p><i class="icon-list"></i> <?php echo JText::plural('COM_SEARCH_SEARCH_KEYWORD_N_RESULTS', $this->total);?></p>
-		<?php endif;?>
-	</div>
 	<fieldset class="phrases">
-		<legend><?php echo JText::_('COM_SEARCH_FOR');?> </legend>
-		<div class="phrases-box control-group"> 
+		<div class="phrases-box control-group">
+            <label for="searchphrase">Способ поиска:</label>
 			<div class="controls">
-			<?php echo $this->lists['searchphrase']; ?> 
+                <?php $phrases = $this->get('state')->get('match'); ?>
+                <select id="searchphrase" name="searchphrase">
+                    <option value="all" <?php echo $phrases=='all'? 'selected="selected"' : '' ?>>Все слова</option>
+                    <option value="any" <?php echo $phrases=='any'? 'selected="selected"' : '' ?>>Любое из слов</option>
+                    <option value="exact" <?php echo $phrases=='exact'? 'selected="selected"' : '' ?>>Точное совпадение</option>
+                </select>
 			</div>
 		</div>
 		<div class="ordering-box control-group">
@@ -68,4 +64,10 @@ $upper_limit = $lang->getUpperLimitSearchWord();
 		</div>
 	<p class="counter"> <?php echo $this->pagination->getPagesCounter(); ?> </p>
 	<?php endif; ?>
+    <div class="submit-group">
+        <button name="Search" onclick="this.form.submit()" class="btn btn-success button btn-large"><?php echo JText::_('COM_SEARCH_SEARCH');?></button>
+    </div>
+    <input type="hidden" name="task" value="search" />
+
+
 </form>

@@ -10,7 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 include_once(dirname(__FILE__)."/lib/factory.php");
 include_once(dirname(__FILE__)."/lib/shop_item_menu.php");
 
-function jshoppingBuildRoute(&$query){ 
+function jshoppingBuildRoute(&$query){
     $segments = array();
     JSFactory::loadLanguageFile();
     $jshopConfig = JSFactory::getConfig();
@@ -21,7 +21,7 @@ function jshoppingBuildRoute(&$query){
     $categoryitemidlist = $shim->getListCategory();
     $manufactureritemidlist = $shim->getListManufacturer();
     $contentitemidlist = $shim->getListContent();
-    
+
     if (isset($query['controller'])){
         $controller = $query['controller'];
     }else{
@@ -44,7 +44,7 @@ function jshoppingBuildRoute(&$query){
             }
         }
     }
-    
+
     if ($controller=="product" && $query['task']=="view" && $query['category_id'] && $query['product_id']){
         $prodalias = JSFactory::getAliasProduct();
         $catalias = JSFactory::getAliasCategory();

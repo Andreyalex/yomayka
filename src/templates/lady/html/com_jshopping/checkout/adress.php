@@ -8,7 +8,7 @@ $countprod = count($this->products);
 
 <div class="jshop">
 
-<div class="jshop-topbar">
+<div class="page-header">
     <div class="category-title menuitem">
         <span class="icon icon-truck"></span>
         <span class="content">&nbsp;<?php echo JText::_("TPL_LADY_CHECKOUT"); ?></span>

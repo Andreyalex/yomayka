@@ -20,7 +20,7 @@ if ($endpagebuyproduct){
 
 <div class="jshop">
 
-    <div class="jshop-topbar">
+    <div class="page-header">
         <div class="category-title menuitem">
             <span class="icon icon-thumbs-up"></span>
             <span class="content"><?php echo JText::_("TPL_LADY_CHECKOUT"); ?></span>

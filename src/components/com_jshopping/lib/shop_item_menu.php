@@ -57,7 +57,7 @@ class shopItemMenu{
 
         foreach($list as $k=>$v){
             $data = $v->data;
-            if (count($data)==3 && $data['controller']=="category" && $data['task']=="view" && $data['category_id']){
+            if (count($data)==3 && (($data['controller']=="category" && $data['task']=="view") || ($data['controller']=="products" && $data['task']=="products")) && $data['category_id']) {
                 $this->list_category[$data['category_id']] = $v->id;
             }
             if (count($data)==3 && $data['controller']=="manufacturer" && $data['task']=="view" && $data['manufacturer_id']){

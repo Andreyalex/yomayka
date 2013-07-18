@@ -41,27 +41,27 @@
         </div>    
 
         <div id="aboutus" class="container">
-            <div class="row">
-                <div class="span12">
-                    <div class="divider"></div>
-                    <!--<div class="title">О нас</div>-->
-                    <p>Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца.</p> 
-                    <p>Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.</p> 
-                    <p>Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого.</p> 
-                    <p>Ни одного штриха не мог бы я сделать, а никогда не был таким большим художником, как в эти минуты.</p>    
-                </div>
-            </div>    
-        </div>    
+            <div class="divider"></div>
+            <!--<div class="title">О нас</div>-->
+            <p>
+                <span class="icon-quote-left"></span>
+                Кто и когда придумал подушку ни фига не понятно.
+                Поговаривают, подушки валяются даже в египетских пирамидах.
+                В те архаичные дни они представляли собой изогнутую доску на подставке и использовались, чтобы не испортить во время похода к Морфею сложно уложенный хаер. На досках малевали богов, в надежде, что они будут бодигартами спящего. До 19 века такие же деревянные подушки были в Японии, но японцы изгалялись над своими черепушками покруче египтян, у них также были прямоугольные подставки под головешки из камня, металла и фарфора...
+                <span class="icon-quote-right"></span>
+            </p>
+        </div>
+<!--
         <div id="news" class="container">
             <div class="row">
                 <div class="span12">
                     <div class="divider"></div>
                     <div class="title"><?php echo JText::_('TPL_LADY_NEW_PRODUCTS'); ?></div>
-                    <div class="slides">
-                    </div>
+                    <div class="slides"></div>
                 </div>
-            </div>    
-        </div>    
+            </div>
+        </div>
+-->
     </div>
 </div>
             
@@ -79,8 +79,10 @@
     }
     
     #categories .slideshow {
-        background: #fff;
-        
+        -moz-box-shadow:    0 0 10px 10px #ffffff;
+        -webkit-box-shadow: 0 0 10px 10px #ffffff;
+        box-shadow: 0 0 10px 10px #ffffff;
+        overflow: hidden;
     }
     
     #categories .slideshow > .inner {
@@ -100,7 +102,7 @@
         vertical-align: middle;
         display: none;
         z-index: 0;
-    }    
+    }
 
     #categories .slideshow .item .title {
         text-align: center;
@@ -160,12 +162,37 @@
         vertical-align: middle;
     }
 
+    #aboutus {
+        /*width: 50%;*/
+        /*margin-left: 50%;*/
+    }
+
+    #aboutus .icon-quote-left {
+        color: #eeeeee;
+        text-shadow: 1px 1px 0 #cccccc;
+        font-size: 30px;
+        line-height: 24px;
+        display:inline-block;
+        vertical-align: text-bottom;
+        margin: 0 20px 20px 20px;
+    }
+    #aboutus .icon-quote-right {
+        color: #eeeeee;
+        text-shadow: 1px 1px 0 #cccccc;
+        font-size: 30px;
+        line-height: 24px;
+        display:inline-block;
+        vertical-align: text-top;
+        margin: 20px 20px 0 20px;
+    }
+
     #aboutus p {
         font-size: 20px;
-        line-height: 20px;
+        font-style: italic;
+        line-height: 26px;
         font-weight: 100;
         color: #888888;
-        text-shadow: rgba(255,255,255,1) 1px 1px 1px;    
+        text-shadow: 0 0 1px #dddddd;
     }
 
     #news .title {

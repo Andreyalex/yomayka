@@ -8,6 +8,8 @@
 
 // no direct access
 defined('_JEXEC') or die;
+
+JHTML::stylesheet('templates/lady/assets/css/com_search/default.css');
 ?>
 
 <div class="search-component<?php echo $this->pageclass_sfx; ?> row-fluid">
@@ -22,8 +24,34 @@ defined('_JEXEC') or die;
 		</h1>
 	</div>
 	<?php endif; ?>
-	<?php echo $this->loadTemplate('form'); ?>
-	<?php if ($this->error==null && count($this->results) > 0) :
+
+    <blockquote>
+        <small><?php echo JText::_('TPL_LADY_COMSEARCH_DESCRIPTION'); ?></small>
+    </blockquote>
+
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                    <div class="btn"><span>Критерии поиска</span>&nbsp;&nbsp;<i class="icon-chevron-down"></i></div>
+                </a>
+            </div>
+            <div id="collapseOne" class="accordion-body collapse <?php echo !empty($this->searchword)? '': 'in' ?>">
+                <div class="accordion-inner">
+                    <?php echo $this->loadTemplate('form'); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="searchintro<?php echo $this->params->get('pageclass_sfx'); ?>">
+        <?php if (!empty($this->searchword)):?>
+            <h2 style="text-align: center; display: block;"><?php echo JText::plural('TPL_LADY_COMSEARCH_RESULTS', $this->total);?></h2>
+        <?php endif;?>
+    </div>
+
+	<?php if ($this->error==null) :
 	echo $this->loadTemplate('results');
 else :
 	echo $this->loadTemplate('error');

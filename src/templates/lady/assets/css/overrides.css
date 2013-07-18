@@ -9,7 +9,7 @@
     
     background-color: #f4f4f4; 
     
-    margin-bottom: 20px;
+    marjshopgin-bottom: 20px;
 }
 
 .breadcrumb {
@@ -495,55 +495,6 @@
 #apex .modrole-menu-main-sub li.active .text {
     /*border-bottom: 2px solid #008800;*/
 }
-
-
-.jshop-topbar .category-title {
-    margin-top: 20px;
-    float: left;
-}
-
-.jshop-topbar .category-title .icon {
-    float: left;
-    line-height: 50px;
-    /*font-size: 60px;*/
-    font-size: 32px;
-    margin-right: 20px;
-    color: #bed5e8;
-}    
-
-.jshop-topbar .category-title .content {
-    float: left;
-    line-height: 50px;
-    /*font-size: 60px;*/
-    font-size: 32px;
-    margin-right: 20px;
-    font-weight: 300;
-    font-family: 'TickerTape', 'Open Sans Condensed', Helvetica, Arial, sans-serif;
-    color: #bed5e8;
-}
-
-.jshop-topbar .category-title .control {
-    line-height: 64px;
-    font-size: 30px;
-    margin-left: 20px;
-    cursor: pointer;
-}
-
-.jshop-topbar .category-title .control:before {
-    content: "\f077";
-}
-
-.jshop-topbar {
-    overflow: hidden;
-}
-
-.jshop-topbar.open .category-title .control:before {
-    content: "\f078";
-}    
-
-.jshop-topbar .category-title .icon {
-    font-family: 'FontAwesome';
-}   
 
 #footer .socials .item {
     font-size: 0px;

@@ -7,7 +7,7 @@
 
 <div class="jshop">
 
-<div class="jshop-topbar">
+<div class="page-header">
     <div class="category-title menuitem">
         <span class="icon icon-shopping-cart"></span>
         <span class="content"><?php echo JText::_("TPL_LADY_YOUR_CART"); ?></span>

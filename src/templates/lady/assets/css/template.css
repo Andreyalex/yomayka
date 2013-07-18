@@ -221,3 +221,47 @@ a.btn-success {
     font-family: 'Eurofurencelight';
 }
 
+.page-header {
+    padding-bottom: 0;
+    overflow: hidden;
+    border-bottom: none;
+    margin: 0;
+}
+
+.page-header h1,
+.page-header .category-title {
+    color: #bed5e8;
+    margin-top: 20px;
+    display: block;
+    overflow: hidden;
+}
+
+.page-header .category-title .icon {
+    float: left;
+    line-height: 50px;
+    /*font-size: 60px;*/
+    font-size: 32px;
+    margin-right: 20px;
+    color: #bed5e8;
+}
+
+.page-header h1,
+.page-header .category-title .content {
+    float: left;
+    line-height: 50px;
+    /*font-size: 60px;*/
+    font-size: 32px;
+    margin-right: 20px;
+    font-weight: 300;
+    font-family: 'TickerTape', 'Open Sans Condensed', Helvetica, Arial, sans-serif;
+    color: #bed5e8;
+}
+
+.page-header.open .category-title .control:before {
+    content: "\f078";
+}
+
+.page-header .category-title .icon {
+    font-family: 'FontAwesome';
+}
+

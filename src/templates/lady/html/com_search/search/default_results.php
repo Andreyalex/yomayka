@@ -8,6 +8,10 @@
 
 // no direct access
 defined('_JEXEC') or die;
+
+if (!empty($this->searchword)):
+
+if (count($this->results) > 0):
 ?>
 
 <div class="search-results<?php echo $this->pageclass_sfx; ?>">
@@ -22,14 +26,16 @@ defined('_JEXEC') or die;
 			<?php endif; ?>
 		</h3>
 		<?php if ($result->section) : ?>
-		<p class="result-category"> <span class="label label-info small<?php echo $this->pageclass_sfx; ?>"> <?php echo $this->escape($result->section); ?> </span> </p>
+		<div class="result-category"> <span class="label label-info small<?php echo $this->pageclass_sfx; ?>"> <?php echo $this->escape($result->section); ?> </span> </div>
 		<?php endif; ?>
 		<p class="result-text"> <?php echo $result->text; ?> </p>
 		<?php if ($this->params->get('show_date')) : ?>
 		<p class="result-created<?php echo $this->pageclass_sfx; ?>"> <small><?php echo JText::sprintf('JGLOBAL_CREATED_DATE_ON', $result->created); ?></small> </p>
 		<?php endif; ?>
 	</div>
-	<hr />
 	<?php endforeach; ?>
 </div>
 <div class="pagination"> <?php echo $this->pagination->getPagesLinks(); ?> </div>
+<?php else: ?>
+    <h3 style="text-align: center; display: block;"><?php echo JText::_('TPL_LADY_COMSEARCH_NO_RESULTS_FOUND'); ?></h3>
+<?php endif; endif; ?>

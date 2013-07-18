@@ -5,7 +5,7 @@ JHTML::stylesheet(JUri::root() . 'templates/lady/assets/css/com_jshopping/checko
 
 ?>
 
-<div class="jshop-topbar">
+<div class="page-header">
     <div class="category-title menuitem">
         <span class="icon icon-check"></span>
         <span class="content">&nbsp;<?php echo JText::_("TPL_LADY_CHECKOUT_COMPLETE"); ?></span>
