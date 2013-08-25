@@ -5,6 +5,12 @@
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+// Hidding real ADMINISTRATOR folder
+if ($_COOKIE['JoomlaAdminSession'] != 'mvmsdfo45n3aef7dsyf')
+{
+	header('Location: ../index.php');
+}
+
 // Set flag that this is a parent file
 define('_JEXEC', 1);
 define('DS', DIRECTORY_SEPARATOR);
