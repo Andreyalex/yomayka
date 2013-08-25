@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	version="2.5"
+	type="plugin"
+	group="system"
+	method="upgrade">
+	<name>plg_system_pixanalytic</name>
+	<author>Johan Sundell</author>
+	<creationDate>May 2012</creationDate>
+    <copyright>Copyright (C) 2013 - PixPro Stockholm AB. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>johan@pixpro.net</authorEmail>
+	<authorUrl>www.pixpro.net</authorUrl>
+	<version>1.1.0</version>
+	<description></description>
+	<files>
+		<filename plugin="pixanalytic">pixanalytic.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_pixanalytic.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_pixanalytic.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="properties_classic_mode">
+
+				<field
+					name="classic_mode_enabled"
+					type="checkbox"
+                    value="1"
+					default="1"
+					label="PLG_SYSTEM_PIXANALYTIC_FIELD_CLASSIC_MODE_ENABLED_LABEL"
+					description="PLG_SYSTEM_PIXANALYTIC_FIELD_CLASSIC_MODE_ENABLED_DESC"
+				/>
+
+				<field
+					name="account_id"
+					type="text"
+					default=""
+					label="PLG_SYSTEM_PIXANALYTIC_FIELD_CLASSIC_ACCOUNTID_LABEL"
+					description="PLG_SYSTEM_PIXANALYTIC_FIELD_CLASSIC_ACCOUNTID_DESC"
+				/>
+
+				<field
+					name="classic_cookie_domain"
+					type="text"
+                    value=""
+					label="PLG_SYSTEM_PIXANALYTIC_FIELD_CLASSIC_COOKIE_DOMAIN_LABEL"
+					description="PLG_SYSTEM_PIXANALYTIC_FIELD_CLASSIC_COOKIE_DOMAIN_DESC"
+				/>
+
+				<field
+					name="enchanced_attribution_enabled"
+					type="checkbox"
+                    value="1"
+					label="PLG_SYSTEM_PIXANALYTIC_FIELD_ENCHANCED_ATTRIBUTION_LABEL"
+					description="PLG_SYSTEM_PIXANALYTIC_FIELD_ENCHANCED_ATTRIBUTION_DESC"
+				/>
+
+			</fieldset>
+			<fieldset name="properties_universal_mode">
+
+				<field
+					name="universal_mode_enabled"
+					type="checkbox"
+                    value="1"
+					label="PLG_SYSTEM_PIXANALYTIC_FIELD_UNIVERSAL_MODE_ENABLED_LABEL"
+					description="PLG_SYSTEM_PIXANALYTIC_FIELD_UNIVERSAL_MODE_ENABLED_DESC"
+				/>
+                
+				<field
+					name="universal_account_id"
+					type="text"
+					default=""
+					label="PLG_SYSTEM_PIXANALYTIC_FIELD_UNIVERSAL_ACCOUNTID_LABEL"
+					description="PLG_SYSTEM_PIXANALYTIC_FIELD_UNIVERSAL_ACCOUNTID_DESC"
+				/>
+
+				<field
+					name="universal_cookie_domain"
+					type="text"
+                    value=""
+					label="PLG_SYSTEM_PIXANALYTIC_FIELD_UNIVERSAL_COOKIE_DOMAIN_LABEL"
+					description="PLG_SYSTEM_PIXANALYTIC_FIELD_UNIVERSAL_COOKIE_DOMAIN_DESC"
+				/>
+
+				<field
+					name="ip_as_clientid"
+					type="checkbox"
+                    value="1"
+					label="PLG_SYSTEM_PIXANALYTIC_FIELD_IP_AS_CLIENTID_LABEL"
+					description="PLG_SYSTEM_PIXANALYTIC_FIELD_IP_AS_CLIENTID_DESC"
+				/>
+
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+		<server type="extension" priority="1" name="Plugin plg_system_pixanalytic update site">http://labs.pixpro.net/updates/plugins/plg_system_pixanalytic_update.xml</server>
+	</updateservers>
+</extension>
