@@ -234,6 +234,7 @@ a.btn-success {
     margin-top: 20px;
     display: block;
     overflow: hidden;
+    float: left;
 }
 
 .page-header .category-title .icon {

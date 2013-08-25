@@ -114,7 +114,7 @@
 #jshop-products-list.tiles .item {
     position: relative;
     overflow: hidden;
-    height: 200px;
+    height: 210px;
     float: left;
 }
 
@@ -159,11 +159,14 @@
 }
 
 #jshop-products-list.tiles .item .title {
-    font-family: 'Open Sans Condensed';
-    font-size: 16px;
-    text-transform: uppercase;
+    font-family: 'Open Sans';
+    font-size: 20px;
+    /*text-transform: uppercase;*/
     text-align: center;
-    margin: 0;
+    margin: 10px 0 0 0;
+    color: #555555;
+    font-weight: 100;
+    text-shadow: 1px 0 1px #ddd;
 }
 
 #jshop-products-list.tiles .item .thin-line {
@@ -178,11 +181,14 @@
 }
 
 #jshop-products-list.tiles .item .price {
-    font-family: 'Open Sans Condensed';
-    font-size: 16px;
-    text-transform: uppercase;
+    font-family: 'Open Sans';
+    font-size: 20px;
+    /*text-transform: uppercase;*/
     text-align: center;
     margin: 0;
+    color: #555555;
+    font-weight: 100;
+    text-shadow: 1px 0 1px #ddd;
 }
 /**/
 
