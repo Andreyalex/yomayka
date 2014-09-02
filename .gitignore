@@ -1,5 +1,6 @@
-/src/.htaccess
-/src/configuration.php
-/.idea
-/src/cache/*
-/src/tmp/*
+﻿
+src/.htaccess
+src/configuration.php
+/src/.idea
+src/cache/*
+src/tmp/*
