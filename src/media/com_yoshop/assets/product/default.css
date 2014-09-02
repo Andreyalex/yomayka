@@ -1,0 +1,109 @@
+#yoshop-product {
+    margin-top: 30px;
+}
+
+#yoshop-product .details {
+    width: 48%;
+    overflow: hidden;
+    float: right;
+
+}
+
+@media (max-width:979px) {
+    #yoshop-product .details {
+        width: auto;
+        float: none;
+        clear: both;
+    }
+}
+
+#yoshop-product .controls {
+    bottom: 0;
+    position: absolute;
+}
+
+#yoshop-product .details .title {
+    /*border-top: 1px solid #333;*/
+    border-bottom: 1px solid #bed5e8;
+    line-height: 25px;
+    display: block;
+    padding: 0 0 20px 0;
+    margin: 0 0 25px 0;
+    text-align: right;
+}
+
+#yoshop-product .details .description {
+    /*border-top: 1px solid #333;*/
+    /*border-bottom: 1px solid #cccccc;*/
+    line-height: 25px;
+    display: block;
+    padding: 0 0 20px 0;
+    margin: 15px 0 0 0;
+}
+
+#yoshop-product .details .price {
+    /*border-top: 1px solid #bed5e8;*/
+    /*border-bottom: 1px solid #bed5e8;*/
+    line-height: 42px;
+    font-size: 42px;
+    display: block;
+    text-align: right;
+    padding: 5px 0 5px 0;
+    margin-top: 20px;
+}
+
+#yoshop-product .details .price .icon {
+    font-size: 38px;
+    margin-right: 10px;
+}
+
+#yoshop-product .carousel {
+    width: 50%;
+    min-height: 450px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    float: left;
+    background: #ffffff;
+}
+
+#yoshop-product .carousel.fullwidth {
+    width: auto;
+    float: none;
+}
+
+@media (max-width:979px) {
+    #yoshop-product .carousel {
+        width: auto;
+        float: none;
+    }
+
+}
+
+#yoshop-product .carousel-inner .item a {
+    height: 100%;
+    display: block;
+    text-align: center;
+    line-height: 450px;
+}
+
+#yoshop-product .carousel-inner .item a img {
+    display: inline-block;
+    /*height: 100%;*/
+}
+
+#yoshop-product .carousel .carousel-control {
+    top: 48%;
+}
+
+#yoshop-product .share {
+    margin-top: 0px;
+}
+
+@media (max-width:979px) {
+
+    #yoshop-product .share {
+        text-align: center;
+        margin-top: 20px;
+    }
+}

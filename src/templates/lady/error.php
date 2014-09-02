@@ -2,5 +2,6 @@
 
 // Cannot understand why but I cannot pass
 // the variable into index.php in different way
-$GLOBALS['pageerror'] = true;
-include "index.php";
+
+var_dump($this->error); die;
+include JPATH_THEMES . '/lady/index.php';

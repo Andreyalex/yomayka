@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install PUBLIC "-//Joomla! 1.6//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.6/template-install.dtd">
-<install version="2.5" type="template" method="upgrade">
-    <name>lady</name>
-	<creationDate>2012-10-04</creationDate>
-    <author>Pixpro</author>
-    <authorEmail></authorEmail>
+<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.6/template-install.dtd">
+<extension version="2.5" type="template" method="upgrade">
+    <name>Lady</name>
+	<creationDate>2013-10-12</creationDate>
+    <author>Andreyalek</author>
+    <authorEmail>andreyalek@gmail.com</authorEmail>
     <authorUrl></authorUrl>
+    <license>GPL</license>
     <copyright></copyright>
     <version>1.0</version>
-    <description><![CDATA[ <p> Lady is the simplest inherited from TRANSMODE template. Bootstrapped.<p> ]]></description>
+    <description></description>
     <files>
         <filename>index.php</filename>
         <filename>templateDetails.xml</filename>
@@ -17,74 +18,7 @@
         <folder>html</folder>
     </files>
     <positions>
-        <position>position-1</position>
-        <position>position-2</position>
-        <position>position-3</position>
-        <position>position-4</position>
-        <position>position-5</position>
-        <position>position-6</position>
-        <position>position-7</position>
-        <position>top_fixed</position>
-        <position>above_header</position>
-        <position>logo</position>
-        <position>toolbar</position>
-        <position>menu</position>
-        <position>search</position>
-        <position>breadcrumbs_top</position>
-        <position>top</position>
-        <position>left</position>
-        <position>inner_top</position>
-        <position>inner_left</position>
-        <position>breadcrumbs</position>
-        <position>lang_flag</position>
-        <position>content</position>
-        <position>inner_right</position>
-        <position>inner_bottom</position>
-        <position>right_top</position>
-        <position>right_tab</position>
-        <position>right</position>
-        <position>bottom</position>
-        <position>footer_top</position>
-        <position>footer_right</position>
-        <position>footer</position>
-        <position>debug</position>
     </positions>
     <config>
-        
-        <!-- Position should have: width, height, pull-left, pull-right, hide/visible for phone/tablet/desktop -->
-        <!-- Groups of positions are available also -->
-		<fields name="params">
-			<fieldset name="positions">
-				 <field name="position1-width" type="text" default="12"
-					label="TPL_BEETPL_POSITION_1_WIDTH_LABEL"
-					description="TPL_BEETPL_POSITION_1_WIDTH_DESC"
-					filter="integer" />
-				 <field name="position2-width" type="text" default="12"
-					label="TPL_BEETPL_POSITION_2_WIDTH_LABEL"
-					description="TPL_BEETPL_POSITION_2_WIDTH_DESC"
-					filter="integer" />
-				 <field name="position3-width" type="text" default="12"
-					label="TPL_BEETPL_POSITION_3_WIDTH_LABEL"
-					description="TPL_BEETPL_POSITION_3_WIDTH_DESC"
-					filter="integer" />
-				 <field name="position4-width" type="text" default="12"
-					label="TPL_BEETPL_POSITION_4_WIDTH_LABEL"
-					description="TPL_BEETPL_POSITION_4_WIDTH_DESC"
-					filter="integer" />
-				 <field name="position5-width" type="text" default="12"
-					label="TPL_BEETPL_POSITION_5_WIDTH_LABEL"
-					description="TPL_BEETPL_POSITION_5_WIDTH_DESC"
-					filter="integer" />
-				 <field name="position6-width" type="text" default="12"
-					label="TPL_BEETPL_POSITION_6_WIDTH_LABEL"
-					description="TPL_BEETPL_POSITION_6_WIDTH_DESC"
-					filter="integer" />
-				 <field name="position7-width" type="text" default="12"
-					label="TPL_BEETPL_POSITION_6_WIDTH_LABEL"
-					description="TPL_BEETPL_POSITION_6_WIDTH_DESC"
-					filter="integer" />
-
-			</fieldset>
-		</fields>
 	</config>
-</install>
+</extension>

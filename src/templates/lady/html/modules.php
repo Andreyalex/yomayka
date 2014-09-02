@@ -20,7 +20,7 @@ function modChrome_standard($module, $params, $attribs) {
     $moduleClassSfx = '';
     $moduleUniqueClass = ' modid-' . $module->id;
     $moduleType = ' modtype-' . $module->module;
-    $moduleLayout = $moduleType . '-' . trim(array_pop(split(':', $params->get('layout', 'default'))), ':_');
+    $moduleLayout = $moduleType . '-' . trim(array_pop(explode(':', $params->get('layout', 'default'))), ':_');
     if ($params->get('moduleclass_sfx') != NULL) {
         $moduleClassSfx = ' ' . $params->get('moduleclass_sfx');
     }

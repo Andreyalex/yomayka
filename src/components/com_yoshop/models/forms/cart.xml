@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset>
+
+        <field
+                name="name"
+                type="text"
+                default=""
+                required="true"
+                label="COM_YOSHOP_FORM_LBL_CART_NAME"
+                description="COM_YOSHOP_FORM_DESC_CART_NAME"
+                />
+
+        <field
+                name="phone"
+                type="text"
+                default=""
+                required="true"
+                label="COM_YOSHOP_FORM_LBL_CART_PHONE"
+                description="COM_YOSHOP_FORM_DESC_CART_PHONE"
+                />
+
+        <field
+                name="email"
+                type="email"
+                default=""
+                label="COM_YOSHOP_FORM_LBL_CART_EMAIL"
+                description="COM_YOSHOP_FORM_DESC_CART_EMAIL"
+                class="validate-email"
+                />
+
+        <field
+                name="description"
+                type="textarea"
+                default=""
+                label="COM_YOSHOP_FORM_LBL_CART_NOTES"
+                description="COM_YOSHOP_FORM_DESC_CART_NOTES"
+                />
+    </fieldset>
+</form>

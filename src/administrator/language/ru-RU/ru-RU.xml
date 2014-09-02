@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<metafile version="2.5" client="administrator">
+<metafile version="3.1" client="administrator">
 	<name>Russian</name>
-	<version>2.5.11.1</version>
-	<creationDate>2013-04-26</creationDate>
+	<version>3.1.5.1</version>
+	<creationDate>2013-08-01</creationDate>
 	<author>Russian Translation Team</author>
 	<authorEmail>smart@joomlaportal.ru</authorEmail>
 	<authorUrl>www.joomlaportal.ru</authorUrl>
 	<copyright>Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<description>Russian language pack (administrator) for Joomla! 2.5</description>
+	<description>Russian language pack (administrator) for Joomla! 3.1</description>
 	<files>
 		<filename>ru-RU.css</filename>
 		<filename>ru-RU.com_admin.ini</filename>
@@ -56,6 +56,8 @@
 		<filename>ru-RU.com_redirect.sys.ini</filename>
 		<filename>ru-RU.com_search.ini</filename>
 		<filename>ru-RU.com_search.sys.ini</filename>
+		<filename>ru-RU.com_tags.ini</filename>
+		<filename>ru-RU.com_tags.sys.ini</filename>
 		<filename>ru-RU.com_templates.ini</filename>
 		<filename>ru-RU.com_templates.sys.ini</filename>
 		<filename>ru-RU.com_users.ini</filename>
@@ -85,6 +87,8 @@
 		<filename>ru-RU.mod_popular.sys.ini</filename>
 		<filename>ru-RU.mod_quickicon.ini</filename>
 		<filename>ru-RU.mod_quickicon.sys.ini</filename>
+		<filename>ru-RU.mod_stats_admin.ini</filename>
+		<filename>ru-RU.mod_stats_admin.sys.ini</filename>
 		<filename>ru-RU.mod_status.ini</filename>
 		<filename>ru-RU.mod_status.sys.ini</filename>
 		<filename>ru-RU.mod_submenu.ini</filename>
@@ -143,6 +147,8 @@
 		<filename>ru-RU.plg_finder_content.sys.ini</filename>
 		<filename>ru-RU.plg_finder_newsfeeds.ini</filename>
 		<filename>ru-RU.plg_finder_newsfeeds.sys.ini</filename>
+		<filename>ru-RU.plg_finder_tags.ini</filename>
+		<filename>ru-RU.plg_finder_tags.sys.ini</filename>
 		<filename>ru-RU.plg_finder_weblinks.ini</filename>
 		<filename>ru-RU.plg_finder_weblinks.sys.ini</filename>
 		<filename>ru-RU.plg_quickicon_extensionupdate.ini</filename>
@@ -187,10 +193,10 @@
 		<filename>ru-RU.plg_user_joomla.sys.ini</filename>
 		<filename>ru-RU.plg_user_profile.ini</filename>
 		<filename>ru-RU.plg_user_profile.sys.ini</filename>
-		<filename>ru-RU.tpl_bluestork.ini</filename>
-		<filename>ru-RU.tpl_bluestork.sys.ini</filename>
 		<filename>ru-RU.tpl_hathor.ini</filename>
 		<filename>ru-RU.tpl_hathor.sys.ini</filename>	
+		<filename>ru-RU.tpl_isis.ini</filename>
+		<filename>ru-RU.tpl_isis.sys.ini</filename>
 	</files>
 	<metadata>
 		<name>Russian</name>

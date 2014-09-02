@@ -4,7 +4,20 @@
           <i class="icon-circle icon-stack-base"></i>
           <i class="icon-file icon-light"></i>
         </span>
-        <div class="message"><?php echo JText::_('TPL_LADY_PAGE_NOT_FOUND'); ?></div>
+
+        <?php if(!$this->applicationError) { ?>
+            <div class="message"><?php echo JText::_('TPL_LADY_ERROR_OCCURED'); ?></div>
+        <?php } else {
+                if($this->applicationError->getCode() == 404) { ?>
+                    <div class="message"><?php echo JText::_('TPL_LADY_PAGE_NOT_FOUND'); ?></div>
+                <?php } else { ?>
+                    <div class="message"><?php echo JText::_('TPL_LADY_ERROR_OCCURED'); ?></div>
+                    <br />
+                    <div><?php echo $this->applicationError->getMessage(); ?></div>
+                    <br />
+                    <div><?php echo $this->applicationError->getTraceAsString(); ?></div>
+                <?php } ?>
+        <?php } ?>
     </div>
 </div>
             

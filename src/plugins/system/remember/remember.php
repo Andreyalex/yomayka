@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Plugin
+ * @subpackage  System.remember
+ *
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,17 +12,19 @@ defined('_JEXEC') or die;
 /**
  * Joomla! System Remember Me Plugin
  *
- * @package		Joomla.Plugin
- * @subpackage	System.remember
+ * @package     Joomla.Plugin
+ * @subpackage  System.remember
+ * @since       1.5
  */
-class plgSystemRemember extends JPlugin
+class PlgSystemRemember extends JPlugin
 {
-	function onAfterInitialise()
+	public function onAfterInitialise()
 	{
 		$app = JFactory::getApplication();
 
 		// No remember me for admin
-		if ($app->isAdmin()) {
+		if ($app->isAdmin())
+		{
 			return;
 		}
 
@@ -30,18 +35,16 @@ class plgSystemRemember extends JPlugin
 
 			if ($str = JRequest::getString($hash, '', 'cookie', JREQUEST_ALLOWRAW | JREQUEST_NOTRIM))
 			{
-				jimport('joomla.utilities.simplecrypt');
 				$credentials = array();
-				$goodCookie = true;
 				$filter = JFilterInput::getInstance();
 
 				// Create the encryption key, apply extra hardening using the user agent string.
-                // Since we're decoding, no UA validity check is required.
+				// Since we're decoding, no UA validity check is required.
 				$privateKey = JApplication::getHash(@$_SERVER['HTTP_USER_AGENT']);
 
 				$key = new JCryptKey('simple', $privateKey, $privateKey);
 				$crypt = new JCrypt(new JCryptCipherSimple, $key);
-			
+
 				try
 				{
 					$str = $crypt->decrypt($str);

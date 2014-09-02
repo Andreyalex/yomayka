@@ -1,0 +1,132 @@
+/* Cart page */
+
+#yoshop-cart {
+    position: relative;
+    margin-top: 20px;
+}
+
+/* Summary */
+#yoshop-cart .summary {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 24px;
+    line-height: 35px;
+    padding: 20px 30px;
+    float: right;
+    text-align: right;
+    min-width: 230px;
+}
+
+@media(max-width: 979px){
+    #yoshop-cart .summary {
+        padding: 10px 20px;
+        position: relative;
+        float: none;
+        width: auto;
+    }
+    #yoshop-cart .summary .text,
+    #yoshop-cart .summary .value {
+        display: inline-block;
+        margin-right: 10px;
+    }
+}
+
+#yoshop-cart .summary .text {
+    text-align: right;
+}
+#yoshop-cart .summary .value {
+    text-align: right;
+}
+
+
+
+/* Controls */
+#yoshop-cart .ctrls .submit,
+#yoshop-cart .ctrls .next {
+    float: right;
+    min-width: 230px;
+}
+
+#yoshop-cart .ctrls .prev {
+    float: left;
+    min-width: 230px;
+}
+
+
+
+/* Step1 */
+#yoshop-cart .step1 .products-list {
+    margin-right: 38%;
+    min-height:150px;
+}
+
+@media(max-width:979px){
+    #yoshop-cart .step1 .products-list {
+        margin-right: 0;
+    }
+}
+
+#yoshop-cart .products-list table td.count,
+#yoshop-cart .products-list table td.price,
+#yoshop-cart .products-list table td.totalPrice,
+#yoshop-cart .products-list table td.removeAction {
+    line-height: 70px;
+    text-align: center;
+}
+
+#yoshop-cart .products-list table td.count > *,
+#yoshop-cart .products-list table td.price > *,
+#yoshop-cart .products-list table td.totalPrice > *,
+#yoshop-cart .products-list table td.removeAction > * {
+    vertical-align: middle;
+}
+
+@media(max-width:767px) {
+    #yoshop-cart .step1 .products-list {
+        margin-right:0;
+    }
+}
+
+#yoshop-cart .step1 .icon-remove {
+    font-size:40px;
+    color : #AA2222;
+}
+
+/* Step2 Form */
+#yoshop-cart .step2 form {
+    text-align: center;
+}
+
+#yoshop-cart .step2 form .control-group {
+    display: inline-block;
+}
+
+#yoshop-cart .step2 #system-message-container {
+    position: absolute;
+    max-width: 30%;
+}
+
+@media(max-width: 979px) {
+    #yoshop-cart .step2 #system-message-container {
+        position: relative;
+        max-width: 100%;
+    }
+}
+
+@media(max-width: 479px) {
+    #yoshop-cart .step2 form label {
+        float: none;
+    }
+}
+
+/* Step3 Form */
+#yoshop-cart .step3 .ctrls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#yoshop-cart .step3 .ctrls > * {
+    float: none;
+    display: inline-block;
+}

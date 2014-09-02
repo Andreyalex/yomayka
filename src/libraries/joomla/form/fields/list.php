@@ -37,7 +37,6 @@ class JFormFieldList extends JFormField
 	 */
 	protected function getInput()
 	{
-		// Initialize variables.
 		$html = array();
 		$attr = '';
 
@@ -52,6 +51,7 @@ class JFormFieldList extends JFormField
 
 		$attr .= $this->element['size'] ? ' size="' . (int) $this->element['size'] . '"' : '';
 		$attr .= $this->multiple ? ' multiple="multiple"' : '';
+		$attr .= $this->required ? ' required="required" aria-required="true"' : '';
 
 		// Initialize JavaScript field attributes.
 		$attr .= $this->element['onchange'] ? ' onchange="' . (string) $this->element['onchange'] . '"' : '';
@@ -83,7 +83,6 @@ class JFormFieldList extends JFormField
 	 */
 	protected function getOptions()
 	{
-		// Initialize variables.
 		$options = array();
 
 		foreach ($this->element->children() as $option)

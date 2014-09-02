@@ -1,0 +1,293 @@
+
+/* Products list page */
+#yoshop-products-list {
+    margin-top: 30px;
+}
+
+#yoshop-products-list.details .item {
+    position: relative;
+    overflow: hidden;
+    height: 151px;
+}
+
+#yoshop-products-list.details .grid-2col-item0 {
+    float: left;
+    width: 46%;
+    margin-bottom: 60px;
+}
+
+#yoshop-products-list.details .grid-2col-item1 {
+    float: right;
+    width: 46%;
+    margin-bottom: 60px;
+}
+
+#yoshop-products-list.details .item img {
+    float: left;
+    border: 1px #dddddd solid;
+    padding: 15px;
+    margin: 8px 20px 10px 0;
+    width: 100px;
+    height: 100px;
+
+}
+
+#yoshop-products-list.details .item .title {
+    font-family: 'Open Sans Condensed';
+    margin: 0;
+}
+
+#yoshop-products-list.details .item .thin-line {
+    border-bottom: 1px solid #dddddd;
+    height: 0px;
+    margin: 5px 0 5px 162px;
+    clear: right;
+}
+
+#yoshop-products-list.details .item .description-short {
+    max-height: 81px;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+/* Jshop products list - TILES */
+#yoshop-products-list.tiles .item {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#yoshop-products-list.tiles .item .inner {
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    border: 1px solid #bed5e8;
+    padding: 15px;
+    background: #ffffff;
+    box-shadow: 0 0 1px #DAE7F2;
+    margin:2px;
+    border-radius:4px;
+}
+
+#yoshop-products-list.tiles .item .image {
+    width: 100%;
+    height: 100%;
+    line-height: 100%;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+}
+
+#yoshop-products-list.tiles .item .image img {
+    width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+}
+
+@media (min-width: 1200px) {
+
+    #yoshop-products-list.tiles .item.grid-4col-item0 {
+        width: 25%;
+    }
+
+    #yoshop-products-list.tiles .item.grid-4col-item1 {
+        width: 25%;
+    }
+
+    #yoshop-products-list.tiles .item.grid-4col-item2 {
+        width: 25%;
+    }
+
+    #yoshop-products-list.tiles .item.grid-4col-item3 {
+        float: right;
+        width: 25%;
+    }
+    #yoshop-products-list.tiles .item .inner {
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+    }
+}
+
+@media (min-width: 980px) and (max-width: 1199px) {
+    #yoshop-products-list.tiles .item.grid-4col-item0 {
+        width: 23%;
+        text-align: left;
+    }
+
+    #yoshop-products-list.tiles .item.grid-4col-item1 {
+        width: 27%;
+    }
+
+    #yoshop-products-list.tiles .item.grid-4col-item2 {
+        width: 27%;
+    }
+
+    #yoshop-products-list.tiles .item.grid-4col-item3 {
+        float: right;
+        width: 23%;
+        text-align: right;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 979px) {
+
+    #yoshop-products-list.tiles .item.grid-3col-item0 {
+        width: 33.3%;
+        text-align: left;
+    }
+
+    #yoshop-products-list.tiles .item.grid-3col-item1 {
+        width: 33.3%;
+    }
+
+    #yoshop-products-list.tiles .item.grid-3col-item2 {
+        float: right;
+        width: 33.3%;
+        text-align: right;
+    }
+
+}
+
+
+@media (min-width: 480px) and (max-width: 639px) {
+
+    #yoshop-products-list.tiles .item.grid-2col-item0 {
+        width: 50%;
+    }
+
+    #yoshop-products-list.tiles .item.grid-2col-item1 {
+        width: 50%;
+    }
+}
+
+
+@media (max-width: 479px) {
+
+    #yoshop-products-list.tiles .item {
+        width: 100% !important;
+    }
+
+    #yoshop-products-list.tiles .item .inner {
+        width: 300px;
+        height: 300px;
+        line-height: 300px;
+    }
+}
+
+#yoshop-products-list.tiles .item .title {
+    display: none;
+    /*font-family: 'Open Sans';*/
+    /*font-size: 20px;*/
+    /*text-transform: uppercase;*/
+    /*text-align: center;*/
+    /*margin: 10px 0 0 0;*/
+    /*color: #555555;*/
+    /*font-weight: 100;*/
+    /*text-shadow: 1px 0 1px #ddd;*/
+}
+
+#yoshop-products-list.tiles .item .thin-line {
+    display: none;
+    /*border-bottom: 1px solid #dddddd;*/
+    /*height: 0px;*/
+    /*margin: 5px 0 5px 162px;*/
+    /*clear: right;*/
+}
+
+#yoshop-products-list.tiles .item .description-short {
+    display: none;
+}
+
+#yoshop-products-list.tiles .item .price {
+    display: none;
+    /*font-family: 'Open Sans';*/
+    /*font-size: 20px;*/
+    /*text-transform: uppercase;*/
+    /*text-align: center;*/
+    /*margin: 0;*/
+    /*color: #555555;*/
+    /*font-weight: 100;*/
+    /*text-shadow: 1px 0 1px #ddd;*/
+}
+/**/
+
+#yoshop-products-list.tiles .item .slideshow {
+    position: absolute;
+    margin: 14px 13px;
+    display: block;
+    height: 45px;
+    width: 50px;
+    opacity: 0.4;
+    top: 5px;
+    left: 5px;
+    font-size: 50px;
+    line-height: 44px;
+    color: #888888;
+    text-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff, 1px -1px 3px #ffffff, -1px 1px 3px #ffffff;
+}
+
+#yoshop-products-list.tiles .item .cart {
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    right: 0;
+    height: 45px;
+    width: 50px;
+    margin: 14px 16px;
+    cursor: pointer;
+    opacity: 0.4;
+    font-size: 50px;
+    line-height: 44px;
+}
+
+#yoshop-products-list.tiles .item .cart i {
+    height: 44px;
+    width: 50px;
+    position: absolute;
+    right:0;
+    top:0;
+    line-height: 44px;
+}
+
+#yoshop-products-list.tiles .item .cart-add i {
+    color: #888888;
+    text-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff, 1px -1px 3px #ffffff, -1px 1px 3px #ffffff;
+}
+
+#yoshop-products-list.tiles .item .cart-remove i {
+    color: #33FF33;
+    text-shadow: 1px 1px 3px #ffffff, -1px -1px 3px #ffffff, 1px -1px 3px #ffffff, -1px 1px 3px #ffffff;
+}
+
+#yoshop-products-list.tiles .item .cart-remove i.icon-stack-base {
+    color: #339933;
+    font-size: 15px;
+    margin-right: -3px;
+    line-height: 35px;
+}
+
+#yoshop-products-list.tiles .item .cart-remove {
+    display: none;
+}
+
+#yoshop-products-list.tiles .item.in-cart .cart-add {
+    display: none;
+}
+#yoshop-products-list.tiles .item.in-cart .cart-remove {
+    display: inline-block;
+}
+
+
+.outlined {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    line-height: 50px;
+}

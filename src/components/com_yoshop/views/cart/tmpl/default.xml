@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_YOSHOP_TITLE_ITEM_VIEW_CART" option="View">
+        <message>
+                        <![CDATA[COM_YOSHOP_TITLE_ITEM_VIEW_CART_DESC]]>
+        </message>
+    </layout>
+    <fields name="params">
+        <fieldset 
+            name="basic"
+            label="COM_YOSHOP_FIELDSET_ITEM_ID_SELECT_LABEL">
+        </fieldset>
+    </fields>
+</metadata>

@@ -1,0 +1,4 @@
+
+#php_value xdebug.remote_enable true
+#php_value xdebug.remote_host 37.57.25.26
+#php_value xdebug.remote_port 9000

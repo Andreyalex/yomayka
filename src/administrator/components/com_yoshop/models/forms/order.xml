@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset>
+
+        <field name="status" type="orderStatus" size="40" class="inputbox"
+               label="COM_YOSHOP_FORM_LBL_ORDER_STATUS"
+               description="COM_YOSHOP_FORM_LBL_ORDER_STATUS"
+                />
+
+        <field name="id" type="hidden"/>
+
+    </fieldset>
+
+</form>

@@ -38,14 +38,14 @@ class JLanguageHelper
 		$langs = JLanguage::getKnownLanguages($basePath);
 		if ($installed)
 		{
-			$db = JFactory::getDBO();
-			$query = $db->getQuery(true);
-			$query->select('element');
-			$query->from('#__extensions');
-			$query->where('type=' . $db->quote('language'));
-			$query->where('state=0');
-			$query->where('enabled=1');
-			$query->where('client_id=' . ($basePath == JPATH_ADMINISTRATOR ? 1 : 0));
+			$db = JFactory::getDbo();
+			$query = $db->getQuery(true)
+				->select('element')
+				->from('#__extensions')
+				->where('type=' . $db->quote('language'))
+				->where('state=0')
+				->where('enabled=1')
+				->where('client_id=' . ($basePath == JPATH_ADMINISTRATOR ? 1 : 0));
 			$db->setQuery($query);
 			$installed_languages = $db->loadObjectList('element');
 		}
@@ -138,7 +138,9 @@ class JLanguageHelper
 				foreach ($knownLangs as $metadata)
 				{
 					// Take off 3 letters iso code languages as they can't match browsers' languages and default them to en
-					$languages[$key][] = new JObject(array('lang_code' => $metadata['tag']));
+					$obj = new stdClass;
+					$obj->lang_code = $metadata['tag'];
+					$languages[$key][] = $obj;
 				}
 			}
 			else
@@ -146,9 +148,9 @@ class JLanguageHelper
 				$cache = JFactory::getCache('com_languages', '');
 				if (!$languages = $cache->get('languages'))
 				{
-					$db = JFactory::getDBO();
-					$query = $db->getQuery(true);
-					$query->select('*')
+					$db = JFactory::getDbo();
+					$query = $db->getQuery(true)
+						->select('*')
 						->from('#__languages')
 						->where('published=1')
 						->order('ordering ASC');

@@ -203,6 +203,7 @@ class JResponse
 		}
 
 		ob_start();
+
 		foreach (self::$body as $content)
 		{
 			echo $content;
@@ -233,6 +234,7 @@ class JResponse
 		if (self::allowCache() === false)
 		{
 			self::setHeader('Cache-Control', 'no-cache', false);
+
 			// HTTP 1.0
 			self::setHeader('Pragma', 'no-cache');
 		}
@@ -296,7 +298,12 @@ class JResponse
 		$gzdata = gzencode($data, $level);
 
 		self::setHeader('Content-Encoding', $encoding);
-		self::setHeader('X-Content-Encoded-By', 'Joomla! 2.5');
+
+		// Header will be removed at 4.0
+		if (JFactory::getConfig()->get('MetaVersion', 0) && defined('JVERSION'))
+		{
+			self::setHeader('X-Content-Encoded-By', 'Joomla! ' . JVERSION);
+		}
 
 		return $gzdata;
 	}

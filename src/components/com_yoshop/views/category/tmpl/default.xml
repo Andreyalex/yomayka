@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_YOSHOP_TITLE_ITEM_VIEW_CATEGORY" option="View">
+        <message>
+                        <![CDATA[COM_YOSHOP_TITLE_ITEM_VIEW_CATEGORY_DESC]]>
+        </message>
+    </layout>
+
+    <!-- Add fields to the request variables for the layout. -->
+    <fields name="request">
+        <fieldset name="request">
+            <field
+                name="id"
+                type="category"
+                extension="com_yoshop"
+                label="COM_YOSHOP_ITEM_ID_SELECT_LABEL"
+                description="JGLOBAL_SHOW_TITLE_DESC"
+                require="true"
+            />
+            <field
+                name="view"
+                value="category"
+                type="hidden"
+            />
+        </fieldset>
+    </fields>
+</metadata>

@@ -5,8 +5,6 @@ $app = JFactory::getApplication();
 
 //JHtml::_('behavior.framework', true);
 
-
-
 $this->deviceMode = null;
 
 // Let's find WURFL...
@@ -127,6 +125,8 @@ if($apexFixed) {
     $bodyClass .= ' apex-present';
 }
 
+$tplBaseUrl = $this->baseurl.'/templates/'.$this->template;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,44 +136,58 @@ if($apexFixed) {
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/bootstrap-responsive.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/bootstrap/css/bootstrap.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/bootstrap/css/bootstrap-responsive.css" type="text/css" media="screen" />
 
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/eurofurencelight/styles.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/tickertape/styles.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/fonts/awesome/css/font-awesome.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/fonts/eurofurencelight/styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/fonts/tickertape/styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/fonts/awesome/css/font-awesome.min.css" type="text/css" media="screen" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-	
-    <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/jquery.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/bootstrap.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/js/bootstrap-collapse.js"></script>
+
+    <script type="text/javascript">
+        window.siteBaseUrl = "<?php echo JUri::base(); ?>"
+    </script>
+
+    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/bootstrap/js/bootstrap.js"></script>
+
+    <?php
+        if (isset($this->customAssets)) {
+            foreach($this->customAssets as $asset) {
+                echo $asset."\n";
+            }
+        }
+    ?>
+
     <?php // Release $ sign for Mootools ?>
-    <script type="text/javascript">jQuery.noConflict();</script>
+    <script type="text/javascript">
+        jQuery.noConflict();
+    </script>
 
     <jdoc:include type="head" />
 
     <?php // If there is other jQuery has been loaded then revert to our first one ?>
     <!--<script type="text/javascript">window.jQCustom = jQuery.noConflict(true);</script>-->
 
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/template.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/overrides.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/template.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/overrides.css" type="text/css" media="screen" />
     <!--[if lt IE 8]>
-        <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/ie7.css" type="text/css" />
+        <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/ie7.css" type="text/css" />
     <![endif]-->
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/css/ie8.css" type="text/css" />
+        <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/ie8.css" type="text/css" />
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="<?php echo $tplBaseUrl; ?>/assets/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $tplBaseUrl; ?>/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $tplBaseUrl; ?>/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $tplBaseUrl; ?>/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo $tplBaseUrl; ?>/assets/ico/apple-touch-icon-57-precomposed.png">
   </head>
   <body class="<?php echo $bodyClass; ?>">
 
@@ -248,18 +262,17 @@ if($apexFixed) {
 			<div id="logo_bar" class="layout-case">
 				<div class="container">
 					
-					<?php if ($countModuleLogo): ?>
+					<?php if ($countModuleLogo) { ?>
 					<div id="logo_place" class="pull-left">
-                        <div class="logo">YOmayka</div>
-						<!--<jdoc:include type="modules" name="logo" />-->
+						<jdoc:include type="modules" name="logo" />
 					</div><!--logo_place-->
-					<?php endif; ?>
+					<?php } ?>
 
-					<?php if ($countModuleToolbar): ?>
+					<?php if ($countModuleToolbar) { ?>
 					<div id="toolbar_place" class="pull-right">
 						<jdoc:include type="modules" name="toolbar" />
 					</div><!--toolbar_place-->
-					<?php endif; ?>
+					<?php } ?>
 				
 				</div>
 			</div><!--logo_bar-->
@@ -317,10 +330,10 @@ if($apexFixed) {
 			<?php endif; ?>
 
 			<?php
-            if ($GLOBALS['pageerror']) :
+            if (!empty($this->applicationError)) :
                 require_once 'partial-error.php';
 
-            elseif ($isHomePage) :
+            elseif (!empty($isHomePage)) :
                 require_once 'partial-home.php';
 
             else:
@@ -368,7 +381,9 @@ if($apexFixed) {
 											<jdoc:include type="modules" name="lang_flag" />
 										</div><!--lang_flag-->
 										<jdoc:include type="modules" name="content" style="standard" />
-										<jdoc:include type="message" />
+                                        <?php if (empty($this->customMessages)){ ?>
+										    <jdoc:include type="message" />
+                                        <?php } ?>
 										<jdoc:include type="component" />
 									</div><!--inner_content_place-->
 									<?php endif; ?>

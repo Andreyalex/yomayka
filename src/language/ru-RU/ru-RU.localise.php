@@ -1,16 +1,18 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc & Russian Translation Team (http://joomlaportal.ru)
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package    Joomla.Language
+ *
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 /**
  * ru-RU localise class
  *
- * @package		Joomla.Site
- * @since		1.6
+ * @package  Joomla.Language
+ * @since    1.6
  */
-abstract class ru_RULocalise
+abstract class Ru_RULocalise
 {
 	/**
 	 * Returns the potential suffixes for a specific number of items

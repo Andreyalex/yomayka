@@ -11,12 +11,9 @@
 			description="COM_CONFIG_FIELD_CACHE_DESC"
 			required="true"
 			filter="integer">
-			<option
-				value="0">COM_CONFIG_FIELD_VALUE_CACHE_OFF</option>
-			<option
-				value="1">COM_CONFIG_FIELD_VALUE_CACHE_CONSERVATIVE</option>
-			<option
-				value="2">COM_CONFIG_FIELD_VALUE_CACHE_PROGRESSIVE</option>
+			<option value="0">COM_CONFIG_FIELD_VALUE_CACHE_OFF</option>
+			<option value="1">COM_CONFIG_FIELD_VALUE_CACHE_CONSERVATIVE</option>
+			<option value="2">COM_CONFIG_FIELD_VALUE_CACHE_PROGRESSIVE</option>
 		</field>
 		<field
 			name="cache_handler"
@@ -44,27 +41,25 @@
 		<field
 			name="memcache_persist"
 			type="radio"
+			class="btn-group"
 			default="1"
 			label="COM_CONFIG_FIELD_MEMCACHE_PERSISTENT_LABEL"
 			description="COM_CONFIG_FIELD_MEMCACHE_PERSISTENT_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
 			name="memcache_compress"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_MEMCACHE_COMPRESSION_LABEL"
 			description="COM_CONFIG_FIELD_MEMCACHE_COMPRESSION_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
@@ -94,7 +89,7 @@
 			type="databaseconnection"
 			label="COM_CONFIG_FIELD_DATABASE_TYPE_LABEL"
 			description="COM_CONFIG_FIELD_DATABASE_TYPE_DESC"
-			supported="mysql,mysqli,sqlsrv,sqlazure"
+			supported="mysql,mysqli,postgresql,sqlsrv,sqlazure"
 			filter="string" />
 
 		<field
@@ -138,27 +133,25 @@
 		<field
 			name="debug"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_DEBUG_SYSTEM_LABEL"
 			description="COM_CONFIG_FIELD_DEBUG_SYSTEM_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
 			name="debug_lang"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_DEBUG_LANG_LABEL"
 			description="COM_CONFIG_FIELD_DEBUG_LANG_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 	</fieldset>
 
@@ -168,14 +161,13 @@
 		<field
 			name="ftp_enable"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_FTP_ENABLE_LABEL"
 			description="COM_CONFIG_FIELD_FTP_ENABLE_DESC"
 			filter="integer">
-			<option
-				value="1">JYes</option>
-			<option
-				value="0">JNo</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
@@ -184,6 +176,7 @@
 			label="COM_CONFIG_FIELD_FTP_HOST_LABEL"
 			description="COM_CONFIG_FIELD_FTP_HOST_DESC"
 			filter="string"
+			showon="ftp_enable:1"
 			size="14" />
 
 		<field
@@ -192,6 +185,7 @@
 			label="COM_CONFIG_FIELD_FTP_PORT_LABEL"
 			description="COM_CONFIG_FIELD_FTP_PORT_DESC"
 			filter="string"
+			showon="ftp_enable:1"
 			size="8" />
 
 		<field
@@ -200,6 +194,7 @@
 			label="COM_CONFIG_FIELD_FTP_USERNAME_LABEL"
 			description="COM_CONFIG_FIELD_FTP_USERNAME_DESC"
 			filter="string"
+			showon="ftp_enable:1"
 			autocomplete="off"
 			size="25" />
 
@@ -209,6 +204,7 @@
 			label="COM_CONFIG_FIELD_FTP_PASSWORD_LABEL"
 			description="COM_CONFIG_FIELD_FTP_PASSWORD_DESC"
 			filter="raw"
+			showon="ftp_enable:1"
 			autocomplete="off"
 			size="25" />
 
@@ -216,6 +212,7 @@
 			name="ftp_root"
 			type="text"
 			label="COM_CONFIG_FIELD_FTP_ROOT_LABEL"
+			showon="ftp_enable:1"
 			description="COM_CONFIG_FIELD_FTP_ROOT_DESC"
 			filter="string"
 			size="50" />
@@ -246,12 +243,9 @@
 			description="COM_CONFIG_FIELD_MAIL_MAILER_DESC"
 			required="true"
 			filter="word">
-			<option
-				value="mail">COM_CONFIG_FIELD_VALUE_PHP_MAIL</option>
-			<option
-				value="sendmail">COM_CONFIG_FIELD_VALUE_SENDMAIL</option>
-			<option
-				value="smtp">COM_CONFIG_FIELD_VALUE_SMTP</option>
+			<option value="mail">COM_CONFIG_FIELD_VALUE_PHP_MAIL</option>
+			<option value="sendmail">COM_CONFIG_FIELD_VALUE_SENDMAIL</option>
+			<option value="smtp">COM_CONFIG_FIELD_VALUE_SMTP</option>
 		</field>
 
 		<field
@@ -275,6 +269,7 @@
 			name="sendmail"
 			type="text"
 			default="/usr/sbin/sendmail"
+			showon="mailer:sendmail"
 			label="COM_CONFIG_FIELD_MAIL_SENDMAIL_PATH_LABEL"
 			description="COM_CONFIG_FIELD_MAIL_SENDMAIL_PATH_DESC"
 			filter="string"
@@ -283,35 +278,34 @@
 		<field
 			name="smtpauth"
 			type="radio"
+			class="btn-group"
 			default="0"
+			showon="mailer:smtp"
 			label="COM_CONFIG_FIELD_MAIL_SMTP_AUTH_LABEL"
 			description="COM_CONFIG_FIELD_MAIL_SMTP_AUTH_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
 			name="smtpsecure"
 			type="list"
 			default="none"
+			showon="mailer:smtp"
 			label="COM_CONFIG_FIELD_MAIL_SMTP_SECURE_LABEL"
 			description="COM_CONFIG_FIELD_MAIL_SMTP_SECURE_DESC"
 			filter="word">
-			<option
-				value="none">COM_CONFIG_FIELD_VALUE_NONE</option>
-			<option
-				value="ssl">COM_CONFIG_FIELD_VALUE_SSL</option>
-			<option
-				value="tls">COM_CONFIG_FIELD_VALUE_TLS</option>
+			<option value="none">COM_CONFIG_FIELD_VALUE_NONE</option>
+			<option value="ssl">COM_CONFIG_FIELD_VALUE_SSL</option>
+			<option value="tls">COM_CONFIG_FIELD_VALUE_TLS</option>
 		</field>
 
 		<field
 			name="smtpport"
 			type="text"
 			default="25"
+			showon="mailer:smtp"
 			label="COM_CONFIG_FIELD_MAIL_SMTP_PORT_LABEL"
 			description="COM_CONFIG_FIELD_MAIL_SMTP_PORT_DESC"
 			required="true"
@@ -321,6 +315,7 @@
 		<field
 			name="smtpuser"
 			type="text"
+			showon="mailer:smtp"
 			label="COM_CONFIG_FIELD_MAIL_SMTP_USERNAME_LABEL"
 			description="COM_CONFIG_FIELD_MAIL_SMTP_USERNAME_DESC"
 			filter="string"
@@ -330,6 +325,7 @@
 		<field
 			name="smtppass"
 			type="password"
+			showon="mailer:smtp"
 			label="COM_CONFIG_FIELD_MAIL_SMTP_PASSWORD_LABEL"
 			description="COM_CONFIG_FIELD_MAIL_SMTP_PASSWORD_DESC"
 			filter="raw"
@@ -340,6 +336,7 @@
 			name="smtphost"
 			type="text"
 			default="localhost"
+			showon="mailer:smtp"
 			label="COM_CONFIG_FIELD_MAIL_SMTP_HOST_LABEL"
 			description="COM_CONFIG_FIELD_MAIL_SMTP_HOST_DESC"
 			filter="string"
@@ -372,7 +369,7 @@
 			label="JFIELD_METADATA_ROBOTS_LABEL"
 			description="JFIELD_METADATA_ROBOTS_DESC"
 			default=""
-		>
+			>
 			<option value="">JGLOBAL_INDEX_FOLLOW</option>
 			<option value="noindex, follow">JGLOBAL_NOINDEX_FOLLOW</option>
 			<option value="index, nofollow">JGLOBAL_INDEX_NOFOLLOW</option>
@@ -391,26 +388,24 @@
 		<field
 			name="MetaAuthor"
 			type="radio"
+			class="btn-group"
 			default="1"
 			label="COM_CONFIG_FIELD_METAAUTHOR_LABEL"
 			description="COM_CONFIG_FIELD_METAAUTHOR_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field
 			name="MetaVersion"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_METAVERSION_LABEL"
 			description="COM_CONFIG_FIELD_METAVERSION_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 	</fieldset>
@@ -421,55 +416,50 @@
 		<field
 			name="sef"
 			type="radio"
+			class="btn-group"
 			default="1"
 			label="COM_CONFIG_FIELD_SEF_URL_LABEL"
 			description="COM_CONFIG_FIELD_SEF_URL_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
 			name="sef_rewrite"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_SEF_REWRITE_LABEL"
 			description="COM_CONFIG_FIELD_SEF_REWRITE_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
 			name="sef_suffix"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_SEF_SUFFIX_LABEL"
 			description="COM_CONFIG_FIELD_SEF_SUFFIX_DESC"
 			filter="integer">
-			<option
-				value="1">JYes</option>
-			<option
-				value="0">JNo</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
 			name="unicodeslugs"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_UNICODESLUGS_LABEL"
 			description="COM_CONFIG_FIELD_UNICODESLUGS_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
-
 
 		<field
 			name="sitename_pagetitles"
@@ -478,12 +468,9 @@
 			label="COM_CONFIG_FIELD_SITENAME_PAGETITLES_LABEL"
 			description="COM_CONFIG_FIELD_SITENAME_PAGETITLES_DESC"
 			filter="integer">
-			<option
-				value="2">COM_CONFIG_FIELD_VALUE_AFTER</option>
-			<option
-				value="1">COM_CONFIG_FIELD_VALUE_BEFORE</option>
-			<option
-				value="0">JNO</option>
+			<option value="2">COM_CONFIG_FIELD_VALUE_AFTER</option>
+			<option value="1">COM_CONFIG_FIELD_VALUE_BEFORE</option>
+			<option value="0">JNO</option>
 		</field>
 
 	</fieldset>
@@ -502,14 +489,13 @@
 		<field
 			name="gzip"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_GZIP_COMPRESSION_LABEL"
 			description="COM_CONFIG_FIELD_GZIP_COMPRESSION_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
@@ -519,16 +505,11 @@
 			label="COM_CONFIG_FIELD_ERROR_REPORTING_LABEL"
 			description="COM_CONFIG_FIELD_ERROR_REPORTING_DESC"
 			filter="cmd">
-			<option
-				value="default">COM_CONFIG_FIELD_VALUE_SYSTEM_DEFAULT</option>
-			<option
-				value="none">COM_CONFIG_FIELD_VALUE_NONE</option>
-			<option
-				value="simple">COM_CONFIG_FIELD_VALUE_SIMPLE</option>
-			<option
-				value="maximum">COM_CONFIG_FIELD_VALUE_MAXIMUM</option>
-			<option
-				value="development">COM_CONFIG_FIELD_VALUE_DEVELOPMENT</option>
+			<option value="default">COM_CONFIG_FIELD_VALUE_SYSTEM_DEFAULT</option>
+			<option value="none">COM_CONFIG_FIELD_VALUE_NONE</option>
+			<option value="simple">COM_CONFIG_FIELD_VALUE_SIMPLE</option>
+			<option value="maximum">COM_CONFIG_FIELD_VALUE_MAXIMUM</option>
+			<option value="development">COM_CONFIG_FIELD_VALUE_DEVELOPMENT</option>
 		</field>
 
 		<field
@@ -538,12 +519,9 @@
 			label="COM_CONFIG_FIELD_FORCE_SSL_LABEL"
 			description="COM_CONFIG_FIELD_FORCE_SSL_DESC"
 			filter="integer">
-			<option
-				value="0">COM_CONFIG_FIELD_VALUE_NONE</option>
-			<option
-				value="1">COM_CONFIG_FIELD_VALUE_ADMINISTRATOR_ONLY</option>
-			<option
-				value="2">COM_CONFIG_FIELD_VALUE_ENTIRE_SITE</option>
+			<option value="0">COM_CONFIG_FIELD_VALUE_NONE</option>
+			<option value="1">COM_CONFIG_FIELD_VALUE_ADMINISTRATOR_ONLY</option>
+			<option value="2">COM_CONFIG_FIELD_VALUE_ENTIRE_SITE</option>
 		</field>
 	</fieldset>
 
@@ -586,29 +564,25 @@
 		<field
 			name="offline"
 			type="radio"
+			class="btn-group"
 			default="0"
 			label="COM_CONFIG_FIELD_SITE_OFFLINE_LABEL"
 			description="COM_CONFIG_FIELD_SITE_OFFLINE_DESC"
 			filter="integer">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field
 			name="display_offline_message"
-			type="radio"
+			type="list"
 			default="1"
 			label="COM_CONFIG_FIELD_SITE_DISPLAY_MESSAGE_LABEL"
 			description="COM_CONFIG_FIELD_SITE_DISPLAY_MESSAGE_DESC"
 			filter="integer">
-			<option
-				value="0">JHIDE</option>
-			<option
-				value="1">COM_CONFIG_FIELD_VALUE_DISPLAY_OFFLINE_MESSAGE_CUSTOM</option>
-			<option
-				value="2">COM_CONFIG_FIELD_VALUE_DISPLAY_OFFLINE_MESSAGE_LANGUAGE</option>
+			<option value="0">JHIDE</option>
+			<option value="1">COM_CONFIG_FIELD_VALUE_DISPLAY_OFFLINE_MESSAGE_CUSTOM</option>
+			<option value="2">COM_CONFIG_FIELD_VALUE_DISPLAY_OFFLINE_MESSAGE_LANGUAGE</option>
 		</field>
 
 		<field
@@ -644,9 +618,8 @@
 			label="COM_CONFIG_FIELD_DEFAULT_CAPTCHA_LABEL"
 			description="COM_CONFIG_FIELD_DEFAULT_CAPTCHA_DESC"
 			required="true"
-			filter="cmd" >
-			<option
-				value="0">JOPTION_DO_NOT_USE</option>
+			filter="cmd">
+			<option value="0">JOPTION_DO_NOT_USE</option>
 		</field>
 
 		<field
@@ -665,22 +638,14 @@
 			label="COM_CONFIG_FIELD_DEFAULT_LIST_LIMIT_LABEL"
 			description="COM_CONFIG_FIELD_DEFAULT_LIST_LIMIT_DESC"
 			filter="integer">
-			<option
-				value="5">J5</option>
-			<option
-				value="10">J10</option>
-			<option
-				value="15">J15</option>
-			<option
-				value="20">J20</option>
-			<option
-				value="25">J25</option>
-			<option
-				value="30">J30</option>
-			<option
-				value="50">J50</option>
-			<option
-				value="100">J100</option>
+			<option value="5">J5</option>
+			<option value="10">J10</option>
+			<option value="15">J15</option>
+			<option value="20">J20</option>
+			<option value="25">J25</option>
+			<option value="30">J30</option>
+			<option value="50">J50</option>
+			<option value="100">J100</option>
 		</field>
 
 		<field
@@ -690,22 +655,14 @@
 			label="COM_CONFIG_FIELD_DEFAULT_FEED_LIMIT_LABEL"
 			description="COM_CONFIG_FIELD_DEFAULT_FEED_LIMIT_DESC"
 			filter="integer">
-			<option
-				value="5">J5</option>
-			<option
-				value="10">J10</option>
-			<option
-				value="15">J15</option>
-			<option
-				value="20">J20</option>
-			<option
-				value="25">J25</option>
-			<option
-				value="30">J30</option>
-			<option
-				value="50">J50</option>
-			<option
-				value="100">J100</option>
+			<option value="5">J5</option>
+			<option value="10">J10</option>
+			<option value="15">J15</option>
+			<option value="20">J20</option>
+			<option value="25">J25</option>
+			<option value="30">J30</option>
+			<option value="50">J50</option>
+			<option value="100">J100</option>
 		</field>
 
 		<field
@@ -715,12 +672,9 @@
 			label="COM_CONFIG_FIELD_FEED_EMAIL_LABEL"
 			description="COM_CONFIG_FIELD_FEED_EMAIL_DESC"
 			filter="word">
-			<option
-				value="author">COM_CONFIG_FIELD_VALUE_AUTHOR_EMAIL</option>
-			<option
-				value="site">COM_CONFIG_FIELD_VALUE_SITE_EMAIL</option>
-			<option
-				value="none">COM_CONFIG_FIELD_VALUE_NO_EMAIL</option>
+			<option value="author">COM_CONFIG_FIELD_VALUE_AUTHOR_EMAIL</option>
+			<option value="site">COM_CONFIG_FIELD_VALUE_SITE_EMAIL</option>
+			<option value="none">COM_CONFIG_FIELD_VALUE_NO_EMAIL</option>
 
 		</field>
 	</fieldset>

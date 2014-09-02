@@ -11,11 +11,11 @@ defined('_JEXEC') or die;
 
 
 
-<form action="<?php echo JRoute::_('index.php');?>" method="post" class="form-search">
+<form action="<?php echo JUri::base().'search' ?>" method="post" class="form-search">
 	<div class="search-module">
-        <input 
-            class="inputbox" 
-            type="text" 
+        <input
+            class="inputbox"
+            type="text"
             name="searchword" 
             id="mod-search-searchword" 
             maxlength="<?php echo $maxlength; ?>"
@@ -25,8 +25,7 @@ defined('_JEXEC') or die;
             onfocus="if (this.value=='<?php echo $text; ?>') this.value=''"
             >
         <button onclick="this.form.searchword.focus();"><span class="icon-search" ></span></button>
-		<input type="hidden" name="task" value="search" />
-		<input type="hidden" name="option" value="com_search" />
-		<input type="hidden" name="Itemid" value="<?php echo $mitemid; ?>" />
+		<input type="hidden" name="view" value="search" />
+		<input type="hidden" name="option" value="com_yoshop" />
 	</div>
 </form>

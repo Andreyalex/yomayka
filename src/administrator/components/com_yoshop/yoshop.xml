@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+    <name>com_yoshop</name>
+    <creationDate>2013-10-12</creationDate>
+    <copyright>© 2013. Все права защищены.</copyright>
+    <license>GNU General Public License версии 2 или более поздней; Смотрите LICENSE.txt</license>
+    <author>Andreyalek</author>
+    <authorEmail>andreyalek@gmail.com</authorEmail>
+    <authorUrl>http://</authorUrl>
+    <version>0.5</version>
+    <description></description>
+    
+    <install> <!-- Runs on install -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall> <!-- Runs on uninstall -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    <files folder="site">
+        <filename>index.html</filename>
+        <filename>yoshop.php</filename>
+        <filename>controller.php</filename>
+        <filename>router.php</filename>
+        <folder>views</folder>
+        <folder>models</folder>
+        <folder>controllers</folder>
+        <folder>helpers</folder>
+    </files>
+    <languages folder="site">
+        
+			<language tag="en-GB">language/en-GB.com_yoshop.ini</language>
+			<language tag="ru-RU">language/ru-RU.com_yoshop.ini</language>
+    </languages>
+    <administration>
+        <menu img="components/com_yoshop/assets/images/s_com_yoshop.png" >COM_YOSHOP</menu>
+        <submenu>
+            
+			<menu link="option=com_yoshop&amp;view=products" view="products" img="components/com_yoshop/assets/images/s_products.png" alt="Yoshop/Products">COM_YOSHOP_TITLE_PRODUCTS</menu>
+
+			<menu link="option=com_yoshop&amp;view=categories" view="categories" img="components/com_yoshop/assets/images/s_categories.png" alt="Yoshop/Categories">COM_YOSHOP_TITLE_CATEGORIES</menu>
+
+        </submenu>
+        <files folder="administrator">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <filename>controller.php</filename>
+            <filename>index.html</filename>
+            <filename>yoshop.php</filename>
+            <folder>controllers</folder>
+            <folder>assets</folder>
+            <folder>helpers</folder>
+            <folder>models</folder>
+            <folder>sql</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
+        </files>
+        <languages folder="administrator">
+            
+			<language tag="en-GB">language/en-GB.com_yoshop.ini</language>
+			<language tag="en-GB">language/en-GB.com_yoshop.sys.ini</language>
+			<language tag="ru-RU">language/ru-RU.com_yoshop.ini</language>
+			<language tag="ru-RU">language/ru-RU.com_yoshop.sys.ini</language>
+        </languages>
+    </administration>
+</extension>
+<!-- Component built by the Joomla Component Creator -->
+<!-- http://www.notwebdesign.com/joomla-component-creator/ -->
