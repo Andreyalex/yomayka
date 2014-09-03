@@ -37,3 +37,13 @@
 2014-09-03T00:48:45+00:00	INFO	update	Deleting removed files and folders.
 2014-09-03T00:48:46+00:00	INFO	update	Cleaning up after installation.
 2014-09-03T00:48:46+00:00	INFO	update	Update to version 3.2.4 is complete.
+2014-09-03T21:01:50+00:00	INFO	update	Обновление запущено пользователем Super User (477). Предыдущая версия 3.2.4.
+2014-09-03T21:01:50+00:00	INFO	update	Загрузка файла обновления с .
+2014-09-03T21:01:58+00:00	INFO	update	Файл Joomla_3.3.3-Stable-Update_Package.zip успешно загружен.
+2014-09-03T21:01:58+00:00	INFO	update	Начало установки новой версии.
+2014-09-03T21:02:06+00:00	INFO	update	Завершение установки.
+2014-09-03T21:02:06+00:00	INFO	update	Выполнение запроса из файла 3.3.0-2014-02-16. Текст запроса: ALTER TABLE `#__users` ADD COLUMN `requireReset` tinyint(4) NOT NULL DEFAULT 0 C.
+2014-09-03T21:02:06+00:00	INFO	update	Выполнение запроса из файла 3.3.0-2014-04-02. Текст запроса: INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`.
+2014-09-03T21:02:06+00:00	INFO	update	Удаление устаревших файлов и директорий.
+2014-09-03T21:02:07+00:00	INFO	update	Cleaning up after installation.
+2014-09-03T21:02:07+00:00	INFO	update	Обновление до версии 3.3.3 завершено.
