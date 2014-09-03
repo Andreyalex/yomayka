@@ -1,8 +1,8 @@
 1- What is this?
 	* This is a Joomla! installation/upgrade package to version 3.x
 	* Joomla! Official site: http://www.joomla.org
-	* Joomla 3.1 version history - http://docs.joomla.org/Joomla_3.1_version_history
-	* Detailed changes in the Changelog: http://joomlacode.org/gf/project/joomla/scmsvn/?action=browse&path=/development/trunk/administrator/&view=log
+	* Joomla 3.2 version history - http://docs.joomla.org/Joomla_3.2_version_history
+	* Detailed changes in the Changelog: https://github.com/joomla/joomla-cms/commits/master
 
 2- What is Joomla?
 	* Joomla is a Content Management System (CMS) which enables you to build Web sites and powerful online applications.
@@ -65,7 +65,7 @@
 	* Are you a Web designer? http://docs.joomla.org/Web_designers
 
 Copyright:
-	* Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
+	* Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.
 	* Credits: http://docs.joomla.org/Joomla_3_Credits
 	* Distributed under the GNU General Public License version 2 or later
 	* See Licenses details at http://docs.joomla.org/Joomla_Licenses
