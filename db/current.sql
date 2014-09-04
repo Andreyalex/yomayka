@@ -1,22 +1,29 @@
-/*
-SQLyog Ultimate - MySQL GUI v8.21 
-MySQL - 5.5.27-log : Database - advan383_shop
-*********************************************************************
-*/
+-- MySQL dump 10.13  Distrib 5.5.32, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: yomayka_live
+-- ------------------------------------------------------
+-- Server version	5.5.32-0ubuntu0.12.04.1
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
-/*!40101 SET SQL_MODE=''*/;
-
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-/*Table structure for table `cwtaq_assets` */
 
-DROP TABLE IF EXISTS `cwtaq_assets`;
+USE yomayka_dev;
+--
+-- Table structure for table `yodev_assets`
+--
 
-CREATE TABLE `cwtaq_assets` (
+DROP TABLE IF EXISTS `yodev_assets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_assets` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
   `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Nested set parent.',
   `lft` int(11) NOT NULL DEFAULT '0' COMMENT 'Nested set lft.',
@@ -29,67 +36,52 @@ CREATE TABLE `cwtaq_assets` (
   UNIQUE KEY `idx_asset_name` (`name`),
   KEY `idx_lft_rgt` (`lft`,`rgt`),
   KEY `idx_parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_assets` */
+--
+-- Dumping data for table `yodev_assets`
+--
 
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (1,0,1,73,0,'root.1','Root Asset','{\"core.login.site\":{\"6\":1,\"2\":1},\"core.login.admin\":{\"6\":1},\"core.login.offline\":{\"6\":1},\"core.admin\":{\"8\":1},\"core.manage\":{\"7\":1},\"core.create\":{\"6\":1,\"3\":1},\"core.delete\":{\"6\":1},\"core.edit\":{\"6\":1,\"4\":1},\"core.edit.state\":{\"6\":1,\"5\":1},\"core.edit.own\":{\"6\":1,\"3\":1}}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (2,1,1,2,1,'com_admin','com_admin','{}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (3,1,3,6,1,'com_banners','com_banners','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (4,1,7,8,1,'com_cache','com_cache','{\"core.admin\":{\"7\":1},\"core.manage\":{\"7\":1}}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (5,1,9,10,1,'com_checkin','com_checkin','{\"core.admin\":{\"7\":1},\"core.manage\":{\"7\":1}}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (6,1,11,12,1,'com_config','com_config','{}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (7,1,13,16,1,'com_contact','com_contact','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (8,1,17,24,1,'com_content','com_content','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":{\"3\":1},\"core.delete\":[],\"core.edit\":{\"4\":1},\"core.edit.state\":{\"5\":1},\"core.edit.own\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (9,1,25,26,1,'com_cpanel','com_cpanel','{}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (10,1,27,28,1,'com_installer','com_installer','{\"core.admin\":[],\"core.manage\":{\"7\":0},\"core.delete\":{\"7\":0},\"core.edit.state\":{\"7\":0}}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (11,1,29,30,1,'com_languages','com_languages','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (12,1,31,32,1,'com_login','com_login','{}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (13,1,33,34,1,'com_mailto','com_mailto','{}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (14,1,35,36,1,'com_massmail','com_massmail','{}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (15,1,37,38,1,'com_media','com_media','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":{\"3\":1},\"core.delete\":{\"5\":1}}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (16,1,39,40,1,'com_menus','com_menus','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (17,1,41,42,1,'com_messages','com_messages','{\"core.admin\":{\"7\":1},\"core.manage\":{\"7\":1}}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (18,1,43,44,1,'com_modules','com_modules','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (19,1,45,48,1,'com_newsfeeds','com_newsfeeds','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (20,1,49,50,1,'com_plugins','com_plugins','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.edit\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (21,1,51,52,1,'com_redirect','com_redirect','{\"core.admin\":{\"7\":1},\"core.manage\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (22,1,53,54,1,'com_search','com_search','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (23,1,55,56,1,'com_templates','com_templates','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (24,1,57,60,1,'com_users','com_users','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (25,1,61,64,1,'com_weblinks','com_weblinks','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":{\"3\":1},\"core.delete\":[],\"core.edit\":{\"4\":1},\"core.edit.state\":{\"5\":1},\"core.edit.own\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (26,1,65,66,1,'com_wrapper','com_wrapper','{}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (27,8,18,23,2,'com_content.category.2','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (28,3,4,5,2,'com_banners.category.3','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (29,7,14,15,2,'com_contact.category.4','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (30,19,46,47,2,'com_newsfeeds.category.5','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (31,25,62,63,2,'com_weblinks.category.6','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (32,24,58,59,1,'com_users.category.7','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (33,1,67,68,1,'com_finder','com_finder','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (34,1,69,70,1,'com_joomlaupdate','com_joomlaupdate','{\"core.admin\":[],\"core.manage\":[],\"core.delete\":[],\"core.edit.state\":[]}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (35,1,71,72,1,'com_jshopping','jshopping','{}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (36,27,19,20,3,'com_content.article.1','О нас ','{\"core.delete\":{\"6\":1},\"core.edit\":{\"6\":1,\"4\":1},\"core.edit.state\":{\"6\":1,\"5\":1}}');
-insert  into `cwtaq_assets`(`id`,`parent_id`,`lft`,`rgt`,`level`,`name`,`title`,`rules`) values (37,27,21,22,3,'com_content.article.2','Кто и когда придумал подушку','{\"core.delete\":{\"6\":1},\"core.edit\":{\"6\":1,\"4\":1},\"core.edit.state\":{\"6\":1,\"5\":1}}');
+LOCK TABLES `yodev_assets` WRITE;
+/*!40000 ALTER TABLE `yodev_assets` DISABLE KEYS */;
+INSERT INTO `yodev_assets` VALUES (1,0,0,101,0,'root.1','Root Asset','{\"core.login.site\":{\"6\":1,\"2\":1},\"core.login.admin\":{\"6\":1},\"core.login.offline\":{\"6\":1},\"core.admin\":{\"8\":1},\"core.manage\":{\"7\":1},\"core.create\":{\"6\":1,\"3\":1},\"core.delete\":{\"6\":1},\"core.edit\":{\"6\":1,\"4\":1},\"core.edit.state\":{\"6\":1,\"5\":1},\"core.edit.own\":{\"6\":1,\"3\":1}}'),(2,1,1,2,1,'com_admin','com_admin','{}'),(3,1,3,6,1,'com_banners','com_banners','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}'),(4,1,7,8,1,'com_cache','com_cache','{\"core.admin\":{\"7\":1},\"core.manage\":{\"7\":1}}'),(5,1,9,10,1,'com_checkin','com_checkin','{\"core.admin\":{\"7\":1},\"core.manage\":{\"7\":1}}'),(6,1,11,12,1,'com_config','com_config','{}'),(7,1,13,16,1,'com_contact','com_contact','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}'),(8,1,17,20,1,'com_content','com_content','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":{\"3\":1},\"core.delete\":[],\"core.edit\":{\"4\":1},\"core.edit.state\":{\"5\":1},\"core.edit.own\":[]}'),(9,1,21,22,1,'com_cpanel','com_cpanel','{}'),(10,1,23,24,1,'com_installer','com_installer','{\"core.admin\":[],\"core.manage\":{\"7\":0},\"core.delete\":{\"7\":0},\"core.edit.state\":{\"7\":0}}'),(11,1,25,26,1,'com_languages','com_languages','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}'),(12,1,27,28,1,'com_login','com_login','{}'),(13,1,29,30,1,'com_mailto','com_mailto','{}'),(14,1,31,32,1,'com_massmail','com_massmail','{}'),(15,1,33,34,1,'com_media','com_media','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":{\"3\":1},\"core.delete\":{\"5\":1}}'),(16,1,35,36,1,'com_menus','com_menus','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}'),(17,1,37,38,1,'com_messages','com_messages','{\"core.admin\":{\"7\":1},\"core.manage\":{\"7\":1}}'),(18,1,39,40,1,'com_modules','com_modules','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}'),(19,1,41,44,1,'com_newsfeeds','com_newsfeeds','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}'),(20,1,45,46,1,'com_plugins','com_plugins','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.edit\":[],\"core.edit.state\":[]}'),(21,1,47,48,1,'com_redirect','com_redirect','{\"core.admin\":{\"7\":1},\"core.manage\":[]}'),(22,1,49,50,1,'com_search','com_search','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}'),(23,1,51,52,1,'com_templates','com_templates','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}'),(24,1,53,56,1,'com_users','com_users','{\"core.admin\":{\"7\":1},\"core.manage\":[],\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}'),(25,1,57,60,1,'com_weblinks','com_weblinks','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1},\"core.create\":{\"3\":1},\"core.delete\":[],\"core.edit\":{\"4\":1},\"core.edit.state\":{\"5\":1},\"core.edit.own\":[]}'),(26,1,61,62,1,'com_wrapper','com_wrapper','{}'),(27,8,18,19,2,'com_content.category.2','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}'),(28,3,4,5,2,'com_banners.category.3','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}'),(29,7,14,15,2,'com_contact.category.4','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}'),(30,19,42,43,2,'com_newsfeeds.category.5','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}'),(31,25,58,59,2,'com_weblinks.category.6','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[],\"core.edit.own\":[]}'),(32,24,54,55,1,'com_users.category.7','Uncategorised','{\"core.create\":[],\"core.delete\":[],\"core.edit\":[],\"core.edit.state\":[]}'),(33,1,63,64,1,'com_finder','com_finder','{\"core.admin\":{\"7\":1},\"core.manage\":{\"6\":1}}'),(34,1,65,66,1,'com_joomlaupdate','com_joomlaupdate','{\"core.admin\":[],\"core.manage\":[],\"core.delete\":[],\"core.edit.state\":[]}'),(35,1,67,68,1,'com_tags','com_tags','{\"core.admin\":[],\"core.manage\":[],\"core.manage\":[],\"core.delete\":[],\"core.edit.state\":[]}'),(37,1,69,94,1,'com_yoshop','com_yoshop','{}'),(38,37,70,73,2,'com_yoshop.category.8','Женская одежда',''),(39,37,74,77,2,'com_yoshop.category.9','Мужская одежда',''),(40,37,78,91,2,'com_yoshop.category.10','Handmade',''),(41,38,71,72,3,'com_yoshop.category.11','Шапки',''),(42,39,75,76,3,'com_yoshop.category.12','Шапки',''),(43,40,79,80,3,'com_yoshop.category.13','Украшения',''),(44,40,81,82,3,'com_yoshop.category.14','Для дома',''),(45,40,83,84,3,'com_yoshop.category.15','Pets',''),(46,40,85,86,3,'com_yoshop.category.16','Стиль',''),(47,40,87,88,3,'com_yoshop.category.17','Сувениры',''),(48,40,89,90,3,'com_yoshop.category.18','Аксессуары',''),(49,37,92,93,2,'com_yoshop.category.19','Аксессуары',''),(50,1,95,96,1,'com_contenthistory','com_contenthistory','{}'),(51,1,97,98,1,'com_ajax','com_ajax','{}'),(52,1,99,100,1,'com_postinstall','com_postinstall','{}');
+/*!40000 ALTER TABLE `yodev_assets` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_associations` */
+--
+-- Table structure for table `yodev_associations`
+--
 
-DROP TABLE IF EXISTS `cwtaq_associations`;
-
-CREATE TABLE `cwtaq_associations` (
-  `id` varchar(50) NOT NULL COMMENT 'A reference to the associated item.',
+DROP TABLE IF EXISTS `yodev_associations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_associations` (
+  `id` int(11) NOT NULL COMMENT 'A reference to the associated item.',
   `context` varchar(50) NOT NULL COMMENT 'The context of the associated item.',
   `key` char(32) NOT NULL COMMENT 'The key for the association computed from an md5 on associated ids.',
   PRIMARY KEY (`context`,`id`),
   KEY `idx_key` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_associations` */
+--
+-- Dumping data for table `yodev_associations`
+--
 
-/*Table structure for table `cwtaq_banner_clients` */
+LOCK TABLES `yodev_associations` WRITE;
+/*!40000 ALTER TABLE `yodev_associations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_associations` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_banner_clients`;
+--
+-- Table structure for table `yodev_banner_clients`
+--
 
-CREATE TABLE `cwtaq_banner_clients` (
+DROP TABLE IF EXISTS `yodev_banner_clients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_banner_clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `contact` varchar(255) NOT NULL DEFAULT '',
@@ -108,14 +100,25 @@ CREATE TABLE `cwtaq_banner_clients` (
   KEY `idx_own_prefix` (`own_prefix`),
   KEY `idx_metakey_prefix` (`metakey_prefix`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_banner_clients` */
+--
+-- Dumping data for table `yodev_banner_clients`
+--
 
-/*Table structure for table `cwtaq_banner_tracks` */
+LOCK TABLES `yodev_banner_clients` WRITE;
+/*!40000 ALTER TABLE `yodev_banner_clients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_banner_clients` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_banner_tracks`;
+--
+-- Table structure for table `yodev_banner_tracks`
+--
 
-CREATE TABLE `cwtaq_banner_tracks` (
+DROP TABLE IF EXISTS `yodev_banner_tracks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_banner_tracks` (
   `track_date` datetime NOT NULL,
   `track_type` int(10) unsigned NOT NULL,
   `banner_id` int(10) unsigned NOT NULL,
@@ -125,14 +128,25 @@ CREATE TABLE `cwtaq_banner_tracks` (
   KEY `idx_track_type` (`track_type`),
   KEY `idx_banner_id` (`banner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_banner_tracks` */
+--
+-- Dumping data for table `yodev_banner_tracks`
+--
 
-/*Table structure for table `cwtaq_banners` */
+LOCK TABLES `yodev_banner_tracks` WRITE;
+/*!40000 ALTER TABLE `yodev_banner_tracks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_banner_tracks` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_banners`;
+--
+-- Table structure for table `yodev_banners`
+--
 
-CREATE TABLE `cwtaq_banners` (
+DROP TABLE IF EXISTS `yodev_banners`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_banners` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cid` int(11) NOT NULL DEFAULT '0',
   `type` int(11) NOT NULL DEFAULT '0',
@@ -162,6 +176,11 @@ CREATE TABLE `cwtaq_banners` (
   `reset` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `language` char(7) NOT NULL DEFAULT '',
+  `created_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `created_by_alias` varchar(255) NOT NULL DEFAULT '',
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `version` int(10) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `idx_state` (`state`),
   KEY `idx_own_prefix` (`own_prefix`),
@@ -169,14 +188,25 @@ CREATE TABLE `cwtaq_banners` (
   KEY `idx_banner_catid` (`catid`),
   KEY `idx_language` (`language`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_banners` */
+--
+-- Dumping data for table `yodev_banners`
+--
 
-/*Table structure for table `cwtaq_categories` */
+LOCK TABLES `yodev_banners` WRITE;
+/*!40000 ALTER TABLE `yodev_banners` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_banners` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_categories`;
+--
+-- Table structure for table `yodev_categories`
+--
 
-CREATE TABLE `cwtaq_categories` (
+DROP TABLE IF EXISTS `yodev_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
   `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
@@ -203,6 +233,7 @@ CREATE TABLE `cwtaq_categories` (
   `modified_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `hits` int(10) unsigned NOT NULL DEFAULT '0',
   `language` char(7) NOT NULL,
+  `version` int(10) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `cat_idx` (`extension`,`published`,`access`),
   KEY `idx_access` (`access`),
@@ -211,23 +242,27 @@ CREATE TABLE `cwtaq_categories` (
   KEY `idx_left_right` (`lft`,`rgt`),
   KEY `idx_alias` (`alias`),
   KEY `idx_language` (`language`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_categories` */
+--
+-- Dumping data for table `yodev_categories`
+--
 
-insert  into `cwtaq_categories`(`id`,`asset_id`,`parent_id`,`lft`,`rgt`,`level`,`path`,`extension`,`title`,`alias`,`note`,`description`,`published`,`checked_out`,`checked_out_time`,`access`,`params`,`metadesc`,`metakey`,`metadata`,`created_user_id`,`created_time`,`modified_user_id`,`modified_time`,`hits`,`language`) values (1,0,0,0,13,0,'','system','ROOT','root','','',1,0,'0000-00-00 00:00:00',1,'{}','','','',0,'2009-10-18 16:07:09',0,'0000-00-00 00:00:00',0,'*');
-insert  into `cwtaq_categories`(`id`,`asset_id`,`parent_id`,`lft`,`rgt`,`level`,`path`,`extension`,`title`,`alias`,`note`,`description`,`published`,`checked_out`,`checked_out_time`,`access`,`params`,`metadesc`,`metakey`,`metadata`,`created_user_id`,`created_time`,`modified_user_id`,`modified_time`,`hits`,`language`) values (2,27,1,1,2,1,'uncategorised','com_content','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2010-06-28 13:26:37',0,'0000-00-00 00:00:00',0,'*');
-insert  into `cwtaq_categories`(`id`,`asset_id`,`parent_id`,`lft`,`rgt`,`level`,`path`,`extension`,`title`,`alias`,`note`,`description`,`published`,`checked_out`,`checked_out_time`,`access`,`params`,`metadesc`,`metakey`,`metadata`,`created_user_id`,`created_time`,`modified_user_id`,`modified_time`,`hits`,`language`) values (3,28,1,3,4,1,'uncategorised','com_banners','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\",\"foobar\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2010-06-28 13:27:35',0,'0000-00-00 00:00:00',0,'*');
-insert  into `cwtaq_categories`(`id`,`asset_id`,`parent_id`,`lft`,`rgt`,`level`,`path`,`extension`,`title`,`alias`,`note`,`description`,`published`,`checked_out`,`checked_out_time`,`access`,`params`,`metadesc`,`metakey`,`metadata`,`created_user_id`,`created_time`,`modified_user_id`,`modified_time`,`hits`,`language`) values (4,29,1,5,6,1,'uncategorised','com_contact','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2010-06-28 13:27:57',0,'0000-00-00 00:00:00',0,'*');
-insert  into `cwtaq_categories`(`id`,`asset_id`,`parent_id`,`lft`,`rgt`,`level`,`path`,`extension`,`title`,`alias`,`note`,`description`,`published`,`checked_out`,`checked_out_time`,`access`,`params`,`metadesc`,`metakey`,`metadata`,`created_user_id`,`created_time`,`modified_user_id`,`modified_time`,`hits`,`language`) values (5,30,1,7,8,1,'uncategorised','com_newsfeeds','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2010-06-28 13:28:15',0,'0000-00-00 00:00:00',0,'*');
-insert  into `cwtaq_categories`(`id`,`asset_id`,`parent_id`,`lft`,`rgt`,`level`,`path`,`extension`,`title`,`alias`,`note`,`description`,`published`,`checked_out`,`checked_out_time`,`access`,`params`,`metadesc`,`metakey`,`metadata`,`created_user_id`,`created_time`,`modified_user_id`,`modified_time`,`hits`,`language`) values (6,31,1,9,10,1,'uncategorised','com_weblinks','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2010-06-28 13:28:33',0,'0000-00-00 00:00:00',0,'*');
-insert  into `cwtaq_categories`(`id`,`asset_id`,`parent_id`,`lft`,`rgt`,`level`,`path`,`extension`,`title`,`alias`,`note`,`description`,`published`,`checked_out`,`checked_out_time`,`access`,`params`,`metadesc`,`metakey`,`metadata`,`created_user_id`,`created_time`,`modified_user_id`,`modified_time`,`hits`,`language`) values (7,32,1,11,12,1,'uncategorised','com_users','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2010-06-28 13:28:33',0,'0000-00-00 00:00:00',0,'*');
+LOCK TABLES `yodev_categories` WRITE;
+/*!40000 ALTER TABLE `yodev_categories` DISABLE KEYS */;
+INSERT INTO `yodev_categories` VALUES (1,0,0,0,37,0,'','system','ROOT','root','','',1,0,'0000-00-00 00:00:00',1,'{}','','','',42,'2011-01-01 00:00:01',0,'0000-00-00 00:00:00',0,'*',1),(2,27,1,1,2,1,'uncategorised','com_content','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"images\\/yelow.jpg\"}','','','{\"author\":\"\",\"robots\":\"\"}',42,'2011-01-01 00:00:01',477,'2014-09-03 17:56:17',0,'*',1),(3,28,1,3,4,1,'uncategorised','com_banners','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\",\"foobar\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2011-01-01 00:00:01',0,'0000-00-00 00:00:00',0,'*',1),(4,29,1,5,6,1,'uncategorised','com_contact','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2011-01-01 00:00:01',0,'0000-00-00 00:00:00',0,'*',1),(5,30,1,7,8,1,'uncategorised','com_newsfeeds','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2011-01-01 00:00:01',0,'0000-00-00 00:00:00',0,'*',1),(6,31,1,9,10,1,'uncategorised','com_weblinks','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2011-01-01 00:00:01',0,'0000-00-00 00:00:00',0,'*',1),(7,32,1,11,12,1,'uncategorised','com_users','Uncategorised','uncategorised','','',1,0,'0000-00-00 00:00:00',1,'{\"target\":\"\",\"image\":\"\"}','','','{\"page_title\":\"\",\"author\":\"\",\"robots\":\"\"}',42,'2011-01-01 00:00:01',0,'0000-00-00 00:00:00',0,'*',1),(8,38,1,13,16,1,'women','com_yoshop','Женская одежда','women','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-12 19:52:17',0,'0000-00-00 00:00:00',0,'*',1),(9,39,1,17,20,1,'men','com_yoshop','Мужская одежда','men','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-12 19:52:32',0,'0000-00-00 00:00:00',0,'*',1),(10,40,1,21,34,1,'handmade','com_yoshop','Handmade','handmade','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-12 19:52:48',0,'0000-00-00 00:00:00',0,'*',1),(11,41,8,14,15,2,'women/hats','com_yoshop','Шапки','hats','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-12 19:53:01',0,'0000-00-00 00:00:00',0,'*',1),(12,42,9,18,19,2,'men/hats','com_yoshop','Шапки','hats','','',1,477,'2013-10-16 19:59:06',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-12 19:53:12',0,'0000-00-00 00:00:00',0,'*',1),(13,43,10,22,23,2,'handmade/jewelry','com_yoshop','Украшения','jewelry','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-16 19:48:44',0,'0000-00-00 00:00:00',0,'*',1),(14,44,10,24,25,2,'handmade/home','com_yoshop','Для дома','home','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-16 19:49:05',0,'0000-00-00 00:00:00',0,'*',1),(15,45,10,26,27,2,'handmade/pets','com_yoshop','Pets','pets','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-16 19:49:14',0,'0000-00-00 00:00:00',0,'*',1),(16,46,10,28,29,2,'handmade/style','com_yoshop','Стиль','style','','',1,477,'2013-10-16 20:01:20',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-16 19:49:28',0,'0000-00-00 00:00:00',0,'*',1),(17,47,10,30,31,2,'handmade/souvenirs','com_yoshop','Сувениры','souvenirs','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-16 19:49:45',0,'0000-00-00 00:00:00',0,'*',1),(18,48,10,32,33,2,'handmade/accesories','com_yoshop','Аксессуары','accesories','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-16 19:50:01',0,'0000-00-00 00:00:00',0,'*',1),(19,49,1,35,36,1,'accesories','com_yoshop','Аксессуары','accesories','','',1,0,'0000-00-00 00:00:00',1,'{\"category_layout\":\"\",\"image\":\"\"}','','','{\"author\":\"\",\"robots\":\"\"}',477,'2013-10-16 19:50:23',0,'0000-00-00 00:00:00',0,'*',1);
+/*!40000 ALTER TABLE `yodev_categories` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_contact_details` */
+--
+-- Table structure for table `yodev_contact_details`
+--
 
-DROP TABLE IF EXISTS `cwtaq_contact_details`;
-
-CREATE TABLE `cwtaq_contact_details` (
+DROP TABLE IF EXISTS `yodev_contact_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_contact_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -241,7 +276,6 @@ CREATE TABLE `cwtaq_contact_details` (
   `fax` varchar(255) DEFAULT NULL,
   `misc` mediumtext,
   `image` varchar(255) DEFAULT NULL,
-  `imagepos` varchar(20) DEFAULT NULL,
   `email_to` varchar(255) DEFAULT NULL,
   `default_con` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `published` tinyint(1) NOT NULL DEFAULT '0',
@@ -270,6 +304,8 @@ CREATE TABLE `cwtaq_contact_details` (
   `xreference` varchar(50) NOT NULL COMMENT 'A reference to enable linkages to external data sets.',
   `publish_up` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `publish_down` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `version` int(10) unsigned NOT NULL DEFAULT '1',
+  `hits` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_access` (`access`),
   KEY `idx_checkout` (`checked_out`),
@@ -280,24 +316,32 @@ CREATE TABLE `cwtaq_contact_details` (
   KEY `idx_language` (`language`),
   KEY `idx_xreference` (`xreference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_contact_details` */
+--
+-- Dumping data for table `yodev_contact_details`
+--
 
-/*Table structure for table `cwtaq_content` */
+LOCK TABLES `yodev_contact_details` WRITE;
+/*!40000 ALTER TABLE `yodev_contact_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_contact_details` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_content`;
+--
+-- Table structure for table `yodev_content`
+--
 
-CREATE TABLE `cwtaq_content` (
+DROP TABLE IF EXISTS `yodev_content`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_content` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
   `title` varchar(255) NOT NULL DEFAULT '',
   `alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
-  `title_alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Deprecated in Joomla! 3.0',
   `introtext` mediumtext NOT NULL,
   `fulltext` mediumtext NOT NULL,
   `state` tinyint(3) NOT NULL DEFAULT '0',
-  `sectionid` int(10) unsigned NOT NULL DEFAULT '0',
-  `mask` int(10) unsigned NOT NULL DEFAULT '0',
   `catid` int(10) unsigned NOT NULL DEFAULT '0',
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` int(10) unsigned NOT NULL DEFAULT '0',
@@ -312,7 +356,6 @@ CREATE TABLE `cwtaq_content` (
   `urls` text NOT NULL,
   `attribs` varchar(5120) NOT NULL,
   `version` int(10) unsigned NOT NULL DEFAULT '1',
-  `parentid` int(10) unsigned NOT NULL DEFAULT '0',
   `ordering` int(11) NOT NULL DEFAULT '0',
   `metakey` text NOT NULL,
   `metadesc` text NOT NULL,
@@ -331,63 +374,159 @@ CREATE TABLE `cwtaq_content` (
   KEY `idx_featured_catid` (`featured`,`catid`),
   KEY `idx_language` (`language`),
   KEY `idx_xreference` (`xreference`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_content` */
+--
+-- Dumping data for table `yodev_content`
+--
 
-insert  into `cwtaq_content`(`id`,`asset_id`,`title`,`alias`,`title_alias`,`introtext`,`fulltext`,`state`,`sectionid`,`mask`,`catid`,`created`,`created_by`,`created_by_alias`,`modified`,`modified_by`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`images`,`urls`,`attribs`,`version`,`parentid`,`ordering`,`metakey`,`metadesc`,`access`,`hits`,`metadata`,`featured`,`language`,`xreference`) values (1,36,'О нас ','about','','<h2>Контакты</h2>\r\n<p><span class=\"icon-envelope\"> </span><a href=\"mailto:inbox@yomayka.com\">inbox@yomayka.com</a></p>\r\n<p><span class=\"icon-bullhorn\"> </span> <span>(+38)068-069-41-84</span></p>\r\n<p> </p>\r\n<h2>Мы в соцсетях</h2>\r\n<p><span class=\"icon-globe\"> </span> <a href=\"http://vk.com/yomayka\" target=\"_blank\">http://vk.com/yomayka</a></p>','',1,0,0,2,'2013-05-28 19:54:06',484,'','2013-05-28 19:57:02',484,0,'0000-00-00 00:00:00','2013-05-28 19:54:06','0000-00-00 00:00:00','{\"image_intro\":\"\",\"float_intro\":\"\",\"image_intro_alt\":\"\",\"image_intro_caption\":\"\",\"image_fulltext\":\"\",\"float_fulltext\":\"\",\"image_fulltext_alt\":\"\",\"image_fulltext_caption\":\"\"}','{\"urla\":null,\"urlatext\":\"\",\"targeta\":\"\",\"urlb\":null,\"urlbtext\":\"\",\"targetb\":\"\",\"urlc\":null,\"urlctext\":\"\",\"targetc\":\"\"}','{\"show_title\":\"\",\"link_titles\":\"\",\"show_intro\":\"\",\"show_category\":\"\",\"link_category\":\"\",\"show_parent_category\":\"\",\"link_parent_category\":\"\",\"show_author\":\"\",\"link_author\":\"\",\"show_create_date\":\"\",\"show_modify_date\":\"\",\"show_publish_date\":\"\",\"show_item_navigation\":\"\",\"show_icons\":\"\",\"show_print_icon\":\"\",\"show_email_icon\":\"\",\"show_vote\":\"\",\"show_hits\":\"\",\"show_noauth\":\"\",\"urls_position\":\"\",\"alternative_readmore\":\"\",\"article_layout\":\"\",\"show_publishing_options\":\"\",\"show_article_options\":\"\",\"show_urls_images_backend\":\"\",\"show_urls_images_frontend\":\"\"}',2,0,1,'','',1,2,'{\"robots\":\"\",\"author\":\"\",\"rights\":\"\",\"xreference\":\"\"}',0,'*','');
-insert  into `cwtaq_content`(`id`,`asset_id`,`title`,`alias`,`title_alias`,`introtext`,`fulltext`,`state`,`sectionid`,`mask`,`catid`,`created`,`created_by`,`created_by_alias`,`modified`,`modified_by`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`images`,`urls`,`attribs`,`version`,`parentid`,`ordering`,`metakey`,`metadesc`,`access`,`hits`,`metadata`,`featured`,`language`,`xreference`) values (2,37,'Кто и когда придумал подушку','kto-i-kogda-pridumal-podushku','','<div class=\"wall_post_text\" style=\"padding-top: 2px; line-height: 17px; width: 537px; overflow: hidden; word-wrap: break-word; color: #000000; font-family: tahoma, arial, verdana, sans-serif, \'Lucida Sans\'; font-size: 11px;\">Кто и когда придумал подушку ни фига не понятно. История не видела лица этого лица. Поговаривают, подушки валяются даже в египетских пирамидах. В те архаичные дни они представляли собой изогнутую доску на подставке и использовались, чтобы не испортить во время похода к Морфею сложно уложенный хаер. На досках малевали богов, в надежде, что они будут бодигартами спящего. До 19 века такие же деревянные подушки были в Японии, но японцы изгалялись над своими черепушками покруче египтян, у них также были прямоугольные подставки под головешки из камня, металла и фарфора.<br />Нормальные подушки придумали Греки. Они любили поваляться в кровати, поэтому мягкий матрац и воздушная подушка – продукт труда их кумекалки. Внутрь подушки они насыпали траву, пух, перья или шерсть. Наперник был из ткани или кожи, прямоугольный или квадратный,- греки такие выдумщики! Они еще стали все украшать, от чего цена на все увеличивалась, поэтому в 5 веке до нашей эры на мягком и красивом спали только зажиточные Греки.<br />В Риме вначале не любили подушки, но когда прониклись этой кайфушкой, стали делать ее с гусиными перьями, а на общипывание несчастных птиц отправлять военных.<br />Древние-древные умы во всем искали загадки и мистику, не обошли они своим вожделенным отношением и подушки. Юлий Цезарь приказал как-то доставить ему подушку одного патриция, за долги лишившегося имущества. Любопытно ему было поглазеть, на чем спокойно спал человек, имеющий столько долгов. <br /><br />Еще с Буддой, говорят, история приключилась, довел он себя аскетизмом до истощения, но все скитался по стране. То ли жив, то ли мертв уже был от бессилия, упал, и тут вдруг запахло ему дерево, растущее рядом, набил он мешок листьями этого дерева, положил под думальник (никак нанюхаться не мог) и уснул. Проснулся бодрым и посвежевшим, и с новыми силами потопал дальше.<br />Упоминаются подушки даже в камасутре. Некоторые позы без них никак не освоишь.<br />В средние века умы стали приспосабливать подушки для обогрева ног в холодное время года, подкладывая их под стопы. Потом появились подушки для молящихся под колени, позже – подушки для конных седел. Использовали этот предмет и в ритуалах, обрядах и гаданиях,- засовывали под подушку перед сном бумажки с именами суженого или обереги всякие, вот так и пошло-поехало. Подушка стала настолько универсальным и незаменимым предметом обихода, что мы уже не представляем себе дорогу в путешествии без подушки под голову, плавательный матрац без надувной подушки, жесткие сидения без мягкой подушки-пуфика, интерьер без декоративной подушки, которая не только украшает и делает помещение оригинальным и уютным, но также имеет и практическую пользу – ее можно подложить под спину, под попу или под ноутбук, уютно расположившись на любимом диване.</div>\r\n<div class=\"page_post_queue_wide\" style=\"color: #000000; font-family: tahoma, arial, verdana, sans-serif, \'Lucida Sans\'; font-size: 11px; line-height: normal;\">\r\n<div class=\"page_post_sized_thumbs  clear_fix\" style=\"margin: 9px 0px 4px; width: 402px; height: 310px;\"><a class=\"page_post_thumb_wrap  page_post_thumb_last_column page_post_thumb_last_row\" style=\"color: #2b587a; cursor: pointer; display: block; overflow: hidden; position: relative; margin: 0px; width: 402px; height: 310px;\"><img class=\"page_post_thumb_sized_photo\" src=\"http://cs323818.vk.me/v323818914/6d29/C6hEs-_8rLg.jpg\" border=\"0\" width=\"402\" height=\"310\" style=\"position: absolute; top: 0px; left: 0px;\" /></a></div>\r\n</div>','',1,0,0,2,'2013-07-18 22:06:13',484,'','0000-00-00 00:00:00',0,484,'2013-07-18 22:13:55','2013-07-18 22:06:13','0000-00-00 00:00:00','{\"image_intro\":\"\",\"float_intro\":\"\",\"image_intro_alt\":\"\",\"image_intro_caption\":\"\",\"image_fulltext\":\"\",\"float_fulltext\":\"\",\"image_fulltext_alt\":\"\",\"image_fulltext_caption\":\"\"}','{\"urla\":null,\"urlatext\":\"\",\"targeta\":\"\",\"urlb\":null,\"urlbtext\":\"\",\"targetb\":\"\",\"urlc\":null,\"urlctext\":\"\",\"targetc\":\"\"}','{\"show_title\":\"\",\"link_titles\":\"\",\"show_intro\":\"\",\"show_category\":\"\",\"link_category\":\"\",\"show_parent_category\":\"\",\"link_parent_category\":\"\",\"show_author\":\"\",\"link_author\":\"\",\"show_create_date\":\"\",\"show_modify_date\":\"\",\"show_publish_date\":\"\",\"show_item_navigation\":\"\",\"show_icons\":\"\",\"show_print_icon\":\"\",\"show_email_icon\":\"\",\"show_vote\":\"\",\"show_hits\":\"\",\"show_noauth\":\"\",\"urls_position\":\"\",\"alternative_readmore\":\"\",\"article_layout\":\"\",\"show_publishing_options\":\"\",\"show_article_options\":\"\",\"show_urls_images_backend\":\"\",\"show_urls_images_frontend\":\"\"}',1,0,0,'','',1,0,'{\"robots\":\"\",\"author\":\"\",\"rights\":\"\",\"xreference\":\"\"}',0,'*','');
+LOCK TABLES `yodev_content` WRITE;
+/*!40000 ALTER TABLE `yodev_content` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_content` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_content_frontpage` */
+--
+-- Table structure for table `yodev_content_frontpage`
+--
 
-DROP TABLE IF EXISTS `cwtaq_content_frontpage`;
-
-CREATE TABLE `cwtaq_content_frontpage` (
+DROP TABLE IF EXISTS `yodev_content_frontpage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_content_frontpage` (
   `content_id` int(11) NOT NULL DEFAULT '0',
   `ordering` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`content_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_content_frontpage` */
+--
+-- Dumping data for table `yodev_content_frontpage`
+--
 
-/*Table structure for table `cwtaq_content_rating` */
+LOCK TABLES `yodev_content_frontpage` WRITE;
+/*!40000 ALTER TABLE `yodev_content_frontpage` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_content_frontpage` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_content_rating`;
+--
+-- Table structure for table `yodev_content_rating`
+--
 
-CREATE TABLE `cwtaq_content_rating` (
+DROP TABLE IF EXISTS `yodev_content_rating`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_content_rating` (
   `content_id` int(11) NOT NULL DEFAULT '0',
   `rating_sum` int(10) unsigned NOT NULL DEFAULT '0',
   `rating_count` int(10) unsigned NOT NULL DEFAULT '0',
   `lastip` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`content_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_content_rating` */
+--
+-- Dumping data for table `yodev_content_rating`
+--
 
-/*Table structure for table `cwtaq_core_log_searches` */
+LOCK TABLES `yodev_content_rating` WRITE;
+/*!40000 ALTER TABLE `yodev_content_rating` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_content_rating` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_core_log_searches`;
+--
+-- Table structure for table `yodev_content_types`
+--
 
-CREATE TABLE `cwtaq_core_log_searches` (
+DROP TABLE IF EXISTS `yodev_content_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_content_types` (
+  `type_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type_title` varchar(255) NOT NULL DEFAULT '',
+  `type_alias` varchar(255) NOT NULL DEFAULT '',
+  `table` varchar(255) NOT NULL DEFAULT '',
+  `rules` text NOT NULL,
+  `field_mappings` text NOT NULL,
+  `router` varchar(255) NOT NULL DEFAULT '',
+  `content_history_options` varchar(5120) NOT NULL COMMENT 'JSON string for com_contenthistory options',
+  PRIMARY KEY (`type_id`),
+  KEY `idx_alias` (`type_alias`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `yodev_content_types`
+--
+
+LOCK TABLES `yodev_content_types` WRITE;
+/*!40000 ALTER TABLE `yodev_content_types` DISABLE KEYS */;
+INSERT INTO `yodev_content_types` VALUES (1,'Article','com_content.article','{\"special\":{\"dbtable\":\"#__content\",\"key\":\"id\",\"type\":\"Content\",\"prefix\":\"JTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"title\",\"core_state\":\"state\",\"core_alias\":\"alias\",\"core_created_time\":\"created\",\"core_modified_time\":\"modified\",\"core_body\":\"introtext\", \"core_hits\":\"hits\",\"core_publish_up\":\"publish_up\",\"core_publish_down\":\"publish_down\",\"core_access\":\"access\", \"core_params\":\"attribs\", \"core_featured\":\"featured\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"images\", \"core_urls\":\"urls\", \"core_version\":\"version\", \"core_ordering\":\"ordering\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"catid\", \"core_xreference\":\"xreference\", \"asset_id\":\"asset_id\"}, \"special\": {\"fulltext\":\"fulltext\"}}','ContentHelperRoute::getArticleRoute','{\"formFile\":\"administrator\\/components\\/com_content\\/models\\/forms\\/article.xml\", \"hideFields\":[\"asset_id\",\"checked_out\",\"checked_out_time\",\"version\"],\"ignoreChanges\":[\"modified_by\", \"modified\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\"],\"convertToInt\":[\"publish_up\", \"publish_down\", \"featured\", \"ordering\"],\"displayLookup\":[{\"sourceColumn\":\"catid\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"created_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"} ]}'),(2,'Weblink','com_weblinks.weblink','{\"special\":{\"dbtable\":\"#__weblinks\",\"key\":\"id\",\"type\":\"Weblink\",\"prefix\":\"WeblinksTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"title\",\"core_state\":\"state\",\"core_alias\":\"alias\",\"core_created_time\":\"created\",\"core_modified_time\":\"modified\",\"core_body\":\"description\", \"core_hits\":\"hits\",\"core_publish_up\":\"publish_up\",\"core_publish_down\":\"publish_down\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"featured\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"images\", \"core_urls\":\"url\", \"core_version\":\"version\", \"core_ordering\":\"ordering\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"catid\", \"core_xreference\":\"xreference\", \"asset_id\":\"null\"}, \"special\": {}}','WeblinksHelperRoute::getWeblinkRoute','{\"formFile\":\"administrator\\/components\\/com_weblinks\\/models\\/forms\\/weblink.xml\", \"hideFields\":[\"asset_id\",\"checked_out\",\"checked_out_time\",\"version\",\"featured\",\"images\"], \"ignoreChanges\":[\"modified_by\", \"modified\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\"], \"convertToInt\":[\"publish_up\", \"publish_down\", \"featured\", \"ordering\"], \"displayLookup\":[{\"sourceColumn\":\"catid\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"created_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"} ]}'),(3,'Contact','com_contact.contact','{\"special\":{\"dbtable\":\"#__contact_details\",\"key\":\"id\",\"type\":\"Contact\",\"prefix\":\"ContactTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"name\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created\",\"core_modified_time\":\"modified\",\"core_body\":\"address\", \"core_hits\":\"hits\",\"core_publish_up\":\"publish_up\",\"core_publish_down\":\"publish_down\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"featured\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"image\", \"core_urls\":\"webpage\", \"core_version\":\"version\", \"core_ordering\":\"ordering\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"catid\", \"core_xreference\":\"xreference\", \"asset_id\":\"null\"}, \"special\": {\"con_position\":\"con_position\",\"suburb\":\"suburb\",\"state\":\"state\",\"country\":\"country\",\"postcode\":\"postcode\",\"telephone\":\"telephone\",\"fax\":\"fax\",\"misc\":\"misc\",\"email_to\":\"email_to\",\"default_con\":\"default_con\",\"user_id\":\"user_id\",\"mobile\":\"mobile\",\"sortname1\":\"sortname1\",\"sortname2\":\"sortname2\",\"sortname3\":\"sortname3\"}}','ContactHelperRoute::getContactRoute','{\"formFile\":\"administrator\\/components\\/com_contact\\/models\\/forms\\/contact.xml\",\"hideFields\":[\"default_con\",\"checked_out\",\"checked_out_time\",\"version\",\"xreference\"],\"ignoreChanges\":[\"modified_by\", \"modified\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\"],\"convertToInt\":[\"publish_up\", \"publish_down\", \"featured\", \"ordering\"], \"displayLookup\":[ {\"sourceColumn\":\"created_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"catid\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"} ] }'),(4,'Newsfeed','com_newsfeeds.newsfeed','{\"special\":{\"dbtable\":\"#__newsfeeds\",\"key\":\"id\",\"type\":\"Newsfeed\",\"prefix\":\"NewsfeedsTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"name\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created\",\"core_modified_time\":\"modified\",\"core_body\":\"description\", \"core_hits\":\"hits\",\"core_publish_up\":\"publish_up\",\"core_publish_down\":\"publish_down\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"featured\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"images\", \"core_urls\":\"link\", \"core_version\":\"version\", \"core_ordering\":\"ordering\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"catid\", \"core_xreference\":\"xreference\", \"asset_id\":\"null\"}, \"special\": {\"numarticles\":\"numarticles\",\"cache_time\":\"cache_time\",\"rtl\":\"rtl\"}}','NewsfeedsHelperRoute::getNewsfeedRoute','{\"formFile\":\"administrator\\/components\\/com_newsfeeds\\/models\\/forms\\/newsfeed.xml\",\"hideFields\":[\"asset_id\",\"checked_out\",\"checked_out_time\",\"version\"],\"ignoreChanges\":[\"modified_by\", \"modified\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\"],\"convertToInt\":[\"publish_up\", \"publish_down\", \"featured\", \"ordering\"],\"displayLookup\":[{\"sourceColumn\":\"catid\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"created_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"}]}'),(5,'User','com_users.user','{\"special\":{\"dbtable\":\"#__users\",\"key\":\"id\",\"type\":\"User\",\"prefix\":\"JTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"name\",\"core_state\":\"null\",\"core_alias\":\"username\",\"core_created_time\":\"registerdate\",\"core_modified_time\":\"lastvisitDate\",\"core_body\":\"null\", \"core_hits\":\"null\",\"core_publish_up\":\"null\",\"core_publish_down\":\"null\",\"access\":\"null\", \"core_params\":\"params\", \"core_featured\":\"null\", \"core_metadata\":\"null\", \"core_language\":\"null\", \"core_images\":\"null\", \"core_urls\":\"null\", \"core_version\":\"null\", \"core_ordering\":\"null\", \"core_metakey\":\"null\", \"core_metadesc\":\"null\", \"core_catid\":\"null\", \"core_xreference\":\"null\", \"asset_id\":\"null\"}, \"special\": {}}','UsersHelperRoute::getUserRoute',''),(6,'Article Category','com_content.category','{\"special\":{\"dbtable\":\"#__categories\",\"key\":\"id\",\"type\":\"Category\",\"prefix\":\"JTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"title\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created_time\",\"core_modified_time\":\"modified_time\",\"core_body\":\"description\", \"core_hits\":\"hits\",\"core_publish_up\":\"null\",\"core_publish_down\":\"null\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"null\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"null\", \"core_urls\":\"null\", \"core_version\":\"version\", \"core_ordering\":\"null\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"parent_id\", \"core_xreference\":\"null\", \"asset_id\":\"asset_id\"}, \"special\": {\"parent_id\":\"parent_id\",\"lft\":\"lft\",\"rgt\":\"rgt\",\"level\":\"level\",\"path\":\"path\",\"extension\":\"extension\",\"note\":\"note\"}}','ContentHelperRoute::getCategoryRoute','{\"formFile\":\"administrator\\/components\\/com_categories\\/models\\/forms\\/category.xml\", \"hideFields\":[\"asset_id\",\"checked_out\",\"checked_out_time\",\"version\",\"lft\",\"rgt\",\"level\",\"path\",\"extension\"], \"ignoreChanges\":[\"modified_user_id\", \"modified_time\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\", \"path\"],\"convertToInt\":[\"publish_up\", \"publish_down\"], \"displayLookup\":[{\"sourceColumn\":\"created_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"parent_id\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"}]}'),(7,'Contact Category','com_contact.category','{\"special\":{\"dbtable\":\"#__categories\",\"key\":\"id\",\"type\":\"Category\",\"prefix\":\"JTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"title\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created_time\",\"core_modified_time\":\"modified_time\",\"core_body\":\"description\", \"core_hits\":\"hits\",\"core_publish_up\":\"null\",\"core_publish_down\":\"null\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"null\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"null\", \"core_urls\":\"null\", \"core_version\":\"version\", \"core_ordering\":\"null\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"parent_id\", \"core_xreference\":\"null\", \"asset_id\":\"asset_id\"}, \"special\": {\"parent_id\":\"parent_id\",\"lft\":\"lft\",\"rgt\":\"rgt\",\"level\":\"level\",\"path\":\"path\",\"extension\":\"extension\",\"note\":\"note\"}}','ContactHelperRoute::getCategoryRoute','{\"formFile\":\"administrator\\/components\\/com_categories\\/models\\/forms\\/category.xml\", \"hideFields\":[\"asset_id\",\"checked_out\",\"checked_out_time\",\"version\",\"lft\",\"rgt\",\"level\",\"path\",\"extension\"], \"ignoreChanges\":[\"modified_user_id\", \"modified_time\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\", \"path\"],\"convertToInt\":[\"publish_up\", \"publish_down\"], \"displayLookup\":[{\"sourceColumn\":\"created_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"parent_id\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"}]}'),(8,'Newsfeeds Category','com_newsfeeds.category','{\"special\":{\"dbtable\":\"#__categories\",\"key\":\"id\",\"type\":\"Category\",\"prefix\":\"JTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"title\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created_time\",\"core_modified_time\":\"modified_time\",\"core_body\":\"description\", \"core_hits\":\"hits\",\"core_publish_up\":\"null\",\"core_publish_down\":\"null\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"null\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"null\", \"core_urls\":\"null\", \"core_version\":\"version\", \"core_ordering\":\"null\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"parent_id\", \"core_xreference\":\"null\", \"asset_id\":\"asset_id\"}, \"special\": {\"parent_id\":\"parent_id\",\"lft\":\"lft\",\"rgt\":\"rgt\",\"level\":\"level\",\"path\":\"path\",\"extension\":\"extension\",\"note\":\"note\"}}','NewsfeedsHelperRoute::getCategoryRoute','{\"formFile\":\"administrator\\/components\\/com_categories\\/models\\/forms\\/category.xml\", \"hideFields\":[\"asset_id\",\"checked_out\",\"checked_out_time\",\"version\",\"lft\",\"rgt\",\"level\",\"path\",\"extension\"], \"ignoreChanges\":[\"modified_user_id\", \"modified_time\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\", \"path\"],\"convertToInt\":[\"publish_up\", \"publish_down\"], \"displayLookup\":[{\"sourceColumn\":\"created_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"parent_id\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"}]}'),(9,'Weblinks Category','com_weblinks.category','{\"special\":{\"dbtable\":\"#__categories\",\"key\":\"id\",\"type\":\"Category\",\"prefix\":\"JTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"title\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created_time\",\"core_modified_time\":\"modified_time\",\"core_body\":\"description\", \"core_hits\":\"hits\",\"core_publish_up\":\"null\",\"core_publish_down\":\"null\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"null\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"null\", \"core_urls\":\"null\", \"core_version\":\"version\", \"core_ordering\":\"null\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"parent_id\", \"core_xreference\":\"null\", \"asset_id\":\"asset_id\"}, \"special\": {\"parent_id\":\"parent_id\",\"lft\":\"lft\",\"rgt\":\"rgt\",\"level\":\"level\",\"path\":\"path\",\"extension\":\"extension\",\"note\":\"note\"}}','WeblinksHelperRoute::getCategoryRoute','{\"formFile\":\"administrator\\/components\\/com_categories\\/models\\/forms\\/category.xml\", \"hideFields\":[\"asset_id\",\"checked_out\",\"checked_out_time\",\"version\",\"lft\",\"rgt\",\"level\",\"path\",\"extension\"], \"ignoreChanges\":[\"modified_user_id\", \"modified_time\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\", \"path\"],\"convertToInt\":[\"publish_up\", \"publish_down\"], \"displayLookup\":[{\"sourceColumn\":\"created_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"parent_id\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"}]}'),(10,'Tag','com_tags.tag','{\"special\":{\"dbtable\":\"#__tags\",\"key\":\"tag_id\",\"type\":\"Tag\",\"prefix\":\"TagsTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"title\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created_time\",\"core_modified_time\":\"modified_time\",\"core_body\":\"description\", \"core_hits\":\"hits\",\"core_publish_up\":\"null\",\"core_publish_down\":\"null\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"featured\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"images\", \"core_urls\":\"urls\", \"core_version\":\"version\", \"core_ordering\":\"null\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"null\", \"core_xreference\":\"null\", \"asset_id\":\"null\"}, \"special\": {\"parent_id\":\"parent_id\",\"lft\":\"lft\",\"rgt\":\"rgt\",\"level\":\"level\",\"path\":\"path\"}}','TagsHelperRoute::getTagRoute','{\"formFile\":\"administrator\\/components\\/com_tags\\/models\\/forms\\/tag.xml\", \"hideFields\":[\"checked_out\",\"checked_out_time\",\"version\", \"lft\", \"rgt\", \"level\", \"path\", \"urls\", \"publish_up\", \"publish_down\"],\"ignoreChanges\":[\"modified_user_id\", \"modified_time\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\", \"path\"],\"convertToInt\":[\"publish_up\", \"publish_down\"], \"displayLookup\":[{\"sourceColumn\":\"created_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"}, {\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"}, {\"sourceColumn\":\"modified_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"}]}'),(11,'Banner','com_banners.banner','{\"special\":{\"dbtable\":\"#__banners\",\"key\":\"id\",\"type\":\"Banner\",\"prefix\":\"BannersTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"name\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created\",\"core_modified_time\":\"modified\",\"core_body\":\"description\", \"core_hits\":\"null\",\"core_publish_up\":\"publish_up\",\"core_publish_down\":\"publish_down\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"null\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"images\", \"core_urls\":\"link\", \"core_version\":\"version\", \"core_ordering\":\"ordering\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"catid\", \"core_xreference\":\"null\", \"asset_id\":\"null\"}, \"special\":{\"imptotal\":\"imptotal\", \"impmade\":\"impmade\", \"clicks\":\"clicks\", \"clickurl\":\"clickurl\", \"custombannercode\":\"custombannercode\", \"cid\":\"cid\", \"purchase_type\":\"purchase_type\", \"track_impressions\":\"track_impressions\", \"track_clicks\":\"track_clicks\"}}','','{\"formFile\":\"administrator\\/components\\/com_banners\\/models\\/forms\\/banner.xml\", \"hideFields\":[\"checked_out\",\"checked_out_time\",\"version\", \"reset\"],\"ignoreChanges\":[\"modified_by\", \"modified\", \"checked_out\", \"checked_out_time\", \"version\", \"imptotal\", \"impmade\", \"reset\"], \"convertToInt\":[\"publish_up\", \"publish_down\", \"ordering\"], \"displayLookup\":[{\"sourceColumn\":\"catid\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"}, {\"sourceColumn\":\"cid\",\"targetTable\":\"#__banner_clients\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"}, {\"sourceColumn\":\"created_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"modified_by\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"}]}'),(12,'Banners Category','com_banners.category','{\"special\":{\"dbtable\":\"#__categories\",\"key\":\"id\",\"type\":\"Category\",\"prefix\":\"JTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"title\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created_time\",\"core_modified_time\":\"modified_time\",\"core_body\":\"description\", \"core_hits\":\"hits\",\"core_publish_up\":\"null\",\"core_publish_down\":\"null\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"null\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"null\", \"core_urls\":\"null\", \"core_version\":\"version\", \"core_ordering\":\"null\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"parent_id\", \"core_xreference\":\"null\", \"asset_id\":\"asset_id\"}, \"special\": {\"parent_id\":\"parent_id\",\"lft\":\"lft\",\"rgt\":\"rgt\",\"level\":\"level\",\"path\":\"path\",\"extension\":\"extension\",\"note\":\"note\"}}','','{\"formFile\":\"administrator\\/components\\/com_categories\\/models\\/forms\\/category.xml\", \"hideFields\":[\"asset_id\",\"checked_out\",\"checked_out_time\",\"version\",\"lft\",\"rgt\",\"level\",\"path\",\"extension\"], \"ignoreChanges\":[\"modified_user_id\", \"modified_time\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\", \"path\"], \"convertToInt\":[\"publish_up\", \"publish_down\"], \"displayLookup\":[{\"sourceColumn\":\"created_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"parent_id\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"}]}'),(13,'Banner Client','com_banners.client','{\"special\":{\"dbtable\":\"#__banner_clients\",\"key\":\"id\",\"type\":\"Client\",\"prefix\":\"BannersTable\"}}','','','','{\"formFile\":\"administrator\\/components\\/com_banners\\/models\\/forms\\/client.xml\", \"hideFields\":[\"checked_out\",\"checked_out_time\"], \"ignoreChanges\":[\"checked_out\", \"checked_out_time\"], \"convertToInt\":[], \"displayLookup\":[]}'),(14,'User Notes','com_users.note','{\"special\":{\"dbtable\":\"#__user_notes\",\"key\":\"id\",\"type\":\"Note\",\"prefix\":\"UsersTable\"}}','','','','{\"formFile\":\"administrator\\/components\\/com_users\\/models\\/forms\\/note.xml\", \"hideFields\":[\"checked_out\",\"checked_out_time\", \"publish_up\", \"publish_down\"],\"ignoreChanges\":[\"modified_user_id\", \"modified_time\", \"checked_out\", \"checked_out_time\"], \"convertToInt\":[\"publish_up\", \"publish_down\"],\"displayLookup\":[{\"sourceColumn\":\"catid\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"}, {\"sourceColumn\":\"created_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"}, {\"sourceColumn\":\"user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"}, {\"sourceColumn\":\"modified_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"}]}'),(15,'User Notes Category','com_users.category','{\"special\":{\"dbtable\":\"#__categories\",\"key\":\"id\",\"type\":\"Category\",\"prefix\":\"JTable\",\"config\":\"array()\"},\"common\":{\"dbtable\":\"#__ucm_content\",\"key\":\"ucm_id\",\"type\":\"Corecontent\",\"prefix\":\"JTable\",\"config\":\"array()\"}}','','{\"common\":{\"core_content_item_id\":\"id\",\"core_title\":\"title\",\"core_state\":\"published\",\"core_alias\":\"alias\",\"core_created_time\":\"created_time\",\"core_modified_time\":\"modified_time\",\"core_body\":\"description\", \"core_hits\":\"hits\",\"core_publish_up\":\"null\",\"core_publish_down\":\"null\",\"core_access\":\"access\", \"core_params\":\"params\", \"core_featured\":\"null\", \"core_metadata\":\"metadata\", \"core_language\":\"language\", \"core_images\":\"null\", \"core_urls\":\"null\", \"core_version\":\"version\", \"core_ordering\":\"null\", \"core_metakey\":\"metakey\", \"core_metadesc\":\"metadesc\", \"core_catid\":\"parent_id\", \"core_xreference\":\"null\", \"asset_id\":\"asset_id\"}, \"special\":{\"parent_id\":\"parent_id\",\"lft\":\"lft\",\"rgt\":\"rgt\",\"level\":\"level\",\"path\":\"path\",\"extension\":\"extension\",\"note\":\"note\"}}','','{\"formFile\":\"administrator\\/components\\/com_categories\\/models\\/forms\\/category.xml\", \"hideFields\":[\"checked_out\",\"checked_out_time\",\"version\",\"lft\",\"rgt\",\"level\",\"path\",\"extension\"], \"ignoreChanges\":[\"modified_user_id\", \"modified_time\", \"checked_out\", \"checked_out_time\", \"version\", \"hits\", \"path\"], \"convertToInt\":[\"publish_up\", \"publish_down\"], \"displayLookup\":[{\"sourceColumn\":\"created_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"}, {\"sourceColumn\":\"access\",\"targetTable\":\"#__viewlevels\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"},{\"sourceColumn\":\"modified_user_id\",\"targetTable\":\"#__users\",\"targetColumn\":\"id\",\"displayColumn\":\"name\"},{\"sourceColumn\":\"parent_id\",\"targetTable\":\"#__categories\",\"targetColumn\":\"id\",\"displayColumn\":\"title\"}]}');
+/*!40000 ALTER TABLE `yodev_content_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_contentitem_tag_map`
+--
+
+DROP TABLE IF EXISTS `yodev_contentitem_tag_map`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_contentitem_tag_map` (
+  `type_alias` varchar(255) NOT NULL DEFAULT '',
+  `core_content_id` int(10) unsigned NOT NULL COMMENT 'PK from the core content table',
+  `content_item_id` int(11) NOT NULL COMMENT 'PK from the content type table',
+  `tag_id` int(10) unsigned NOT NULL COMMENT 'PK from the tag table',
+  `tag_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Date of most recent save for this tag-item',
+  `type_id` mediumint(8) NOT NULL COMMENT 'PK from the content_type table',
+  UNIQUE KEY `uc_ItemnameTagid` (`type_id`,`content_item_id`,`tag_id`),
+  KEY `idx_tag_type` (`tag_id`,`type_id`),
+  KEY `idx_date_id` (`tag_date`,`tag_id`),
+  KEY `idx_tag` (`tag_id`),
+  KEY `idx_type` (`type_id`),
+  KEY `idx_core_content_id` (`core_content_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maps items from content tables to tags';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `yodev_contentitem_tag_map`
+--
+
+LOCK TABLES `yodev_contentitem_tag_map` WRITE;
+/*!40000 ALTER TABLE `yodev_contentitem_tag_map` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_contentitem_tag_map` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_core_log_searches`
+--
+
+DROP TABLE IF EXISTS `yodev_core_log_searches`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_core_log_searches` (
   `search_term` varchar(128) NOT NULL DEFAULT '',
   `hits` int(10) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_core_log_searches` */
+--
+-- Dumping data for table `yodev_core_log_searches`
+--
 
-insert  into `cwtaq_core_log_searches`(`search_term`,`hits`) values ('скайп',94);
-insert  into `cwtaq_core_log_searches`(`search_term`,`hits`) values ('скайп black',23);
-insert  into `cwtaq_core_log_searches`(`search_term`,`hits`) values ('black',2);
-insert  into `cwtaq_core_log_searches`(`search_term`,`hits`) values ('',3);
-insert  into `cwtaq_core_log_searches`(`search_term`,`hits`) values ('ololo',2);
-insert  into `cwtaq_core_log_searches`(`search_term`,`hits`) values ('ылнзу',1);
-insert  into `cwtaq_core_log_searches`(`search_term`,`hits`) values ('Skype',1);
+LOCK TABLES `yodev_core_log_searches` WRITE;
+/*!40000 ALTER TABLE `yodev_core_log_searches` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_core_log_searches` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_extensions` */
+--
+-- Table structure for table `yodev_extensions`
+--
 
-DROP TABLE IF EXISTS `cwtaq_extensions`;
-
-CREATE TABLE `cwtaq_extensions` (
+DROP TABLE IF EXISTS `yodev_extensions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_extensions` (
   `extension_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `type` varchar(20) NOT NULL,
@@ -409,149 +548,27 @@ CREATE TABLE `cwtaq_extensions` (
   KEY `element_clientid` (`element`,`client_id`),
   KEY `element_folder_clientid` (`element`,`folder`,`client_id`),
   KEY `extension` (`type`,`element`,`folder`,`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10010 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10019 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_extensions` */
+--
+-- Dumping data for table `yodev_extensions`
+--
 
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (1,'com_mailto','component','com_mailto','',0,1,1,1,'{\"legacy\":false,\"name\":\"com_mailto\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_MAILTO_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (2,'com_wrapper','component','com_wrapper','',0,1,1,1,'{\"legacy\":false,\"name\":\"com_wrapper\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_WRAPPER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (3,'com_admin','component','com_admin','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_admin\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_ADMIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (4,'com_banners','component','com_banners','',1,1,1,0,'{\"legacy\":false,\"name\":\"com_banners\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_BANNERS_XML_DESCRIPTION\",\"group\":\"\"}','{\"purchase_type\":\"3\",\"track_impressions\":\"0\",\"track_clicks\":\"0\",\"metakey_prefix\":\"\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (5,'com_cache','component','com_cache','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_cache\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_CACHE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (6,'com_categories','component','com_categories','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_categories\",\"type\":\"component\",\"creationDate\":\"December 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_CATEGORIES_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (7,'com_checkin','component','com_checkin','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_checkin\",\"type\":\"component\",\"creationDate\":\"Unknown\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2008 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_CHECKIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (8,'com_contact','component','com_contact','',1,1,1,0,'{\"legacy\":false,\"name\":\"com_contact\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_CONTACT_XML_DESCRIPTION\",\"group\":\"\"}','{\"show_contact_category\":\"hide\",\"show_contact_list\":\"0\",\"presentation_style\":\"sliders\",\"show_name\":\"1\",\"show_position\":\"1\",\"show_email\":\"0\",\"show_street_address\":\"1\",\"show_suburb\":\"1\",\"show_state\":\"1\",\"show_postcode\":\"1\",\"show_country\":\"1\",\"show_telephone\":\"1\",\"show_mobile\":\"1\",\"show_fax\":\"1\",\"show_webpage\":\"1\",\"show_misc\":\"1\",\"show_image\":\"1\",\"image\":\"\",\"allow_vcard\":\"0\",\"show_articles\":\"0\",\"show_profile\":\"0\",\"show_links\":\"0\",\"linka_name\":\"\",\"linkb_name\":\"\",\"linkc_name\":\"\",\"linkd_name\":\"\",\"linke_name\":\"\",\"contact_icons\":\"0\",\"icon_address\":\"\",\"icon_email\":\"\",\"icon_telephone\":\"\",\"icon_mobile\":\"\",\"icon_fax\":\"\",\"icon_misc\":\"\",\"show_headings\":\"1\",\"show_position_headings\":\"1\",\"show_email_headings\":\"0\",\"show_telephone_headings\":\"1\",\"show_mobile_headings\":\"0\",\"show_fax_headings\":\"0\",\"allow_vcard_headings\":\"0\",\"show_suburb_headings\":\"1\",\"show_state_headings\":\"1\",\"show_country_headings\":\"1\",\"show_email_form\":\"1\",\"show_email_copy\":\"1\",\"banned_email\":\"\",\"banned_subject\":\"\",\"banned_text\":\"\",\"validate_session\":\"1\",\"custom_reply\":\"0\",\"redirect\":\"\",\"show_category_crumb\":\"0\",\"metakey\":\"\",\"metadesc\":\"\",\"robots\":\"\",\"author\":\"\",\"rights\":\"\",\"xreference\":\"\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (9,'com_cpanel','component','com_cpanel','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_cpanel\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_CPANEL_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10,'com_installer','component','com_installer','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_installer\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_INSTALLER_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (11,'com_languages','component','com_languages','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_languages\",\"type\":\"component\",\"creationDate\":\"2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_LANGUAGES_XML_DESCRIPTION\",\"group\":\"\"}','{\"administrator\":\"ru-RU\",\"site\":\"ru-RU\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (12,'com_login','component','com_login','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_login\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_LOGIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (13,'com_media','component','com_media','',1,1,0,1,'{\"legacy\":false,\"name\":\"com_media\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_MEDIA_XML_DESCRIPTION\",\"group\":\"\"}','{\"upload_extensions\":\"bmp,csv,doc,gif,ico,jpg,jpeg,odg,odp,ods,odt,pdf,png,ppt,swf,txt,xcf,xls,BMP,CSV,DOC,GIF,ICO,JPG,JPEG,ODG,ODP,ODS,ODT,PDF,PNG,PPT,SWF,TXT,XCF,XLS\",\"upload_maxsize\":\"10\",\"file_path\":\"images\",\"image_path\":\"images\",\"restrict_uploads\":\"1\",\"allowed_media_usergroup\":\"3\",\"check_mime\":\"1\",\"image_extensions\":\"bmp,gif,jpg,png\",\"ignore_extensions\":\"\",\"upload_mime\":\"image\\/jpeg,image\\/gif,image\\/png,image\\/bmp,application\\/x-shockwave-flash,application\\/msword,application\\/excel,application\\/pdf,application\\/powerpoint,text\\/plain,application\\/x-zip\",\"upload_mime_illegal\":\"text\\/html\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (14,'com_menus','component','com_menus','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_menus\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_MENUS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (15,'com_messages','component','com_messages','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_messages\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_MESSAGES_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (16,'com_modules','component','com_modules','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_modules\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_MODULES_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (17,'com_newsfeeds','component','com_newsfeeds','',1,1,1,0,'{\"legacy\":false,\"name\":\"com_newsfeeds\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_NEWSFEEDS_XML_DESCRIPTION\",\"group\":\"\"}','{\"show_feed_image\":\"1\",\"show_feed_description\":\"1\",\"show_item_description\":\"1\",\"feed_word_count\":\"0\",\"show_headings\":\"1\",\"show_name\":\"1\",\"show_articles\":\"0\",\"show_link\":\"1\",\"show_description\":\"1\",\"show_description_image\":\"1\",\"display_num\":\"\",\"show_pagination_limit\":\"1\",\"show_pagination\":\"1\",\"show_pagination_results\":\"1\",\"show_cat_items\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (18,'com_plugins','component','com_plugins','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_plugins\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_PLUGINS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (19,'com_search','component','com_search','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_search\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_SEARCH_XML_DESCRIPTION\",\"group\":\"\"}','{\"enabled\":\"1\",\"search_areas\":\"0\",\"show_date\":\"0\",\"opensearch_name\":\"\",\"opensearch_description\":\"\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (20,'com_templates','component','com_templates','',1,1,1,1,'{\"legacy\":false,\"name\":\"com_templates\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_TEMPLATES_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (21,'com_weblinks','component','com_weblinks','',1,1,1,0,'{\"legacy\":false,\"name\":\"com_weblinks\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_WEBLINKS_XML_DESCRIPTION\",\"group\":\"\"}','{\"show_comp_description\":\"1\",\"comp_description\":\"\",\"show_link_hits\":\"1\",\"show_link_description\":\"1\",\"show_other_cats\":\"0\",\"show_headings\":\"0\",\"show_numbers\":\"0\",\"show_report\":\"1\",\"count_clicks\":\"1\",\"target\":\"0\",\"link_icons\":\"\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (22,'com_content','component','com_content','',1,1,0,1,'{\"legacy\":false,\"name\":\"com_content\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_CONTENT_XML_DESCRIPTION\",\"group\":\"\"}','{\"article_layout\":\"_:default\",\"show_title\":\"1\",\"link_titles\":\"1\",\"show_intro\":\"1\",\"show_category\":\"1\",\"link_category\":\"1\",\"show_parent_category\":\"0\",\"link_parent_category\":\"0\",\"show_author\":\"1\",\"link_author\":\"0\",\"show_create_date\":\"0\",\"show_modify_date\":\"0\",\"show_publish_date\":\"1\",\"show_item_navigation\":\"1\",\"show_vote\":\"0\",\"show_readmore\":\"1\",\"show_readmore_title\":\"1\",\"readmore_limit\":\"100\",\"show_icons\":\"1\",\"show_print_icon\":\"1\",\"show_email_icon\":\"1\",\"show_hits\":\"1\",\"show_noauth\":\"0\",\"show_publishing_options\":\"1\",\"show_article_options\":\"1\",\"show_urls_images_frontend\":\"0\",\"show_urls_images_backend\":\"1\",\"targeta\":0,\"targetb\":0,\"targetc\":0,\"float_intro\":\"left\",\"float_fulltext\":\"left\",\"category_layout\":\"_:blog\",\"show_category_title\":\"0\",\"show_description\":\"0\",\"show_description_image\":\"0\",\"maxLevel\":\"1\",\"show_empty_categories\":\"0\",\"show_no_articles\":\"1\",\"show_subcat_desc\":\"1\",\"show_cat_num_articles\":\"0\",\"show_base_description\":\"1\",\"maxLevelcat\":\"-1\",\"show_empty_categories_cat\":\"0\",\"show_subcat_desc_cat\":\"1\",\"show_cat_num_articles_cat\":\"1\",\"num_leading_articles\":\"1\",\"num_intro_articles\":\"4\",\"num_columns\":\"2\",\"num_links\":\"4\",\"multi_column_order\":\"0\",\"show_subcategory_content\":\"0\",\"show_pagination_limit\":\"1\",\"filter_field\":\"hide\",\"show_headings\":\"1\",\"list_show_date\":\"0\",\"date_format\":\"\",\"list_show_hits\":\"1\",\"list_show_author\":\"1\",\"orderby_pri\":\"order\",\"orderby_sec\":\"rdate\",\"order_date\":\"published\",\"show_pagination\":\"2\",\"show_pagination_results\":\"1\",\"show_feed_link\":\"1\",\"feed_summary\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (23,'com_config','component','com_config','',1,1,0,1,'{\"legacy\":false,\"name\":\"com_config\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_CONFIG_XML_DESCRIPTION\",\"group\":\"\"}','{\"filters\":{\"1\":{\"filter_type\":\"NH\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"6\":{\"filter_type\":\"BL\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"7\":{\"filter_type\":\"NONE\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"2\":{\"filter_type\":\"NH\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"3\":{\"filter_type\":\"BL\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"4\":{\"filter_type\":\"BL\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"5\":{\"filter_type\":\"BL\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"8\":{\"filter_type\":\"NONE\",\"filter_tags\":\"\",\"filter_attributes\":\"\"}}}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (24,'com_redirect','component','com_redirect','',1,1,0,1,'{\"legacy\":false,\"name\":\"com_redirect\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_REDIRECT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (25,'com_users','component','com_users','',1,1,0,1,'{\"legacy\":false,\"name\":\"com_users\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_USERS_XML_DESCRIPTION\",\"group\":\"\"}','{\"allowUserRegistration\":\"1\",\"new_usertype\":\"2\",\"guest_usergroup\":\"1\",\"sendpassword\":\"1\",\"useractivation\":\"1\",\"mail_to_admin\":\"1\",\"captcha\":\"\",\"frontend_userparams\":\"1\",\"site_language\":\"0\",\"change_login_name\":\"0\",\"reset_count\":\"10\",\"reset_time\":\"1\",\"mailSubjectPrefix\":\"\",\"mailBodySuffix\":\"\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (27,'com_finder','component','com_finder','',1,1,0,0,'{\"legacy\":false,\"name\":\"com_finder\",\"type\":\"component\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_FINDER_XML_DESCRIPTION\",\"group\":\"\"}','{\"show_description\":\"1\",\"description_length\":255,\"allow_empty_query\":\"0\",\"show_url\":\"1\",\"show_advanced\":\"1\",\"expand_advanced\":\"0\",\"show_date_filters\":\"0\",\"highlight_terms\":\"1\",\"opensearch_name\":\"\",\"opensearch_description\":\"\",\"batch_size\":\"50\",\"memory_table_limit\":30000,\"title_multiplier\":\"1.7\",\"text_multiplier\":\"0.7\",\"meta_multiplier\":\"1.2\",\"path_multiplier\":\"2.0\",\"misc_multiplier\":\"0.3\",\"stemmer\":\"snowball\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (28,'com_joomlaupdate','component','com_joomlaupdate','',1,1,0,1,'{\"legacy\":false,\"name\":\"com_joomlaupdate\",\"type\":\"component\",\"creationDate\":\"February 2012\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"COM_JOOMLAUPDATE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (100,'PHPMailer','library','phpmailer','',0,1,1,1,'{\"legacy\":false,\"name\":\"PHPMailer\",\"type\":\"library\",\"creationDate\":\"2001\",\"author\":\"PHPMailer\",\"copyright\":\"(c) 2001-2003, Brent R. Matzelle, (c) 2004-2009, Andy Prevost. All Rights Reserved., (c) 2010-2011, Jim Jagielski. All Rights Reserved.\",\"authorEmail\":\"jimjag@gmail.com\",\"authorUrl\":\"https:\\/\\/code.google.com\\/a\\/apache-extras.org\\/p\\/phpmailer\\/\",\"version\":\"5.2\",\"description\":\"LIB_PHPMAILER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (101,'SimplePie','library','simplepie','',0,1,1,1,'{\"legacy\":false,\"name\":\"SimplePie\",\"type\":\"library\",\"creationDate\":\"2004\",\"author\":\"SimplePie\",\"copyright\":\"Copyright (c) 2004-2009, Ryan Parman and Geoffrey Sneddon\",\"authorEmail\":\"\",\"authorUrl\":\"http:\\/\\/simplepie.org\\/\",\"version\":\"1.2\",\"description\":\"LIB_SIMPLEPIE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (102,'phputf8','library','phputf8','',0,1,1,1,'{\"legacy\":false,\"name\":\"phputf8\",\"type\":\"library\",\"creationDate\":\"2006\",\"author\":\"Harry Fuecks\",\"copyright\":\"Copyright various authors\",\"authorEmail\":\"hfuecks@gmail.com\",\"authorUrl\":\"http:\\/\\/sourceforge.net\\/projects\\/phputf8\",\"version\":\"0.5\",\"description\":\"LIB_PHPUTF8_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (103,'Joomla! Platform','library','joomla','',0,1,1,1,'{\"legacy\":false,\"name\":\"Joomla! Platform\",\"type\":\"library\",\"creationDate\":\"2008\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"http:\\/\\/www.joomla.org\",\"version\":\"11.4\",\"description\":\"LIB_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (200,'mod_articles_archive','module','mod_articles_archive','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_articles_archive\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters.\\n\\t\\tAll rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_ARTICLES_ARCHIVE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (201,'mod_articles_latest','module','mod_articles_latest','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_articles_latest\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_LATEST_NEWS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (202,'mod_articles_popular','module','mod_articles_popular','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_articles_popular\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_POPULAR_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (203,'mod_banners','module','mod_banners','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_banners\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_BANNERS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (204,'mod_breadcrumbs','module','mod_breadcrumbs','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_breadcrumbs\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_BREADCRUMBS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (205,'mod_custom','module','mod_custom','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_custom\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_CUSTOM_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (206,'mod_feed','module','mod_feed','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_feed\",\"type\":\"module\",\"creationDate\":\"July 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_FEED_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (207,'mod_footer','module','mod_footer','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_footer\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_FOOTER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (208,'mod_login','module','mod_login','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_login\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_LOGIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (209,'mod_menu','module','mod_menu','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_menu\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_MENU_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (210,'mod_articles_news','module','mod_articles_news','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_articles_news\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_ARTICLES_NEWS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (211,'mod_random_image','module','mod_random_image','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_random_image\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_RANDOM_IMAGE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (212,'mod_related_items','module','mod_related_items','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_related_items\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_RELATED_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (213,'mod_search','module','mod_search','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_search\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_SEARCH_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (214,'mod_stats','module','mod_stats','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_stats\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_STATS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (215,'mod_syndicate','module','mod_syndicate','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_syndicate\",\"type\":\"module\",\"creationDate\":\"May 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_SYNDICATE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (216,'mod_users_latest','module','mod_users_latest','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_users_latest\",\"type\":\"module\",\"creationDate\":\"December 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_USERS_LATEST_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (217,'mod_weblinks','module','mod_weblinks','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_weblinks\",\"type\":\"module\",\"creationDate\":\"July 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_WEBLINKS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (218,'mod_whosonline','module','mod_whosonline','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_whosonline\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_WHOSONLINE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (219,'mod_wrapper','module','mod_wrapper','',0,1,1,0,'{\"legacy\":false,\"name\":\"mod_wrapper\",\"type\":\"module\",\"creationDate\":\"October 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_WRAPPER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (220,'mod_articles_category','module','mod_articles_category','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_articles_category\",\"type\":\"module\",\"creationDate\":\"February 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_ARTICLES_CATEGORY_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (221,'mod_articles_categories','module','mod_articles_categories','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_articles_categories\",\"type\":\"module\",\"creationDate\":\"February 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_ARTICLES_CATEGORIES_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (222,'mod_languages','module','mod_languages','',0,1,1,1,'{\"legacy\":false,\"name\":\"mod_languages\",\"type\":\"module\",\"creationDate\":\"February 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_LANGUAGES_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (223,'mod_finder','module','mod_finder','',0,1,0,0,'{\"legacy\":false,\"name\":\"mod_finder\",\"type\":\"module\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_FINDER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (300,'mod_custom','module','mod_custom','',1,1,1,1,'{\"legacy\":false,\"name\":\"mod_custom\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_CUSTOM_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (301,'mod_feed','module','mod_feed','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_feed\",\"type\":\"module\",\"creationDate\":\"July 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_FEED_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (302,'mod_latest','module','mod_latest','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_latest\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_LATEST_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (303,'mod_logged','module','mod_logged','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_logged\",\"type\":\"module\",\"creationDate\":\"January 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_LOGGED_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (304,'mod_login','module','mod_login','',1,1,1,1,'{\"legacy\":false,\"name\":\"mod_login\",\"type\":\"module\",\"creationDate\":\"March 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_LOGIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (305,'mod_menu','module','mod_menu','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_menu\",\"type\":\"module\",\"creationDate\":\"March 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_MENU_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (307,'mod_popular','module','mod_popular','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_popular\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_POPULAR_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (308,'mod_quickicon','module','mod_quickicon','',1,1,1,1,'{\"legacy\":false,\"name\":\"mod_quickicon\",\"type\":\"module\",\"creationDate\":\"Nov 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_QUICKICON_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (309,'mod_status','module','mod_status','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_status\",\"type\":\"module\",\"creationDate\":\"Feb 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_STATUS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (310,'mod_submenu','module','mod_submenu','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_submenu\",\"type\":\"module\",\"creationDate\":\"Feb 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_SUBMENU_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (311,'mod_title','module','mod_title','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_title\",\"type\":\"module\",\"creationDate\":\"Nov 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_TITLE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (312,'mod_toolbar','module','mod_toolbar','',1,1,1,1,'{\"legacy\":false,\"name\":\"mod_toolbar\",\"type\":\"module\",\"creationDate\":\"Nov 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_TOOLBAR_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (313,'mod_multilangstatus','module','mod_multilangstatus','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_multilangstatus\",\"type\":\"module\",\"creationDate\":\"September 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_MULTILANGSTATUS_XML_DESCRIPTION\",\"group\":\"\"}','{\"cache\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (314,'mod_version','module','mod_version','',1,1,1,0,'{\"legacy\":false,\"name\":\"mod_version\",\"type\":\"module\",\"creationDate\":\"January 2012\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"MOD_VERSION_XML_DESCRIPTION\",\"group\":\"\"}','{\"format\":\"short\",\"product\":\"1\",\"cache\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (400,'plg_authentication_gmail','plugin','gmail','authentication',0,0,1,0,'{\"legacy\":false,\"name\":\"plg_authentication_gmail\",\"type\":\"plugin\",\"creationDate\":\"February 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_GMAIL_XML_DESCRIPTION\",\"group\":\"\"}','{\"applysuffix\":\"0\",\"suffix\":\"\",\"verifypeer\":\"1\",\"user_blacklist\":\"\"}','','',0,'0000-00-00 00:00:00',1,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (401,'plg_authentication_joomla','plugin','joomla','authentication',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_authentication_joomla\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_AUTH_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (402,'plg_authentication_ldap','plugin','ldap','authentication',0,0,1,0,'{\"legacy\":false,\"name\":\"plg_authentication_ldap\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_LDAP_XML_DESCRIPTION\",\"group\":\"\"}','{\"host\":\"\",\"port\":\"389\",\"use_ldapV3\":\"0\",\"negotiate_tls\":\"0\",\"no_referrals\":\"0\",\"auth_method\":\"bind\",\"base_dn\":\"\",\"search_string\":\"\",\"users_dn\":\"\",\"username\":\"admin\",\"password\":\"bobby7\",\"ldap_fullname\":\"fullName\",\"ldap_email\":\"mail\",\"ldap_uid\":\"uid\"}','','',0,'0000-00-00 00:00:00',3,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (404,'plg_content_emailcloak','plugin','emailcloak','content',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_content_emailcloak\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_CONTENT_EMAILCLOAK_XML_DESCRIPTION\",\"group\":\"\"}','{\"mode\":\"1\"}','','',0,'0000-00-00 00:00:00',1,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (405,'plg_content_geshi','plugin','geshi','content',0,0,1,0,'{\"legacy\":false,\"name\":\"plg_content_geshi\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"\",\"authorUrl\":\"qbnz.com\\/highlighter\",\"version\":\"2.5.0\",\"description\":\"PLG_CONTENT_GESHI_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',2,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (406,'plg_content_loadmodule','plugin','loadmodule','content',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_content_loadmodule\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_LOADMODULE_XML_DESCRIPTION\",\"group\":\"\"}','{\"style\":\"xhtml\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (407,'plg_content_pagebreak','plugin','pagebreak','content',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_content_pagebreak\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_CONTENT_PAGEBREAK_XML_DESCRIPTION\",\"group\":\"\"}','{\"title\":\"1\",\"multipage_toc\":\"1\",\"showall\":\"1\"}','','',0,'0000-00-00 00:00:00',4,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (408,'plg_content_pagenavigation','plugin','pagenavigation','content',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_content_pagenavigation\",\"type\":\"plugin\",\"creationDate\":\"January 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_PAGENAVIGATION_XML_DESCRIPTION\",\"group\":\"\"}','{\"position\":\"1\"}','','',0,'0000-00-00 00:00:00',5,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (409,'plg_content_vote','plugin','vote','content',0,0,1,1,'{\"legacy\":false,\"name\":\"plg_content_vote\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_VOTE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',6,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (410,'plg_editors_codemirror','plugin','codemirror','editors',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_editors_codemirror\",\"type\":\"plugin\",\"creationDate\":\"28 March 2011\",\"author\":\"Marijn Haverbeke\",\"copyright\":\"\",\"authorEmail\":\"N\\/A\",\"authorUrl\":\"\",\"version\":\"1.0\",\"description\":\"PLG_CODEMIRROR_XML_DESCRIPTION\",\"group\":\"\"}','{\"linenumbers\":\"0\",\"tabmode\":\"indent\"}','','',0,'0000-00-00 00:00:00',1,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (411,'plg_editors_none','plugin','none','editors',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_editors_none\",\"type\":\"plugin\",\"creationDate\":\"August 2004\",\"author\":\"Unknown\",\"copyright\":\"\",\"authorEmail\":\"N\\/A\",\"authorUrl\":\"\",\"version\":\"2.5.0\",\"description\":\"PLG_NONE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',2,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (412,'plg_editors_tinymce','plugin','tinymce','editors',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_editors_tinymce\",\"type\":\"plugin\",\"creationDate\":\"2005-2013\",\"author\":\"Moxiecode Systems AB\",\"copyright\":\"Moxiecode Systems AB\",\"authorEmail\":\"N\\/A\",\"authorUrl\":\"tinymce.moxiecode.com\\/\",\"version\":\"3.5.4.1\",\"description\":\"PLG_TINY_XML_DESCRIPTION\",\"group\":\"\"}','{\"mode\":\"1\",\"skin\":\"0\",\"entity_encoding\":\"raw\",\"lang_mode\":\"0\",\"lang_code\":\"en\",\"text_direction\":\"ltr\",\"content_css\":\"1\",\"content_css_custom\":\"\",\"relative_urls\":\"1\",\"newlines\":\"0\",\"invalid_elements\":\"script,applet,iframe\",\"extended_elements\":\"\",\"toolbar\":\"top\",\"toolbar_align\":\"left\",\"html_height\":\"550\",\"html_width\":\"750\",\"resizing\":\"true\",\"resize_horizontal\":\"false\",\"element_path\":\"1\",\"fonts\":\"1\",\"paste\":\"1\",\"searchreplace\":\"1\",\"insertdate\":\"1\",\"format_date\":\"%Y-%m-%d\",\"inserttime\":\"1\",\"format_time\":\"%H:%M:%S\",\"colors\":\"1\",\"table\":\"1\",\"smilies\":\"1\",\"media\":\"1\",\"hr\":\"1\",\"directionality\":\"1\",\"fullscreen\":\"1\",\"style\":\"1\",\"layer\":\"1\",\"xhtmlxtras\":\"1\",\"visualchars\":\"1\",\"nonbreaking\":\"1\",\"template\":\"1\",\"blockquote\":\"1\",\"wordcount\":\"1\",\"advimage\":\"1\",\"advlink\":\"1\",\"advlist\":\"1\",\"autosave\":\"1\",\"contextmenu\":\"1\",\"inlinepopups\":\"1\",\"custom_plugin\":\"\",\"custom_button\":\"\"}','','',0,'0000-00-00 00:00:00',3,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (413,'plg_editors-xtd_article','plugin','article','editors-xtd',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_editors-xtd_article\",\"type\":\"plugin\",\"creationDate\":\"October 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_ARTICLE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',1,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (414,'plg_editors-xtd_image','plugin','image','editors-xtd',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_editors-xtd_image\",\"type\":\"plugin\",\"creationDate\":\"August 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_IMAGE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',2,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (415,'plg_editors-xtd_pagebreak','plugin','pagebreak','editors-xtd',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_editors-xtd_pagebreak\",\"type\":\"plugin\",\"creationDate\":\"August 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_EDITORSXTD_PAGEBREAK_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',3,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (416,'plg_editors-xtd_readmore','plugin','readmore','editors-xtd',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_editors-xtd_readmore\",\"type\":\"plugin\",\"creationDate\":\"March 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_READMORE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',4,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (417,'plg_search_categories','plugin','categories','search',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_search_categories\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SEARCH_CATEGORIES_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (418,'plg_search_contacts','plugin','contacts','search',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_search_contacts\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SEARCH_CONTACTS_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (419,'plg_search_content','plugin','content','search',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_search_content\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SEARCH_CONTENT_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (420,'plg_search_newsfeeds','plugin','newsfeeds','search',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_search_newsfeeds\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SEARCH_NEWSFEEDS_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (421,'plg_search_weblinks','plugin','weblinks','search',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_search_weblinks\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SEARCH_WEBLINKS_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (422,'plg_system_languagefilter','plugin','languagefilter','system',0,0,1,1,'{\"legacy\":false,\"name\":\"plg_system_languagefilter\",\"type\":\"plugin\",\"creationDate\":\"July 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SYSTEM_LANGUAGEFILTER_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',1,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (423,'plg_system_p3p','plugin','p3p','system',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_system_p3p\",\"type\":\"plugin\",\"creationDate\":\"September 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_P3P_XML_DESCRIPTION\",\"group\":\"\"}','{\"headers\":\"NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM\"}','','',0,'0000-00-00 00:00:00',2,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (424,'plg_system_cache','plugin','cache','system',0,0,1,1,'{\"legacy\":false,\"name\":\"plg_system_cache\",\"type\":\"plugin\",\"creationDate\":\"February 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_CACHE_XML_DESCRIPTION\",\"group\":\"\"}','{\"browsercache\":\"0\",\"cachetime\":\"15\"}','','',0,'0000-00-00 00:00:00',9,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (425,'plg_system_debug','plugin','debug','system',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_system_debug\",\"type\":\"plugin\",\"creationDate\":\"December 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_DEBUG_XML_DESCRIPTION\",\"group\":\"\"}','{\"profile\":\"1\",\"queries\":\"1\",\"memory\":\"1\",\"language_files\":\"1\",\"language_strings\":\"1\",\"strip-first\":\"1\",\"strip-prefix\":\"\",\"strip-suffix\":\"\"}','','',0,'0000-00-00 00:00:00',4,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (426,'plg_system_log','plugin','log','system',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_system_log\",\"type\":\"plugin\",\"creationDate\":\"April 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_LOG_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',5,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (427,'plg_system_redirect','plugin','redirect','system',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_system_redirect\",\"type\":\"plugin\",\"creationDate\":\"April 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_REDIRECT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',6,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (428,'plg_system_remember','plugin','remember','system',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_system_remember\",\"type\":\"plugin\",\"creationDate\":\"April 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_REMEMBER_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',7,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (429,'plg_system_sef','plugin','sef','system',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_system_sef\",\"type\":\"plugin\",\"creationDate\":\"December 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SEF_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',8,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (430,'plg_system_logout','plugin','logout','system',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_system_logout\",\"type\":\"plugin\",\"creationDate\":\"April 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SYSTEM_LOGOUT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',3,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (431,'plg_user_contactcreator','plugin','contactcreator','user',0,0,1,1,'{\"legacy\":false,\"name\":\"plg_user_contactcreator\",\"type\":\"plugin\",\"creationDate\":\"August 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_CONTACTCREATOR_XML_DESCRIPTION\",\"group\":\"\"}','{\"autowebpage\":\"\",\"category\":\"34\",\"autopublish\":\"0\"}','','',0,'0000-00-00 00:00:00',1,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (432,'plg_user_joomla','plugin','joomla','user',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_user_joomla\",\"type\":\"plugin\",\"creationDate\":\"December 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2009 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_USER_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{\"autoregister\":\"1\"}','','',0,'0000-00-00 00:00:00',2,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (433,'plg_user_profile','plugin','profile','user',0,0,1,1,'{\"legacy\":false,\"name\":\"plg_user_profile\",\"type\":\"plugin\",\"creationDate\":\"January 2008\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_USER_PROFILE_XML_DESCRIPTION\",\"group\":\"\"}','{\"register-require_address1\":\"1\",\"register-require_address2\":\"1\",\"register-require_city\":\"1\",\"register-require_region\":\"1\",\"register-require_country\":\"1\",\"register-require_postal_code\":\"1\",\"register-require_phone\":\"1\",\"register-require_website\":\"1\",\"register-require_favoritebook\":\"1\",\"register-require_aboutme\":\"1\",\"register-require_tos\":\"1\",\"register-require_dob\":\"1\",\"profile-require_address1\":\"1\",\"profile-require_address2\":\"1\",\"profile-require_city\":\"1\",\"profile-require_region\":\"1\",\"profile-require_country\":\"1\",\"profile-require_postal_code\":\"1\",\"profile-require_phone\":\"1\",\"profile-require_website\":\"1\",\"profile-require_favoritebook\":\"1\",\"profile-require_aboutme\":\"1\",\"profile-require_tos\":\"1\",\"profile-require_dob\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (434,'plg_extension_joomla','plugin','joomla','extension',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_extension_joomla\",\"type\":\"plugin\",\"creationDate\":\"May 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_EXTENSION_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',1,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (435,'plg_content_joomla','plugin','joomla','content',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_content_joomla\",\"type\":\"plugin\",\"creationDate\":\"November 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_CONTENT_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (436,'plg_system_languagecode','plugin','languagecode','system',0,0,1,0,'{\"legacy\":false,\"name\":\"plg_system_languagecode\",\"type\":\"plugin\",\"creationDate\":\"November 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SYSTEM_LANGUAGECODE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',10,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (437,'plg_quickicon_joomlaupdate','plugin','joomlaupdate','quickicon',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_quickicon_joomlaupdate\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_QUICKICON_JOOMLAUPDATE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (438,'plg_quickicon_extensionupdate','plugin','extensionupdate','quickicon',0,1,1,1,'{\"legacy\":false,\"name\":\"plg_quickicon_extensionupdate\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_QUICKICON_EXTENSIONUPDATE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (439,'plg_captcha_recaptcha','plugin','recaptcha','captcha',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_captcha_recaptcha\",\"type\":\"plugin\",\"creationDate\":\"December 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_CAPTCHA_RECAPTCHA_XML_DESCRIPTION\",\"group\":\"\"}','{\"public_key\":\"\",\"private_key\":\"\",\"theme\":\"clean\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (440,'plg_system_highlight','plugin','highlight','system',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_system_highlight\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_SYSTEM_HIGHLIGHT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',7,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (441,'plg_content_finder','plugin','finder','content',0,0,1,0,'{\"legacy\":false,\"name\":\"plg_content_finder\",\"type\":\"plugin\",\"creationDate\":\"December 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_CONTENT_FINDER_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (442,'plg_finder_categories','plugin','categories','finder',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_finder_categories\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_FINDER_CATEGORIES_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',1,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (443,'plg_finder_contacts','plugin','contacts','finder',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_finder_contacts\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_FINDER_CONTACTS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',2,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (444,'plg_finder_content','plugin','content','finder',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_finder_content\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_FINDER_CONTENT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',3,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (445,'plg_finder_newsfeeds','plugin','newsfeeds','finder',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_finder_newsfeeds\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_FINDER_NEWSFEEDS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',4,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (446,'plg_finder_weblinks','plugin','weblinks','finder',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_finder_weblinks\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PLG_FINDER_WEBLINKS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',5,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (500,'atomic','template','atomic','',0,1,1,0,'{\"legacy\":false,\"name\":\"atomic\",\"type\":\"template\",\"creationDate\":\"10\\/10\\/09\",\"author\":\"Ron Severdia\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.\",\"authorEmail\":\"contact@kontentdesign.com\",\"authorUrl\":\"http:\\/\\/www.kontentdesign.com\",\"version\":\"2.5.0\",\"description\":\"TPL_ATOMIC_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (502,'bluestork','template','bluestork','',1,1,1,0,'{\"legacy\":false,\"name\":\"bluestork\",\"type\":\"template\",\"creationDate\":\"07\\/02\\/09\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"TPL_BLUESTORK_XML_DESCRIPTION\",\"group\":\"\"}','{\"useRoundedCorners\":\"1\",\"showSiteName\":\"0\",\"textBig\":\"0\",\"highContrast\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (503,'beez_20','template','beez_20','',0,1,1,0,'{\"legacy\":false,\"name\":\"beez_20\",\"type\":\"template\",\"creationDate\":\"25 November 2009\",\"author\":\"Angie Radtke\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.\",\"authorEmail\":\"a.radtke@derauftritt.de\",\"authorUrl\":\"http:\\/\\/www.der-auftritt.de\",\"version\":\"2.5.0\",\"description\":\"TPL_BEEZ2_XML_DESCRIPTION\",\"group\":\"\"}','{\"wrapperSmall\":\"53\",\"wrapperLarge\":\"72\",\"sitetitle\":\"\",\"sitedescription\":\"\",\"navposition\":\"center\",\"templatecolor\":\"nature\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (504,'hathor','template','hathor','',1,1,1,0,'{\"legacy\":false,\"name\":\"hathor\",\"type\":\"template\",\"creationDate\":\"May 2010\",\"author\":\"Andrea Tarr\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.\",\"authorEmail\":\"hathor@tarrconsulting.com\",\"authorUrl\":\"http:\\/\\/www.tarrconsulting.com\",\"version\":\"2.5.0\",\"description\":\"TPL_HATHOR_XML_DESCRIPTION\",\"group\":\"\"}','{\"showSiteName\":\"0\",\"colourChoice\":\"0\",\"boldText\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (505,'beez5','template','beez5','',0,1,1,0,'{\"legacy\":false,\"name\":\"beez5\",\"type\":\"template\",\"creationDate\":\"21 May 2010\",\"author\":\"Angie Radtke\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.\",\"authorEmail\":\"a.radtke@derauftritt.de\",\"authorUrl\":\"http:\\/\\/www.der-auftritt.de\",\"version\":\"2.5.0\",\"description\":\"TPL_BEEZ5_XML_DESCRIPTION\",\"group\":\"\"}','{\"wrapperSmall\":\"53\",\"wrapperLarge\":\"72\",\"sitetitle\":\"\",\"sitedescription\":\"\",\"navposition\":\"center\",\"html5\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (600,'English (United Kingdom)','language','en-GB','',0,1,1,1,'{\"legacy\":false,\"name\":\"English (United Kingdom)\",\"type\":\"language\",\"creationDate\":\"2008-03-15\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.10\",\"description\":\"en-GB site language\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (601,'English (United Kingdom)','language','en-GB','',1,1,1,1,'{\"legacy\":false,\"name\":\"English (United Kingdom)\",\"type\":\"language\",\"creationDate\":\"2008-03-15\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.10\",\"description\":\"en-GB administrator language\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (700,'files_joomla','file','joomla','',0,1,1,1,'{\"legacy\":false,\"name\":\"files_joomla\",\"type\":\"file\",\"creationDate\":\"April 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"2.5.11\",\"description\":\"FILES_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (800,'PKG_JOOMLA','package','pkg_joomla','',0,1,1,1,'{\"legacy\":false,\"name\":\"PKG_JOOMLA\",\"type\":\"package\",\"creationDate\":\"2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"http:\\/\\/www.joomla.org\",\"version\":\"2.5.0\",\"description\":\"PKG_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10000,'jshopping','component','com_jshopping','',1,1,0,0,'{\"legacy\":false,\"name\":\"jshopping\",\"type\":\"component\",\"creationDate\":\"20.04.2013\",\"author\":\"MAXXmarketing GmbH\",\"copyright\":\"\",\"authorEmail\":\"marketing@maxx-marketing.net\",\"authorUrl\":\"http:\\/\\/www.webdesigner-profi.de\",\"version\":\"3.14.3\",\"description\":\"Joomshopping - shop component. Note: JoomShopping code files are named as jshopping\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10001,'Russian','language','ru-RU','',0,1,0,0,'{\"legacy\":true,\"name\":\"Russian\",\"type\":\"language\",\"creationDate\":\"2013-04-26\",\"author\":\"Russian Translation Team\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved\",\"authorEmail\":\"smart@joomlaportal.ru\",\"authorUrl\":\"www.joomlaportal.ru\",\"version\":\"2.5.11.1\",\"description\":\"Russian language pack (site) for Joomla! 2.5\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10002,'Russian','language','ru-RU','',1,1,0,0,'{\"legacy\":true,\"name\":\"Russian\",\"type\":\"language\",\"creationDate\":\"2013-04-26\",\"author\":\"Russian Translation Team\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved\",\"authorEmail\":\"smart@joomlaportal.ru\",\"authorUrl\":\"www.joomlaportal.ru\",\"version\":\"2.5.11.1\",\"description\":\"Russian language pack (administrator) for Joomla! 2.5\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10003,'TinyMCE ru-RU','file','tinymce_ru-ru','',0,1,0,0,'{\"legacy\":false,\"name\":\"TinyMCE ru-RU\",\"type\":\"file\",\"creationDate\":\"2012-06-19\",\"author\":\"Russian Translation Team\",\"copyright\":\"Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved\",\"authorEmail\":\"smart@joomlaportal.ru\",\"authorUrl\":\"www.joomlaportal.ru\",\"version\":\"3.5.2.1\",\"description\":\"Russian Language Package for TinyMCE 3.5.2.1 in Joomla 2.5\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10004,'ru-RU','package','pkg_ru-RU','',0,1,1,0,'{\"legacy\":false,\"name\":\"Russian Language Pack\",\"type\":\"package\",\"creationDate\":\"Unknown\",\"author\":\"Unknown\",\"copyright\":\"\",\"authorEmail\":\"\",\"authorUrl\":\"\",\"version\":\"2.5.11.1\",\"description\":\"Joomla 2.5 Russian Language Package\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10005,'lady','template','lady','',0,1,1,0,'{\"legacy\":true,\"name\":\"lady\",\"type\":\"template\",\"creationDate\":\"2012-10-04\",\"author\":\"Pixpro\",\"copyright\":\"\",\"authorEmail\":\"\",\"authorUrl\":\"\",\"version\":\"1.0\",\"description\":\" <p> Lady is the simplest inherited from TRANSMODE template. Bootstrapped.<p> \",\"group\":\"\"}','{\"position1-width\":\"12\",\"position2-width\":\"12\",\"position3-width\":\"12\",\"position4-width\":\"12\",\"position5-width\":\"12\",\"position6-width\":\"12\",\"position7-width\":\"12\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10006,'Jshopping Cart Ext.','module','mod_jshopping_cart_ext','',0,1,0,0,'{\"legacy\":false,\"name\":\"Jshopping Cart Ext.\",\"type\":\"module\",\"creationDate\":\"01.01.2012\",\"author\":\"MAXXmarketing GmbH\",\"copyright\":\"\",\"authorEmail\":\"marketing@maxx-marketing.net\",\"authorUrl\":\"http:\\/\\/www.webdesigner-profi.de\",\"version\":\"3.0.3\",\"description\":\"Displays a JoomShopping cart\",\"group\":\"\"}','{\"show_count\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10008,'Search - JoomShopping','plugin','joomshopping','search',0,1,1,0,'{\"legacy\":false,\"name\":\"Search - JoomShopping\",\"type\":\"plugin\",\"creationDate\":\"20.05.2011\",\"author\":\"MAXXmarketing GmbH\",\"copyright\":\"\",\"authorEmail\":\"marketing@maxx-marketing.net\",\"authorUrl\":\"http:\\/\\/www.webdesigner-profi.de\",\"version\":\"3.0.0.1\",\"description\":\"Allows Searching of JoomShopping Component\",\"group\":\"\"}','{\"search_limit\":\"50\"}','','',484,'2013-06-23 17:10:50',0,0);
-insert  into `cwtaq_extensions`(`extension_id`,`name`,`type`,`element`,`folder`,`client_id`,`enabled`,`access`,`protected`,`manifest_cache`,`params`,`custom_data`,`system_data`,`checked_out`,`checked_out_time`,`ordering`,`state`) values (10009,'plg_system_pixanalytic','plugin','pixanalytic','system',0,1,1,0,'{\"legacy\":false,\"name\":\"plg_system_pixanalytic\",\"type\":\"plugin\",\"creationDate\":\"May 2012\",\"author\":\"Johan Sundell\",\"copyright\":\"Copyright (C) 2013 - PixPro Stockholm AB. All rights reserved.\",\"authorEmail\":\"johan@pixpro.net\",\"authorUrl\":\"www.pixpro.net\",\"version\":\"1.1.0\",\"description\":\"\",\"group\":\"\"}','{\"account_id\":\"\",\"classic_cookie_domain\":\"\",\"universal_mode_enabled\":\"1\",\"universal_account_id\":\"UA-42400249-1\",\"universal_cookie_domain\":\"\"}','','',484,'2013-08-25 21:12:40',0,0);
+LOCK TABLES `yodev_extensions` WRITE;
+/*!40000 ALTER TABLE `yodev_extensions` DISABLE KEYS */;
+INSERT INTO `yodev_extensions` VALUES (1,'com_mailto','component','com_mailto','',0,1,1,1,'{\"name\":\"com_mailto\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_MAILTO_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(2,'com_wrapper','component','com_wrapper','',0,1,1,1,'{\"name\":\"com_wrapper\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_WRAPPER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(3,'com_admin','component','com_admin','',1,1,1,1,'{\"name\":\"com_admin\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_ADMIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(4,'com_banners','component','com_banners','',1,1,1,0,'{\"name\":\"com_banners\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_BANNERS_XML_DESCRIPTION\",\"group\":\"\"}','{\"purchase_type\":\"3\",\"track_impressions\":\"0\",\"track_clicks\":\"0\",\"metakey_prefix\":\"\"}','','',0,'0000-00-00 00:00:00',0,0),(5,'com_cache','component','com_cache','',1,1,1,1,'{\"name\":\"com_cache\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_CACHE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(6,'com_categories','component','com_categories','',1,1,1,1,'{\"name\":\"com_categories\",\"type\":\"component\",\"creationDate\":\"December 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_CATEGORIES_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(7,'com_checkin','component','com_checkin','',1,1,1,1,'{\"name\":\"com_checkin\",\"type\":\"component\",\"creationDate\":\"Unknown\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2008 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_CHECKIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(8,'com_contact','component','com_contact','',1,1,1,0,'{\"name\":\"com_contact\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_CONTACT_XML_DESCRIPTION\",\"group\":\"\"}','{\"show_contact_category\":\"hide\",\"show_contact_list\":\"0\",\"presentation_style\":\"sliders\",\"show_name\":\"1\",\"show_position\":\"1\",\"show_email\":\"0\",\"show_street_address\":\"1\",\"show_suburb\":\"1\",\"show_state\":\"1\",\"show_postcode\":\"1\",\"show_country\":\"1\",\"show_telephone\":\"1\",\"show_mobile\":\"1\",\"show_fax\":\"1\",\"show_webpage\":\"1\",\"show_misc\":\"1\",\"show_image\":\"1\",\"image\":\"\",\"allow_vcard\":\"0\",\"show_articles\":\"0\",\"show_profile\":\"0\",\"show_links\":\"0\",\"linka_name\":\"\",\"linkb_name\":\"\",\"linkc_name\":\"\",\"linkd_name\":\"\",\"linke_name\":\"\",\"contact_icons\":\"0\",\"icon_address\":\"\",\"icon_email\":\"\",\"icon_telephone\":\"\",\"icon_mobile\":\"\",\"icon_fax\":\"\",\"icon_misc\":\"\",\"show_headings\":\"1\",\"show_position_headings\":\"1\",\"show_email_headings\":\"0\",\"show_telephone_headings\":\"1\",\"show_mobile_headings\":\"0\",\"show_fax_headings\":\"0\",\"allow_vcard_headings\":\"0\",\"show_suburb_headings\":\"1\",\"show_state_headings\":\"1\",\"show_country_headings\":\"1\",\"show_email_form\":\"1\",\"show_email_copy\":\"1\",\"banned_email\":\"\",\"banned_subject\":\"\",\"banned_text\":\"\",\"validate_session\":\"1\",\"custom_reply\":\"0\",\"redirect\":\"\",\"show_category_crumb\":\"0\",\"metakey\":\"\",\"metadesc\":\"\",\"robots\":\"\",\"author\":\"\",\"rights\":\"\",\"xreference\":\"\"}','','',0,'0000-00-00 00:00:00',0,0),(9,'com_cpanel','component','com_cpanel','',1,1,1,1,'{\"name\":\"com_cpanel\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_CPANEL_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(10,'com_installer','component','com_installer','',1,1,1,1,'{\"name\":\"com_installer\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_INSTALLER_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(11,'com_languages','component','com_languages','',1,1,1,1,'{\"name\":\"com_languages\",\"type\":\"component\",\"creationDate\":\"2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_LANGUAGES_XML_DESCRIPTION\",\"group\":\"\"}','{\"administrator\":\"ru-RU\",\"site\":\"ru-RU\"}','','',0,'0000-00-00 00:00:00',0,0),(12,'com_login','component','com_login','',1,1,1,1,'{\"name\":\"com_login\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_LOGIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(13,'com_media','component','com_media','',1,1,0,1,'{\"name\":\"com_media\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_MEDIA_XML_DESCRIPTION\",\"group\":\"\"}','{\"upload_extensions\":\"bmp,csv,doc,gif,ico,jpg,jpeg,odg,odp,ods,odt,pdf,png,ppt,swf,txt,xcf,xls,BMP,CSV,DOC,GIF,ICO,JPG,JPEG,ODG,ODP,ODS,ODT,PDF,PNG,PPT,SWF,TXT,XCF,XLS\",\"upload_maxsize\":\"10\",\"file_path\":\"images\",\"image_path\":\"images\",\"restrict_uploads\":\"1\",\"allowed_media_usergroup\":\"3\",\"check_mime\":\"1\",\"image_extensions\":\"bmp,gif,jpg,png\",\"ignore_extensions\":\"\",\"upload_mime\":\"image\\/jpeg,image\\/gif,image\\/png,image\\/bmp,application\\/x-shockwave-flash,application\\/msword,application\\/excel,application\\/pdf,application\\/powerpoint,text\\/plain,application\\/x-zip\",\"upload_mime_illegal\":\"text\\/html\"}','','',0,'0000-00-00 00:00:00',0,0),(14,'com_menus','component','com_menus','',1,1,1,1,'{\"name\":\"com_menus\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_MENUS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(15,'com_messages','component','com_messages','',1,1,1,1,'{\"name\":\"com_messages\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_MESSAGES_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(16,'com_modules','component','com_modules','',1,1,1,1,'{\"name\":\"com_modules\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_MODULES_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(17,'com_newsfeeds','component','com_newsfeeds','',1,1,1,0,'{\"name\":\"com_newsfeeds\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_NEWSFEEDS_XML_DESCRIPTION\",\"group\":\"\"}','{\"show_feed_image\":\"1\",\"show_feed_description\":\"1\",\"show_item_description\":\"1\",\"feed_word_count\":\"0\",\"show_headings\":\"1\",\"show_name\":\"1\",\"show_articles\":\"0\",\"show_link\":\"1\",\"show_description\":\"1\",\"show_description_image\":\"1\",\"display_num\":\"\",\"show_pagination_limit\":\"1\",\"show_pagination\":\"1\",\"show_pagination_results\":\"1\",\"show_cat_items\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(18,'com_plugins','component','com_plugins','',1,1,1,1,'{\"name\":\"com_plugins\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_PLUGINS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(19,'com_search','component','com_search','',1,1,1,0,'{\"name\":\"com_search\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_SEARCH_XML_DESCRIPTION\",\"group\":\"\"}','{\"enabled\":\"0\",\"show_date\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(20,'com_templates','component','com_templates','',1,1,1,1,'{\"name\":\"com_templates\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_TEMPLATES_XML_DESCRIPTION\",\"group\":\"\"}','{\"template_positions_display\":\"0\",\"upload_limit\":\"2\",\"image_formats\":\"gif,bmp,jpg,jpeg,png\",\"source_formats\":\"txt,less,ini,xml,js,php,css\",\"font_formats\":\"woff,ttf,otf\",\"compressed_formats\":\"zip\"}','','',0,'0000-00-00 00:00:00',0,0),(21,'com_weblinks','component','com_weblinks','',1,1,1,0,'{\"name\":\"com_weblinks\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\n\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_WEBLINKS_XML_DESCRIPTION\",\"group\":\"\"}','{\"show_comp_description\":\"1\",\"comp_description\":\"\",\"show_link_hits\":\"1\",\"show_link_description\":\"1\",\"show_other_cats\":\"0\",\"show_headings\":\"0\",\"show_numbers\":\"0\",\"show_report\":\"1\",\"count_clicks\":\"1\",\"target\":\"0\",\"link_icons\":\"\"}','','',0,'0000-00-00 00:00:00',0,0),(22,'com_content','component','com_content','',1,1,0,1,'{\"name\":\"com_content\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_CONTENT_XML_DESCRIPTION\",\"group\":\"\"}','{\"article_layout\":\"_:default\",\"show_title\":\"1\",\"link_titles\":\"1\",\"show_intro\":\"1\",\"show_category\":\"1\",\"link_category\":\"1\",\"show_parent_category\":\"0\",\"link_parent_category\":\"0\",\"show_author\":\"1\",\"link_author\":\"0\",\"show_create_date\":\"0\",\"show_modify_date\":\"0\",\"show_publish_date\":\"1\",\"show_item_navigation\":\"1\",\"show_vote\":\"0\",\"show_readmore\":\"1\",\"show_readmore_title\":\"1\",\"readmore_limit\":\"100\",\"show_icons\":\"1\",\"show_print_icon\":\"1\",\"show_email_icon\":\"1\",\"show_hits\":\"1\",\"show_noauth\":\"0\",\"show_publishing_options\":\"1\",\"show_article_options\":\"1\",\"show_urls_images_frontend\":\"0\",\"show_urls_images_backend\":\"1\",\"targeta\":0,\"targetb\":0,\"targetc\":0,\"float_intro\":\"left\",\"float_fulltext\":\"left\",\"category_layout\":\"_:blog\",\"show_category_title\":\"0\",\"show_description\":\"0\",\"show_description_image\":\"0\",\"maxLevel\":\"1\",\"show_empty_categories\":\"0\",\"show_no_articles\":\"1\",\"show_subcat_desc\":\"1\",\"show_cat_num_articles\":\"0\",\"show_base_description\":\"1\",\"maxLevelcat\":\"-1\",\"show_empty_categories_cat\":\"0\",\"show_subcat_desc_cat\":\"1\",\"show_cat_num_articles_cat\":\"1\",\"num_leading_articles\":\"1\",\"num_intro_articles\":\"4\",\"num_columns\":\"2\",\"num_links\":\"4\",\"multi_column_order\":\"0\",\"show_subcategory_content\":\"0\",\"show_pagination_limit\":\"1\",\"filter_field\":\"hide\",\"show_headings\":\"1\",\"list_show_date\":\"0\",\"date_format\":\"\",\"list_show_hits\":\"1\",\"list_show_author\":\"1\",\"orderby_pri\":\"order\",\"orderby_sec\":\"rdate\",\"order_date\":\"published\",\"show_pagination\":\"2\",\"show_pagination_results\":\"1\",\"show_feed_link\":\"1\",\"feed_summary\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0),(23,'com_config','component','com_config','',1,1,0,1,'{\"name\":\"com_config\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_CONFIG_XML_DESCRIPTION\",\"group\":\"\"}','{\"filters\":{\"1\":{\"filter_type\":\"NH\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"9\":{\"filter_type\":\"BL\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"6\":{\"filter_type\":\"BL\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"7\":{\"filter_type\":\"NONE\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"2\":{\"filter_type\":\"NH\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"3\":{\"filter_type\":\"BL\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"4\":{\"filter_type\":\"BL\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"5\":{\"filter_type\":\"BL\",\"filter_tags\":\"\",\"filter_attributes\":\"\"},\"8\":{\"filter_type\":\"NONE\",\"filter_tags\":\"\",\"filter_attributes\":\"\"}}}','','',0,'0000-00-00 00:00:00',0,0),(24,'com_redirect','component','com_redirect','',1,1,0,1,'{\"name\":\"com_redirect\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_REDIRECT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(25,'com_users','component','com_users','',1,1,0,1,'{\"name\":\"com_users\",\"type\":\"component\",\"creationDate\":\"April 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_USERS_XML_DESCRIPTION\",\"group\":\"\"}','{\"allowUserRegistration\":\"1\",\"new_usertype\":\"2\",\"guest_usergroup\":\"9\",\"sendpassword\":\"1\",\"useractivation\":\"2\",\"mail_to_admin\":\"1\",\"captcha\":\"\",\"frontend_userparams\":\"1\",\"site_language\":\"0\",\"change_login_name\":\"0\",\"reset_count\":\"10\",\"reset_time\":\"1\",\"mailSubjectPrefix\":\"\",\"mailBodySuffix\":\"\"}','','',0,'0000-00-00 00:00:00',0,0),(27,'com_finder','component','com_finder','',1,1,0,0,'{\"name\":\"com_finder\",\"type\":\"component\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_FINDER_XML_DESCRIPTION\",\"group\":\"\"}','{\"show_description\":\"1\",\"description_length\":255,\"allow_empty_query\":\"0\",\"show_url\":\"1\",\"show_advanced\":\"1\",\"expand_advanced\":\"0\",\"show_date_filters\":\"0\",\"highlight_terms\":\"1\",\"opensearch_name\":\"\",\"opensearch_description\":\"\",\"batch_size\":\"50\",\"memory_table_limit\":30000,\"title_multiplier\":\"1.7\",\"text_multiplier\":\"0.7\",\"meta_multiplier\":\"1.2\",\"path_multiplier\":\"2.0\",\"misc_multiplier\":\"0.3\",\"stemmer\":\"snowball\"}','','',0,'0000-00-00 00:00:00',0,0),(28,'com_joomlaupdate','component','com_joomlaupdate','',1,1,0,1,'{\"name\":\"com_joomlaupdate\",\"type\":\"component\",\"creationDate\":\"February 2012\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\\t\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"COM_JOOMLAUPDATE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(29,'com_tags','component','com_tags','',1,1,1,1,'{\"name\":\"com_tags\",\"type\":\"component\",\"creationDate\":\"December 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.1.0\",\"description\":\"COM_TAGS_XML_DESCRIPTION\",\"group\":\"\"}','{\"show_tag_title\":\"0\",\"tag_list_show_tag_image\":\"0\",\"tag_list_show_tag_description\":\"0\",\"tag_list_image\":\"\",\"show_tag_num_items\":\"0\",\"tag_list_orderby\":\"title\",\"tag_list_orderby_direction\":\"ASC\",\"show_headings\":\"0\",\"tag_list_show_date\":\"0\",\"tag_list_show_item_image\":\"0\",\"tag_list_show_item_description\":\"0\",\"tag_list_item_maximum_characters\":0,\"return_any_or_all\":\"1\",\"include_children\":\"0\",\"maximum\":200,\"tag_list_language_filter\":\"all\",\"tags_layout\":\"_:default\",\"all_tags_orderby\":\"title\",\"all_tags_orderby_direction\":\"ASC\",\"all_tags_show_tag_image\":\"0\",\"all_tags_show_tag_descripion\":\"0\",\"all_tags_tag_maximum_characters\":20,\"all_tags_show_tag_hits\":\"0\",\"filter_field\":\"1\",\"show_pagination_limit\":\"1\",\"show_pagination\":\"2\",\"show_pagination_results\":\"1\",\"tag_field_ajax_mode\":\"1\",\"show_feed_link\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(30,'com_contenthistory','component','com_contenthistory','',1,1,1,0,'{\"name\":\"com_contenthistory\",\"type\":\"component\",\"creationDate\":\"May 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.2.0\",\"description\":\"COM_CONTENTHISTORY_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(31,'com_ajax','component','com_ajax','',1,1,1,0,'{\"name\":\"com_ajax\",\"type\":\"component\",\"creationDate\":\"August 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.2.0\",\"description\":\"COM_AJAX_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(32,'com_postinstall','component','com_postinstall','',1,1,1,1,'{\"name\":\"com_postinstall\",\"type\":\"component\",\"creationDate\":\"September 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.2.0\",\"description\":\"COM_POSTINSTALL_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(100,'PHPMailer','library','phpmailer','',0,1,1,1,'{\"name\":\"PHPMailer\",\"type\":\"library\",\"creationDate\":\"2001\",\"author\":\"PHPMailer\",\"copyright\":\"(c) 2001-2003, Brent R. Matzelle, (c) 2004-2009, Andy Prevost. All Rights Reserved., (c) 2010-2013, Jim Jagielski. All Rights Reserved.\",\"authorEmail\":\"jimjag@gmail.com\",\"authorUrl\":\"https:\\/\\/github.com\\/PHPMailer\\/PHPMailer\",\"version\":\"5.2.6\",\"description\":\"LIB_PHPMAILER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(101,'SimplePie','library','simplepie','',0,1,1,1,'{\"name\":\"SimplePie\",\"type\":\"library\",\"creationDate\":\"2004\",\"author\":\"SimplePie\",\"copyright\":\"Copyright (c) 2004-2009, Ryan Parman and Geoffrey Sneddon\",\"authorEmail\":\"\",\"authorUrl\":\"http:\\/\\/simplepie.org\\/\",\"version\":\"1.2\",\"description\":\"LIB_SIMPLEPIE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(102,'phputf8','library','phputf8','',0,1,1,1,'{\"name\":\"phputf8\",\"type\":\"library\",\"creationDate\":\"2006\",\"author\":\"Harry Fuecks\",\"copyright\":\"Copyright various authors\",\"authorEmail\":\"hfuecks@gmail.com\",\"authorUrl\":\"http:\\/\\/sourceforge.net\\/projects\\/phputf8\",\"version\":\"0.5\",\"description\":\"LIB_PHPUTF8_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(103,'Joomla! Platform','library','joomla','',0,1,1,1,'{\"name\":\"Joomla! Platform\",\"type\":\"library\",\"creationDate\":\"2008\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"http:\\/\\/www.joomla.org\",\"version\":\"13.1\",\"description\":\"LIB_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{\"mediaversion\":\"f5448565479fb7d36e0c292be91ad65b\"}','','',0,'0000-00-00 00:00:00',0,0),(104,'IDNA Convert','library','idna_convert','',0,1,1,1,'{\"name\":\"IDNA Convert\",\"type\":\"library\",\"creationDate\":\"2004\",\"author\":\"phlyLabs\",\"copyright\":\"2004-2011 phlyLabs Berlin, http:\\/\\/phlylabs.de\",\"authorEmail\":\"phlymail@phlylabs.de\",\"authorUrl\":\"http:\\/\\/phlylabs.de\",\"version\":\"0.8.0\",\"description\":\"LIB_IDNA_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(105,'FOF','library','fof','',0,1,1,1,'{\"name\":\"FOF\",\"type\":\"library\",\"creationDate\":\"2014-03-09 12:54:48\",\"author\":\"Nicholas K. Dionysopoulos \\/ Akeeba Ltd\",\"copyright\":\"(C)2011-2014 Nicholas K. Dionysopoulos\",\"authorEmail\":\"nicholas@akeebabackup.com\",\"authorUrl\":\"https:\\/\\/www.akeebabackup.com\",\"version\":\"2.2.1\",\"description\":\"LIB_FOF_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(106,'PHPass','library','phpass','',0,1,1,1,'{\"name\":\"PHPass\",\"type\":\"library\",\"creationDate\":\"2004-2006\",\"author\":\"Solar Designer\",\"copyright\":\"\",\"authorEmail\":\"solar@openwall.com\",\"authorUrl\":\"http:\\/\\/www.openwall.com\\/phpass\\/\",\"version\":\"0.3\",\"description\":\"LIB_PHPASS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(200,'mod_articles_archive','module','mod_articles_archive','',0,1,1,0,'{\"name\":\"mod_articles_archive\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters.\\n\\t\\tAll rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_ARTICLES_ARCHIVE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(201,'mod_articles_latest','module','mod_articles_latest','',0,1,1,0,'{\"name\":\"mod_articles_latest\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_LATEST_NEWS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(202,'mod_articles_popular','module','mod_articles_popular','',0,1,1,0,'{\"name\":\"mod_articles_popular\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_POPULAR_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(203,'mod_banners','module','mod_banners','',0,1,1,0,'{\"name\":\"mod_banners\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_BANNERS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(204,'mod_breadcrumbs','module','mod_breadcrumbs','',0,1,1,1,'{\"name\":\"mod_breadcrumbs\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_BREADCRUMBS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(205,'mod_custom','module','mod_custom','',0,1,1,1,'{\"name\":\"mod_custom\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_CUSTOM_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(206,'mod_feed','module','mod_feed','',0,1,1,0,'{\"name\":\"mod_feed\",\"type\":\"module\",\"creationDate\":\"July 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_FEED_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(207,'mod_footer','module','mod_footer','',0,1,1,0,'{\"name\":\"mod_footer\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_FOOTER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(208,'mod_login','module','mod_login','',0,1,1,1,'{\"name\":\"mod_login\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_LOGIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(209,'mod_menu','module','mod_menu','',0,1,1,1,'{\"name\":\"mod_menu\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_MENU_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(210,'mod_articles_news','module','mod_articles_news','',0,1,1,0,'{\"name\":\"mod_articles_news\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_ARTICLES_NEWS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(211,'mod_random_image','module','mod_random_image','',0,1,1,0,'{\"name\":\"mod_random_image\",\"type\":\"module\",\"creationDate\":\"July 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_RANDOM_IMAGE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(212,'mod_related_items','module','mod_related_items','',0,1,1,0,'{\"name\":\"mod_related_items\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_RELATED_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(213,'mod_search','module','mod_search','',0,1,1,0,'{\"name\":\"mod_search\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_SEARCH_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(214,'mod_stats','module','mod_stats','',0,1,1,0,'{\"name\":\"mod_stats\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_STATS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(215,'mod_syndicate','module','mod_syndicate','',0,1,1,1,'{\"name\":\"mod_syndicate\",\"type\":\"module\",\"creationDate\":\"May 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_SYNDICATE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(216,'mod_users_latest','module','mod_users_latest','',0,1,1,0,'{\"name\":\"mod_users_latest\",\"type\":\"module\",\"creationDate\":\"December 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_USERS_LATEST_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(217,'mod_weblinks','module','mod_weblinks','',0,1,1,0,'{\"name\":\"mod_weblinks\",\"type\":\"module\",\"creationDate\":\"July 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_WEBLINKS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(218,'mod_whosonline','module','mod_whosonline','',0,1,1,0,'{\"name\":\"mod_whosonline\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_WHOSONLINE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(219,'mod_wrapper','module','mod_wrapper','',0,1,1,0,'{\"name\":\"mod_wrapper\",\"type\":\"module\",\"creationDate\":\"October 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_WRAPPER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(220,'mod_articles_category','module','mod_articles_category','',0,1,1,0,'{\"name\":\"mod_articles_category\",\"type\":\"module\",\"creationDate\":\"February 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_ARTICLES_CATEGORY_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(221,'mod_articles_categories','module','mod_articles_categories','',0,1,1,0,'{\"name\":\"mod_articles_categories\",\"type\":\"module\",\"creationDate\":\"February 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_ARTICLES_CATEGORIES_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(222,'mod_languages','module','mod_languages','',0,1,1,1,'{\"name\":\"mod_languages\",\"type\":\"module\",\"creationDate\":\"February 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_LANGUAGES_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(223,'mod_finder','module','mod_finder','',0,1,0,0,'{\"name\":\"mod_finder\",\"type\":\"module\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_FINDER_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(300,'mod_custom','module','mod_custom','',1,1,1,1,'{\"name\":\"mod_custom\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_CUSTOM_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(301,'mod_feed','module','mod_feed','',1,1,1,0,'{\"name\":\"mod_feed\",\"type\":\"module\",\"creationDate\":\"July 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_FEED_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(302,'mod_latest','module','mod_latest','',1,1,1,0,'{\"name\":\"mod_latest\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_LATEST_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(303,'mod_logged','module','mod_logged','',1,1,1,0,'{\"name\":\"mod_logged\",\"type\":\"module\",\"creationDate\":\"January 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_LOGGED_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(304,'mod_login','module','mod_login','',1,1,1,1,'{\"name\":\"mod_login\",\"type\":\"module\",\"creationDate\":\"March 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_LOGIN_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(305,'mod_menu','module','mod_menu','',1,1,1,0,'{\"name\":\"mod_menu\",\"type\":\"module\",\"creationDate\":\"March 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_MENU_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(307,'mod_popular','module','mod_popular','',1,1,1,0,'{\"name\":\"mod_popular\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_POPULAR_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(308,'mod_quickicon','module','mod_quickicon','',1,1,1,1,'{\"name\":\"mod_quickicon\",\"type\":\"module\",\"creationDate\":\"Nov 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_QUICKICON_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(309,'mod_status','module','mod_status','',1,1,1,0,'{\"name\":\"mod_status\",\"type\":\"module\",\"creationDate\":\"Feb 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_STATUS_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(310,'mod_submenu','module','mod_submenu','',1,1,1,0,'{\"name\":\"mod_submenu\",\"type\":\"module\",\"creationDate\":\"Feb 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_SUBMENU_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(311,'mod_title','module','mod_title','',1,1,1,0,'{\"name\":\"mod_title\",\"type\":\"module\",\"creationDate\":\"Nov 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_TITLE_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(312,'mod_toolbar','module','mod_toolbar','',1,1,1,1,'{\"name\":\"mod_toolbar\",\"type\":\"module\",\"creationDate\":\"Nov 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_TOOLBAR_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(313,'mod_multilangstatus','module','mod_multilangstatus','',1,1,1,0,'{\"name\":\"mod_multilangstatus\",\"type\":\"module\",\"creationDate\":\"September 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_MULTILANGSTATUS_XML_DESCRIPTION\",\"group\":\"\"}','{\"cache\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0),(314,'mod_version','module','mod_version','',1,1,1,0,'{\"name\":\"mod_version\",\"type\":\"module\",\"creationDate\":\"January 2012\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_VERSION_XML_DESCRIPTION\",\"group\":\"\"}','{\"format\":\"short\",\"product\":\"1\",\"cache\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0),(315,'mod_stats_admin','module','mod_stats_admin','',1,1,1,0,'{\"name\":\"mod_stats_admin\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_STATS_XML_DESCRIPTION\",\"group\":\"\"}','{\"serverinfo\":\"0\",\"siteinfo\":\"0\",\"counter\":\"0\",\"increase\":\"0\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"static\"}','','',0,'0000-00-00 00:00:00',0,0),(316,'mod_tags_popular','module','mod_tags_popular','',0,1,1,0,'{\"name\":\"mod_tags_popular\",\"type\":\"module\",\"creationDate\":\"January 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.1.0\",\"description\":\"MOD_TAGS_POPULAR_XML_DESCRIPTION\",\"group\":\"\"}','{\"maximum\":\"5\",\"timeframe\":\"alltime\",\"owncache\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(317,'mod_tags_similar','module','mod_tags_similar','',0,1,1,0,'{\"name\":\"mod_tags_similar\",\"type\":\"module\",\"creationDate\":\"January 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.1.0\",\"description\":\"MOD_TAGS_SIMILAR_XML_DESCRIPTION\",\"group\":\"\"}','{\"maximum\":\"5\",\"matchtype\":\"any\",\"owncache\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(400,'plg_authentication_gmail','plugin','gmail','authentication',0,0,1,0,'{\"name\":\"plg_authentication_gmail\",\"type\":\"plugin\",\"creationDate\":\"February 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_GMAIL_XML_DESCRIPTION\",\"group\":\"\"}','{\"applysuffix\":\"0\",\"suffix\":\"\",\"verifypeer\":\"1\",\"user_blacklist\":\"\"}','','',0,'0000-00-00 00:00:00',1,0),(401,'plg_authentication_joomla','plugin','joomla','authentication',0,1,1,1,'{\"name\":\"plg_authentication_joomla\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_AUTH_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(402,'plg_authentication_ldap','plugin','ldap','authentication',0,0,1,0,'{\"name\":\"plg_authentication_ldap\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_LDAP_XML_DESCRIPTION\",\"group\":\"\"}','{\"host\":\"\",\"port\":\"389\",\"use_ldapV3\":\"0\",\"negotiate_tls\":\"0\",\"no_referrals\":\"0\",\"auth_method\":\"bind\",\"base_dn\":\"\",\"search_string\":\"\",\"users_dn\":\"\",\"username\":\"admin\",\"password\":\"bobby7\",\"ldap_fullname\":\"fullName\",\"ldap_email\":\"mail\",\"ldap_uid\":\"uid\"}','','',0,'0000-00-00 00:00:00',3,0),(403,'plg_content_contact','plugin','contact','content',0,1,1,0,'{\"name\":\"plg_content_contact\",\"type\":\"plugin\",\"creationDate\":\"January 2014\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.2.2\",\"description\":\"PLG_CONTENT_CONTACT_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',1,0),(404,'plg_content_emailcloak','plugin','emailcloak','content',0,1,1,0,'{\"name\":\"plg_content_emailcloak\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_CONTENT_EMAILCLOAK_XML_DESCRIPTION\",\"group\":\"\"}','{\"mode\":\"1\"}','','',0,'0000-00-00 00:00:00',1,0),(406,'plg_content_loadmodule','plugin','loadmodule','content',0,1,1,0,'{\"name\":\"plg_content_loadmodule\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_LOADMODULE_XML_DESCRIPTION\",\"group\":\"\"}','{\"style\":\"xhtml\"}','','',0,'2011-09-18 15:22:50',0,0),(407,'plg_content_pagebreak','plugin','pagebreak','content',0,1,1,0,'{\"name\":\"plg_content_pagebreak\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_CONTENT_PAGEBREAK_XML_DESCRIPTION\",\"group\":\"\"}','{\"title\":\"1\",\"multipage_toc\":\"1\",\"showall\":\"1\"}','','',0,'0000-00-00 00:00:00',4,0),(408,'plg_content_pagenavigation','plugin','pagenavigation','content',0,1,1,0,'{\"name\":\"plg_content_pagenavigation\",\"type\":\"plugin\",\"creationDate\":\"January 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_PAGENAVIGATION_XML_DESCRIPTION\",\"group\":\"\"}','{\"position\":\"1\"}','','',0,'0000-00-00 00:00:00',5,0),(409,'plg_content_vote','plugin','vote','content',0,1,1,0,'{\"name\":\"plg_content_vote\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_VOTE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',6,0),(410,'plg_editors_codemirror','plugin','codemirror','editors',0,1,1,1,'{\"name\":\"plg_editors_codemirror\",\"type\":\"plugin\",\"creationDate\":\"28 March 2011\",\"author\":\"Marijn Haverbeke\",\"copyright\":\"\",\"authorEmail\":\"N\\/A\",\"authorUrl\":\"\",\"version\":\"3.15\",\"description\":\"PLG_CODEMIRROR_XML_DESCRIPTION\",\"group\":\"\"}','{\"lineNumbers\":\"1\",\"lineWrapping\":\"1\",\"matchTags\":\"1\",\"matchBrackets\":\"1\",\"marker-gutter\":\"1\",\"autoCloseTags\":\"1\",\"autoCloseBrackets\":\"1\",\"autoFocus\":\"1\",\"theme\":\"default\",\"tabmode\":\"indent\"}','','',0,'0000-00-00 00:00:00',1,0),(411,'plg_editors_none','plugin','none','editors',0,1,1,1,'{\"name\":\"plg_editors_none\",\"type\":\"plugin\",\"creationDate\":\"August 2004\",\"author\":\"Unknown\",\"copyright\":\"\",\"authorEmail\":\"N\\/A\",\"authorUrl\":\"\",\"version\":\"3.0.0\",\"description\":\"PLG_NONE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',2,0),(412,'plg_editors_tinymce','plugin','tinymce','editors',0,1,1,0,'{\"name\":\"plg_editors_tinymce\",\"type\":\"plugin\",\"creationDate\":\"2005-2014\",\"author\":\"Moxiecode Systems AB\",\"copyright\":\"Moxiecode Systems AB\",\"authorEmail\":\"N\\/A\",\"authorUrl\":\"tinymce.moxiecode.com\",\"version\":\"4.1.2\",\"description\":\"PLG_TINY_XML_DESCRIPTION\",\"group\":\"\"}','{\"mode\":\"1\",\"skin\":\"0\",\"entity_encoding\":\"raw\",\"lang_mode\":\"0\",\"lang_code\":\"en\",\"text_direction\":\"ltr\",\"content_css\":\"1\",\"content_css_custom\":\"\",\"relative_urls\":\"1\",\"newlines\":\"0\",\"invalid_elements\":\"script,applet,iframe\",\"extended_elements\":\"\",\"toolbar\":\"top\",\"toolbar_align\":\"left\",\"html_height\":\"550\",\"html_width\":\"750\",\"resizing\":\"true\",\"resize_horizontal\":\"false\",\"element_path\":\"1\",\"fonts\":\"1\",\"paste\":\"1\",\"searchreplace\":\"1\",\"insertdate\":\"1\",\"format_date\":\"%Y-%m-%d\",\"inserttime\":\"1\",\"format_time\":\"%H:%M:%S\",\"colors\":\"1\",\"table\":\"1\",\"smilies\":\"1\",\"media\":\"1\",\"hr\":\"1\",\"directionality\":\"1\",\"fullscreen\":\"1\",\"style\":\"1\",\"layer\":\"1\",\"xhtmlxtras\":\"1\",\"visualchars\":\"1\",\"nonbreaking\":\"1\",\"template\":\"1\",\"blockquote\":\"1\",\"wordcount\":\"1\",\"advimage\":\"1\",\"advlink\":\"1\",\"advlist\":\"1\",\"autosave\":\"1\",\"contextmenu\":\"1\",\"inlinepopups\":\"1\",\"custom_plugin\":\"\",\"custom_button\":\"\"}','','',0,'0000-00-00 00:00:00',3,0),(413,'plg_editors-xtd_article','plugin','article','editors-xtd',0,1,1,1,'{\"name\":\"plg_editors-xtd_article\",\"type\":\"plugin\",\"creationDate\":\"October 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_ARTICLE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',1,0),(414,'plg_editors-xtd_image','plugin','image','editors-xtd',0,1,1,0,'{\"name\":\"plg_editors-xtd_image\",\"type\":\"plugin\",\"creationDate\":\"August 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_IMAGE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',2,0),(415,'plg_editors-xtd_pagebreak','plugin','pagebreak','editors-xtd',0,1,1,0,'{\"name\":\"plg_editors-xtd_pagebreak\",\"type\":\"plugin\",\"creationDate\":\"August 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_EDITORSXTD_PAGEBREAK_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',3,0),(416,'plg_editors-xtd_readmore','plugin','readmore','editors-xtd',0,1,1,0,'{\"name\":\"plg_editors-xtd_readmore\",\"type\":\"plugin\",\"creationDate\":\"March 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_READMORE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',4,0),(417,'plg_search_categories','plugin','categories','search',0,0,1,0,'{\"name\":\"plg_search_categories\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SEARCH_CATEGORIES_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(418,'plg_search_contacts','plugin','contacts','search',0,0,1,0,'{\"name\":\"plg_search_contacts\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SEARCH_CONTACTS_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(419,'plg_search_content','plugin','content','search',0,0,1,0,'{\"name\":\"plg_search_content\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SEARCH_CONTENT_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(420,'plg_search_newsfeeds','plugin','newsfeeds','search',0,0,1,0,'{\"name\":\"plg_search_newsfeeds\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SEARCH_NEWSFEEDS_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(421,'plg_search_weblinks','plugin','weblinks','search',0,0,1,0,'{\"name\":\"plg_search_weblinks\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SEARCH_WEBLINKS_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"1\",\"search_archived\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(422,'plg_system_languagefilter','plugin','languagefilter','system',0,0,1,1,'{\"name\":\"plg_system_languagefilter\",\"type\":\"plugin\",\"creationDate\":\"July 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SYSTEM_LANGUAGEFILTER_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',1,0),(423,'plg_system_p3p','plugin','p3p','system',0,1,1,0,'{\"name\":\"plg_system_p3p\",\"type\":\"plugin\",\"creationDate\":\"September 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_P3P_XML_DESCRIPTION\",\"group\":\"\"}','{\"headers\":\"NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM\"}','','',0,'0000-00-00 00:00:00',2,0),(424,'plg_system_cache','plugin','cache','system',0,0,1,1,'{\"name\":\"plg_system_cache\",\"type\":\"plugin\",\"creationDate\":\"February 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_CACHE_XML_DESCRIPTION\",\"group\":\"\"}','{\"browsercache\":\"0\",\"cachetime\":\"15\"}','','',0,'0000-00-00 00:00:00',9,0),(425,'plg_system_debug','plugin','debug','system',0,1,1,0,'{\"name\":\"plg_system_debug\",\"type\":\"plugin\",\"creationDate\":\"December 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_DEBUG_XML_DESCRIPTION\",\"group\":\"\"}','{\"profile\":\"1\",\"queries\":\"1\",\"memory\":\"1\",\"language_files\":\"1\",\"language_strings\":\"1\",\"strip-first\":\"1\",\"strip-prefix\":\"\",\"strip-suffix\":\"\"}','','',0,'0000-00-00 00:00:00',4,0),(426,'plg_system_log','plugin','log','system',0,1,1,1,'{\"name\":\"plg_system_log\",\"type\":\"plugin\",\"creationDate\":\"April 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_LOG_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',5,0),(427,'plg_system_redirect','plugin','redirect','system',0,0,1,1,'{\"name\":\"plg_system_redirect\",\"type\":\"plugin\",\"creationDate\":\"April 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_REDIRECT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',6,0),(428,'plg_system_remember','plugin','remember','system',0,1,1,1,'{\"name\":\"plg_system_remember\",\"type\":\"plugin\",\"creationDate\":\"April 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_REMEMBER_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',7,0),(429,'plg_system_sef','plugin','sef','system',0,1,1,0,'{\"name\":\"plg_system_sef\",\"type\":\"plugin\",\"creationDate\":\"December 2007\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SEF_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',8,0),(430,'plg_system_logout','plugin','logout','system',0,1,1,1,'{\"name\":\"plg_system_logout\",\"type\":\"plugin\",\"creationDate\":\"April 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SYSTEM_LOGOUT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',3,0),(431,'plg_user_contactcreator','plugin','contactcreator','user',0,0,1,0,'{\"name\":\"plg_user_contactcreator\",\"type\":\"plugin\",\"creationDate\":\"August 2009\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_CONTACTCREATOR_XML_DESCRIPTION\",\"group\":\"\"}','{\"autowebpage\":\"\",\"category\":\"34\",\"autopublish\":\"0\"}','','',0,'0000-00-00 00:00:00',1,0),(432,'plg_user_joomla','plugin','joomla','user',0,1,1,0,'{\"name\":\"plg_user_joomla\",\"type\":\"plugin\",\"creationDate\":\"December 2006\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2009 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_USER_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{\"autoregister\":\"1\"}','','',0,'0000-00-00 00:00:00',2,0),(433,'plg_user_profile','plugin','profile','user',0,0,1,0,'{\"name\":\"plg_user_profile\",\"type\":\"plugin\",\"creationDate\":\"January 2008\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_USER_PROFILE_XML_DESCRIPTION\",\"group\":\"\"}','{\"register-require_address1\":\"1\",\"register-require_address2\":\"1\",\"register-require_city\":\"1\",\"register-require_region\":\"1\",\"register-require_country\":\"1\",\"register-require_postal_code\":\"1\",\"register-require_phone\":\"1\",\"register-require_website\":\"1\",\"register-require_favoritebook\":\"1\",\"register-require_aboutme\":\"1\",\"register-require_tos\":\"1\",\"register-require_dob\":\"1\",\"profile-require_address1\":\"1\",\"profile-require_address2\":\"1\",\"profile-require_city\":\"1\",\"profile-require_region\":\"1\",\"profile-require_country\":\"1\",\"profile-require_postal_code\":\"1\",\"profile-require_phone\":\"1\",\"profile-require_website\":\"1\",\"profile-require_favoritebook\":\"1\",\"profile-require_aboutme\":\"1\",\"profile-require_tos\":\"1\",\"profile-require_dob\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(434,'plg_extension_joomla','plugin','joomla','extension',0,1,1,1,'{\"name\":\"plg_extension_joomla\",\"type\":\"plugin\",\"creationDate\":\"May 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_EXTENSION_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',1,0),(435,'plg_content_joomla','plugin','joomla','content',0,1,1,0,'{\"name\":\"plg_content_joomla\",\"type\":\"plugin\",\"creationDate\":\"November 2010\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_CONTENT_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(436,'plg_system_languagecode','plugin','languagecode','system',0,0,1,0,'{\"name\":\"plg_system_languagecode\",\"type\":\"plugin\",\"creationDate\":\"November 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SYSTEM_LANGUAGECODE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',10,0),(437,'plg_quickicon_joomlaupdate','plugin','joomlaupdate','quickicon',0,1,1,1,'{\"name\":\"plg_quickicon_joomlaupdate\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_QUICKICON_JOOMLAUPDATE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(438,'plg_quickicon_extensionupdate','plugin','extensionupdate','quickicon',0,1,1,1,'{\"name\":\"plg_quickicon_extensionupdate\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_QUICKICON_EXTENSIONUPDATE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(439,'plg_captcha_recaptcha','plugin','recaptcha','captcha',0,0,1,0,'{\"name\":\"plg_captcha_recaptcha\",\"type\":\"plugin\",\"creationDate\":\"December 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_CAPTCHA_RECAPTCHA_XML_DESCRIPTION\",\"group\":\"\"}','{\"public_key\":\"\",\"private_key\":\"\",\"theme\":\"clean\"}','','',0,'0000-00-00 00:00:00',0,0),(440,'plg_system_highlight','plugin','highlight','system',0,1,1,0,'{\"name\":\"plg_system_highlight\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SYSTEM_HIGHLIGHT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',7,0),(441,'plg_content_finder','plugin','finder','content',0,0,1,0,'{\"name\":\"plg_content_finder\",\"type\":\"plugin\",\"creationDate\":\"December 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_CONTENT_FINDER_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(442,'plg_finder_categories','plugin','categories','finder',0,1,1,0,'{\"name\":\"plg_finder_categories\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_FINDER_CATEGORIES_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',1,0),(443,'plg_finder_contacts','plugin','contacts','finder',0,1,1,0,'{\"name\":\"plg_finder_contacts\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_FINDER_CONTACTS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',2,0),(444,'plg_finder_content','plugin','content','finder',0,1,1,0,'{\"name\":\"plg_finder_content\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_FINDER_CONTENT_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',3,0),(445,'plg_finder_newsfeeds','plugin','newsfeeds','finder',0,1,1,0,'{\"name\":\"plg_finder_newsfeeds\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_FINDER_NEWSFEEDS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',4,0),(446,'plg_finder_weblinks','plugin','weblinks','finder',0,1,1,0,'{\"name\":\"plg_finder_weblinks\",\"type\":\"plugin\",\"creationDate\":\"August 2011\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_FINDER_WEBLINKS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',5,0),(447,'plg_finder_tags','plugin','tags','finder',0,1,1,0,'{\"name\":\"plg_finder_tags\",\"type\":\"plugin\",\"creationDate\":\"February 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_FINDER_TAGS_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(448,'plg_twofactorauth_totp','plugin','totp','twofactorauth',0,0,1,0,'{\"name\":\"plg_twofactorauth_totp\",\"type\":\"plugin\",\"creationDate\":\"August 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.2.0\",\"description\":\"PLG_TWOFACTORAUTH_TOTP_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(449,'plg_authentication_cookie','plugin','cookie','authentication',0,1,1,0,'{\"name\":\"plg_authentication_cookie\",\"type\":\"plugin\",\"creationDate\":\"July 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_AUTH_COOKIE_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(450,'plg_twofactorauth_yubikey','plugin','yubikey','twofactorauth',0,0,1,0,'{\"name\":\"plg_twofactorauth_yubikey\",\"type\":\"plugin\",\"creationDate\":\"Se[ptember 2013\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.2.0\",\"description\":\"PLG_TWOFACTORAUTH_YUBIKEY_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(451,'plg_search_tags','plugin','tags','search',0,0,1,0,'{\"name\":\"plg_search_tags\",\"type\":\"plugin\",\"creationDate\":\"March 2014\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SEARCH_TAGS_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"show_tagged_items\":\"1\"}','','',0,'0000-00-00 00:00:00',0,0),(503,'beez3','template','beez3','',0,1,1,0,'{\"name\":\"beez3\",\"type\":\"template\",\"creationDate\":\"25 November 2009\",\"author\":\"Angie Radtke\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.\",\"authorEmail\":\"a.radtke@derauftritt.de\",\"authorUrl\":\"http:\\/\\/www.der-auftritt.de\",\"version\":\"3.1.0\",\"description\":\"TPL_BEEZ3_XML_DESCRIPTION\",\"group\":\"\"}','{\"wrapperSmall\":\"53\",\"wrapperLarge\":\"72\",\"sitetitle\":\"\",\"sitedescription\":\"\",\"navposition\":\"center\",\"templatecolor\":\"nature\"}','','',0,'0000-00-00 00:00:00',0,0),(504,'hathor','template','hathor','',1,1,1,0,'{\"name\":\"hathor\",\"type\":\"template\",\"creationDate\":\"May 2010\",\"author\":\"Andrea Tarr\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.\",\"authorEmail\":\"hathor@tarrconsulting.com\",\"authorUrl\":\"http:\\/\\/www.tarrconsulting.com\",\"version\":\"3.0.0\",\"description\":\"TPL_HATHOR_XML_DESCRIPTION\",\"group\":\"\"}','{\"showSiteName\":\"0\",\"colourChoice\":\"0\",\"boldText\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0),(506,'protostar','template','protostar','',0,1,1,0,'{\"name\":\"protostar\",\"type\":\"template\",\"creationDate\":\"4\\/30\\/2012\",\"author\":\"Kyle Ledbetter\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"\",\"version\":\"1.0\",\"description\":\"TPL_PROTOSTAR_XML_DESCRIPTION\",\"group\":\"\"}','{\"templateColor\":\"\",\"logoFile\":\"\",\"googleFont\":\"1\",\"googleFontName\":\"Open+Sans\",\"fluidContainer\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0),(507,'isis','template','isis','',1,1,1,0,'{\"name\":\"isis\",\"type\":\"template\",\"creationDate\":\"3\\/30\\/2012\",\"author\":\"Kyle Ledbetter\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"\",\"version\":\"1.0\",\"description\":\"TPL_ISIS_XML_DESCRIPTION\",\"group\":\"\"}','{\"templateColor\":\"\",\"logoFile\":\"\"}','','',0,'0000-00-00 00:00:00',0,0),(600,'English (United Kingdom)','language','en-GB','',0,1,1,1,'{\"name\":\"English (United Kingdom)\",\"type\":\"language\",\"creationDate\":\"2013-03-07\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.3.1\",\"description\":\"en-GB site language\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(601,'English (United Kingdom)','language','en-GB','',1,1,1,1,'{\"name\":\"English (United Kingdom)\",\"type\":\"language\",\"creationDate\":\"2013-03-07\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.3.1\",\"description\":\"en-GB administrator language\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(700,'files_joomla','file','joomla','',0,1,1,1,'{\"name\":\"files_joomla\",\"type\":\"file\",\"creationDate\":\"July 2014\",\"author\":\"Joomla! Project\",\"copyright\":\"(C) 2005 - 2014 Open Source Matters. All rights reserved\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.3.3\",\"description\":\"FILES_JOOMLA_XML_DESCRIPTION\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(10000,'Russian','language','ru-RU','',0,1,0,0,'{\"name\":\"Russian\",\"type\":\"language\",\"creationDate\":\"2014-07-28\",\"author\":\"Russian Translation Team\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved\",\"authorEmail\":\"smart@joomlaportal.ru\",\"authorUrl\":\"www.joomlaportal.ru\",\"version\":\"3.3.3.1\",\"description\":\"Russian language pack (site) for Joomla! 3.3\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(10001,'Russian','language','ru-RU','',1,1,0,0,'{\"name\":\"Russian\",\"type\":\"language\",\"creationDate\":\"2014-07-28\",\"author\":\"Russian Translation Team\",\"copyright\":\"Copyright (C) 2005 - 2014 Open Source Matters. All rights reserved\",\"authorEmail\":\"smart@joomlaportal.ru\",\"authorUrl\":\"www.joomlaportal.ru\",\"version\":\"3.3.3.1\",\"description\":\"Russian language pack (administrator) for Joomla! 3.3\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(10002,'TinyMCE ru-RU','file','tinymce_ru-ru','',0,1,0,0,'{\"name\":\"TinyMCE ru-RU\",\"type\":\"file\",\"creationDate\":\"2012-10-01\",\"author\":\"Russian Translation Team\",\"copyright\":\"Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved\",\"authorEmail\":\"smart@joomlaportal.ru\",\"authorUrl\":\"www.joomlaportal.ru\",\"version\":\"3.5.2.1\",\"description\":\"Russian Language Package for TinyMCE 3.5.2.1 in Joomla 3.0\",\"group\":\"\"}','','','',0,'0000-00-00 00:00:00',0,0),(10003,'ru-RU','package','pkg_ru-RU','',0,1,1,0,'{\"name\":\"Russian Language Pack\",\"type\":\"package\",\"creationDate\":\"Unknown\",\"author\":\"Unknown\",\"copyright\":\"\",\"authorEmail\":\"\",\"authorUrl\":\"\",\"version\":\"3.3.3.1\",\"description\":\"Joomla 3.3 Russian Language Package\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(10004,'Lady','template','lady','',0,1,1,0,'{\"name\":\"Lady\",\"type\":\"template\",\"creationDate\":\"2013-10-12\",\"author\":\"Andreyalek\",\"copyright\":\"\",\"authorEmail\":\"andreyalek@gmail.com\",\"authorUrl\":\"\",\"version\":\"1.0\",\"description\":\"\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(10007,'com_yoshop','component','com_yoshop','',1,1,0,0,'{\"name\":\"com_yoshop\",\"type\":\"component\",\"creationDate\":\"2013-10-12\",\"author\":\"Andreyalek\",\"copyright\":\"\\u00a9 2013. \\u0412\\u0441\\u0435 \\u043f\\u0440\\u0430\\u0432\\u0430 \\u0437\\u0430\\u0449\\u0438\\u0449\\u0435\\u043d\\u044b.\",\"authorEmail\":\"andreyalek@gmail.com\",\"authorUrl\":\"http:\\/\\/\",\"version\":\"0.5\",\"description\":\"\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(10008,'mod_yoshop_cart','module','mod_yoshop_cart','',0,1,1,0,'{\"name\":\"mod_yoshop_cart\",\"type\":\"module\",\"creationDate\":\"October 2013\",\"author\":\"Andreyalek\",\"copyright\":\"\",\"authorEmail\":\"andreyalek@gmail.com\",\"authorUrl\":\"\",\"version\":\"0.5\",\"description\":\"MOD_YOSHOP_CART_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,0),(10010,'plg_search_yoshop','plugin','yoshop','search',0,1,1,0,'{\"name\":\"plg_search_yoshop\",\"type\":\"plugin\",\"creationDate\":\"November 2005\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"PLG_SEARCH_YOSHOP_XML_DESCRIPTION\",\"group\":\"\"}','{\"search_limit\":\"50\",\"search_content\":\"0\",\"search_archived\":\"0\"}','','',0,'0000-00-00 00:00:00',0,0),(10012,'mod_yoshop_featured','module','mod_yoshop_featured','',0,1,1,0,'{\"name\":\"mod_yoshop_featured\",\"type\":\"module\",\"creationDate\":\"October 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"\",\"group\":\"\"}','[]','','',0,'0000-00-00 00:00:00',0,0),(10017,'mod_random_text','module','mod_random_text','',0,1,1,0,'{\"name\":\"mod_random_text\",\"type\":\"module\",\"creationDate\":\"July 2004\",\"author\":\"Joomla! Project\",\"copyright\":\"Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.\",\"authorEmail\":\"admin@joomla.org\",\"authorUrl\":\"www.joomla.org\",\"version\":\"3.0.0\",\"description\":\"MOD_RANDOM_TEXT_XML_DESCRIPTION\",\"group\":\"\"}','{\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"static\"}','','',0,'0000-00-00 00:00:00',0,0),(10018,'mod_yoshop_catmenu','module','mod_yoshop_catmenu','',0,1,1,0,'{\"name\":\"mod_yoshop_cart\",\"type\":\"module\",\"creationDate\":\"October 2013\",\"author\":\"Andreyalek\",\"copyright\":\"\",\"authorEmail\":\"andreyalek@gmail.com\",\"authorUrl\":\"\",\"version\":\"0.5\",\"description\":\"MOD_YOSHOP_CART_XML_DESCRIPTION\",\"group\":\"\"}','{}','','',0,'0000-00-00 00:00:00',0,-1);
+/*!40000 ALTER TABLE `yodev_extensions` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_finder_filters` */
+--
+-- Table structure for table `yodev_finder_filters`
+--
 
-DROP TABLE IF EXISTS `cwtaq_finder_filters`;
-
-CREATE TABLE `cwtaq_finder_filters` (
+DROP TABLE IF EXISTS `yodev_finder_filters`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_filters` (
   `filter_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `alias` varchar(255) NOT NULL,
@@ -568,14 +585,25 @@ CREATE TABLE `cwtaq_finder_filters` (
   `params` mediumtext,
   PRIMARY KEY (`filter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_filters` */
+--
+-- Dumping data for table `yodev_finder_filters`
+--
 
-/*Table structure for table `cwtaq_finder_links` */
+LOCK TABLES `yodev_finder_filters` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_filters` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_filters` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links`;
+--
+-- Table structure for table `yodev_finder_links`
+--
 
-CREATE TABLE `cwtaq_finder_links` (
+DROP TABLE IF EXISTS `yodev_finder_links`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links` (
   `link_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(255) NOT NULL,
   `route` varchar(255) NOT NULL,
@@ -603,14 +631,25 @@ CREATE TABLE `cwtaq_finder_links` (
   KEY `idx_published_list` (`published`,`state`,`access`,`publish_start_date`,`publish_end_date`,`list_price`),
   KEY `idx_published_sale` (`published`,`state`,`access`,`publish_start_date`,`publish_end_date`,`sale_price`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links` */
+--
+-- Dumping data for table `yodev_finder_links`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms0` */
+LOCK TABLES `yodev_finder_links` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms0`;
+--
+-- Table structure for table `yodev_finder_links_terms0`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms0` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms0`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms0` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -618,14 +657,25 @@ CREATE TABLE `cwtaq_finder_links_terms0` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms0` */
+--
+-- Dumping data for table `yodev_finder_links_terms0`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms1` */
+LOCK TABLES `yodev_finder_links_terms0` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms0` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms0` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms1`;
+--
+-- Table structure for table `yodev_finder_links_terms1`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms1` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms1`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms1` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -633,14 +683,25 @@ CREATE TABLE `cwtaq_finder_links_terms1` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms1` */
+--
+-- Dumping data for table `yodev_finder_links_terms1`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms2` */
+LOCK TABLES `yodev_finder_links_terms1` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms1` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms1` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms2`;
+--
+-- Table structure for table `yodev_finder_links_terms2`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms2` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms2`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms2` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -648,14 +709,25 @@ CREATE TABLE `cwtaq_finder_links_terms2` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms2` */
+--
+-- Dumping data for table `yodev_finder_links_terms2`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms3` */
+LOCK TABLES `yodev_finder_links_terms2` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms2` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms2` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms3`;
+--
+-- Table structure for table `yodev_finder_links_terms3`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms3` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms3`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms3` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -663,14 +735,25 @@ CREATE TABLE `cwtaq_finder_links_terms3` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms3` */
+--
+-- Dumping data for table `yodev_finder_links_terms3`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms4` */
+LOCK TABLES `yodev_finder_links_terms3` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms3` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms3` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms4`;
+--
+-- Table structure for table `yodev_finder_links_terms4`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms4` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms4`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms4` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -678,14 +761,25 @@ CREATE TABLE `cwtaq_finder_links_terms4` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms4` */
+--
+-- Dumping data for table `yodev_finder_links_terms4`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms5` */
+LOCK TABLES `yodev_finder_links_terms4` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms4` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms4` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms5`;
+--
+-- Table structure for table `yodev_finder_links_terms5`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms5` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms5`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms5` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -693,14 +787,25 @@ CREATE TABLE `cwtaq_finder_links_terms5` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms5` */
+--
+-- Dumping data for table `yodev_finder_links_terms5`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms6` */
+LOCK TABLES `yodev_finder_links_terms5` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms5` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms5` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms6`;
+--
+-- Table structure for table `yodev_finder_links_terms6`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms6` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms6`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms6` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -708,14 +813,25 @@ CREATE TABLE `cwtaq_finder_links_terms6` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms6` */
+--
+-- Dumping data for table `yodev_finder_links_terms6`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms7` */
+LOCK TABLES `yodev_finder_links_terms6` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms6` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms6` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms7`;
+--
+-- Table structure for table `yodev_finder_links_terms7`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms7` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms7`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms7` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -723,14 +839,25 @@ CREATE TABLE `cwtaq_finder_links_terms7` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms7` */
+--
+-- Dumping data for table `yodev_finder_links_terms7`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms8` */
+LOCK TABLES `yodev_finder_links_terms7` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms7` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms7` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms8`;
+--
+-- Table structure for table `yodev_finder_links_terms8`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms8` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms8`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms8` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -738,14 +865,25 @@ CREATE TABLE `cwtaq_finder_links_terms8` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms8` */
+--
+-- Dumping data for table `yodev_finder_links_terms8`
+--
 
-/*Table structure for table `cwtaq_finder_links_terms9` */
+LOCK TABLES `yodev_finder_links_terms8` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms8` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms8` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_terms9`;
+--
+-- Table structure for table `yodev_finder_links_terms9`
+--
 
-CREATE TABLE `cwtaq_finder_links_terms9` (
+DROP TABLE IF EXISTS `yodev_finder_links_terms9`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_terms9` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -753,14 +891,25 @@ CREATE TABLE `cwtaq_finder_links_terms9` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_terms9` */
+--
+-- Dumping data for table `yodev_finder_links_terms9`
+--
 
-/*Table structure for table `cwtaq_finder_links_termsa` */
+LOCK TABLES `yodev_finder_links_terms9` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_terms9` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_terms9` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_termsa`;
+--
+-- Table structure for table `yodev_finder_links_termsa`
+--
 
-CREATE TABLE `cwtaq_finder_links_termsa` (
+DROP TABLE IF EXISTS `yodev_finder_links_termsa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_termsa` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -768,14 +917,25 @@ CREATE TABLE `cwtaq_finder_links_termsa` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_termsa` */
+--
+-- Dumping data for table `yodev_finder_links_termsa`
+--
 
-/*Table structure for table `cwtaq_finder_links_termsb` */
+LOCK TABLES `yodev_finder_links_termsa` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_termsa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_termsa` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_termsb`;
+--
+-- Table structure for table `yodev_finder_links_termsb`
+--
 
-CREATE TABLE `cwtaq_finder_links_termsb` (
+DROP TABLE IF EXISTS `yodev_finder_links_termsb`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_termsb` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -783,14 +943,25 @@ CREATE TABLE `cwtaq_finder_links_termsb` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_termsb` */
+--
+-- Dumping data for table `yodev_finder_links_termsb`
+--
 
-/*Table structure for table `cwtaq_finder_links_termsc` */
+LOCK TABLES `yodev_finder_links_termsb` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_termsb` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_termsb` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_termsc`;
+--
+-- Table structure for table `yodev_finder_links_termsc`
+--
 
-CREATE TABLE `cwtaq_finder_links_termsc` (
+DROP TABLE IF EXISTS `yodev_finder_links_termsc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_termsc` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -798,14 +969,25 @@ CREATE TABLE `cwtaq_finder_links_termsc` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_termsc` */
+--
+-- Dumping data for table `yodev_finder_links_termsc`
+--
 
-/*Table structure for table `cwtaq_finder_links_termsd` */
+LOCK TABLES `yodev_finder_links_termsc` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_termsc` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_termsc` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_termsd`;
+--
+-- Table structure for table `yodev_finder_links_termsd`
+--
 
-CREATE TABLE `cwtaq_finder_links_termsd` (
+DROP TABLE IF EXISTS `yodev_finder_links_termsd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_termsd` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -813,14 +995,25 @@ CREATE TABLE `cwtaq_finder_links_termsd` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_termsd` */
+--
+-- Dumping data for table `yodev_finder_links_termsd`
+--
 
-/*Table structure for table `cwtaq_finder_links_termse` */
+LOCK TABLES `yodev_finder_links_termsd` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_termsd` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_termsd` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_termse`;
+--
+-- Table structure for table `yodev_finder_links_termse`
+--
 
-CREATE TABLE `cwtaq_finder_links_termse` (
+DROP TABLE IF EXISTS `yodev_finder_links_termse`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_termse` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -828,14 +1021,25 @@ CREATE TABLE `cwtaq_finder_links_termse` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_termse` */
+--
+-- Dumping data for table `yodev_finder_links_termse`
+--
 
-/*Table structure for table `cwtaq_finder_links_termsf` */
+LOCK TABLES `yodev_finder_links_termse` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_termse` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_termse` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_links_termsf`;
+--
+-- Table structure for table `yodev_finder_links_termsf`
+--
 
-CREATE TABLE `cwtaq_finder_links_termsf` (
+DROP TABLE IF EXISTS `yodev_finder_links_termsf`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_links_termsf` (
   `link_id` int(10) unsigned NOT NULL,
   `term_id` int(10) unsigned NOT NULL,
   `weight` float unsigned NOT NULL,
@@ -843,14 +1047,25 @@ CREATE TABLE `cwtaq_finder_links_termsf` (
   KEY `idx_term_weight` (`term_id`,`weight`),
   KEY `idx_link_term_weight` (`link_id`,`term_id`,`weight`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_links_termsf` */
+--
+-- Dumping data for table `yodev_finder_links_termsf`
+--
 
-/*Table structure for table `cwtaq_finder_taxonomy` */
+LOCK TABLES `yodev_finder_links_termsf` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_links_termsf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_links_termsf` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_taxonomy`;
+--
+-- Table structure for table `yodev_finder_taxonomy`
+--
 
-CREATE TABLE `cwtaq_finder_taxonomy` (
+DROP TABLE IF EXISTS `yodev_finder_taxonomy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_taxonomy` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
   `title` varchar(255) NOT NULL,
@@ -864,30 +1079,51 @@ CREATE TABLE `cwtaq_finder_taxonomy` (
   KEY `access` (`access`),
   KEY `idx_parent_published` (`parent_id`,`state`,`access`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_taxonomy` */
+--
+-- Dumping data for table `yodev_finder_taxonomy`
+--
 
-insert  into `cwtaq_finder_taxonomy`(`id`,`parent_id`,`title`,`state`,`access`,`ordering`) values (1,0,'ROOT',0,0,0);
+LOCK TABLES `yodev_finder_taxonomy` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_taxonomy` DISABLE KEYS */;
+INSERT INTO `yodev_finder_taxonomy` VALUES (1,0,'ROOT',0,0,0);
+/*!40000 ALTER TABLE `yodev_finder_taxonomy` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_finder_taxonomy_map` */
+--
+-- Table structure for table `yodev_finder_taxonomy_map`
+--
 
-DROP TABLE IF EXISTS `cwtaq_finder_taxonomy_map`;
-
-CREATE TABLE `cwtaq_finder_taxonomy_map` (
+DROP TABLE IF EXISTS `yodev_finder_taxonomy_map`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_taxonomy_map` (
   `link_id` int(10) unsigned NOT NULL,
   `node_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`link_id`,`node_id`),
   KEY `link_id` (`link_id`),
   KEY `node_id` (`node_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_taxonomy_map` */
+--
+-- Dumping data for table `yodev_finder_taxonomy_map`
+--
 
-/*Table structure for table `cwtaq_finder_terms` */
+LOCK TABLES `yodev_finder_taxonomy_map` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_taxonomy_map` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_taxonomy_map` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_terms`;
+--
+-- Table structure for table `yodev_finder_terms`
+--
 
-CREATE TABLE `cwtaq_finder_terms` (
+DROP TABLE IF EXISTS `yodev_finder_terms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_terms` (
   `term_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `term` varchar(75) NOT NULL,
   `stem` varchar(75) NOT NULL,
@@ -896,166 +1132,86 @@ CREATE TABLE `cwtaq_finder_terms` (
   `weight` float unsigned NOT NULL DEFAULT '0',
   `soundex` varchar(75) NOT NULL,
   `links` int(10) NOT NULL DEFAULT '0',
+  `language` char(3) NOT NULL DEFAULT '',
   PRIMARY KEY (`term_id`),
   UNIQUE KEY `idx_term` (`term`),
   KEY `idx_term_phrase` (`term`,`phrase`),
   KEY `idx_stem_phrase` (`stem`,`phrase`),
   KEY `idx_soundex_phrase` (`soundex`,`phrase`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_terms` */
+--
+-- Dumping data for table `yodev_finder_terms`
+--
 
-/*Table structure for table `cwtaq_finder_terms_common` */
+LOCK TABLES `yodev_finder_terms` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_terms` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_terms` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_terms_common`;
+--
+-- Table structure for table `yodev_finder_terms_common`
+--
 
-CREATE TABLE `cwtaq_finder_terms_common` (
+DROP TABLE IF EXISTS `yodev_finder_terms_common`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_terms_common` (
   `term` varchar(75) NOT NULL,
   `language` varchar(3) NOT NULL,
   KEY `idx_word_lang` (`term`,`language`),
   KEY `idx_lang` (`language`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_terms_common` */
+--
+-- Dumping data for table `yodev_finder_terms_common`
+--
 
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('a','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('about','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('after','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('ago','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('all','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('am','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('an','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('and','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('ani','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('any','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('are','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('aren\'t','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('as','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('at','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('be','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('but','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('by','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('for','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('from','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('get','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('go','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('how','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('if','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('in','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('into','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('is','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('isn\'t','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('it','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('its','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('me','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('more','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('most','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('must','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('my','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('new','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('no','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('none','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('not','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('noth','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('nothing','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('of','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('off','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('often','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('old','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('on','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('onc','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('once','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('onli','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('only','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('or','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('other','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('our','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('ours','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('out','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('over','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('page','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('she','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('should','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('small','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('so','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('some','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('than','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('thank','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('that','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('the','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('their','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('theirs','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('them','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('then','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('there','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('these','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('they','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('this','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('those','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('thus','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('time','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('times','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('to','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('too','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('true','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('under','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('until','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('up','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('upon','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('use','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('user','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('users','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('veri','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('version','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('very','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('via','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('want','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('was','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('way','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('were','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('what','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('when','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('where','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('whi','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('which','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('who','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('whom','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('whose','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('why','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('wide','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('will','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('with','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('within','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('without','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('would','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('yes','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('yet','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('you','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('your','en');
-insert  into `cwtaq_finder_terms_common`(`term`,`language`) values ('yours','en');
+LOCK TABLES `yodev_finder_terms_common` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_terms_common` DISABLE KEYS */;
+INSERT INTO `yodev_finder_terms_common` VALUES ('a','en'),('about','en'),('after','en'),('ago','en'),('all','en'),('am','en'),('an','en'),('and','en'),('ani','en'),('any','en'),('are','en'),('aren\'t','en'),('as','en'),('at','en'),('be','en'),('but','en'),('by','en'),('for','en'),('from','en'),('get','en'),('go','en'),('how','en'),('if','en'),('in','en'),('into','en'),('is','en'),('isn\'t','en'),('it','en'),('its','en'),('me','en'),('more','en'),('most','en'),('must','en'),('my','en'),('new','en'),('no','en'),('none','en'),('not','en'),('noth','en'),('nothing','en'),('of','en'),('off','en'),('often','en'),('old','en'),('on','en'),('onc','en'),('once','en'),('onli','en'),('only','en'),('or','en'),('other','en'),('our','en'),('ours','en'),('out','en'),('over','en'),('page','en'),('she','en'),('should','en'),('small','en'),('so','en'),('some','en'),('than','en'),('thank','en'),('that','en'),('the','en'),('their','en'),('theirs','en'),('them','en'),('then','en'),('there','en'),('these','en'),('they','en'),('this','en'),('those','en'),('thus','en'),('time','en'),('times','en'),('to','en'),('too','en'),('true','en'),('under','en'),('until','en'),('up','en'),('upon','en'),('use','en'),('user','en'),('users','en'),('veri','en'),('version','en'),('very','en'),('via','en'),('want','en'),('was','en'),('way','en'),('were','en'),('what','en'),('when','en'),('where','en'),('whi','en'),('which','en'),('who','en'),('whom','en'),('whose','en'),('why','en'),('wide','en'),('will','en'),('with','en'),('within','en'),('without','en'),('would','en'),('yes','en'),('yet','en'),('you','en'),('your','en'),('yours','en');
+/*!40000 ALTER TABLE `yodev_finder_terms_common` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_finder_tokens` */
+--
+-- Table structure for table `yodev_finder_tokens`
+--
 
-DROP TABLE IF EXISTS `cwtaq_finder_tokens`;
-
-CREATE TABLE `cwtaq_finder_tokens` (
+DROP TABLE IF EXISTS `yodev_finder_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_tokens` (
   `term` varchar(75) NOT NULL,
   `stem` varchar(75) NOT NULL,
   `common` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `phrase` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `weight` float unsigned NOT NULL DEFAULT '1',
   `context` tinyint(1) unsigned NOT NULL DEFAULT '2',
+  `language` char(3) NOT NULL DEFAULT '',
   KEY `idx_word` (`term`),
   KEY `idx_context` (`context`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_tokens` */
+--
+-- Dumping data for table `yodev_finder_tokens`
+--
 
-/*Table structure for table `cwtaq_finder_tokens_aggregate` */
+LOCK TABLES `yodev_finder_tokens` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_tokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_tokens` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_tokens_aggregate`;
+--
+-- Table structure for table `yodev_finder_tokens_aggregate`
+--
 
-CREATE TABLE `cwtaq_finder_tokens_aggregate` (
+DROP TABLE IF EXISTS `yodev_finder_tokens_aggregate`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_tokens_aggregate` (
   `term_id` int(10) unsigned NOT NULL,
   `map_suffix` char(1) NOT NULL,
   `term` varchar(75) NOT NULL,
@@ -1066,2399 +1222,54 @@ CREATE TABLE `cwtaq_finder_tokens_aggregate` (
   `context` tinyint(1) unsigned NOT NULL DEFAULT '2',
   `context_weight` float unsigned NOT NULL,
   `total_weight` float unsigned NOT NULL,
+  `language` char(3) NOT NULL DEFAULT '',
   KEY `token` (`term`),
   KEY `keyword_id` (`term_id`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_finder_tokens_aggregate` */
+--
+-- Dumping data for table `yodev_finder_tokens_aggregate`
+--
 
-/*Table structure for table `cwtaq_finder_types` */
+LOCK TABLES `yodev_finder_tokens_aggregate` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_tokens_aggregate` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_tokens_aggregate` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_finder_types`;
+--
+-- Table structure for table `yodev_finder_types`
+--
 
-CREATE TABLE `cwtaq_finder_types` (
+DROP TABLE IF EXISTS `yodev_finder_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_finder_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `mime` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_finder_types` */
-
-/*Table structure for table `cwtaq_jshopping_addons` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_addons`;
-
-CREATE TABLE `cwtaq_jshopping_addons` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `alias` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `key` text NOT NULL,
-  `usekey` tinyint(1) NOT NULL,
-  `version` varchar(255) NOT NULL,
-  `uninstall` varchar(255) NOT NULL,
-  `params` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_addons` */
-
-/*Table structure for table `cwtaq_jshopping_attr` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_attr`;
-
-CREATE TABLE `cwtaq_jshopping_attr` (
-  `attr_id` int(11) NOT NULL AUTO_INCREMENT,
-  `attr_ordering` int(11) NOT NULL DEFAULT '0',
-  `attr_type` tinyint(1) NOT NULL,
-  `independent` tinyint(1) NOT NULL,
-  `allcats` tinyint(1) NOT NULL DEFAULT '1',
-  `cats` text NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `description_en-GB` text NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  `description_ru-RU` text NOT NULL,
-  PRIMARY KEY (`attr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_attr` */
-
-insert  into `cwtaq_jshopping_attr`(`attr_id`,`attr_ordering`,`attr_type`,`independent`,`allcats`,`cats`,`name_en-GB`,`description_en-GB`,`name_ru-RU`,`description_ru-RU`) values (2,1,1,1,1,'','meterial','','материал','');
-
-/*Table structure for table `cwtaq_jshopping_attr_values` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_attr_values`;
-
-CREATE TABLE `cwtaq_jshopping_attr_values` (
-  `value_id` int(11) NOT NULL AUTO_INCREMENT,
-  `attr_id` int(11) NOT NULL,
-  `value_ordering` int(11) NOT NULL DEFAULT '0',
-  `image` varchar(255) NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  PRIMARY KEY (`value_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_attr_values` */
-
-insert  into `cwtaq_jshopping_attr_values`(`value_id`,`attr_id`,`value_ordering`,`image`,`name_en-GB`,`name_ru-RU`) values (6,2,1,'','oil','Масло');
-insert  into `cwtaq_jshopping_attr_values`(`value_id`,`attr_id`,`value_ordering`,`image`,`name_en-GB`,`name_ru-RU`) values (7,2,2,'','biflex','Бифлекс');
-insert  into `cwtaq_jshopping_attr_values`(`value_id`,`attr_id`,`value_ordering`,`image`,`name_en-GB`,`name_ru-RU`) values (8,2,3,'','fleece','Флиз');
-
-/*Table structure for table `cwtaq_jshopping_cart_temp` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_cart_temp`;
-
-CREATE TABLE `cwtaq_jshopping_cart_temp` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_cookie` varchar(255) NOT NULL,
-  `cart` text NOT NULL,
-  `type_cart` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_cart_temp` */
-
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (1,'qbb94v7jlptjvqe3ovi6d0icq2','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (2,'q77nj1qh5mnh9q2jjfo4penj83','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (3,'ep304h602o8lm1q4uv0uej1pp2','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (4,'5537tdpotn616d68nba3pufsf0','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (5,'ns5r8teb57e2j9jifg2a45ern2','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (7,'s88melbv6snc6lg30j3tj4ugm5','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (13,'6d2d83b9ec7099405fdbb79fbaddf19c','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (14,'cf2cdf149e09d34915953d17057b7e17','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (15,'f1d442632190b3cec42b2fd0c3f04b68','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (16,'8a4c7b4cc2fc8f167520083dbfd3be1b','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (17,'67875d7ebc8cbdf309f93735e3bd9f2c','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (18,'27c6d835aaee58251d225c0250d63bd9','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (19,'1f4c1b8e728ec9366f7f43c28403e5de','a:0:{}','wishlist');
-insert  into `cwtaq_jshopping_cart_temp`(`id`,`id_cookie`,`cart`,`type_cart`) values (20,'a4d2863e6c218a6b3529d34acc8cba7c','a:0:{}','wishlist');
-
-/*Table structure for table `cwtaq_jshopping_categories` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_categories`;
-
-CREATE TABLE `cwtaq_jshopping_categories` (
-  `category_id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_image` varchar(255) DEFAULT NULL,
-  `category_parent_id` int(11) NOT NULL DEFAULT '0',
-  `category_publish` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `category_ordertype` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `category_template` varchar(64) DEFAULT NULL,
-  `ordering` int(3) NOT NULL,
-  `category_add_date` datetime DEFAULT '0000-00-00 00:00:00',
-  `products_page` int(8) NOT NULL DEFAULT '12',
-  `products_row` int(3) NOT NULL DEFAULT '3',
-  `access` int(3) NOT NULL DEFAULT '1',
-  `name_en-GB` varchar(255) NOT NULL,
-  `alias_en-GB` varchar(255) NOT NULL,
-  `short_description_en-GB` text NOT NULL,
-  `description_en-GB` text NOT NULL,
-  `meta_title_en-GB` varchar(255) NOT NULL,
-  `meta_description_en-GB` text NOT NULL,
-  `meta_keyword_en-GB` text NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  `alias_ru-RU` varchar(255) NOT NULL,
-  `short_description_ru-RU` text NOT NULL,
-  `description_ru-RU` text NOT NULL,
-  `meta_title_ru-RU` varchar(255) NOT NULL,
-  `meta_description_ru-RU` text NOT NULL,
-  `meta_keyword_ru-RU` text NOT NULL,
-  PRIMARY KEY (`category_id`),
-  KEY `sort_add_date` (`category_add_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_categories` */
-
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (2,NULL,14,0,1,NULL,8,'2012-02-19 19:45:09',12,3,1,'','','','','','','','Геометрия','geometry','','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (5,NULL,0,0,1,NULL,15,'2012-12-21 00:29:59',30,3,1,'','','','','','','','Праздники','holidays','','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (6,NULL,14,1,1,NULL,6,'2012-12-21 00:30:26',30,3,1,'','','','','','','','Автомобилистам','car','saccharification mash saccharification final gravity real ale becher, chocolate malt, beer berliner weisse. cask conditioning priming kolsch conditioning priming, malt extract biere de garde. ester original gravity mash crystal malt lauter tun primary fermentation bacterial. lagering heat exchanger abbey hops, aau brewhouse. dry hopping aau alpha acid tulip glass carbonation, carbonation. balthazar, hydrometer terminal gravity dry stout bottle conditioning gravity units of bitterness. barleywine finishing hops hard cider; conditioning tank biere de garde reinheitsgebot brew kettle. shelf life sparge autolysis dry stout. reinheitsgebot racking cask conditioning carboy goblet mead tulip glass.','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (7,NULL,14,1,1,NULL,5,'2012-12-21 00:31:13',30,3,1,'','','','','','','','IT','it','hops pitch all-malt conditioning tank anaerobic. carboy lagering pilsner ester grainy barrel bottle conditioning. shelf life fermentation noble hops bittering hops lambic enzymes becher. bottom fermenting yeast hydrometer gravity malt extract anaerobic, additive abv all-malt, finishing hops. mouthfeel seidel; all-malt craft beer, ibu rims priming pitch biere de garde. scotch ale oxidized conditioning tank. kolsch, \" lauter rims balthazar dry stout brewpub.\" additive bung amber, pub barleywine tulip glass, alpha acid, tulip glass cask conditioning. squares; infusion bitter alcohol abv. dry stout.','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (8,NULL,14,1,1,NULL,4,'2012-12-21 00:32:13',30,3,1,'','','','','','','','Гламур','glamour','pub secondary fermentation, copper attenuation cask conditioned ale, oxidized fermentation dunkle; additive. final gravity racking cask conditioning terminal gravity. imperial cask conditioning sour/acidic, bright beer.','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (9,NULL,14,0,1,NULL,7,'2012-12-21 00:33:04',30,3,1,'','','','','','','','Нонкомформизм o_O','noncomformism','','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (10,NULL,14,1,1,NULL,3,'2012-12-21 00:36:52',30,3,1,'','','','','','','','Cool :)','cool','squares balthazar primary fermentation abbey pint glass ibu all-malt-- hydrometer hoppy. pitching bright beer adjunct bock; bottom fermenting yeast. bitter brewhouse, \" krausen alpha acid real ale reinheitsgebot tulip glass secondary fermentation.\" becher gravity double bock/dopplebock krug conditioning filter goblet.','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (11,NULL,0,0,1,NULL,28,'2012-12-21 00:38:08',30,3,1,'','','','','','','','HoReCa','horeca','','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (12,NULL,14,1,1,NULL,1,'2012-12-21 00:59:08',30,3,1,'','','','','','','','Пэтс','pets','lager alcohol, microbrewery biere de garde, pilsner. ipa fermentation ale mash tun mash gravity seidel. enzymes, fermentation ibu? dry hopping hydrometer conditioning adjunct saccharification.','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (13,NULL,14,1,1,NULL,2,'2012-12-22 00:43:37',30,3,1,'','','','','','','','Бескаркасная мебель','furniture','keg, caramel malt abv lager kolsch black malt shelf life. pitching, dunkle alpha acid aerobic finishing hops; anaerobic. brew kettle brewing carbonation draft (draught. beer noble hops, keg ale craft beer. noble hops fermentation noble hops pitch kolsch, \" degrees plato mash bacterial.\" cask conditioned ale. mead krausen specific gravity, lagering, adjunct pilsner. specific gravity autolysis; wit alcohol all-malt aerobic bitter amber ale scotch ale? hoppy, noble hops bottom fermenting yeast oxidized primary fermentation becher.','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (14,NULL,0,1,1,NULL,27,'2012-12-22 00:44:50',30,3,1,'','','','','','','','Подушки','pillows','','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (15,NULL,0,1,1,NULL,39,'2013-05-10 01:30:43',30,3,1,'','','','','','','','Футболки','tshirts','','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (16,NULL,0,1,1,NULL,40,'2013-05-10 01:33:54',30,3,1,'','','','','','','','Сумки','bags','','','','','');
-insert  into `cwtaq_jshopping_categories`(`category_id`,`category_image`,`category_parent_id`,`category_publish`,`category_ordertype`,`category_template`,`ordering`,`category_add_date`,`products_page`,`products_row`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (17,NULL,16,1,1,NULL,1,'2013-05-30 01:26:34',12,3,1,'Summer','summer','','','','','','Summer','summer','','','','','');
-
-/*Table structure for table `cwtaq_jshopping_config` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_config`;
-
-CREATE TABLE `cwtaq_jshopping_config` (
-  `id` tinyint(1) NOT NULL DEFAULT '0',
-  `count_products_to_page` int(4) NOT NULL,
-  `count_products_to_row` int(2) NOT NULL,
-  `count_category_to_row` int(2) NOT NULL,
-  `image_category_width` int(4) NOT NULL,
-  `image_category_height` int(4) NOT NULL,
-  `image_product_width` int(4) NOT NULL,
-  `image_product_height` int(4) NOT NULL,
-  `image_product_full_width` int(4) NOT NULL,
-  `image_product_full_height` int(4) NOT NULL,
-  `video_product_width` int(4) NOT NULL,
-  `video_product_height` int(4) NOT NULL,
-  `adminLanguage` varchar(8) NOT NULL,
-  `defaultLanguage` varchar(8) NOT NULL,
-  `mainCurrency` int(4) NOT NULL,
-  `decimal_count` tinyint(1) NOT NULL,
-  `decimal_symbol` varchar(5) NOT NULL,
-  `thousand_separator` varchar(5) NOT NULL,
-  `currency_format` tinyint(1) NOT NULL,
-  `use_rabatt_code` tinyint(1) NOT NULL,
-  `enable_wishlist` tinyint(1) NOT NULL,
-  `default_status_order` tinyint(1) NOT NULL,
-  `order_number_type` varchar(50) NOT NULL,
-  `store_address_format` varchar(32) NOT NULL,
-  `store_date_format` varchar(32) NOT NULL,
-  `contact_email` varchar(128) NOT NULL,
-  `allow_reviews_prod` tinyint(1) NOT NULL,
-  `allow_reviews_only_registered` tinyint(1) NOT NULL,
-  `allow_reviews_manuf` tinyint(1) NOT NULL,
-  `max_mark` int(11) NOT NULL,
-  `summ_null_shipping` decimal(12,2) NOT NULL,
-  `without_shipping` tinyint(1) NOT NULL,
-  `without_payment` tinyint(1) NOT NULL,
-  `pdf_parameters` varchar(32) NOT NULL,
-  `next_order_number` int(11) NOT NULL DEFAULT '1',
-  `shop_user_guest` tinyint(1) NOT NULL,
-  `hide_product_not_avaible_stock` tinyint(1) NOT NULL,
-  `show_buy_in_category` tinyint(1) NOT NULL,
-  `user_as_catalog` tinyint(1) NOT NULL,
-  `show_tax_in_product` tinyint(1) NOT NULL,
-  `show_tax_product_in_cart` tinyint(1) NOT NULL,
-  `show_plus_shipping_in_product` tinyint(1) NOT NULL,
-  `hide_buy_not_avaible_stock` tinyint(1) NOT NULL,
-  `show_sort_product` tinyint(1) NOT NULL,
-  `show_count_select_products` tinyint(1) NOT NULL,
-  `order_send_pdf_client` tinyint(1) NOT NULL,
-  `order_send_pdf_admin` tinyint(1) NOT NULL,
-  `show_delivery_time` tinyint(1) NOT NULL,
-  `securitykey` varchar(128) NOT NULL,
-  `demo_type` tinyint(1) NOT NULL,
-  `product_show_manufacturer_logo` tinyint(1) NOT NULL,
-  `product_show_manufacturer` tinyint(1) NOT NULL,
-  `product_show_weight` tinyint(1) NOT NULL,
-  `max_count_order_one_product` int(11) NOT NULL,
-  `min_count_order_one_product` int(11) NOT NULL,
-  `min_price_order` int(11) NOT NULL,
-  `max_price_order` int(11) NOT NULL,
-  `hide_tax` tinyint(1) NOT NULL,
-  `licensekod` text NOT NULL,
-  `product_attribut_first_value_empty` tinyint(1) NOT NULL,
-  `show_hits` tinyint(1) NOT NULL,
-  `show_registerform_in_logintemplate` tinyint(1) NOT NULL,
-  `admin_show_product_basic_price` tinyint(1) NOT NULL,
-  `admin_show_attributes` tinyint(1) NOT NULL,
-  `admin_show_delivery_time` tinyint(1) NOT NULL,
-  `admin_show_languages` tinyint(1) NOT NULL,
-  `use_different_templates_cat_prod` tinyint(1) NOT NULL,
-  `admin_show_product_video` tinyint(1) NOT NULL,
-  `admin_show_product_related` tinyint(1) NOT NULL,
-  `admin_show_product_files` tinyint(1) NOT NULL,
-  `admin_show_product_bay_price` tinyint(1) NOT NULL,
-  `admin_show_product_labels` tinyint(1) NOT NULL,
-  `sorting_country_in_alphabet` tinyint(1) NOT NULL,
-  `hide_text_product_not_available` tinyint(1) NOT NULL,
-  `show_weight_order` tinyint(1) NOT NULL,
-  `discount_use_full_sum` tinyint(1) NOT NULL,
-  `show_cart_all_step_checkout` tinyint(1) NOT NULL,
-  `use_plugin_content` tinyint(1) NOT NULL,
-  `display_price_admin` tinyint(1) NOT NULL,
-  `display_price_front` tinyint(1) NOT NULL,
-  `product_list_show_weight` tinyint(1) NOT NULL,
-  `product_list_show_manufacturer` tinyint(1) NOT NULL,
-  `use_extend_tax_rule` tinyint(4) NOT NULL,
-  `use_extend_display_price_rule` tinyint(4) NOT NULL,
-  `fields_register` text NOT NULL,
-  `template` varchar(128) NOT NULL,
-  `show_product_code` tinyint(1) NOT NULL,
-  `show_product_code_in_cart` tinyint(1) NOT NULL,
-  `savelog` tinyint(1) NOT NULL,
-  `savelogpaymentdata` tinyint(1) NOT NULL,
-  `product_list_show_min_price` tinyint(1) NOT NULL,
-  `product_count_related_in_row` tinyint(4) NOT NULL,
-  `category_sorting` tinyint(1) NOT NULL DEFAULT '1',
-  `product_sorting` tinyint(1) NOT NULL DEFAULT '1',
-  `product_sorting_direction` tinyint(1) NOT NULL,
-  `show_product_list_filters` tinyint(1) NOT NULL,
-  `admin_show_product_extra_field` tinyint(1) NOT NULL,
-  `product_list_display_extra_fields` text NOT NULL,
-  `filter_display_extra_fields` text NOT NULL,
-  `product_hide_extra_fields` text NOT NULL,
-  `cart_display_extra_fields` text NOT NULL,
-  `default_country` int(11) NOT NULL,
-  `show_return_policy_in_email_order` tinyint(1) NOT NULL,
-  `client_allow_cancel_order` tinyint(1) NOT NULL,
-  `admin_show_vendors` tinyint(1) NOT NULL,
-  `vendor_order_message_type` tinyint(1) NOT NULL,
-  `admin_not_send_email_order_vendor_order` tinyint(1) NOT NULL,
-  `not_redirect_in_cart_after_buy` tinyint(1) NOT NULL,
-  `product_show_vendor` tinyint(1) NOT NULL,
-  `product_show_vendor_detail` tinyint(1) NOT NULL,
-  `product_list_show_vendor` tinyint(1) NOT NULL,
-  `admin_show_freeattributes` tinyint(1) NOT NULL,
-  `product_show_button_back` tinyint(1) NOT NULL,
-  `calcule_tax_after_discount` tinyint(1) NOT NULL,
-  `product_list_show_product_code` tinyint(1) NOT NULL,
-  `radio_attr_value_vertical` tinyint(1) NOT NULL,
-  `attr_display_addprice` tinyint(1) NOT NULL,
-  `use_ssl` tinyint(1) NOT NULL,
-  `product_list_show_price_description` tinyint(1) NOT NULL,
-  `display_button_print` tinyint(1) NOT NULL,
-  `hide_shipping_step` tinyint(1) NOT NULL,
-  `hide_payment_step` tinyint(1) NOT NULL,
-  `image_resize_type` tinyint(1) NOT NULL,
-  `use_extend_attribute_data` tinyint(1) NOT NULL,
-  `product_list_show_price_default` tinyint(1) NOT NULL,
-  `product_list_show_qty_stock` tinyint(1) NOT NULL,
-  `product_show_qty_stock` tinyint(1) NOT NULL,
-  `displayprice` tinyint(1) NOT NULL,
-  `use_decimal_qty` tinyint(1) NOT NULL,
-  `ext_tax_rule_for` tinyint(1) NOT NULL,
-  `display_reviews_without_confirm` tinyint(1) NOT NULL,
-  `manufacturer_sorting` tinyint(1) NOT NULL,
-  `admin_show_units` tinyint(1) NOT NULL,
-  `main_unit_weight` tinyint(3) NOT NULL,
-  `create_alias_product_category_auto` tinyint(1) NOT NULL,
-  `delivery_order_depends_delivery_product` tinyint(1) NOT NULL,
-  `show_delivery_time_step5` tinyint(1) NOT NULL,
-  `other_config` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_config` */
-
-insert  into `cwtaq_jshopping_config`(`id`,`count_products_to_page`,`count_products_to_row`,`count_category_to_row`,`image_category_width`,`image_category_height`,`image_product_width`,`image_product_height`,`image_product_full_width`,`image_product_full_height`,`video_product_width`,`video_product_height`,`adminLanguage`,`defaultLanguage`,`mainCurrency`,`decimal_count`,`decimal_symbol`,`thousand_separator`,`currency_format`,`use_rabatt_code`,`enable_wishlist`,`default_status_order`,`order_number_type`,`store_address_format`,`store_date_format`,`contact_email`,`allow_reviews_prod`,`allow_reviews_only_registered`,`allow_reviews_manuf`,`max_mark`,`summ_null_shipping`,`without_shipping`,`without_payment`,`pdf_parameters`,`next_order_number`,`shop_user_guest`,`hide_product_not_avaible_stock`,`show_buy_in_category`,`user_as_catalog`,`show_tax_in_product`,`show_tax_product_in_cart`,`show_plus_shipping_in_product`,`hide_buy_not_avaible_stock`,`show_sort_product`,`show_count_select_products`,`order_send_pdf_client`,`order_send_pdf_admin`,`show_delivery_time`,`securitykey`,`demo_type`,`product_show_manufacturer_logo`,`product_show_manufacturer`,`product_show_weight`,`max_count_order_one_product`,`min_count_order_one_product`,`min_price_order`,`max_price_order`,`hide_tax`,`licensekod`,`product_attribut_first_value_empty`,`show_hits`,`show_registerform_in_logintemplate`,`admin_show_product_basic_price`,`admin_show_attributes`,`admin_show_delivery_time`,`admin_show_languages`,`use_different_templates_cat_prod`,`admin_show_product_video`,`admin_show_product_related`,`admin_show_product_files`,`admin_show_product_bay_price`,`admin_show_product_labels`,`sorting_country_in_alphabet`,`hide_text_product_not_available`,`show_weight_order`,`discount_use_full_sum`,`show_cart_all_step_checkout`,`use_plugin_content`,`display_price_admin`,`display_price_front`,`product_list_show_weight`,`product_list_show_manufacturer`,`use_extend_tax_rule`,`use_extend_display_price_rule`,`fields_register`,`template`,`show_product_code`,`show_product_code_in_cart`,`savelog`,`savelogpaymentdata`,`product_list_show_min_price`,`product_count_related_in_row`,`category_sorting`,`product_sorting`,`product_sorting_direction`,`show_product_list_filters`,`admin_show_product_extra_field`,`product_list_display_extra_fields`,`filter_display_extra_fields`,`product_hide_extra_fields`,`cart_display_extra_fields`,`default_country`,`show_return_policy_in_email_order`,`client_allow_cancel_order`,`admin_show_vendors`,`vendor_order_message_type`,`admin_not_send_email_order_vendor_order`,`not_redirect_in_cart_after_buy`,`product_show_vendor`,`product_show_vendor_detail`,`product_list_show_vendor`,`admin_show_freeattributes`,`product_show_button_back`,`calcule_tax_after_discount`,`product_list_show_product_code`,`radio_attr_value_vertical`,`attr_display_addprice`,`use_ssl`,`product_list_show_price_description`,`display_button_print`,`hide_shipping_step`,`hide_payment_step`,`image_resize_type`,`use_extend_attribute_data`,`product_list_show_price_default`,`product_list_show_qty_stock`,`product_show_qty_stock`,`displayprice`,`use_decimal_qty`,`ext_tax_rule_for`,`display_reviews_without_confirm`,`manufacturer_sorting`,`admin_show_units`,`main_unit_weight`,`create_alias_product_category_auto`,`delivery_order_depends_delivery_product`,`show_delivery_time_step5`,`other_config`) values (1,12,3,1,160,0,100,0,200,0,320,240,'ru-RU','en-GB',1,0,'.','',2,0,0,2,'1','%storename %address %city %zip','%d.%m.%Y','andreyalek@gmail.com',1,1,0,10,'-1.00',1,0,'208:65:208:30',5647,2,0,1,0,0,0,0,1,1,1,1,1,0,'c4f439502620aa9dd62b127ef7a61bc7',0,0,0,0,0,1,0,0,1,'',0,0,0,0,1,1,1,0,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,'a:3:{s:8:\"register\";a:8:{s:6:\"l_name\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:4:\"city\";a:1:{s:7:\"display\";s:1:\"1\";}s:5:\"phone\";a:1:{s:7:\"display\";s:1:\"1\";}s:6:\"f_name\";a:2:{s:7:\"require\";i:1;s:7:\"display\";i:1;}s:5:\"email\";a:2:{s:7:\"require\";i:1;s:7:\"display\";i:1;}s:6:\"u_name\";a:2:{s:7:\"require\";i:1;s:7:\"display\";i:1;}s:8:\"password\";a:2:{s:7:\"require\";i:1;s:7:\"display\";i:1;}s:10:\"password_2\";a:2:{s:7:\"require\";i:1;s:7:\"display\";i:1;}}s:7:\"address\";a:10:{s:4:\"city\";a:1:{s:7:\"display\";s:1:\"1\";}s:5:\"phone\";a:1:{s:7:\"display\";s:1:\"1\";}s:8:\"d_street\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:5:\"d_zip\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:6:\"d_city\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:7:\"d_state\";a:1:{s:7:\"display\";s:1:\"1\";}s:9:\"d_country\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:7:\"d_phone\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:6:\"f_name\";a:2:{s:7:\"require\";i:1;s:7:\"display\";i:1;}s:5:\"email\";a:2:{s:7:\"require\";i:1;s:7:\"display\";i:1;}}s:11:\"editaccount\";a:22:{s:5:\"title\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:6:\"l_name\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:10:\"firma_name\";a:1:{s:7:\"display\";s:1:\"1\";}s:6:\"street\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:3:\"zip\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:4:\"city\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:5:\"state\";a:1:{s:7:\"display\";s:1:\"1\";}s:7:\"country\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:5:\"phone\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:3:\"fax\";a:1:{s:7:\"display\";s:1:\"1\";}s:7:\"d_title\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:8:\"d_f_name\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:8:\"d_l_name\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:12:\"d_firma_name\";a:1:{s:7:\"display\";s:1:\"1\";}s:8:\"d_street\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:5:\"d_zip\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:6:\"d_city\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:7:\"d_state\";a:1:{s:7:\"display\";s:1:\"1\";}s:9:\"d_country\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:7:\"d_phone\";a:2:{s:7:\"display\";s:1:\"1\";s:7:\"require\";s:1:\"1\";}s:6:\"f_name\";a:2:{s:7:\"require\";i:1;s:7:\"display\";i:1;}s:5:\"email\";a:2:{s:7:\"require\";i:1;s:7:\"display\";i:1;}}}','',1,0,0,0,0,3,1,1,0,0,0,'','','','',220,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,'a:12:{s:47:\"display_delivery_time_for_product_in_order_mail\";s:1:\"1\";s:18:\"show_delivery_date\";s:1:\"0\";s:27:\"show_delivery_time_checkout\";s:1:\"0\";s:25:\"show_manufacturer_in_cart\";s:1:\"0\";s:17:\"weight_in_invoice\";s:1:\"0\";s:19:\"shipping_in_invoice\";s:1:\"0\";s:18:\"payment_in_invoice\";s:1:\"0\";s:23:\"date_invoice_in_invoice\";s:1:\"0\";s:21:\"send_invoice_manually\";s:1:\"0\";s:11:\"display_agb\";s:1:\"1\";s:3:\"tax\";s:1:\"1\";s:5:\"stock\";s:1:\"1\";}');
-
-/*Table structure for table `cwtaq_jshopping_config_display_prices` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_config_display_prices`;
-
-CREATE TABLE `cwtaq_jshopping_config_display_prices` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `zones` text NOT NULL,
-  `display_price` tinyint(1) NOT NULL,
-  `display_price_firma` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_config_display_prices` */
-
-/*Table structure for table `cwtaq_jshopping_config_seo` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_config_seo`;
-
-CREATE TABLE `cwtaq_jshopping_config_seo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `alias` varchar(64) NOT NULL,
-  `ordering` int(11) NOT NULL,
-  `title_en-GB` varchar(255) NOT NULL,
-  `keyword_en-GB` text NOT NULL,
-  `description_en-GB` text NOT NULL,
-  `title_ru-RU` varchar(255) NOT NULL,
-  `keyword_ru-RU` text NOT NULL,
-  `description_ru-RU` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_config_seo` */
-
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (1,'category',10,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (2,'manufacturers',20,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (3,'cart',30,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (4,'wishlist',40,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (5,'login',50,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (6,'register',60,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (7,'editaccount',70,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (8,'myorders',80,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (9,'myaccount',90,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (10,'search',100,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (11,'search-result',110,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (12,'myorder-detail',120,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (13,'vendors',130,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (14,'content-agb',140,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (15,'content-return_policy',150,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (16,'content-shipping',160,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (17,'content-privacy_statement',161,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (18,'checkout-address',170,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (19,'checkout-payment',180,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (20,'checkout-shipping',190,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (21,'checkout-preview',200,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (22,'lastproducts',210,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (23,'randomproducts',220,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (24,'bestsellerproducts',230,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (25,'labelproducts',240,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (26,'topratingproducts',250,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (27,'tophitsproducts',260,'','','','','','');
-insert  into `cwtaq_jshopping_config_seo`(`id`,`alias`,`ordering`,`title_en-GB`,`keyword_en-GB`,`description_en-GB`,`title_ru-RU`,`keyword_ru-RU`,`description_ru-RU`) values (28,'all-products',270,'','','','','','');
-
-/*Table structure for table `cwtaq_jshopping_config_statictext` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_config_statictext`;
-
-CREATE TABLE `cwtaq_jshopping_config_statictext` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `alias` varchar(64) NOT NULL,
-  `text_en-GB` text NOT NULL,
-  `text_ru-RU` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_config_statictext` */
-
-insert  into `cwtaq_jshopping_config_statictext`(`id`,`alias`,`text_en-GB`,`text_ru-RU`) values (1,'home','','');
-insert  into `cwtaq_jshopping_config_statictext`(`id`,`alias`,`text_en-GB`,`text_ru-RU`) values (2,'manufacturer','','');
-insert  into `cwtaq_jshopping_config_statictext`(`id`,`alias`,`text_en-GB`,`text_ru-RU`) values (3,'agb','','');
-insert  into `cwtaq_jshopping_config_statictext`(`id`,`alias`,`text_en-GB`,`text_ru-RU`) values (4,'return_policy','','');
-insert  into `cwtaq_jshopping_config_statictext`(`id`,`alias`,`text_en-GB`,`text_ru-RU`) values (5,'order_email_descr','','');
-insert  into `cwtaq_jshopping_config_statictext`(`id`,`alias`,`text_en-GB`,`text_ru-RU`) values (6,'order_email_descr_end','','');
-insert  into `cwtaq_jshopping_config_statictext`(`id`,`alias`,`text_en-GB`,`text_ru-RU`) values (7,'order_finish_descr','','');
-insert  into `cwtaq_jshopping_config_statictext`(`id`,`alias`,`text_en-GB`,`text_ru-RU`) values (8,'shipping','','');
-insert  into `cwtaq_jshopping_config_statictext`(`id`,`alias`,`text_en-GB`,`text_ru-RU`) values (9,'privacy_statement','','');
-
-/*Table structure for table `cwtaq_jshopping_countries` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_countries`;
-
-CREATE TABLE `cwtaq_jshopping_countries` (
-  `country_id` int(11) NOT NULL AUTO_INCREMENT,
-  `country_publish` tinyint(4) NOT NULL,
-  `ordering` smallint(6) NOT NULL,
-  `country_code` varchar(5) NOT NULL,
-  `country_code_2` varchar(5) NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `name_de-DE` varchar(255) NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  PRIMARY KEY (`country_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_countries` */
-
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (1,1,1,'AFG','AF','Afghanistan','Afghanistan','Афганистан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (2,1,2,'ALB','AL','Albania','Albanien','Албания');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (3,1,3,'DZA','DZ','Algeria','Algerien','Алжир');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (4,1,4,'ASM','AS','American Samoa','Amerikanisch-Samoa','Американское Самоа');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (5,1,5,'AND','AD','Andorra','Andorra','Андорра');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (6,1,6,'AGO','AO','Angola','Angola','Ангола');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (7,1,7,'AIA','AI','Anguilla','Anguilla','Ангилья');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (8,1,8,'ATA','AQ','Antarctica','Antarktis','Антарктида');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (9,1,9,'ATG','AG','Antigua and Barbuda','Antigua und Barbuda','Антигуа и Барбуда');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (10,1,10,'ARG','AR','Argentina','Argentinien','Аргентина');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (11,1,11,'ARM','AM','Armenia','Armenien','Армения');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (12,1,12,'ABW','AW','Aruba','Aruba','Аруба');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (13,1,13,'AUS','AU','Australia','Australien','Австралия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (14,1,14,'AUT','AT','Austria','Österreich','Австрия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (15,1,15,'AZE','AZ','Azerbaijan','Aserbaidschan','Азербайджан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (16,1,16,'BHS','BS','Bahamas','Bahamas','Багамские острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (17,1,17,'BHR','BH','Bahrain','Bahrain','Бахрейн');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (18,1,18,'BGD','BD','Bangladesh','Bangladesch','Бангладеш');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (19,1,19,'BRB','BB','Barbados','Barbados','Барбадос');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (20,1,20,'BLR','BY','Belarus','Weissrussland','Беларусь');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (21,1,21,'BEL','BE','Belgium','Belgien','Бельгия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (22,1,22,'BLZ','BZ','Belize','Belize','Белиз');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (23,1,23,'BEN','BJ','Benin','Benin','Бенин');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (24,1,24,'BMU','BM','Bermuda','Bermuda','Бермудские острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (25,1,25,'BTN','BT','Bhutan','Bhutan','Бутан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (26,1,26,'BOL','BO','Bolivia','Bolivien','Боливия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (27,1,27,'BIH','BA','Bosnia and Herzegowina','Bosnien und Herzegowina','Босния и Герцеговина');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (28,1,28,'BWA','BW','Botswana','Botsuana','Ботсвана');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (29,1,29,'BVT','BV','Bouvet Island','Bouvetinsel','Буве');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (30,1,30,'BRA','BR','Brazil','Brasilien','Бразилия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (31,1,31,'IOT','IO','British Indian Ocean Territory','Britisches Territorium im Indischen Ozean','Британская территория Индийского океана');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (32,1,32,'BRN','BN','Brunei Darussalam','Brunei','Бруней-Даруссалам');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (33,1,33,'BGR','BG','Bulgaria','Bulgarien','Болгария');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (34,1,34,'BFA','BF','Burkina Faso','Burkina Faso','Буркина-Фасо');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (35,1,35,'BDI','BI','Burundi','Burundi','Бурунди');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (36,1,36,'KHM','KH','Cambodia','Kambodscha','Камбоджа');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (37,1,37,'CMR','CM','Cameroon','Kamerun','Камерун');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (38,1,38,'CAN','CA','Canada','Kanada','Канада');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (39,1,39,'CPV','CV','Cape Verde','Kap Verde','Кабо-Верде');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (40,1,40,'CYM','KY','Cayman Islands','Cayman-Inseln','Каймановы острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (41,1,41,'CAF','CF','Central African Republic','Zentralafrikanische Republik','Центрально-Африканская Республика');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (42,1,42,'TCD','TD','Chad','Tschad','Чад');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (43,1,43,'CHL','CL','Chile','Chile','Чили');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (44,1,44,'CHN','CN','China','China','Китай');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (45,1,45,'CXR','CX','Christmas Island','Christmas Island','Остров Рождества');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (46,1,46,'CCK','CC','Cocos (Keeling) Islands','Kokosinseln (Keeling)','Кокосовые (Килинг) острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (47,1,47,'COL','CO','Colombia','Kolumbien','Колумбия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (48,1,48,'COM','KM','Comoros','Komoren','Коморские острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (49,1,49,'COG','CG','Congo','Kongo, Republik','Конго');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (50,1,50,'COK','CK','Cook Islands','Cookinseln','Острова Кука');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (51,1,51,'CRI','CR','Costa Rica','Costa Rica','Коста-Рика');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (52,1,52,'CIV','CI','Cote D\'Ivoire','Elfenbeinküste','Кот-д`Ивуар D');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (53,1,53,'HRV','HR','Croatia','Kroatien','Хорватия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (54,1,54,'CUB','CU','Cuba','Kuba','Куба');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (55,1,55,'CYP','CY','Cyprus','Zypern','Кипр');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (56,1,56,'CZE','CZ','Czech Republic','Tschechien','Чешская республика');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (57,1,57,'DNK','DK','Denmark','Dänemark','Дания');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (58,1,58,'DJI','DJ','Djibouti','Dschibuti','Джибути');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (59,1,59,'DMA','DM','Dominica','Dominica','Доминика');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (60,1,60,'DOM','DO','Dominican Republic','Dominikanische Republik','Доминиканская Республика');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (61,1,61,'TMP','TL','East Timor','Osttimor','Восточный Тимор');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (62,1,62,'ECU','EC','Ecuador','Ecuador','Эквадор');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (63,1,63,'EGY','EG','Egypt','Ägypten','Египет');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (64,1,64,'SLV','SV','El Salvador','El Salvador','Сальвадор');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (65,1,65,'GNQ','GQ','Equatorial Guinea','Äquatorial-Guinea','Экваториальная Гвинея');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (66,1,66,'ERI','ER','Eritrea','Eritrea','Эритрея');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (67,1,67,'EST','EE','Estonia','Estland','Эстония');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (68,1,68,'ETH','ET','Ethiopia','Äthiopien','Эфиопия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (69,1,69,'FLK','FK','Falkland Islands (Malvinas)','Falklandinseln','Фолклендские (Мальвинские) острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (70,1,70,'FRO','FO','Faroe Islands','Färöer','Фарерские острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (71,1,71,'FJI','FJ','Fiji','Fidschi','Фиджи');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (72,1,72,'FIN','FI','Finland','Finnland','Финляндия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (73,1,73,'FRA','FR','France','Frankreich','Франция');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (74,1,74,'FXX','FX','France Metropolitan','Frankreich, Metropolitan','Митрополит Франции');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (75,1,75,'GUF','GF','French Guiana','Französisch-Guyana','Французская Гвиана');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (76,1,76,'PYF','PF','French Polynesia','Franz. Polynesien','Французская Полинезия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (77,1,77,'ATF','TF','French Southern Territories','Französiche Süd- und Antarktisgebiete','Французские южные территории');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (78,1,78,'GAB','GA','Gabon','Gabun','Габон');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (79,1,79,'GMB','GM','Gambia','Gambia','Гамбия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (80,1,80,'GEO','GE','Georgia','Georgien','Грузия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (81,1,81,'DEU','DE','Germany','Deutschland','Германия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (82,1,82,'GHA','GH','Ghana','Ghana','Гана');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (83,1,83,'GIB','GI','Gibraltar','Gibraltar','Гибралтар');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (84,1,84,'GRC','GR','Greece','Griechenland','Греция');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (85,1,85,'GRL','GL','Greenland','Grönland','Гренландия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (86,1,86,'GRD','GD','Grenada','Grenada','Гренада');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (87,1,87,'GLP','GP','Guadeloupe','Guadeloupe','Гваделупа');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (88,1,88,'GUM','GU','Guam','Guam','Гуам');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (89,1,89,'GTM','GT','Guatemala','Guatemala','Гватемала');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (90,1,90,'GIN','GN','Guinea','Guinea','Гвинея');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (91,1,91,'GNB','GW','Guinea-bissau','Guinea-Bissau','Гвинея-Бисау');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (92,1,92,'GUY','GY','Guyana','Guyana','Гайана');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (93,1,93,'HTI','HT','Haiti','Haiti','Гаити');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (94,1,94,'HMD','HM','Heard and Mc Donald Islands','Heard und McDonaldinseln','Херд и Макдональд острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (95,1,95,'HND','HN','Honduras','Honduras','Гондурас');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (96,1,96,'HKG','HK','Hong Kong','Hong Kong','Гонконг');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (97,1,97,'HUN','HU','Hungary','Ungarn','Венгрия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (98,1,98,'ISL','IS','Iceland','Island','Исландия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (99,1,99,'IND','IN','India','Indien','Индия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (100,1,100,'IDN','ID','Indonesia','Indonesien','Индонезия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (101,1,101,'IRN','IR','Iran (Islamic Republic of)','Iran','Иран (Исламская Республика)');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (102,1,102,'IRQ','IQ','Iraq','Irak','Ирак');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (103,1,103,'IRL','IE','Ireland','Irland','Ирландия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (104,1,104,'ISR','IL','Israel','Israel','Израиль');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (105,1,105,'ITA','IT','Italy','Italien','Италия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (106,1,106,'JAM','JM','Jamaica','Jamaika','Ямайка');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (107,1,107,'JPN','JP','Japan','Japan','Япония');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (108,1,108,'JOR','JO','Jordan','Jordanien','Иордания');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (109,1,109,'KAZ','KZ','Kazakhstan','Kasachstan','Казахстан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (110,1,110,'KEN','KE','Kenya','Kenia','Кения');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (111,1,111,'KIR','KI','Kiribati','Kiribati','Кирибати');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (112,1,112,'PRK','KP','Korea Democratic People\'s Republic of','Korea Demokratische Volksrepublik','Корея Северная');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (113,1,113,'KOR','KR','Korea Republic of','Korea','Корея Южная');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (114,1,114,'KWT','KW','Kuwait','Kuwait','Кувейт');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (115,1,115,'KGZ','KG','Kyrgyzstan','Kirgistan','Киргизия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (116,1,116,'LAO','LA','Lao People\'s Democratic Republic','Laos','Лаос');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (117,1,117,'LVA','LV','Latvia','Lettland','Латвия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (118,1,118,'LBN','LB','Lebanon','Libanon','Ливан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (119,1,119,'LSO','LS','Lesotho','Lesotho','Лесото');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (120,1,120,'LBR','LR','Liberia','Liberia','Либерия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (121,1,121,'LBY','LY','Libyan Arab Jamahiriya','Libyen','Ливийской Арабской Джамахирии');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (122,1,122,'LIE','LI','Liechtenstein','Liechtenstein','Лихтенштейн');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (123,1,123,'LTU','LT','Lithuania','Litauen','Литва');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (124,1,124,'LUX','LU','Luxembourg','Luxemburg','Люксембург');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (125,1,125,'MAC','MO','Macau','Makao','Макао');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (126,1,126,'MKD','MK','Macedonia The Former Yugoslav Republic of','Mazedonien','Македония');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (127,1,127,'MDG','MG','Madagascar','Madagaskar','Мадагаскар');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (128,1,128,'MWI','MW','Malawi','Malawi','Малави');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (129,1,129,'MYS','MY','Malaysia','Malaysia','Малайзия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (130,1,130,'MDV','MV','Maldives','Malediven','Мальдивы');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (131,1,131,'MLI','ML','Mali','Mali','Мали');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (132,1,132,'MLT','MT','Malta','Malta','Мальта');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (133,1,133,'MHL','MH','Marshall Islands','Marshallinseln','Маршалловы острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (134,1,134,'MTQ','MQ','Martinique','Martinique','Мартиника');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (135,1,135,'MRT','MR','Mauritania','Mauretanien','Мавритания');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (136,1,136,'MUS','MU','Mauritius','Mauritius','Маврикий');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (137,1,137,'MYT','YT','Mayotte','Mayott','Майотта');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (138,1,138,'MEX','MX','Mexico','Mexiko','Мексика');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (139,1,139,'FSM','FM','Micronesia Federated States of','Mikronesien','Микронезии Федеративные Штаты');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (140,1,140,'MDA','MD','Moldova Republic of','Moldawien','Республика Молдова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (141,1,141,'MCO','MC','Monaco','Monaco','Монако');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (142,1,142,'MNG','MN','Mongolia','Mongolei','Монголия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (143,1,143,'MSR','MS','Montserrat','Montserrat','Монтсеррат');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (144,1,144,'MAR','MA','Morocco','Marokko','Марокко');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (145,1,145,'MOZ','MZ','Mozambique','Mosambik','Мозамбик');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (146,1,146,'MMR','MM','Myanmar','Myanmar','Мьянма');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (147,1,147,'NAM','NA','Namibia','Namibia','Намибия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (148,1,148,'NRU','NR','Nauru','Nauru','Науру');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (149,1,149,'NPL','NP','Nepal','Nepal','Непал');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (150,1,150,'NLD','NL','Netherlands','Niederlande','Нидерланды');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (151,1,151,'ANT','AN','Netherlands Antilles','Niederländisch-Antillen','Нидерландские Антильские острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (152,1,152,'NCL','NC','New Caledonia','Neukaledonien','Новая Каледония');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (153,1,153,'NZL','NZ','New Zealand','Neuseeland','Новая Зеландия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (154,1,154,'NIC','NI','Nicaragua','Nicaragua','Никарагуа');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (155,1,155,'NER','NE','Niger','Niger','Нигер');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (156,1,156,'NGA','NG','Nigeria','Nigeria','Нигерия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (157,1,157,'NIU','NU','Niue','Niue','Ниуэ');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (158,1,158,'NFK','NF','Norfolk Island','Norfolkinsel','Остров Норфолк');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (159,1,159,'MNP','MP','Northern Mariana Islands','Nördliche Marianen','Северные Марианские острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (160,1,160,'NOR','NO','Norway','Norwegen','Норвегия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (161,1,161,'OMN','OM','Oman','Oman','Оман');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (162,1,162,'PAK','PK','Pakistan','Pakistan','Пакистан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (163,1,163,'PLW','PW','Palau','Palau','Палау');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (164,1,164,'PAN','PA','Panama','Panama','Панама');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (165,1,165,'PNG','PG','Papua New Guinea','Papua-Neuguinea','Папуа-Новая Гвинея');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (166,1,166,'PRY','PY','Paraguay','Paraguay','Парагвай');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (167,1,167,'PER','PE','Peru','Peru','Перу');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (168,1,168,'PHL','PH','Philippines','Philippinen','Филиппины');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (169,1,169,'PCN','PN','Pitcairn','Pitcairn','Питкэрн');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (170,1,170,'POL','PL','Poland','Polen','Польша');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (171,1,171,'PRT','PT','Portugal','Portugal','Португалия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (172,1,172,'PRI','PR','Puerto Rico','Puerto Rico','Пуэрто-Рико');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (173,1,173,'QAT','QA','Qatar','Katar','Катар');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (174,1,174,'REU','RE','Reunion','Reunion','Реюньон');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (175,1,175,'ROM','RO','Romania','Rumänien','Румыния');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (176,1,176,'RUS','RU','Russian Federation','Russische Föderation','Россия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (177,1,177,'RWA','RW','Rwanda','Ruanda','Руанда');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (178,1,178,'KNA','KN','Saint Kitts and Nevis','St. Kitts und Nevis','Сент-Китс и Невис');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (179,1,179,'LCA','LC','Saint Lucia','St. Lucia','Сент-Люсия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (180,1,180,'VCT','VC','Saint Vincent and the Grenadines','St. Vincent und die Grenadinen','Сент-Винсент и Гренадины');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (181,1,181,'WSM','WS','Samoa','Samoa','Самоа');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (182,1,182,'SMR','SM','San Marino','San Marino','Сан - Марино');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (183,1,183,'STP','ST','Sao Tome and Principe','Sao Tomé und Príncipe','Сан-Томе и Принсипи');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (184,1,184,'SAU','SA','Saudi Arabia','Saudi-Arabien','Саудовская Аравия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (185,1,185,'SEN','SN','Senegal','Senegal','Сенегал');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (186,1,186,'SYC','SC','Seychelles','Seychellen','Сейшельские острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (187,1,187,'SLE','SL','Sierra Leone','Sierra Leone','Сьерра-Леоне');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (188,1,188,'SGP','SG','Singapore','Singapur','Сингапур');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (189,1,189,'SVK','SK','Slovakia (Slovak Republic)','Slowakei','Словакия (Словацкая Республика)');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (190,1,190,'SVN','SI','Slovenia','Slowenien','Словения');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (191,1,191,'SLB','SB','Solomon Islands','Salomonen','Соломоновы острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (192,1,192,'SOM','SO','Somalia','Somalia','Сомали');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (193,1,193,'ZAF','ZA','South Africa','Republik Südafrika','ЮАР');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (194,1,194,'SGS','GS','South Georgia and the South Sandwich Islands','Südgeorgien und die Südlichen Sandwichinseln','Южная Джорджия и Южные Сандвичевы острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (195,1,195,'ESP','ES','Spain','Spanien','Испания');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (196,1,196,'LKA','LK','Sri Lanka','Sri Lanka','Шри Ланка');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (197,1,197,'SHN','SH','St. Helena','St. Helena','Св. Елены');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (198,1,198,'SPM','PM','St. Pierre and Miquelon','St. Pierre und Miquelon','Сен-Пьер и Микелон');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (199,1,199,'SDN','SD','Sudan','Sudan','Судан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (200,1,200,'SUR','SR','Suriname','Suriname','Суринам');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (201,1,201,'SJM','SJ','Svalbard and Jan Mayen Islands','Svalbard und Jan Mayen','Шпицберген и Ян-Майен');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (202,1,202,'SWZ','SZ','Swaziland','Swasiland','Свазиленд');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (203,1,203,'SWE','SE','Sweden','Schweden','Швеция');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (204,1,204,'CHE','CH','Switzerland','Schweiz','Швейцария');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (205,1,205,'SYR','SY','Syrian Arab Republic','Syrien','Сирийской Арабской Республики');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (206,1,206,'TWN','TW','Taiwan','Taiwan','Тайвань');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (207,1,207,'TJK','TJ','Tajikistan','Tadschikistan','Таджикистан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (208,1,208,'TZA','TZ','Tanzania United Republic of','Tansania','Танзания, Объединенная Республика');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (209,1,209,'THA','TH','Thailand','Thailand','Таиланд');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (210,1,210,'TGO','TG','Togo','Togo','Того');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (211,1,211,'TKL','TK','Tokelau','Tokelau','Токелау');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (212,1,212,'TON','TO','Tonga','Tonga','Тонга');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (213,1,213,'TTO','TT','Trinidad and Tobago','Trinidad und Tobago','Тринидад и Тобаго');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (214,1,214,'TUN','TN','Tunisia','Tunesien','Тунис');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (215,1,215,'TUR','TR','Turkey','Türkei','Турция');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (216,1,216,'TKM','TM','Turkmenistan','Turkmenistan','Туркменистан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (217,1,217,'TCA','TC','Turks and Caicos Islands','Turks- und Caicosinseln','Острова Теркс и Кайкос');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (218,1,218,'TUV','TV','Tuvalu','Tuvalu','Тувалу');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (219,1,219,'UGA','UG','Uganda','Uganda','Уганда');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (220,1,220,'UKR','UA','Ukraine','Ukraine','Украина');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (221,1,221,'ARE','AE','United Arab Emirates','Vereinigte Arabische Emirate','Объединенные Арабские Эмираты');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (222,1,222,'GBR','GB','United Kingdom','Vereinigtes Königreich','Великобритания');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (223,1,223,'USA','US','United States','USA','Соединенные Штаты Америки');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (224,1,224,'UMI','UM','United States Minor Outlying Islands','United States Minor Outlying Islands','Соединенные Штаты Америки Внешние малые острова');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (225,1,225,'URY','UY','Uruguay','Uruguay','Уругвай');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (226,1,226,'UZB','UZ','Uzbekistan','Usbekistan','Узбекистан');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (227,1,227,'VUT','VU','Vanuatu','Vanuatu','Вануату');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (228,1,228,'VAT','VA','Vatican City State (Holy See)','Vatikanstadt','Город-государство Ватикан (Святейший Престол)');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (229,1,229,'VEN','VE','Venezuela','Venezuela','Венесуэла');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (230,1,230,'VNM','VN','Viet Nam','Vietnam','Вьетнам');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (231,1,231,'VGB','VG','Virgin Islands (British)','Britische Jungferninseln','Виргинские острова (Британские)');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (232,1,232,'VIR','VI','Virgin Islands (U.S.)','Vereinigte Staaten von Amerika','Виргинские острова (США)');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (233,1,233,'WLF','WF','Wallis and Futuna Islands','Wallis und Futuna','Уоллис и Футуна');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (234,1,234,'ESH','EH','Western Sahara','Westsahara','Западная Сахара');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (235,1,235,'YEM','YE','Yemen','Jemen','Йемен');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (236,1,236,'YUG','YU','Yugoslavia','Yugoslavia','Югославия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (237,1,237,'ZAR','ZR','Zaire','Zaire','Заир');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (238,1,238,'ZMB','ZM','Zambia','Sambia','Замбия');
-insert  into `cwtaq_jshopping_countries`(`country_id`,`country_publish`,`ordering`,`country_code`,`country_code_2`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (239,1,239,'ZWE','ZW','Zimbabwe','Simbabwe','Зимбабве');
-
-/*Table structure for table `cwtaq_jshopping_coupons` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_coupons`;
-
-CREATE TABLE `cwtaq_jshopping_coupons` (
-  `coupon_id` int(11) NOT NULL AUTO_INCREMENT,
-  `coupon_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'value_or_percent',
-  `coupon_code` varchar(100) NOT NULL DEFAULT '',
-  `coupon_value` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `tax_id` int(11) NOT NULL,
-  `used` int(11) NOT NULL,
-  `for_user_id` int(11) NOT NULL,
-  `coupon_start_date` date NOT NULL DEFAULT '0000-00-00',
-  `coupon_expire_date` date NOT NULL DEFAULT '0000-00-00',
-  `finished_after_used` int(11) NOT NULL,
-  `coupon_publish` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`coupon_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_coupons` */
-
-/*Table structure for table `cwtaq_jshopping_currencies` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_currencies`;
-
-CREATE TABLE `cwtaq_jshopping_currencies` (
-  `currency_id` int(11) NOT NULL AUTO_INCREMENT,
-  `currency_name` varchar(64) NOT NULL,
-  `currency_code` varchar(20) NOT NULL,
-  `currency_code_iso` varchar(3) NOT NULL,
-  `currency_code_num` varchar(3) NOT NULL,
-  `currency_ordering` int(11) NOT NULL,
-  `currency_value` decimal(14,6) NOT NULL,
-  `currency_publish` tinyint(1) NOT NULL,
-  PRIMARY KEY (`currency_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_currencies` */
-
-insert  into `cwtaq_jshopping_currencies`(`currency_id`,`currency_name`,`currency_code`,`currency_code_iso`,`currency_code_num`,`currency_ordering`,`currency_value`,`currency_publish`) values (1,'Гривны','грн','uah','',5,'1.000000',1);
-
-/*Table structure for table `cwtaq_jshopping_delivery_times` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_delivery_times`;
-
-CREATE TABLE `cwtaq_jshopping_delivery_times` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `days` decimal(8,2) NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_delivery_times` */
-
-/*Table structure for table `cwtaq_jshopping_free_attr` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_free_attr`;
-
-CREATE TABLE `cwtaq_jshopping_free_attr` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ordering` int(11) NOT NULL,
-  `required` tinyint(1) NOT NULL,
-  `type` tinyint(3) NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `description_en-GB` text NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  `description_ru-RU` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_free_attr` */
-
-/*Table structure for table `cwtaq_jshopping_import_export` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_import_export`;
-
-CREATE TABLE `cwtaq_jshopping_import_export` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `alias` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `params` text NOT NULL,
-  `endstart` int(11) NOT NULL,
-  `steptime` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_import_export` */
-
-insert  into `cwtaq_jshopping_import_export`(`id`,`name`,`alias`,`description`,`params`,`endstart`,`steptime`) values (1,'Simple Export','simpleexport','Simple Export in CSV iso-8859-1','filename=export',0,1);
-insert  into `cwtaq_jshopping_import_export`(`id`,`name`,`alias`,`description`,`params`,`endstart`,`steptime`) values (2,'Simple Import','simpleimport','Simple Import in CSV iso-8859-1','',0,0);
-
-/*Table structure for table `cwtaq_jshopping_languages` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_languages`;
-
-CREATE TABLE `cwtaq_jshopping_languages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `language` varchar(32) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `publish` int(11) NOT NULL,
-  `ordering` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_languages` */
-
-insert  into `cwtaq_jshopping_languages`(`id`,`language`,`name`,`publish`,`ordering`) values (1,'en-GB','English',1,0);
-insert  into `cwtaq_jshopping_languages`(`id`,`language`,`name`,`publish`,`ordering`) values (2,'ru-RU','Russian',1,0);
-
-/*Table structure for table `cwtaq_jshopping_manufacturers` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_manufacturers`;
-
-CREATE TABLE `cwtaq_jshopping_manufacturers` (
-  `manufacturer_id` int(11) NOT NULL AUTO_INCREMENT,
-  `manufacturer_url` varchar(255) NOT NULL,
-  `manufacturer_logo` varchar(255) NOT NULL,
-  `manufacturer_publish` tinyint(1) NOT NULL,
-  `products_page` int(11) NOT NULL,
-  `products_row` int(11) NOT NULL,
-  `ordering` int(6) NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `alias_en-GB` varchar(255) NOT NULL,
-  `short_description_en-GB` text NOT NULL,
-  `description_en-GB` text NOT NULL,
-  `meta_title_en-GB` varchar(255) NOT NULL,
-  `meta_description_en-GB` text NOT NULL,
-  `meta_keyword_en-GB` text NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  `alias_ru-RU` varchar(255) NOT NULL,
-  `short_description_ru-RU` text NOT NULL,
-  `description_ru-RU` text NOT NULL,
-  `meta_title_ru-RU` varchar(255) NOT NULL,
-  `meta_description_ru-RU` text NOT NULL,
-  `meta_keyword_ru-RU` text NOT NULL,
-  PRIMARY KEY (`manufacturer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_manufacturers` */
-
-/*Table structure for table `cwtaq_jshopping_order_history` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_order_history`;
-
-CREATE TABLE `cwtaq_jshopping_order_history` (
-  `order_history_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `order_status_id` tinyint(1) NOT NULL,
-  `status_date_added` datetime NOT NULL,
-  `customer_notify` int(1) DEFAULT NULL,
-  `comments` text,
-  PRIMARY KEY (`order_history_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_order_history` */
-
-/*Table structure for table `cwtaq_jshopping_order_item` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_order_item`;
-
-CREATE TABLE `cwtaq_jshopping_order_item` (
-  `order_item_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `product_ean` varchar(50) NOT NULL,
-  `product_name` varchar(100) NOT NULL,
-  `product_quantity` decimal(12,2) NOT NULL,
-  `product_item_price` decimal(12,2) NOT NULL,
-  `product_tax` decimal(12,2) NOT NULL,
-  `product_attributes` text NOT NULL,
-  `product_freeattributes` text NOT NULL,
-  `attributes` text NOT NULL,
-  `freeattributes` text NOT NULL,
-  `extra_fields` text NOT NULL,
-  `files` text NOT NULL,
-  `weight` float(8,4) NOT NULL,
-  `thumb_image` varchar(255) NOT NULL,
-  `manufacturer` varchar(255) NOT NULL,
-  `delivery_times_id` int(4) NOT NULL,
-  `vendor_id` int(11) NOT NULL,
-  `params` text NOT NULL,
-  PRIMARY KEY (`order_item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_order_item` */
-
-/*Table structure for table `cwtaq_jshopping_order_status` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_order_status`;
-
-CREATE TABLE `cwtaq_jshopping_order_status` (
-  `status_id` int(11) NOT NULL AUTO_INCREMENT,
-  `status_code` char(1) NOT NULL,
-  `name_en-GB` varchar(100) NOT NULL,
-  `name_de-DE` varchar(100) NOT NULL,
-  `name_ru-RU` varchar(100) NOT NULL,
-  PRIMARY KEY (`status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_order_status` */
-
-insert  into `cwtaq_jshopping_order_status`(`status_id`,`status_code`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (1,'P','Pending','Offen','Pending');
-insert  into `cwtaq_jshopping_order_status`(`status_id`,`status_code`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (2,'C','Confirmed','Bestätigt','Confirmed');
-insert  into `cwtaq_jshopping_order_status`(`status_id`,`status_code`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (3,'X','Cancelled','Abgebrochen','Cancelled');
-insert  into `cwtaq_jshopping_order_status`(`status_id`,`status_code`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (4,'R','Refunded','Gutschrift','Refunded');
-insert  into `cwtaq_jshopping_order_status`(`status_id`,`status_code`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (5,'S','Shipped','Gesendet','Shipped');
-insert  into `cwtaq_jshopping_order_status`(`status_id`,`status_code`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (6,'O','Paid','Bezahlt','Paid');
-insert  into `cwtaq_jshopping_order_status`(`status_id`,`status_code`,`name_en-GB`,`name_de-DE`,`name_ru-RU`) values (7,'F','Complete','Abgeschlossen','Complete');
-
-/*Table structure for table `cwtaq_jshopping_orders` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_orders`;
-
-CREATE TABLE `cwtaq_jshopping_orders` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_number` varchar(50) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `order_total` decimal(12,2) NOT NULL,
-  `order_subtotal` decimal(12,2) NOT NULL,
-  `order_tax` decimal(12,2) NOT NULL,
-  `order_tax_ext` text NOT NULL,
-  `order_shipping` decimal(12,2) NOT NULL,
-  `order_payment` decimal(12,2) NOT NULL,
-  `order_discount` decimal(12,2) NOT NULL,
-  `shipping_tax` decimal(8,2) NOT NULL,
-  `shipping_tax_ext` text NOT NULL,
-  `payment_tax` decimal(8,2) NOT NULL,
-  `payment_tax_ext` text NOT NULL,
-  `order_package` decimal(12,2) NOT NULL,
-  `package_tax_ext` text NOT NULL,
-  `currency_code` varchar(20) NOT NULL,
-  `currency_code_iso` varchar(3) NOT NULL,
-  `currency_exchange` decimal(14,6) NOT NULL,
-  `order_status` tinyint(4) NOT NULL,
-  `order_created` tinyint(1) NOT NULL,
-  `order_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `order_m_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `shipping_method_id` int(11) NOT NULL,
-  `delivery_times_id` int(11) NOT NULL,
-  `payment_method_id` int(11) NOT NULL,
-  `payment_params` text NOT NULL,
-  `payment_params_data` text NOT NULL,
-  `delivery_time` varchar(100) NOT NULL,
-  `delivery_date` datetime NOT NULL,
-  `coupon_id` int(11) NOT NULL,
-  `ip_address` varchar(15) NOT NULL,
-  `order_add_info` text NOT NULL,
-  `title` tinyint(1) NOT NULL,
-  `f_name` varchar(255) NOT NULL,
-  `l_name` varchar(255) NOT NULL,
-  `m_name` varchar(255) NOT NULL,
-  `firma_name` varchar(255) NOT NULL,
-  `client_type` tinyint(1) NOT NULL,
-  `client_type_name` varchar(100) NOT NULL,
-  `firma_code` varchar(100) NOT NULL,
-  `tax_number` varchar(100) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `birthday` date NOT NULL,
-  `street` varchar(100) NOT NULL,
-  `home` varchar(20) NOT NULL,
-  `apartment` varchar(20) NOT NULL,
-  `zip` varchar(20) NOT NULL,
-  `city` varchar(100) NOT NULL,
-  `state` varchar(100) NOT NULL,
-  `country` int(11) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `mobil_phone` varchar(20) NOT NULL,
-  `fax` varchar(20) NOT NULL,
-  `ext_field_1` varchar(255) NOT NULL,
-  `ext_field_2` varchar(255) NOT NULL,
-  `ext_field_3` varchar(255) NOT NULL,
-  `d_title` tinyint(1) NOT NULL,
-  `d_f_name` varchar(255) NOT NULL,
-  `d_l_name` varchar(255) NOT NULL,
-  `d_m_name` varchar(255) NOT NULL,
-  `d_firma_name` varchar(255) NOT NULL,
-  `d_email` varchar(255) NOT NULL,
-  `d_birthday` date NOT NULL,
-  `d_street` varchar(100) NOT NULL,
-  `d_home` varchar(20) NOT NULL,
-  `d_apartment` varchar(20) NOT NULL,
-  `d_zip` varchar(20) NOT NULL,
-  `d_city` varchar(100) NOT NULL,
-  `d_state` varchar(100) NOT NULL,
-  `d_country` int(11) NOT NULL,
-  `d_phone` varchar(30) NOT NULL,
-  `d_mobil_phone` varchar(20) NOT NULL,
-  `d_fax` varchar(20) NOT NULL,
-  `d_ext_field_1` varchar(255) NOT NULL,
-  `d_ext_field_2` varchar(255) NOT NULL,
-  `d_ext_field_3` varchar(255) NOT NULL,
-  `pdf_file` varchar(50) NOT NULL,
-  `order_hash` varchar(32) NOT NULL,
-  `file_hash` varchar(64) NOT NULL,
-  `file_stat_downloads` text NOT NULL,
-  `order_custom_info` text NOT NULL,
-  `display_price` tinyint(1) NOT NULL,
-  `vendor_type` tinyint(1) NOT NULL,
-  `vendor_id` int(11) NOT NULL,
-  `lang` varchar(16) NOT NULL,
-  `transaction` text NOT NULL,
-  PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_orders` */
-
-/*Table structure for table `cwtaq_jshopping_payment_method` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_payment_method`;
-
-CREATE TABLE `cwtaq_jshopping_payment_method` (
-  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `payment_code` varchar(32) NOT NULL,
-  `payment_class` varchar(100) NOT NULL,
-  `payment_publish` tinyint(1) NOT NULL,
-  `payment_ordering` int(11) NOT NULL,
-  `payment_params` text NOT NULL,
-  `payment_type` tinyint(4) NOT NULL,
-  `price` decimal(12,2) NOT NULL,
-  `price_type` tinyint(1) NOT NULL,
-  `tax_id` int(11) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `show_descr_in_email` tinyint(1) NOT NULL,
-  `name_en-GB` varchar(100) NOT NULL,
-  `description_en-GB` text NOT NULL,
-  `name_de-DE` varchar(100) NOT NULL,
-  `description_de-DE` text NOT NULL,
-  `name_ru-RU` varchar(100) NOT NULL,
-  `description_ru-RU` text NOT NULL,
-  PRIMARY KEY (`payment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_payment_method` */
-
-insert  into `cwtaq_jshopping_payment_method`(`payment_id`,`payment_code`,`payment_class`,`payment_publish`,`payment_ordering`,`payment_params`,`payment_type`,`price`,`price_type`,`tax_id`,`image`,`show_descr_in_email`,`name_en-GB`,`description_en-GB`,`name_de-DE`,`description_de-DE`,`name_ru-RU`,`description_ru-RU`) values (1,'bank','pm_bank',1,1,'',1,'0.00',1,1,'',0,'Cash on delivery','','Nachnahme','','При получении','');
-insert  into `cwtaq_jshopping_payment_method`(`payment_id`,`payment_code`,`payment_class`,`payment_publish`,`payment_ordering`,`payment_params`,`payment_type`,`price`,`price_type`,`tax_id`,`image`,`show_descr_in_email`,`name_en-GB`,`description_en-GB`,`name_de-DE`,`description_de-DE`,`name_ru-RU`,`description_ru-RU`) values (2,'PO','pm_purchase_order',0,2,'',1,'0.00',0,1,'',1,'Advance payment','','Vorauskasse','','Advance payment','');
-insert  into `cwtaq_jshopping_payment_method`(`payment_id`,`payment_code`,`payment_class`,`payment_publish`,`payment_ordering`,`payment_params`,`payment_type`,`price`,`price_type`,`tax_id`,`image`,`show_descr_in_email`,`name_en-GB`,`description_en-GB`,`name_de-DE`,`description_de-DE`,`name_ru-RU`,`description_ru-RU`) values (3,'paypal','pm_paypal',0,3,'testmode=1\n email_received=test@testing.com\n transaction_end_status=6\n transaction_pending_status=1\n transaction_failed_status=3\n checkdatareturn=0',2,'0.00',0,1,'',0,'Paypal','','Paypal','','Paypal','');
-insert  into `cwtaq_jshopping_payment_method`(`payment_id`,`payment_code`,`payment_class`,`payment_publish`,`payment_ordering`,`payment_params`,`payment_type`,`price`,`price_type`,`tax_id`,`image`,`show_descr_in_email`,`name_en-GB`,`description_en-GB`,`name_de-DE`,`description_de-DE`,`name_ru-RU`,`description_ru-RU`) values (4,'debit','pm_debit',0,4,'',1,'0.00',0,1,'',0,'Debit','Please insert your bankdata.','Lastschrift','Bitte tragen Sie hier Ihre Bankdaten für den Abbuchungsauftrag ein.','Debit','Please insert your bankdata.');
-insert  into `cwtaq_jshopping_payment_method`(`payment_id`,`payment_code`,`payment_class`,`payment_publish`,`payment_ordering`,`payment_params`,`payment_type`,`price`,`price_type`,`tax_id`,`image`,`show_descr_in_email`,`name_en-GB`,`description_en-GB`,`name_de-DE`,`description_de-DE`,`name_ru-RU`,`description_ru-RU`) values (5,'ST','pm_sofortueberweisung',0,5,'user_id=00000\nproject_id=00000\nproject_password=00000\ntransaction_end_status=6\ntransaction_pending_status=1\ntransaction_failed_status=3\n',2,'0.00',0,1,'',0,'Sofortueberweisung','','Sofortueberweisung','','Sofortueberweisung','');
-
-/*Table structure for table `cwtaq_jshopping_product_labels` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_product_labels`;
-
-CREATE TABLE `cwtaq_jshopping_product_labels` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_product_labels` */
-
-insert  into `cwtaq_jshopping_product_labels`(`id`,`name`,`image`) values (1,'New','new.png');
-insert  into `cwtaq_jshopping_product_labels`(`id`,`name`,`image`) values (2,'Sale','sale.png');
-
-/*Table structure for table `cwtaq_jshopping_products` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products`;
-
-CREATE TABLE `cwtaq_jshopping_products` (
-  `product_id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) NOT NULL,
-  `product_ean` varchar(32) NOT NULL,
-  `product_quantity` int(11) NOT NULL,
-  `unlimited` tinyint(1) NOT NULL,
-  `product_availability` varchar(128) NOT NULL,
-  `product_date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `date_modify` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `product_publish` tinyint(1) NOT NULL,
-  `product_tax_id` tinyint(3) NOT NULL,
-  `currency_id` int(4) NOT NULL,
-  `product_template` varchar(64) NOT NULL DEFAULT 'default',
-  `product_url` varchar(255) NOT NULL,
-  `product_old_price` decimal(12,2) NOT NULL,
-  `product_buy_price` decimal(12,2) NOT NULL,
-  `product_price` decimal(18,6) NOT NULL,
-  `min_price` decimal(12,2) NOT NULL,
-  `different_prices` tinyint(1) NOT NULL,
-  `product_weight` decimal(14,4) NOT NULL,
-  `product_thumb_image` varchar(255) NOT NULL,
-  `product_name_image` varchar(255) NOT NULL,
-  `product_full_image` varchar(255) NOT NULL,
-  `product_manufacturer_id` int(11) NOT NULL,
-  `product_is_add_price` tinyint(1) NOT NULL,
-  `add_price_unit_id` int(3) NOT NULL,
-  `average_rating` float(4,2) NOT NULL,
-  `reviews_count` int(11) NOT NULL,
-  `delivery_times_id` int(4) NOT NULL,
-  `hits` int(11) NOT NULL,
-  `weight_volume_units` decimal(14,4) NOT NULL,
-  `basic_price_unit_id` int(3) NOT NULL,
-  `label_id` int(11) NOT NULL,
-  `vendor_id` int(11) NOT NULL,
-  `access` int(3) NOT NULL DEFAULT '1',
-  `name_en-GB` varchar(255) NOT NULL,
-  `alias_en-GB` varchar(255) NOT NULL,
-  `short_description_en-GB` text NOT NULL,
-  `description_en-GB` text NOT NULL,
-  `meta_title_en-GB` varchar(255) NOT NULL,
-  `meta_description_en-GB` text NOT NULL,
-  `meta_keyword_en-GB` text NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  `alias_ru-RU` varchar(255) NOT NULL,
-  `short_description_ru-RU` text NOT NULL,
-  `description_ru-RU` text NOT NULL,
-  `meta_title_ru-RU` varchar(255) NOT NULL,
-  `meta_description_ru-RU` text NOT NULL,
-  `meta_keyword_ru-RU` text NOT NULL,
-  PRIMARY KEY (`product_id`),
-  KEY `product_manufacturer_id` (`product_manufacturer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products` */
-
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (14,0,'',1,1,'','2012-12-21 22:10:42','2013-06-07 03:25:57',1,1,1,'default','','0.00','0.00','120.000000','120.00',0,'0.0000','thumb_7b3d662f3623a726092b4b364472fa3a.JPG','7b3d662f3623a726092b4b364472fa3a.JPG','full_7b3d662f3623a726092b4b364472fa3a.JPG',0,0,3,0.00,0,0,33,'0.0000',0,0,0,1,'','','','','','','','Скайп','skype','Saccharification mash saccharification final gravity real ale becher, chocolate malt, beer berliner weisse. cask conditioning priming kolsch conditioning priming, malt extract biere de garde. ester original gravity mash crystal malt lauter tun primary fermentation bacterial. lagering heat exchanger abbey hops, aau brewhouse.','<p>Что в клетке сидит мой пернатый друг на. Огрел кукушонка стихотворение написано в ледяную воду.. смотрели друг хомячок было. Сам не пожалел для друга ни последнего патрона ни последнего куска хлеба. Луч солнца и жену как перевозили революционеры свои листовки.в чемоданах. Объяснить, как очутился на сенатскую площадь поняли. Блаженно улыбался поняли: здесь была. Горницу вошел негр, румяный с двойной подошвой из-за. Послал русскому царю телеграмму заломов нес красное знамя, по моде женщина. Сенатскую площадь двор и жену. Полковник танцевал с изображением натюрморта. Был настоящим мужчиной и жену пока. Изергиль была маруся земле но. Бежала одевающаяся по моде женщина. Поводу чего все время вспоминал мать мог. Я бросился спать и огрел кукушонка обществе слышались не слышала. Ее на диване одной певчей птицы, кроме слова.</p>','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (15,0,'',1,1,'','2012-12-21 22:20:49','2013-01-12 16:53:33',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_da8126cef814f11dcf0d895d4e55f4fe.JPG','da8126cef814f11dcf0d895d4e55f4fe.JPG','full_da8126cef814f11dcf0d895d4e55f4fe.JPG',0,0,3,0.00,0,0,17,'0.0000',0,0,0,1,'','','','','','','','Мишень зеленая','target-green','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (16,0,'',1,1,'','2012-12-21 22:22:30','2013-05-10 02:14:42',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_0d7cc292ac745db9e5954e333b3383e7.JPG','0d7cc292ac745db9e5954e333b3383e7.JPG','full_0d7cc292ac745db9e5954e333b3383e7.JPG',0,0,3,0.00,0,0,7,'0.0000',0,0,0,1,'','','','','','','','Твиттер bird','flytweeterfly','Dry hopping aau alpha acid tulip glass carbonation, carbonation. balthazar, hydrometer terminal gravity dry stout bottle conditioning gravity units of bitterness. barleywine finishing hops hard cider;','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (17,0,'',1,1,'','2012-12-21 22:22:41','2013-05-10 02:14:58',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_f5c63dd6b39cfacaf413ca1d7e4e0262.JPG','f5c63dd6b39cfacaf413ca1d7e4e0262.JPG','full_f5c63dd6b39cfacaf413ca1d7e4e0262.JPG',0,0,3,0.00,0,0,4,'0.0000',0,0,0,1,'','121221222241','','','','','','Твиттер','tweeter-literaly','Conditioning tank biere de garde reinheitsgebot brew kettle. shelf life sparge autolysis dry stout. reinheitsgebot racking cask conditioning carboy goblet mead tulip glass.','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (18,0,'',1,1,'','2012-12-21 22:28:06','2013-05-10 02:16:17',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_2720bd41cee7e773bb5ca34f97fdea98.JPG','2720bd41cee7e773bb5ca34f97fdea98.JPG','full_2720bd41cee7e773bb5ca34f97fdea98.JPG',0,0,3,0.00,0,0,4,'0.0000',0,0,0,1,'','','','','','','','Фейсбук','facebook','Проснувшись однажды утром после беспокойного сна, Грегор Замза обнаружил, что он у себя в постели превратился в страшное насекомое.','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (19,0,'',1,1,'','2012-12-21 22:29:12','2013-05-10 02:16:35',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_16cc7d2801060e40ca4e955600b6cdc0.JPG','16cc7d2801060e40ca4e955600b6cdc0.JPG','full_16cc7d2801060e40ca4e955600b6cdc0.JPG',0,0,3,0.00,0,0,12,'0.0000',0,0,0,1,'','','','','','','','ВКонтакте','theb','Лежа на панцирнотвердой спине, он видел, стоило ему приподнять голову, свой коричневый, выпуклый, разделенный дугообразными чешуйками живот, на верхушке которого еле держалось готовое вот-вот окончательно сползти одеяло.','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (20,0,'',1,1,'','2012-12-21 22:33:30','2013-01-12 16:48:30',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_5af27f67f65ec4cdee9026064e78ed68.JPG','5af27f67f65ec4cdee9026064e78ed68.JPG','full_5af27f67f65ec4cdee9026064e78ed68.JPG',0,0,3,0.00,0,0,33,'0.0000',0,0,0,1,'','','','','','','','Мишень желтая','autumn-target','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (21,0,'',1,1,'','2012-12-21 22:39:13','2012-12-21 22:39:13',1,1,1,'default','','0.00','0.00','60.000000','60.00',0,'0.0000','thumb_96b9352e4ec68fa2662018894d25eda6.JPG','96b9352e4ec68fa2662018894d25eda6.JPG','full_96b9352e4ec68fa2662018894d25eda6.JPG',0,0,3,0.00,0,0,34,'0.0000',0,0,0,1,'','','','','','','','Мягкое место','softplace','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (22,0,'',1,1,'','2012-12-21 22:41:23','2013-01-12 16:48:58',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_e30748901f3a4632dcaf9033a8183160.JPG','e30748901f3a4632dcaf9033a8183160.JPG','full_e30748901f3a4632dcaf9033a8183160.JPG',0,0,3,0.00,0,0,5,'0.0000',0,0,0,1,'','','','','','','','Мишень красная','redtarget','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (23,0,'',1,1,'','2012-12-21 22:44:43','2012-12-21 22:44:43',1,1,1,'default','','0.00','0.00','60.000000','60.00',0,'0.0000','thumb_e60b22e82bd554908654aa959c8482ad.JPG','e60b22e82bd554908654aa959c8482ad.JPG','full_e60b22e82bd554908654aa959c8482ad.JPG',0,0,3,0.00,0,0,1,'0.0000',0,0,0,1,'','','','','','','','Квадрат','square','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (24,0,'',1,1,'','2012-12-21 22:45:57','2012-12-21 22:45:57',1,1,1,'default','','0.00','0.00','60.000000','60.00',0,'0.0000','thumb_f271b6328b643ee25d4c4a9855f523ac.JPG','f271b6328b643ee25d4c4a9855f523ac.JPG','full_f271b6328b643ee25d4c4a9855f523ac.JPG',0,0,3,0.00,0,0,0,'0.0000',0,0,0,1,'','','','','','','','Треугольник','triangle','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (25,0,'',1,1,'','2012-12-21 22:47:30','2012-12-21 22:47:30',1,1,1,'default','','0.00','0.00','60.000000','60.00',0,'0.0000','thumb_42f6f7f008a18a781a3f17cdaba0ee5f.JPG','42f6f7f008a18a781a3f17cdaba0ee5f.JPG','full_42f6f7f008a18a781a3f17cdaba0ee5f.JPG',0,0,3,0.00,0,0,0,'0.0000',0,0,0,1,'','','','','','','','Круг','circle','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (26,0,'',1,1,'','2012-12-21 22:50:28','2012-12-21 22:50:28',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_01ee3e3f116388b98ecf50f88a35f6a2.JPG','01ee3e3f116388b98ecf50f88a35f6a2.JPG','full_01ee3e3f116388b98ecf50f88a35f6a2.JPG',0,0,3,0.00,0,0,65,'0.0000',0,0,0,1,'','','','','','','','Black\'n\'white','black-and-white','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (27,0,'',1,1,'','2012-12-21 22:52:13','2012-12-21 22:52:37',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_970e42a83da4bfb543ad7832eb7d6715.JPG','970e42a83da4bfb543ad7832eb7d6715.JPG','full_970e42a83da4bfb543ad7832eb7d6715.JPG',0,0,3,0.00,0,0,0,'0.0000',0,0,0,1,'','','','','','','','Черно-красный','black-and-red','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (28,0,'',1,1,'','2012-12-21 22:53:55','2012-12-21 22:53:55',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_3b06c8ba315db9538c78e6e909ce7dfb.JPG','3b06c8ba315db9538c78e6e909ce7dfb.JPG','full_3b06c8ba315db9538c78e6e909ce7dfb.JPG',0,0,3,0.00,0,0,3,'0.0000',0,0,0,1,'','','','','','','','Бело-черный','white-and-black','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (29,0,'',1,1,'','2012-12-21 22:55:23','2012-12-21 22:55:23',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_b95924b16825f0405d1e5cf504188eeb.JPG','b95924b16825f0405d1e5cf504188eeb.JPG','full_b95924b16825f0405d1e5cf504188eeb.JPG',0,0,3,0.00,0,0,0,'0.0000',0,0,0,1,'','','','','','','','Красно-черный','red-and-black','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (30,0,'',1,1,'','2012-12-21 22:56:46','2012-12-21 22:56:46',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_19245a5e2812988b12399cdd9fd97440.JPG','19245a5e2812988b12399cdd9fd97440.JPG','full_19245a5e2812988b12399cdd9fd97440.JPG',0,0,3,0.00,0,0,1,'0.0000',0,0,0,1,'','','','','','','','Красно-белый','red-aand-white','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (31,0,'',1,1,'','2012-12-21 22:58:15','2012-12-21 22:58:15',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_e35c32c93a9c061f665f38a23ac339ab.JPG','e35c32c93a9c061f665f38a23ac339ab.JPG','full_e35c32c93a9c061f665f38a23ac339ab.JPG',0,0,3,0.00,0,0,8,'0.0000',0,0,0,1,'','','','','','','','Бело-красный','white-and-red','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (32,0,'',1,1,'','2012-12-21 23:00:24','2013-01-12 16:49:37',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_40b54a81904e18e0b915d707c8611e9a.JPG','40b54a81904e18e0b915d707c8611e9a.JPG','full_40b54a81904e18e0b915d707c8611e9a.JPG',0,0,3,0.00,0,0,14,'0.0000',0,0,0,1,'','','','','','','','Облако','cloud','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (33,0,'',1,1,'','2012-12-22 00:10:25','2012-12-22 00:10:25',1,1,1,'default','','0.00','0.00','60.000000','60.00',0,'0.0000','thumb_80b8a06eef4b3d90e5cf501946b15c31.JPG','80b8a06eef4b3d90e5cf501946b15c31.JPG','full_80b8a06eef4b3d90e5cf501946b15c31.JPG',0,0,3,0.00,0,0,0,'0.0000',0,0,0,1,'','','','','','','','Спика','spica','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (34,0,'',1,1,'','2012-12-22 00:11:38','2013-05-10 02:17:15',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_2567a407fa2143fc141d183429921de0.JPG','2567a407fa2143fc141d183429921de0.JPG','full_2567a407fa2143fc141d183429921de0.JPG',0,0,3,0.00,0,0,66,'0.0000',0,0,0,1,'','','','','','','','Ctrl','ctrl','Его многочисленные, убого тонкие по сравнению с остальным телом ножки беспомощно копошились у него перед глазами.','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (35,0,'',1,1,'','2012-12-22 00:12:23','2013-05-10 02:17:27',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_4bbc43419a19a8d3151cf61e4a9b2094.JPG','4bbc43419a19a8d3151cf61e4a9b2094.JPG','full_4bbc43419a19a8d3151cf61e4a9b2094.JPG',0,0,3,0.00,0,0,21,'0.0000',0,0,0,1,'','','','','','','','Alt','alt','Его комната, настоящая, разве что слишком маленькая, но обычная комната, мирно покоилась в своих четырех хорошо знакомых стенах.','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (36,0,'',1,1,'','2012-12-22 00:13:15','2013-05-10 02:17:43',1,1,1,'default','','0.00','0.00','80.000000','80.00',0,'0.0000','thumb_480bff4608f1515b6dc012e06b798d49.JPG','480bff4608f1515b6dc012e06b798d49.JPG','full_480bff4608f1515b6dc012e06b798d49.JPG',0,0,3,0.00,0,0,0,'0.0000',0,0,0,1,'','','','','','','','Del','del','Над столом, где были разложены распакованные образцы сукон – Замза был коммивояжером, – висел портрет, который он недавно вырезал из иллюстрированного журнала и вставил в красивую золоченую рамку.','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (37,0,'',1,1,'','2012-12-22 00:16:41','2013-05-10 02:17:55',1,1,1,'default','','0.00','0.00','200.000000','200.00',0,'0.0000','thumb_bb7a60cdc78b8d13f5ea2148f608f2ad.JPG','bb7a60cdc78b8d13f5ea2148f608f2ad.JPG','full_bb7a60cdc78b8d13f5ea2148f608f2ad.JPG',0,0,3,0.00,0,0,3,'0.0000',0,0,0,1,'','','','','','','','Ctrl+Alt+Del','reboot','На портрете была изображена дама в меховой шляпе и боа, она сидела очень прямо и протягивала зрителю тяжелую меховую муфту, в которой целиком исчезала ее рука.','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (38,0,'',1,1,'','2012-12-22 00:39:05','2013-01-12 16:51:38',1,1,1,'default','','0.00','0.00','350.000000','350.00',0,'0.0000','thumb_1d8bda1e135e3d49c7540a5880b97351.JPG','1d8bda1e135e3d49c7540a5880b97351.JPG','full_1d8bda1e135e3d49c7540a5880b97351.JPG',0,0,3,0.00,0,0,9,'0.0000',0,0,0,1,'','','','','','','','Диван-лежанка для собаки','dog-couch','','','','','');
-insert  into `cwtaq_jshopping_products`(`product_id`,`parent_id`,`product_ean`,`product_quantity`,`unlimited`,`product_availability`,`product_date_added`,`date_modify`,`product_publish`,`product_tax_id`,`currency_id`,`product_template`,`product_url`,`product_old_price`,`product_buy_price`,`product_price`,`min_price`,`different_prices`,`product_weight`,`product_thumb_image`,`product_name_image`,`product_full_image`,`product_manufacturer_id`,`product_is_add_price`,`add_price_unit_id`,`average_rating`,`reviews_count`,`delivery_times_id`,`hits`,`weight_volume_units`,`basic_price_unit_id`,`label_id`,`vendor_id`,`access`,`name_en-GB`,`alias_en-GB`,`short_description_en-GB`,`description_en-GB`,`meta_title_en-GB`,`meta_description_en-GB`,`meta_keyword_en-GB`,`name_ru-RU`,`alias_ru-RU`,`short_description_ru-RU`,`description_ru-RU`,`meta_title_ru-RU`,`meta_description_ru-RU`,`meta_keyword_ru-RU`) values (39,0,'',1,1,'','2012-12-22 00:56:39','2013-01-12 16:58:36',1,1,1,'default','','0.00','0.00','180.000000','180.00',0,'0.0000','thumb_493b5488e1a85ee455e10855bdf28f19.JPG','493b5488e1a85ee455e10855bdf28f19.JPG','full_493b5488e1a85ee455e10855bdf28f19.JPG',0,0,3,0.00,0,0,32,'0.0000',0,0,0,1,'','','','','','','','Пуфики с шариками','color-puf','','<p>Пуфик с шариками пенополистирола.</p>\r\n<p>Диаметр 50см</p>\r\n<p>Высота 90см</p>','','','');
-
-/*Table structure for table `cwtaq_jshopping_products_attr` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_attr`;
-
-CREATE TABLE `cwtaq_jshopping_products_attr` (
-  `product_attr_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `buy_price` decimal(12,2) NOT NULL,
-  `price` decimal(12,2) NOT NULL,
-  `old_price` decimal(12,2) NOT NULL,
-  `count` int(11) NOT NULL,
-  `ean` varchar(100) NOT NULL,
-  `weight` decimal(12,4) NOT NULL,
-  `weight_volume_units` decimal(14,4) NOT NULL,
-  `ext_attribute_product_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_attr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_attr` */
-
-/*Table structure for table `cwtaq_jshopping_products_attr2` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_attr2`;
-
-CREATE TABLE `cwtaq_jshopping_products_attr2` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `attr_id` int(11) NOT NULL,
-  `attr_value_id` int(11) NOT NULL,
-  `price_mod` char(1) NOT NULL,
-  `addprice` decimal(12,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_attr2` */
-
-/*Table structure for table `cwtaq_jshopping_products_extra_field_groups` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_extra_field_groups`;
-
-CREATE TABLE `cwtaq_jshopping_products_extra_field_groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ordering` int(6) NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_extra_field_groups` */
-
-/*Table structure for table `cwtaq_jshopping_products_extra_field_values` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_extra_field_values`;
-
-CREATE TABLE `cwtaq_jshopping_products_extra_field_values` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `field_id` int(11) NOT NULL,
-  `ordering` int(6) NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_extra_field_values` */
-
-/*Table structure for table `cwtaq_jshopping_products_extra_fields` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_extra_fields`;
-
-CREATE TABLE `cwtaq_jshopping_products_extra_fields` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `allcats` tinyint(1) NOT NULL,
-  `cats` text NOT NULL,
-  `type` tinyint(1) NOT NULL,
-  `multilist` tinyint(1) NOT NULL,
-  `group` tinyint(4) NOT NULL,
-  `ordering` int(6) NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `description_en-GB` text NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  `description_ru-RU` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_extra_fields` */
-
-/*Table structure for table `cwtaq_jshopping_products_files` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_files`;
-
-CREATE TABLE `cwtaq_jshopping_products_files` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `demo` varchar(255) NOT NULL,
-  `demo_descr` varchar(255) NOT NULL,
-  `file` varchar(255) NOT NULL,
-  `file_descr` varchar(255) NOT NULL,
-  `ordering` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_files` */
-
-/*Table structure for table `cwtaq_jshopping_products_free_attr` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_free_attr`;
-
-CREATE TABLE `cwtaq_jshopping_products_free_attr` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `attr_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
-  KEY `attr_id` (`attr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_free_attr` */
-
-/*Table structure for table `cwtaq_jshopping_products_images` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_images`;
-
-CREATE TABLE `cwtaq_jshopping_products_images` (
-  `image_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL DEFAULT '0',
-  `image_thumb` varchar(255) NOT NULL DEFAULT '',
-  `image_name` varchar(255) NOT NULL DEFAULT '',
-  `image_full` varchar(255) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `ordering` tinyint(4) NOT NULL,
-  PRIMARY KEY (`image_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_images` */
-
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (21,14,'thumb_7b3d662f3623a726092b4b364472fa3a.JPG','7b3d662f3623a726092b4b364472fa3a.JPG','full_7b3d662f3623a726092b4b364472fa3a.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (22,14,'thumb_be076a9cdd3f0ef33f3137519070c342.JPG','be076a9cdd3f0ef33f3137519070c342.JPG','full_be076a9cdd3f0ef33f3137519070c342.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (23,15,'thumb_da8126cef814f11dcf0d895d4e55f4fe.JPG','da8126cef814f11dcf0d895d4e55f4fe.JPG','full_da8126cef814f11dcf0d895d4e55f4fe.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (24,15,'thumb_d7245f59d2d405b969637ae31c369073.JPG','d7245f59d2d405b969637ae31c369073.JPG','full_d7245f59d2d405b969637ae31c369073.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (25,15,'thumb_61cc6e412c1b452fb22e143ed828adf2.JPG','61cc6e412c1b452fb22e143ed828adf2.JPG','full_61cc6e412c1b452fb22e143ed828adf2.JPG','',3);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (26,16,'thumb_0d7cc292ac745db9e5954e333b3383e7.JPG','0d7cc292ac745db9e5954e333b3383e7.JPG','full_0d7cc292ac745db9e5954e333b3383e7.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (27,16,'thumb_fcbdb3e61c1f386239aa032b0c29959d.JPG','fcbdb3e61c1f386239aa032b0c29959d.JPG','full_fcbdb3e61c1f386239aa032b0c29959d.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (30,17,'thumb_f5c63dd6b39cfacaf413ca1d7e4e0262.JPG','f5c63dd6b39cfacaf413ca1d7e4e0262.JPG','full_f5c63dd6b39cfacaf413ca1d7e4e0262.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (31,17,'thumb_f0d797541feb36091001cf5cacb5beab.JPG','f0d797541feb36091001cf5cacb5beab.JPG','full_f0d797541feb36091001cf5cacb5beab.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (32,18,'thumb_2720bd41cee7e773bb5ca34f97fdea98.JPG','2720bd41cee7e773bb5ca34f97fdea98.JPG','full_2720bd41cee7e773bb5ca34f97fdea98.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (33,18,'thumb_9cc871e1c0c47e74cdffeef9ce5e67db.JPG','9cc871e1c0c47e74cdffeef9ce5e67db.JPG','full_9cc871e1c0c47e74cdffeef9ce5e67db.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (34,19,'thumb_16cc7d2801060e40ca4e955600b6cdc0.JPG','16cc7d2801060e40ca4e955600b6cdc0.JPG','full_16cc7d2801060e40ca4e955600b6cdc0.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (35,19,'thumb_7c12462fd5b2dbfa179398417f5ccfb2.JPG','7c12462fd5b2dbfa179398417f5ccfb2.JPG','full_7c12462fd5b2dbfa179398417f5ccfb2.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (36,20,'thumb_5af27f67f65ec4cdee9026064e78ed68.JPG','5af27f67f65ec4cdee9026064e78ed68.JPG','full_5af27f67f65ec4cdee9026064e78ed68.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (37,20,'thumb_46fb9e73ed2825cee5e42bddc3714ecf.JPG','46fb9e73ed2825cee5e42bddc3714ecf.JPG','full_46fb9e73ed2825cee5e42bddc3714ecf.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (38,20,'thumb_02553d7d721c79786959958979573f46.JPG','02553d7d721c79786959958979573f46.JPG','full_02553d7d721c79786959958979573f46.JPG','',3);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (39,21,'thumb_96b9352e4ec68fa2662018894d25eda6.JPG','96b9352e4ec68fa2662018894d25eda6.JPG','full_96b9352e4ec68fa2662018894d25eda6.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (40,21,'thumb_8e62119278f9b185dd4d848f3d7f8e53.JPG','8e62119278f9b185dd4d848f3d7f8e53.JPG','full_8e62119278f9b185dd4d848f3d7f8e53.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (41,21,'thumb_d2643b83d39d20ae8fc3aee210546e04.JPG','d2643b83d39d20ae8fc3aee210546e04.JPG','full_d2643b83d39d20ae8fc3aee210546e04.JPG','',3);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (42,22,'thumb_e30748901f3a4632dcaf9033a8183160.JPG','e30748901f3a4632dcaf9033a8183160.JPG','full_e30748901f3a4632dcaf9033a8183160.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (43,22,'thumb_3f4430552753dc15f52b2b3d64040371.JPG','3f4430552753dc15f52b2b3d64040371.JPG','full_3f4430552753dc15f52b2b3d64040371.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (44,23,'thumb_e60b22e82bd554908654aa959c8482ad.JPG','e60b22e82bd554908654aa959c8482ad.JPG','full_e60b22e82bd554908654aa959c8482ad.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (45,23,'thumb_5399ab40de5cdf2c263f8e56acc469d7.JPG','5399ab40de5cdf2c263f8e56acc469d7.JPG','full_5399ab40de5cdf2c263f8e56acc469d7.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (46,24,'thumb_f271b6328b643ee25d4c4a9855f523ac.JPG','f271b6328b643ee25d4c4a9855f523ac.JPG','full_f271b6328b643ee25d4c4a9855f523ac.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (47,24,'thumb_0eb888953434fbc430f7cd0c03b32a54.JPG','0eb888953434fbc430f7cd0c03b32a54.JPG','full_0eb888953434fbc430f7cd0c03b32a54.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (48,25,'thumb_42f6f7f008a18a781a3f17cdaba0ee5f.JPG','42f6f7f008a18a781a3f17cdaba0ee5f.JPG','full_42f6f7f008a18a781a3f17cdaba0ee5f.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (49,25,'thumb_70d04722a18969ac25e8d0d143425eef.JPG','70d04722a18969ac25e8d0d143425eef.JPG','full_70d04722a18969ac25e8d0d143425eef.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (50,26,'thumb_01ee3e3f116388b98ecf50f88a35f6a2.JPG','01ee3e3f116388b98ecf50f88a35f6a2.JPG','full_01ee3e3f116388b98ecf50f88a35f6a2.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (51,26,'thumb_83051a22d195b8e25716a79f9dffda73.JPG','83051a22d195b8e25716a79f9dffda73.JPG','full_83051a22d195b8e25716a79f9dffda73.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (52,27,'thumb_970e42a83da4bfb543ad7832eb7d6715.JPG','970e42a83da4bfb543ad7832eb7d6715.JPG','full_970e42a83da4bfb543ad7832eb7d6715.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (53,27,'thumb_f0dce7ef871870bd43f2bf3e17274748.JPG','f0dce7ef871870bd43f2bf3e17274748.JPG','full_f0dce7ef871870bd43f2bf3e17274748.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (54,28,'thumb_3b06c8ba315db9538c78e6e909ce7dfb.JPG','3b06c8ba315db9538c78e6e909ce7dfb.JPG','full_3b06c8ba315db9538c78e6e909ce7dfb.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (55,28,'thumb_e7b7e7b15c2fefe1547bcec94c05514b.JPG','e7b7e7b15c2fefe1547bcec94c05514b.JPG','full_e7b7e7b15c2fefe1547bcec94c05514b.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (56,28,'thumb_5a4e4b61fa8534a5ec253ea5dea57fd2.JPG','5a4e4b61fa8534a5ec253ea5dea57fd2.JPG','full_5a4e4b61fa8534a5ec253ea5dea57fd2.JPG','',3);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (57,29,'thumb_b95924b16825f0405d1e5cf504188eeb.JPG','b95924b16825f0405d1e5cf504188eeb.JPG','full_b95924b16825f0405d1e5cf504188eeb.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (58,29,'thumb_5f1990dab64c2457985c2f1ce387668d.JPG','5f1990dab64c2457985c2f1ce387668d.JPG','full_5f1990dab64c2457985c2f1ce387668d.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (59,29,'thumb_b39b47061d6d4d1fa0ea16076d88c2b2.JPG','b39b47061d6d4d1fa0ea16076d88c2b2.JPG','full_b39b47061d6d4d1fa0ea16076d88c2b2.JPG','',3);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (60,30,'thumb_19245a5e2812988b12399cdd9fd97440.JPG','19245a5e2812988b12399cdd9fd97440.JPG','full_19245a5e2812988b12399cdd9fd97440.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (61,30,'thumb_cdd3b7d8fbe7384c34b88dcfeaeaeac2.JPG','cdd3b7d8fbe7384c34b88dcfeaeaeac2.JPG','full_cdd3b7d8fbe7384c34b88dcfeaeaeac2.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (62,30,'thumb_fb947da2d2d2a2f251c04ceeeb10f578.JPG','fb947da2d2d2a2f251c04ceeeb10f578.JPG','full_fb947da2d2d2a2f251c04ceeeb10f578.JPG','',3);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (63,31,'thumb_e35c32c93a9c061f665f38a23ac339ab.JPG','e35c32c93a9c061f665f38a23ac339ab.JPG','full_e35c32c93a9c061f665f38a23ac339ab.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (64,31,'thumb_324b445f60492743cf0215273245935e.JPG','324b445f60492743cf0215273245935e.JPG','full_324b445f60492743cf0215273245935e.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (65,32,'thumb_40b54a81904e18e0b915d707c8611e9a.JPG','40b54a81904e18e0b915d707c8611e9a.JPG','full_40b54a81904e18e0b915d707c8611e9a.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (66,32,'thumb_6911248a1ed819526ec025c21165db5d.JPG','6911248a1ed819526ec025c21165db5d.JPG','full_6911248a1ed819526ec025c21165db5d.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (67,32,'thumb_e74016cdf7588e8d5c4eae62ebe7d266.JPG','e74016cdf7588e8d5c4eae62ebe7d266.JPG','full_e74016cdf7588e8d5c4eae62ebe7d266.JPG','',3);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (68,33,'thumb_80b8a06eef4b3d90e5cf501946b15c31.JPG','80b8a06eef4b3d90e5cf501946b15c31.JPG','full_80b8a06eef4b3d90e5cf501946b15c31.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (69,33,'thumb_439d18356c66d69dfead4e2a5c709aee.JPG','439d18356c66d69dfead4e2a5c709aee.JPG','full_439d18356c66d69dfead4e2a5c709aee.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (70,34,'thumb_2567a407fa2143fc141d183429921de0.JPG','2567a407fa2143fc141d183429921de0.JPG','full_2567a407fa2143fc141d183429921de0.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (73,35,'thumb_4bbc43419a19a8d3151cf61e4a9b2094.JPG','4bbc43419a19a8d3151cf61e4a9b2094.JPG','full_4bbc43419a19a8d3151cf61e4a9b2094.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (74,35,'thumb_4a409348029a99c5eb381aae9b60a3ee.JPG','4a409348029a99c5eb381aae9b60a3ee.JPG','full_4a409348029a99c5eb381aae9b60a3ee.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (75,36,'thumb_480bff4608f1515b6dc012e06b798d49.JPG','480bff4608f1515b6dc012e06b798d49.JPG','full_480bff4608f1515b6dc012e06b798d49.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (76,37,'thumb_bb7a60cdc78b8d13f5ea2148f608f2ad.JPG','bb7a60cdc78b8d13f5ea2148f608f2ad.JPG','full_bb7a60cdc78b8d13f5ea2148f608f2ad.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (77,38,'thumb_1d8bda1e135e3d49c7540a5880b97351.JPG','1d8bda1e135e3d49c7540a5880b97351.JPG','full_1d8bda1e135e3d49c7540a5880b97351.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (78,38,'thumb_2c4ac35e463f5cc6dd87de0f2d2977c0.JPG','2c4ac35e463f5cc6dd87de0f2d2977c0.JPG','full_2c4ac35e463f5cc6dd87de0f2d2977c0.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (79,38,'thumb_4c92eeffda0a96a33c3f17168b01a30d.JPG','4c92eeffda0a96a33c3f17168b01a30d.JPG','full_4c92eeffda0a96a33c3f17168b01a30d.JPG','',3);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (80,38,'thumb_88a41996418232dd7a28fefcdd1b950b.JPG','88a41996418232dd7a28fefcdd1b950b.JPG','full_88a41996418232dd7a28fefcdd1b950b.JPG','',4);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (81,39,'thumb_7c0ee62d18ff0430f923aa843e3b8ec6.JPG','7c0ee62d18ff0430f923aa843e3b8ec6.JPG','full_7c0ee62d18ff0430f923aa843e3b8ec6.JPG','',1);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (82,39,'thumb_d43f07a307b2575d85e922eee83d1339.JPG','d43f07a307b2575d85e922eee83d1339.JPG','full_d43f07a307b2575d85e922eee83d1339.JPG','',2);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (83,39,'thumb_f586c357295aa379e543fb8ff498a300.JPG','f586c357295aa379e543fb8ff498a300.JPG','full_f586c357295aa379e543fb8ff498a300.JPG','',3);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (84,39,'thumb_493b5488e1a85ee455e10855bdf28f19.JPG','493b5488e1a85ee455e10855bdf28f19.JPG','full_493b5488e1a85ee455e10855bdf28f19.JPG','',4);
-insert  into `cwtaq_jshopping_products_images`(`image_id`,`product_id`,`image_thumb`,`image_name`,`image_full`,`name`,`ordering`) values (85,39,'thumb_b9adeafde9792fab292035c68b5b53dc.JPG','b9adeafde9792fab292035c68b5b53dc.JPG','full_b9adeafde9792fab292035c68b5b53dc.JPG','',5);
-
-/*Table structure for table `cwtaq_jshopping_products_prices` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_prices`;
-
-CREATE TABLE `cwtaq_jshopping_products_prices` (
-  `price_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `discount` decimal(16,6) NOT NULL,
-  `product_quantity_start` int(11) NOT NULL,
-  `product_quantity_finish` int(11) NOT NULL,
-  PRIMARY KEY (`price_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_prices` */
-
-/*Table structure for table `cwtaq_jshopping_products_relations` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_relations`;
-
-CREATE TABLE `cwtaq_jshopping_products_relations` (
-  `product_id` int(11) NOT NULL DEFAULT '0',
-  `product_related_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_relations` */
-
-/*Table structure for table `cwtaq_jshopping_products_reviews` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_reviews`;
-
-CREATE TABLE `cwtaq_jshopping_products_reviews` (
-  `review_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `user_name` varchar(255) NOT NULL,
-  `user_email` varchar(255) NOT NULL,
-  `time` date NOT NULL,
-  `review` text NOT NULL,
-  `mark` int(11) NOT NULL,
-  `publish` tinyint(1) NOT NULL,
-  `ip` varchar(20) NOT NULL,
-  PRIMARY KEY (`review_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_reviews` */
-
-/*Table structure for table `cwtaq_jshopping_products_to_categories` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_to_categories`;
-
-CREATE TABLE `cwtaq_jshopping_products_to_categories` (
-  `product_id` int(11) NOT NULL DEFAULT '0',
-  `category_id` int(11) NOT NULL DEFAULT '0',
-  `product_ordering` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`product_id`,`category_id`),
-  KEY `category_id` (`category_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_to_categories` */
-
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (14,7,1);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (15,10,1);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (16,7,2);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (17,7,3);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (18,7,4);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (19,7,5);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (20,10,2);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (21,10,3);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (22,10,4);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (23,2,1);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (24,2,2);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (25,2,3);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (26,8,1);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (27,8,2);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (28,8,3);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (29,8,4);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (30,8,5);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (31,8,6);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (32,10,5);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (33,6,1);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (34,7,6);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (35,7,7);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (36,7,8);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (37,7,9);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (38,12,1);
-insert  into `cwtaq_jshopping_products_to_categories`(`product_id`,`category_id`,`product_ordering`) values (39,13,1);
-
-/*Table structure for table `cwtaq_jshopping_products_videos` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_products_videos`;
-
-CREATE TABLE `cwtaq_jshopping_products_videos` (
-  `video_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL DEFAULT '0',
-  `video_name` varchar(255) NOT NULL DEFAULT '',
-  `video_preview` varchar(255) NOT NULL,
-  PRIMARY KEY (`video_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_products_videos` */
-
-/*Table structure for table `cwtaq_jshopping_shipping_ext_calc` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_shipping_ext_calc`;
-
-CREATE TABLE `cwtaq_jshopping_shipping_ext_calc` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `alias` varchar(100) NOT NULL,
-  `description` text NOT NULL,
-  `params` text NOT NULL,
-  `shipping_method` text NOT NULL,
-  `published` tinyint(1) NOT NULL,
-  `ordering` int(6) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_shipping_ext_calc` */
-
-insert  into `cwtaq_jshopping_shipping_ext_calc`(`id`,`name`,`alias`,`description`,`params`,`shipping_method`,`published`,`ordering`) values (1,'StandartWeight','sm_standart_weight','StandartWeight','','',1,1);
-
-/*Table structure for table `cwtaq_jshopping_shipping_method` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_shipping_method`;
-
-CREATE TABLE `cwtaq_jshopping_shipping_method` (
-  `shipping_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name_en-GB` varchar(100) NOT NULL,
-  `description_en-GB` text NOT NULL,
-  `name_de-DE` varchar(100) NOT NULL,
-  `description_de-DE` text NOT NULL,
-  `published` tinyint(1) NOT NULL,
-  `payments` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `ordering` int(6) NOT NULL,
-  `name_ru-RU` varchar(100) NOT NULL,
-  `description_ru-RU` text NOT NULL,
-  PRIMARY KEY (`shipping_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_shipping_method` */
-
-insert  into `cwtaq_jshopping_shipping_method`(`shipping_id`,`name_en-GB`,`description_en-GB`,`name_de-DE`,`description_de-DE`,`published`,`payments`,`image`,`ordering`,`name_ru-RU`,`description_ru-RU`) values (1,'Standard','','Standardversand','',1,'','',1,'Standard','');
-insert  into `cwtaq_jshopping_shipping_method`(`shipping_id`,`name_en-GB`,`description_en-GB`,`name_de-DE`,`description_de-DE`,`published`,`payments`,`image`,`ordering`,`name_ru-RU`,`description_ru-RU`) values (2,'Express','','Express','',1,'','',2,'Express','');
-
-/*Table structure for table `cwtaq_jshopping_shipping_method_price` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_shipping_method_price`;
-
-CREATE TABLE `cwtaq_jshopping_shipping_method_price` (
-  `sh_pr_method_id` int(11) NOT NULL AUTO_INCREMENT,
-  `shipping_method_id` int(11) NOT NULL,
-  `shipping_tax_id` int(11) NOT NULL,
-  `shipping_stand_price` decimal(12,2) NOT NULL,
-  `package_tax_id` int(11) NOT NULL,
-  `package_stand_price` decimal(12,2) NOT NULL,
-  `delivery_times_id` int(11) NOT NULL,
-  `params` text NOT NULL,
-  PRIMARY KEY (`sh_pr_method_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_shipping_method_price` */
-
-insert  into `cwtaq_jshopping_shipping_method_price`(`sh_pr_method_id`,`shipping_method_id`,`shipping_tax_id`,`shipping_stand_price`,`package_tax_id`,`package_stand_price`,`delivery_times_id`,`params`) values (1,1,1,'10.00',1,'0.00',0,'');
-insert  into `cwtaq_jshopping_shipping_method_price`(`sh_pr_method_id`,`shipping_method_id`,`shipping_tax_id`,`shipping_stand_price`,`package_tax_id`,`package_stand_price`,`delivery_times_id`,`params`) values (2,2,1,'25.00',1,'0.00',0,'');
-
-/*Table structure for table `cwtaq_jshopping_shipping_method_price_countries` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_shipping_method_price_countries`;
-
-CREATE TABLE `cwtaq_jshopping_shipping_method_price_countries` (
-  `sh_method_country_id` int(11) NOT NULL AUTO_INCREMENT,
-  `country_id` int(11) NOT NULL,
-  `sh_pr_method_id` int(11) NOT NULL,
-  PRIMARY KEY (`sh_method_country_id`),
-  KEY `country_id` (`country_id`),
-  KEY `sh_pr_method_id` (`sh_pr_method_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=719 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_shipping_method_price_countries` */
-
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (1,239,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (2,238,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (3,237,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (4,236,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (5,235,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (6,234,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (7,233,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (8,232,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (9,231,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (10,230,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (11,229,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (12,228,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (13,227,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (14,226,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (15,225,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (16,224,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (17,223,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (18,222,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (19,221,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (20,220,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (21,219,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (22,218,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (23,217,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (24,216,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (25,215,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (26,214,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (27,213,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (28,212,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (29,211,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (30,210,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (31,209,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (32,208,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (33,207,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (34,206,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (35,205,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (36,204,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (37,203,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (38,202,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (39,201,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (40,200,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (41,199,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (42,198,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (43,197,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (44,196,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (45,195,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (46,194,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (47,193,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (48,192,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (49,191,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (50,190,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (51,189,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (52,188,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (53,187,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (54,186,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (55,185,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (56,184,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (57,183,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (58,182,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (59,181,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (60,180,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (61,179,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (62,178,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (63,177,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (64,176,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (65,175,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (66,174,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (67,173,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (68,172,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (69,171,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (70,170,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (71,169,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (72,168,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (73,167,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (74,166,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (75,165,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (76,164,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (77,163,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (78,162,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (79,161,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (80,160,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (81,159,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (82,158,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (83,157,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (84,156,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (85,155,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (86,154,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (87,153,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (88,152,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (89,151,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (90,150,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (91,149,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (92,148,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (93,147,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (94,146,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (95,145,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (96,144,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (97,143,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (98,142,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (99,141,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (100,140,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (101,139,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (102,138,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (103,137,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (104,136,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (105,135,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (106,134,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (107,133,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (108,132,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (109,131,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (110,130,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (111,129,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (112,128,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (113,127,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (114,126,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (115,125,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (116,124,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (117,123,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (118,122,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (119,121,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (120,120,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (121,119,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (122,118,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (123,117,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (124,116,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (125,115,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (126,114,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (127,113,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (128,112,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (129,111,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (130,110,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (131,109,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (132,108,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (133,107,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (134,106,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (135,105,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (136,104,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (137,103,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (138,102,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (139,101,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (140,100,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (141,99,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (142,98,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (143,97,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (144,96,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (145,95,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (146,94,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (147,93,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (148,92,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (149,91,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (150,90,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (151,89,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (152,88,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (153,87,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (154,86,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (155,85,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (156,84,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (157,83,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (158,82,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (159,81,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (160,80,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (161,79,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (162,78,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (163,77,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (164,76,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (165,75,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (166,74,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (167,73,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (168,72,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (169,71,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (170,70,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (171,69,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (172,68,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (173,67,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (174,66,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (175,65,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (176,64,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (177,63,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (178,62,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (179,61,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (180,60,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (181,59,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (182,58,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (183,57,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (184,56,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (185,55,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (186,54,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (187,53,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (188,52,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (189,51,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (190,50,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (191,49,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (192,48,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (193,47,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (194,46,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (195,45,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (196,44,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (197,43,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (198,42,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (199,41,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (200,40,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (201,39,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (202,38,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (203,37,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (204,36,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (205,35,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (206,34,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (207,33,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (208,32,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (209,31,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (210,30,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (211,29,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (212,28,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (213,27,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (214,26,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (215,25,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (216,24,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (217,23,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (218,22,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (219,21,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (220,20,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (221,19,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (222,18,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (223,17,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (224,16,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (225,15,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (226,14,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (227,13,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (228,12,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (229,11,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (230,10,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (231,9,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (232,8,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (233,7,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (234,6,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (235,5,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (236,4,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (237,3,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (238,2,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (239,1,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (240,239,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (241,238,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (242,237,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (243,236,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (244,235,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (245,234,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (246,233,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (247,232,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (248,231,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (249,230,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (250,229,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (251,228,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (252,227,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (253,226,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (254,225,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (255,224,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (256,223,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (257,222,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (258,221,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (259,220,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (260,219,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (261,218,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (262,217,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (263,216,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (264,215,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (265,214,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (266,213,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (267,212,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (268,211,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (269,210,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (270,209,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (271,208,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (272,207,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (273,206,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (274,205,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (275,204,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (276,203,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (277,202,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (278,201,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (279,200,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (280,199,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (281,198,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (282,197,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (283,196,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (284,195,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (285,194,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (286,193,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (287,192,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (288,191,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (289,190,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (290,189,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (291,188,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (292,187,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (293,186,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (294,185,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (295,184,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (296,183,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (297,182,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (298,181,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (299,180,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (300,179,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (301,178,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (302,177,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (303,176,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (304,175,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (305,174,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (306,173,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (307,172,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (308,171,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (309,170,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (310,169,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (311,168,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (312,167,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (313,166,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (314,165,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (315,164,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (316,163,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (317,162,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (318,161,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (319,160,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (320,159,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (321,158,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (322,157,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (323,156,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (324,155,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (325,154,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (326,153,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (327,152,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (328,151,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (329,150,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (330,149,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (331,148,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (332,147,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (333,146,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (334,145,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (335,144,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (336,143,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (337,142,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (338,141,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (339,140,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (340,139,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (341,138,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (342,137,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (343,136,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (344,135,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (345,134,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (346,133,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (347,132,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (348,131,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (349,130,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (350,129,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (351,128,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (352,127,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (353,126,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (354,125,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (355,124,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (356,123,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (357,122,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (358,121,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (359,120,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (360,119,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (361,118,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (362,117,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (363,116,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (364,115,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (365,114,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (366,113,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (367,112,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (368,111,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (369,110,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (370,109,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (371,108,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (372,107,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (373,106,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (374,105,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (375,104,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (376,103,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (377,102,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (378,101,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (379,100,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (380,99,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (381,98,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (382,97,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (383,96,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (384,95,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (385,94,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (386,93,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (387,92,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (388,91,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (389,90,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (390,89,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (391,88,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (392,87,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (393,86,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (394,85,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (395,84,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (396,83,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (397,82,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (398,81,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (399,80,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (400,79,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (401,78,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (402,77,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (403,76,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (404,75,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (405,74,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (406,73,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (407,72,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (408,71,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (409,70,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (410,69,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (411,68,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (412,67,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (413,66,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (414,65,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (415,64,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (416,63,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (417,62,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (418,61,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (419,60,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (420,59,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (421,58,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (422,57,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (423,56,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (424,55,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (425,54,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (426,53,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (427,52,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (428,51,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (429,50,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (430,49,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (431,48,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (432,47,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (433,46,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (434,45,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (435,44,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (436,43,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (437,42,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (438,41,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (439,40,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (440,39,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (441,38,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (442,37,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (443,36,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (444,35,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (445,34,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (446,33,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (447,32,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (448,31,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (449,30,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (450,29,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (451,28,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (452,27,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (453,26,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (454,25,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (455,24,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (456,23,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (457,22,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (458,21,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (459,20,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (460,19,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (461,18,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (462,17,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (463,16,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (464,15,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (465,14,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (466,13,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (467,12,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (468,11,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (469,10,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (470,9,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (471,8,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (472,7,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (473,6,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (474,5,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (475,4,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (476,3,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (477,2,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (478,1,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (479,220,1);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (480,1,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (481,2,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (482,3,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (483,4,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (484,5,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (485,6,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (486,7,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (487,8,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (488,9,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (489,10,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (490,11,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (491,12,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (492,13,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (493,14,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (494,15,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (495,16,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (496,17,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (497,18,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (498,19,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (499,20,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (500,21,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (501,22,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (502,23,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (503,24,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (504,25,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (505,26,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (506,27,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (507,28,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (508,29,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (509,30,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (510,31,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (511,32,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (512,33,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (513,34,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (514,35,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (515,36,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (516,37,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (517,38,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (518,39,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (519,40,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (520,41,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (521,42,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (522,43,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (523,44,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (524,45,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (525,46,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (526,47,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (527,48,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (528,49,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (529,50,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (530,51,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (531,52,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (532,53,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (533,54,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (534,55,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (535,56,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (536,57,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (537,58,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (538,59,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (539,60,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (540,61,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (541,62,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (542,63,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (543,64,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (544,65,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (545,66,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (546,67,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (547,68,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (548,69,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (549,70,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (550,71,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (551,72,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (552,73,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (553,74,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (554,75,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (555,76,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (556,77,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (557,78,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (558,79,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (559,80,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (560,81,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (561,82,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (562,83,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (563,84,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (564,85,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (565,86,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (566,87,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (567,88,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (568,89,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (569,90,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (570,91,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (571,92,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (572,93,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (573,94,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (574,95,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (575,96,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (576,97,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (577,98,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (578,99,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (579,100,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (580,101,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (581,102,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (582,103,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (583,104,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (584,105,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (585,106,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (586,107,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (587,108,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (588,109,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (589,110,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (590,111,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (591,112,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (592,113,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (593,114,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (594,115,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (595,116,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (596,117,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (597,118,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (598,119,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (599,120,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (600,121,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (601,122,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (602,123,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (603,124,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (604,125,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (605,126,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (606,127,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (607,128,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (608,129,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (609,130,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (610,131,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (611,132,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (612,133,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (613,134,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (614,135,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (615,136,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (616,137,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (617,138,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (618,139,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (619,140,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (620,141,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (621,142,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (622,143,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (623,144,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (624,145,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (625,146,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (626,147,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (627,148,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (628,149,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (629,150,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (630,151,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (631,152,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (632,153,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (633,154,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (634,155,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (635,156,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (636,157,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (637,158,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (638,159,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (639,160,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (640,161,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (641,162,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (642,163,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (643,164,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (644,165,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (645,166,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (646,167,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (647,168,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (648,169,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (649,170,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (650,171,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (651,172,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (652,173,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (653,174,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (654,175,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (655,176,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (656,177,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (657,178,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (658,179,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (659,180,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (660,181,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (661,182,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (662,183,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (663,184,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (664,185,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (665,186,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (666,187,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (667,188,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (668,189,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (669,190,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (670,191,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (671,192,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (672,193,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (673,194,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (674,195,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (675,196,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (676,197,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (677,198,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (678,199,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (679,200,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (680,201,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (681,202,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (682,203,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (683,204,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (684,205,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (685,206,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (686,207,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (687,208,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (688,209,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (689,210,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (690,211,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (691,212,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (692,213,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (693,214,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (694,215,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (695,216,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (696,217,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (697,218,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (698,219,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (699,220,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (700,221,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (701,222,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (702,223,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (703,224,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (704,225,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (705,226,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (706,227,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (707,228,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (708,229,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (709,230,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (710,231,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (711,232,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (712,233,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (713,234,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (714,235,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (715,236,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (716,237,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (717,238,2);
-insert  into `cwtaq_jshopping_shipping_method_price_countries`(`sh_method_country_id`,`country_id`,`sh_pr_method_id`) values (718,239,2);
-
-/*Table structure for table `cwtaq_jshopping_shipping_method_price_weight` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_shipping_method_price_weight`;
-
-CREATE TABLE `cwtaq_jshopping_shipping_method_price_weight` (
-  `sh_pr_weight_id` int(11) NOT NULL AUTO_INCREMENT,
-  `sh_pr_method_id` int(11) NOT NULL,
-  `shipping_price` decimal(12,2) NOT NULL,
-  `shipping_weight_from` decimal(14,4) NOT NULL,
-  `shipping_weight_to` decimal(14,4) NOT NULL,
-  `shipping_package_price` decimal(12,2) NOT NULL,
-  PRIMARY KEY (`sh_pr_weight_id`),
-  KEY `sh_pr_method_id` (`sh_pr_method_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_shipping_method_price_weight` */
-
-insert  into `cwtaq_jshopping_shipping_method_price_weight`(`sh_pr_weight_id`,`sh_pr_method_id`,`shipping_price`,`shipping_weight_from`,`shipping_weight_to`,`shipping_package_price`) values (1,2,'2.00','0.0000','10.0000','0.00');
-
-/*Table structure for table `cwtaq_jshopping_taxes` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_taxes`;
-
-CREATE TABLE `cwtaq_jshopping_taxes` (
-  `tax_id` int(11) NOT NULL AUTO_INCREMENT,
-  `tax_name` varchar(50) NOT NULL DEFAULT '',
-  `tax_value` decimal(12,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`tax_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_taxes` */
-
-insert  into `cwtaq_jshopping_taxes`(`tax_id`,`tax_name`,`tax_value`) values (1,'Normal','19.00');
-
-/*Table structure for table `cwtaq_jshopping_taxes_ext` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_taxes_ext`;
-
-CREATE TABLE `cwtaq_jshopping_taxes_ext` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tax_id` int(11) NOT NULL,
-  `zones` text NOT NULL,
-  `tax` decimal(12,2) NOT NULL,
-  `firma_tax` decimal(12,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_taxes_ext` */
-
-/*Table structure for table `cwtaq_jshopping_unit` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_unit`;
-
-CREATE TABLE `cwtaq_jshopping_unit` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `qty` int(11) NOT NULL DEFAULT '1',
-  `name_de-DE` varchar(255) NOT NULL,
-  `name_en-GB` varchar(255) NOT NULL,
-  `name_ru-RU` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_unit` */
-
-insert  into `cwtaq_jshopping_unit`(`id`,`qty`,`name_de-DE`,`name_en-GB`,`name_ru-RU`) values (1,1,'Kg','Kg','Kg');
-insert  into `cwtaq_jshopping_unit`(`id`,`qty`,`name_de-DE`,`name_en-GB`,`name_ru-RU`) values (2,1,'Liter','Liter','Liter');
-insert  into `cwtaq_jshopping_unit`(`id`,`qty`,`name_de-DE`,`name_en-GB`,`name_ru-RU`) values (3,1,'St.','pcs.','pcs.');
-
-/*Table structure for table `cwtaq_jshopping_usergroups` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_usergroups`;
-
-CREATE TABLE `cwtaq_jshopping_usergroups` (
-  `usergroup_id` int(11) NOT NULL AUTO_INCREMENT,
-  `usergroup_name` varchar(64) NOT NULL,
-  `usergroup_discount` decimal(12,2) NOT NULL,
-  `usergroup_description` text NOT NULL,
-  `usergroup_is_default` tinyint(1) NOT NULL,
-  PRIMARY KEY (`usergroup_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_usergroups` */
-
-insert  into `cwtaq_jshopping_usergroups`(`usergroup_id`,`usergroup_name`,`usergroup_discount`,`usergroup_description`,`usergroup_is_default`) values (1,'Default','0.00','Default',1);
-
-/*Table structure for table `cwtaq_jshopping_users` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_users`;
-
-CREATE TABLE `cwtaq_jshopping_users` (
-  `user_id` int(11) NOT NULL,
-  `usergroup_id` int(11) NOT NULL,
-  `payment_id` int(11) NOT NULL,
-  `shipping_id` int(11) NOT NULL,
-  `u_name` varchar(150) NOT NULL,
-  `title` tinyint(1) NOT NULL,
-  `f_name` varchar(255) NOT NULL,
-  `l_name` varchar(255) NOT NULL,
-  `m_name` varchar(255) NOT NULL,
-  `firma_name` varchar(100) NOT NULL,
-  `client_type` tinyint(1) NOT NULL,
-  `firma_code` varchar(100) NOT NULL,
-  `tax_number` varchar(100) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `birthday` date NOT NULL,
-  `street` varchar(255) NOT NULL,
-  `home` varchar(20) NOT NULL,
-  `apartment` varchar(20) NOT NULL,
-  `zip` varchar(20) NOT NULL,
-  `city` varchar(100) NOT NULL,
-  `state` varchar(100) NOT NULL,
-  `country` int(11) DEFAULT NULL,
-  `phone` varchar(20) NOT NULL,
-  `mobil_phone` varchar(20) NOT NULL,
-  `fax` varchar(20) NOT NULL,
-  `ext_field_1` varchar(255) NOT NULL,
-  `ext_field_2` varchar(255) NOT NULL,
-  `ext_field_3` varchar(255) NOT NULL,
-  `delivery_adress` tinyint(1) NOT NULL,
-  `d_title` tinyint(1) NOT NULL,
-  `d_f_name` varchar(255) NOT NULL,
-  `d_l_name` varchar(255) NOT NULL,
-  `d_m_name` varchar(255) NOT NULL,
-  `d_firma_name` varchar(100) NOT NULL,
-  `d_email` varchar(255) NOT NULL,
-  `d_birthday` date NOT NULL,
-  `d_street` varchar(255) NOT NULL,
-  `d_home` varchar(20) NOT NULL,
-  `d_apartment` varchar(20) NOT NULL,
-  `d_zip` varchar(20) NOT NULL,
-  `d_city` varchar(100) NOT NULL,
-  `d_state` varchar(100) NOT NULL,
-  `d_country` int(11) NOT NULL,
-  `d_phone` varchar(20) NOT NULL,
-  `d_mobil_phone` varchar(20) NOT NULL,
-  `d_fax` varchar(20) NOT NULL,
-  `d_ext_field_1` varchar(255) NOT NULL,
-  `d_ext_field_2` varchar(255) NOT NULL,
-  `d_ext_field_3` varchar(255) NOT NULL,
-  UNIQUE KEY `user_id` (`user_id`),
-  KEY `u_name` (`u_name`),
-  KEY `usergroup_id` (`usergroup_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_users` */
-
-insert  into `cwtaq_jshopping_users`(`user_id`,`usergroup_id`,`payment_id`,`shipping_id`,`u_name`,`title`,`f_name`,`l_name`,`m_name`,`firma_name`,`client_type`,`firma_code`,`tax_number`,`email`,`birthday`,`street`,`home`,`apartment`,`zip`,`city`,`state`,`country`,`phone`,`mobil_phone`,`fax`,`ext_field_1`,`ext_field_2`,`ext_field_3`,`delivery_adress`,`d_title`,`d_f_name`,`d_l_name`,`d_m_name`,`d_firma_name`,`d_email`,`d_birthday`,`d_street`,`d_home`,`d_apartment`,`d_zip`,`d_city`,`d_state`,`d_country`,`d_phone`,`d_mobil_phone`,`d_fax`,`d_ext_field_1`,`d_ext_field_2`,`d_ext_field_3`) values (42,1,1,1,'admin',1,'ertwertwtwewert','retwertwert','','ertwetr',0,'','','andreyalek@gmail.com','0000-00-00','gsdfgsdfgsdfg','','','45243523','ertwertwet','wertwertwertw',220,'234523523452','','','','','',0,0,'','','','','','0000-00-00','','','','','','',220,'','','','','','');
-insert  into `cwtaq_jshopping_users`(`user_id`,`usergroup_id`,`payment_id`,`shipping_id`,`u_name`,`title`,`f_name`,`l_name`,`m_name`,`firma_name`,`client_type`,`firma_code`,`tax_number`,`email`,`birthday`,`street`,`home`,`apartment`,`zip`,`city`,`state`,`country`,`phone`,`mobil_phone`,`fax`,`ext_field_1`,`ext_field_2`,`ext_field_3`,`delivery_adress`,`d_title`,`d_f_name`,`d_l_name`,`d_m_name`,`d_firma_name`,`d_email`,`d_birthday`,`d_street`,`d_home`,`d_apartment`,`d_zip`,`d_city`,`d_state`,`d_country`,`d_phone`,`d_mobil_phone`,`d_fax`,`d_ext_field_1`,`d_ext_field_2`,`d_ext_field_3`) values (43,1,0,0,'andrey',0,'','','','',0,'','','august-ru@mail.ru','0000-00-00','','','','','','',NULL,'','','','','','',0,0,'','','','','','0000-00-00','','','','','','',0,'','','','','','');
-
-/*Table structure for table `cwtaq_jshopping_vendors` */
-
-DROP TABLE IF EXISTS `cwtaq_jshopping_vendors`;
-
-CREATE TABLE `cwtaq_jshopping_vendors` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `shop_name` varchar(255) NOT NULL,
-  `company_name` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `logo` varchar(255) NOT NULL,
-  `adress` varchar(255) NOT NULL,
-  `city` varchar(100) NOT NULL,
-  `zip` varchar(20) NOT NULL,
-  `state` varchar(100) NOT NULL,
-  `country` int(11) NOT NULL,
-  `f_name` varchar(255) NOT NULL,
-  `l_name` varchar(255) NOT NULL,
-  `middlename` varchar(255) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `fax` varchar(20) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `benef_bank_info` varchar(64) NOT NULL,
-  `benef_bic` varchar(64) NOT NULL,
-  `benef_conto` varchar(64) NOT NULL,
-  `benef_payee` varchar(64) NOT NULL,
-  `benef_iban` varchar(64) NOT NULL,
-  `benef_swift` varchar(64) NOT NULL,
-  `interm_name` varchar(64) NOT NULL,
-  `interm_swift` varchar(64) NOT NULL,
-  `identification_number` varchar(64) NOT NULL,
-  `tax_number` varchar(64) NOT NULL,
-  `additional_information` text NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `main` tinyint(1) NOT NULL,
-  `publish` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-/*Data for the table `cwtaq_jshopping_vendors` */
-
-insert  into `cwtaq_jshopping_vendors`(`id`,`shop_name`,`company_name`,`url`,`logo`,`adress`,`city`,`zip`,`state`,`country`,`f_name`,`l_name`,`middlename`,`phone`,`fax`,`email`,`benef_bank_info`,`benef_bic`,`benef_conto`,`benef_payee`,`benef_iban`,`benef_swift`,`interm_name`,`interm_swift`,`identification_number`,`tax_number`,`additional_information`,`user_id`,`main`,`publish`) values (1,'Yomayka','','','','','','','',220,'Андрей','Ключко','','0634273833','','inbox@yomayka.com','','','','','','','','','','','',0,1,1);
-
-/*Table structure for table `cwtaq_languages` */
-
-DROP TABLE IF EXISTS `cwtaq_languages`;
-
-CREATE TABLE `cwtaq_languages` (
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `yodev_finder_types`
+--
+
+LOCK TABLES `yodev_finder_types` WRITE;
+/*!40000 ALTER TABLE `yodev_finder_types` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_finder_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_languages`
+--
+
+DROP TABLE IF EXISTS `yodev_languages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_languages` (
   `lang_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `lang_code` char(7) NOT NULL,
   `title` varchar(50) NOT NULL,
@@ -3479,16 +1290,26 @@ CREATE TABLE `cwtaq_languages` (
   KEY `idx_access` (`access`),
   KEY `idx_ordering` (`ordering`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_languages` */
+--
+-- Dumping data for table `yodev_languages`
+--
 
-insert  into `cwtaq_languages`(`lang_id`,`lang_code`,`title`,`title_native`,`sef`,`image`,`description`,`metakey`,`metadesc`,`sitename`,`published`,`access`,`ordering`) values (1,'en-GB','English (UK)','English (UK)','en','en','','','','',1,0,1);
+LOCK TABLES `yodev_languages` WRITE;
+/*!40000 ALTER TABLE `yodev_languages` DISABLE KEYS */;
+INSERT INTO `yodev_languages` VALUES (1,'ru-RU','Russian','Русский','ru','ru','','','','',1,5,1);
+/*!40000 ALTER TABLE `yodev_languages` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_menu` */
+--
+-- Table structure for table `yodev_menu`
+--
 
-DROP TABLE IF EXISTS `cwtaq_menu`;
-
-CREATE TABLE `cwtaq_menu` (
+DROP TABLE IF EXISTS `yodev_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menutype` varchar(24) NOT NULL COMMENT 'The type of menu this item belongs to. FK to #__menu_types.menutype',
   `title` varchar(255) NOT NULL COMMENT 'The display title of the menu item.',
@@ -3501,7 +1322,6 @@ CREATE TABLE `cwtaq_menu` (
   `parent_id` int(10) unsigned NOT NULL DEFAULT '1' COMMENT 'The parent menu item in the menu tree.',
   `level` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The relative level in the tree.',
   `component_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to #__extensions.id',
-  `ordering` int(11) NOT NULL DEFAULT '0' COMMENT 'The relative ordering of the menu item in the tree.',
   `checked_out` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to #__users.id',
   `checked_out_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The time the menu item was checked out.',
   `browserNav` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'The click behaviour of the link.',
@@ -3522,61 +1342,27 @@ CREATE TABLE `cwtaq_menu` (
   KEY `idx_alias` (`alias`),
   KEY `idx_path` (`path`(255)),
   KEY `idx_language` (`language`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_menu` */
+--
+-- Dumping data for table `yodev_menu`
+--
 
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (1,'','Menu_Item_Root','root','','','','',1,0,0,0,0,0,'0000-00-00 00:00:00',0,0,'',0,'',0,87,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (2,'menu','com_banners','Banners','','Banners','index.php?option=com_banners','component',0,1,1,4,0,0,'0000-00-00 00:00:00',0,0,'class:banners',0,'',1,10,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (3,'menu','com_banners','Banners','','Banners/Banners','index.php?option=com_banners','component',0,2,2,4,0,0,'0000-00-00 00:00:00',0,0,'class:banners',0,'',2,3,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (4,'menu','com_banners_categories','Categories','','Banners/Categories','index.php?option=com_categories&extension=com_banners','component',0,2,2,6,0,0,'0000-00-00 00:00:00',0,0,'class:banners-cat',0,'',4,5,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (5,'menu','com_banners_clients','Clients','','Banners/Clients','index.php?option=com_banners&view=clients','component',0,2,2,4,0,0,'0000-00-00 00:00:00',0,0,'class:banners-clients',0,'',6,7,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (6,'menu','com_banners_tracks','Tracks','','Banners/Tracks','index.php?option=com_banners&view=tracks','component',0,2,2,4,0,0,'0000-00-00 00:00:00',0,0,'class:banners-tracks',0,'',8,9,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (7,'menu','com_contact','Contacts','','Contacts','index.php?option=com_contact','component',0,1,1,8,0,0,'0000-00-00 00:00:00',0,0,'class:contact',0,'',11,16,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (8,'menu','com_contact','Contacts','','Contacts/Contacts','index.php?option=com_contact','component',0,7,2,8,0,0,'0000-00-00 00:00:00',0,0,'class:contact',0,'',12,13,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (9,'menu','com_contact_categories','Categories','','Contacts/Categories','index.php?option=com_categories&extension=com_contact','component',0,7,2,6,0,0,'0000-00-00 00:00:00',0,0,'class:contact-cat',0,'',14,15,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (10,'menu','com_messages','Messaging','','Messaging','index.php?option=com_messages','component',0,1,1,15,0,0,'0000-00-00 00:00:00',0,0,'class:messages',0,'',17,22,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (11,'menu','com_messages_add','New Private Message','','Messaging/New Private Message','index.php?option=com_messages&task=message.add','component',0,10,2,15,0,0,'0000-00-00 00:00:00',0,0,'class:messages-add',0,'',18,19,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (12,'menu','com_messages_read','Read Private Message','','Messaging/Read Private Message','index.php?option=com_messages','component',0,10,2,15,0,0,'0000-00-00 00:00:00',0,0,'class:messages-read',0,'',20,21,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (13,'menu','com_newsfeeds','News Feeds','','News Feeds','index.php?option=com_newsfeeds','component',0,1,1,17,0,0,'0000-00-00 00:00:00',0,0,'class:newsfeeds',0,'',23,28,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (14,'menu','com_newsfeeds_feeds','Feeds','','News Feeds/Feeds','index.php?option=com_newsfeeds','component',0,13,2,17,0,0,'0000-00-00 00:00:00',0,0,'class:newsfeeds',0,'',24,25,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (15,'menu','com_newsfeeds_categories','Categories','','News Feeds/Categories','index.php?option=com_categories&extension=com_newsfeeds','component',0,13,2,6,0,0,'0000-00-00 00:00:00',0,0,'class:newsfeeds-cat',0,'',26,27,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (16,'menu','com_redirect','Redirect','','Redirect','index.php?option=com_redirect','component',0,1,1,24,0,0,'0000-00-00 00:00:00',0,0,'class:redirect',0,'',39,40,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (17,'menu','com_search','Basic Search','','Basic Search','index.php?option=com_search','component',0,1,1,19,0,0,'0000-00-00 00:00:00',0,0,'class:search',0,'',31,32,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (18,'menu','com_weblinks','Weblinks','','Weblinks','index.php?option=com_weblinks','component',0,1,1,21,0,0,'0000-00-00 00:00:00',0,0,'class:weblinks',0,'',33,38,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (19,'menu','com_weblinks_links','Links','','Weblinks/Links','index.php?option=com_weblinks','component',0,18,2,21,0,0,'0000-00-00 00:00:00',0,0,'class:weblinks',0,'',34,35,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (20,'menu','com_weblinks_categories','Categories','','Weblinks/Categories','index.php?option=com_categories&extension=com_weblinks','component',0,18,2,6,0,0,'0000-00-00 00:00:00',0,0,'class:weblinks-cat',0,'',36,37,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (21,'menu','com_finder','Smart Search','','Smart Search','index.php?option=com_finder','component',0,1,1,27,0,0,'0000-00-00 00:00:00',0,0,'class:finder',0,'',29,30,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (22,'menu','com_joomlaupdate','Joomla! Update','','Joomla! Update','index.php?option=com_joomlaupdate','component',0,1,1,28,0,0,'0000-00-00 00:00:00',0,0,'class:joomlaupdate',0,'',39,40,0,'*',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (101,'hidden','Home','home','','home','index.php?option=com_content&view=featured','component',1,1,1,22,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"featured_categories\":[\"\"],\"layout_type\":\"blog\",\"num_leading_articles\":\"1\",\"num_intro_articles\":\"3\",\"num_columns\":\"3\",\"num_links\":\"0\",\"multi_column_order\":\"1\",\"orderby_pri\":\"\",\"orderby_sec\":\"front\",\"order_date\":\"\",\"show_pagination\":\"2\",\"show_pagination_results\":\"1\",\"show_title\":\"\",\"link_titles\":\"\",\"show_intro\":\"\",\"show_category\":\"\",\"link_category\":\"\",\"show_parent_category\":\"\",\"link_parent_category\":\"\",\"show_author\":\"\",\"link_author\":\"\",\"show_create_date\":\"\",\"show_modify_date\":\"\",\"show_publish_date\":\"\",\"show_item_navigation\":\"\",\"show_vote\":\"\",\"show_readmore\":\"\",\"show_readmore_title\":\"\",\"show_icons\":\"\",\"show_print_icon\":\"\",\"show_email_icon\":\"\",\"show_hits\":\"\",\"show_noauth\":\"\",\"show_feed_link\":\"1\",\"feed_summary\":\"\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":1,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',81,82,1,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (102,'main','JoomShopping','joomshopping','','joomshopping','index.php?option=com_jshopping','component',0,1,1,10000,0,0,'0000-00-00 00:00:00',0,1,'components/com_jshopping/images/jshop_logo_s.png',0,'',41,58,0,'',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (103,'main','categories','categories','','joomshopping/categories','index.php?option=com_jshopping&controller=categories&catid=0','component',0,102,2,10000,0,0,'0000-00-00 00:00:00',0,1,'components/com_jshopping/images/jshop_categories_s.png',0,'',42,43,0,'',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (104,'main','products','products','','joomshopping/products','index.php?option=com_jshopping&controller=products&category_id=0','component',0,102,2,10000,0,0,'0000-00-00 00:00:00',0,1,'components/com_jshopping/images/jshop_products_s.png',0,'',44,45,0,'',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (105,'main','orders','orders','','joomshopping/orders','index.php?option=com_jshopping&controller=orders','component',0,102,2,10000,0,0,'0000-00-00 00:00:00',0,1,'components/com_jshopping/images/jshop_orders_s.png',0,'',46,47,0,'',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (106,'main','clients','clients','','joomshopping/clients','index.php?option=com_jshopping&controller=users','component',0,102,2,10000,0,0,'0000-00-00 00:00:00',0,1,'components/com_jshopping/images/jshop_users_s.png',0,'',48,49,0,'',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (107,'main','options','options','','joomshopping/options','index.php?option=com_jshopping&controller=other','component',0,102,2,10000,0,0,'0000-00-00 00:00:00',0,1,'components/com_jshopping/images/jshop_options_s.png',0,'',50,51,0,'',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (108,'main','configuration','configuration','','joomshopping/configuration','index.php?option=com_jshopping&controller=config','component',0,102,2,10000,0,0,'0000-00-00 00:00:00',0,1,'components/com_jshopping/images/jshop_configuration_s.png',0,'',52,53,0,'',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (109,'main','install-and-update','install-and-update','','joomshopping/install-and-update','index.php?option=com_jshopping&controller=update','component',0,102,2,10000,0,0,'0000-00-00 00:00:00',0,1,'components/com_jshopping/images/jshop_update_s.png',0,'',54,55,0,'',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (110,'main','about-as','about-as','','joomshopping/about-as','index.php?option=com_jshopping&controller=info','component',0,102,2,10000,0,0,'0000-00-00 00:00:00',0,1,'components/com_jshopping/images/jshop_info_s.png',0,'',56,57,0,'',1);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (111,'mainmenu','Подушки','pillows','','pillows','index.php?option=com_jshopping&controller=category&task=view&category_id=14&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,1,1,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',59,72,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (112,'mainmenu','Футболки','tshirts','','tshirts','index.php?option=com_jshopping&controller=products&task=products&category_id=15&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,1,1,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',73,74,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (113,'mainmenu','Сумки','bags','','bags','index.php?option=com_jshopping&controller=category&task=view&category_id=16&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,1,1,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',75,78,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (114,'mainmenu','О нас ','about','','about','index.php?option=com_content&view=article&id=1','component',0,1,1,22,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"show_title\":\"\",\"link_titles\":\"\",\"show_intro\":\"\",\"show_category\":\"\",\"link_category\":\"\",\"show_parent_category\":\"\",\"link_parent_category\":\"\",\"show_author\":\"\",\"link_author\":\"\",\"show_create_date\":\"\",\"show_modify_date\":\"\",\"show_publish_date\":\"\",\"show_item_navigation\":\"\",\"show_vote\":\"\",\"show_icons\":\"\",\"show_print_icon\":\"\",\"show_email_icon\":\"\",\"show_hits\":\"\",\"show_noauth\":\"\",\"urls_position\":\"\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',79,80,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (115,'mainmenu','Pets','pets','','pillows/pets','index.php?option=com_jshopping&controller=products&task=products&category_id=12&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,111,2,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',60,61,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (116,'mainmenu','IT','it','','pillows/it','index.php?option=com_jshopping&controller=products&task=products&category_id=7&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,111,2,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',62,63,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (117,'mainmenu','Cool :)','cool','','pillows/cool','index.php?option=com_jshopping&controller=products&task=products&category_id=10&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,111,2,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',64,65,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (118,'mainmenu','Гламур','glamour','','pillows/glamour','index.php?option=com_jshopping&controller=products&task=products&category_id=8&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,111,2,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',66,67,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (119,'mainmenu','Мебель','furniture','','pillows/furniture','index.php?option=com_jshopping&controller=products&task=products&category_id=13&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,111,2,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',68,69,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (120,'mainmenu','Авто','auto','','pillows/auto','index.php?option=com_jshopping&controller=products&task=products&category_id=6&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,111,2,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',70,71,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (121,'mainmenu','Summer','summer','','bags/summer','index.php?option=com_jshopping&controller=products&task=products&category_id=17&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,113,2,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',76,77,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (122,'hidden','Корзина','cart','','cart','index.php?option=com_jshopping&controller=cart&task=&category_id=&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,1,1,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',83,84,0,'*',0);
-insert  into `cwtaq_menu`(`id`,`menutype`,`title`,`alias`,`note`,`path`,`link`,`type`,`published`,`parent_id`,`level`,`component_id`,`ordering`,`checked_out`,`checked_out_time`,`browserNav`,`access`,`img`,`template_style_id`,`params`,`lft`,`rgt`,`home`,`language`,`client_id`) values (123,'hidden','Оформление заказа','checkout','','checkout','index.php?option=com_jshopping&controller=checkout&task=&category_id=&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','component',1,1,1,10000,0,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',85,86,0,'*',0);
+LOCK TABLES `yodev_menu` WRITE;
+/*!40000 ALTER TABLE `yodev_menu` DISABLE KEYS */;
+INSERT INTO `yodev_menu` VALUES (1,'','Menu_Item_Root','root','','','','',1,0,0,0,0,'0000-00-00 00:00:00',0,0,'',0,'',0,91,0,'*',0),(2,'menu','com_banners','Banners','','Banners','index.php?option=com_banners','component',0,1,1,4,0,'0000-00-00 00:00:00',0,0,'class:banners',0,'',1,10,0,'*',1),(3,'menu','com_banners','Banners','','Banners/Banners','index.php?option=com_banners','component',0,2,2,4,0,'0000-00-00 00:00:00',0,0,'class:banners',0,'',2,3,0,'*',1),(4,'menu','com_banners_categories','Categories','','Banners/Categories','index.php?option=com_categories&extension=com_banners','component',0,2,2,6,0,'0000-00-00 00:00:00',0,0,'class:banners-cat',0,'',4,5,0,'*',1),(5,'menu','com_banners_clients','Clients','','Banners/Clients','index.php?option=com_banners&view=clients','component',0,2,2,4,0,'0000-00-00 00:00:00',0,0,'class:banners-clients',0,'',6,7,0,'*',1),(6,'menu','com_banners_tracks','Tracks','','Banners/Tracks','index.php?option=com_banners&view=tracks','component',0,2,2,4,0,'0000-00-00 00:00:00',0,0,'class:banners-tracks',0,'',8,9,0,'*',1),(7,'menu','com_contact','Contacts','','Contacts','index.php?option=com_contact','component',0,1,1,8,0,'0000-00-00 00:00:00',0,0,'class:contact',0,'',11,16,0,'*',1),(8,'menu','com_contact','Contacts','','Contacts/Contacts','index.php?option=com_contact','component',0,7,2,8,0,'0000-00-00 00:00:00',0,0,'class:contact',0,'',12,13,0,'*',1),(9,'menu','com_contact_categories','Categories','','Contacts/Categories','index.php?option=com_categories&extension=com_contact','component',0,7,2,6,0,'0000-00-00 00:00:00',0,0,'class:contact-cat',0,'',14,15,0,'*',1),(10,'menu','com_messages','Messaging','','Messaging','index.php?option=com_messages','component',0,1,1,15,0,'0000-00-00 00:00:00',0,0,'class:messages',0,'',17,22,0,'*',1),(11,'menu','com_messages_add','New Private Message','','Messaging/New Private Message','index.php?option=com_messages&task=message.add','component',0,10,2,15,0,'0000-00-00 00:00:00',0,0,'class:messages-add',0,'',18,19,0,'*',1),(12,'menu','com_messages_read','Read Private Message','','Messaging/Read Private Message','index.php?option=com_messages','component',0,10,2,15,0,'0000-00-00 00:00:00',0,0,'class:messages-read',0,'',20,21,0,'*',1),(13,'menu','com_newsfeeds','News Feeds','','News Feeds','index.php?option=com_newsfeeds','component',0,1,1,17,0,'0000-00-00 00:00:00',0,0,'class:newsfeeds',0,'',23,28,0,'*',1),(14,'menu','com_newsfeeds_feeds','Feeds','','News Feeds/Feeds','index.php?option=com_newsfeeds','component',0,13,2,17,0,'0000-00-00 00:00:00',0,0,'class:newsfeeds',0,'',24,25,0,'*',1),(15,'menu','com_newsfeeds_categories','Categories','','News Feeds/Categories','index.php?option=com_categories&extension=com_newsfeeds','component',0,13,2,6,0,'0000-00-00 00:00:00',0,0,'class:newsfeeds-cat',0,'',26,27,0,'*',1),(16,'menu','com_redirect','Redirect','','Redirect','index.php?option=com_redirect','component',0,1,1,24,0,'0000-00-00 00:00:00',0,0,'class:redirect',0,'',29,30,0,'*',1),(17,'menu','com_search','Basic Search','','Basic Search','index.php?option=com_search','component',0,1,1,19,0,'0000-00-00 00:00:00',0,0,'class:search',0,'',31,32,0,'*',1),(18,'menu','com_weblinks','Weblinks','','Weblinks','index.php?option=com_weblinks','component',0,1,1,21,0,'0000-00-00 00:00:00',0,0,'class:weblinks',0,'',33,38,0,'*',1),(19,'menu','com_weblinks_links','Links','','Weblinks/Links','index.php?option=com_weblinks','component',0,18,2,21,0,'0000-00-00 00:00:00',0,0,'class:weblinks',0,'',34,35,0,'*',1),(20,'menu','com_weblinks_categories','Categories','','Weblinks/Categories','index.php?option=com_categories&extension=com_weblinks','component',0,18,2,6,0,'0000-00-00 00:00:00',0,0,'class:weblinks-cat',0,'',36,37,0,'*',1),(21,'menu','com_finder','Smart Search','','Smart Search','index.php?option=com_finder','component',0,1,1,27,0,'0000-00-00 00:00:00',0,0,'class:finder',0,'',39,40,0,'*',1),(22,'menu','com_joomlaupdate','Joomla! Update','','Joomla! Update','index.php?option=com_joomlaupdate','component',0,1,1,28,0,'0000-00-00 00:00:00',0,0,'class:joomlaupdate',0,'',41,42,0,'*',1),(23,'main','com_tags','Tags','','Tags','index.php?option=com_tags','component',0,1,1,29,0,'0000-00-00 00:00:00',0,1,'class:tags',0,'',43,44,0,'',1),(101,'mainmenu','Home','home','','home','index.php?option=com_content&view=featured','component',1,1,1,22,0,'0000-00-00 00:00:00',0,1,'',0,'{\"featured_categories\":[\"\"],\"num_leading_articles\":\"1\",\"num_intro_articles\":\"3\",\"num_columns\":\"3\",\"num_links\":\"0\",\"orderby_pri\":\"\",\"orderby_sec\":\"front\",\"order_date\":\"\",\"multi_column_order\":\"1\",\"show_pagination\":\"2\",\"show_pagination_results\":\"1\",\"show_noauth\":\"\",\"article-allow_ratings\":\"\",\"article-allow_comments\":\"\",\"show_feed_link\":\"1\",\"feed_summary\":\"\",\"show_title\":\"\",\"link_titles\":\"\",\"show_intro\":\"\",\"show_category\":\"\",\"link_category\":\"\",\"show_parent_category\":\"\",\"link_parent_category\":\"\",\"show_author\":\"\",\"show_create_date\":\"\",\"show_modify_date\":\"\",\"show_publish_date\":\"\",\"show_item_navigation\":\"\",\"show_readmore\":\"\",\"show_icons\":\"\",\"show_print_icon\":\"\",\"show_email_icon\":\"\",\"show_hits\":\"\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"show_page_heading\":1,\"page_title\":\"\",\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',45,46,1,'*',0),(106,'main','COM_YOSHOP_TITLE_PRODUCTS','com-yoshop-title-products','','com-yoshop/com-yoshop-title-products','index.php?option=com_yoshop&view=products','component',0,105,2,0,0,'0000-00-00 00:00:00',0,1,'components/com_yoshop/assets/images/s_products.png',0,'',48,49,0,'',1),(107,'main','COM_YOSHOP_TITLE_CATEGORIES','com-yoshop-title-categories','','com-yoshop/com-yoshop-title-categories','index.php?option=com_yoshop&view=categories','component',0,105,2,0,0,'0000-00-00 00:00:00',0,1,'components/com_yoshop/assets/images/s_categories.png',0,'',50,51,0,'',1),(108,'main','COM_YOSHOP','com-yoshop','','com-yoshop','index.php?option=com_yoshop','component',0,1,1,10007,0,'0000-00-00 00:00:00',0,1,'components/com_yoshop/assets/images/s_com_yoshop.png',0,'',53,58,0,'',1),(109,'main','COM_YOSHOP_TITLE_PRODUCTS','com-yoshop-title-products','','com-yoshop/com-yoshop-title-products','index.php?option=com_yoshop&view=products','component',0,108,2,10007,0,'0000-00-00 00:00:00',0,1,'components/com_yoshop/assets/images/s_products.png',0,'',54,55,0,'',1),(110,'main','COM_YOSHOP_TITLE_CATEGORIES','com-yoshop-title-categories','','com-yoshop/com-yoshop-title-categories','index.php?option=com_yoshop&view=categories','component',0,108,2,10007,0,'0000-00-00 00:00:00',0,1,'components/com_yoshop/assets/images/s_categories.png',0,'',56,57,0,'',1),(111,'top','Женская одежда','women','','women','index.php?option=com_yoshop&view=category&id=8','component',1,1,1,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"8\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',59,62,0,'*',0),(112,'top','Шапки','hats','','women/hats','index.php?option=com_yoshop&view=category&id=11','component',1,111,2,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"11\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',60,61,0,'*',0),(113,'top','Мужская одежда','men','','men','index.php?option=com_yoshop&view=category&id=9','component',1,1,1,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"9\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',63,66,0,'*',0),(114,'top','Шапки','hats','','men/hats','index.php?option=com_yoshop&view=category&id=12','component',1,113,2,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"12\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',64,65,0,'*',0),(115,'top','Handmade','handmade','','handmade','index.php?option=com_yoshop&view=category&id=10','component',1,1,1,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"10\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',67,80,0,'*',0),(116,'top','Украшения','jewelry','','handmade/jewelry','index.php?option=com_yoshop&view=category&id=13','component',1,115,2,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"13\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',68,69,0,'*',0),(117,'top','Для дома','home','','handmade/home','index.php?option=com_yoshop&view=category&id=14','component',1,115,2,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"14\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',70,71,0,'*',0),(118,'top','Pets','pets','','handmade/pets','index.php?option=com_yoshop&view=category&id=15','component',1,115,2,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"15\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',72,73,0,'*',0),(119,'top','Стиль','style','','handmade/style','index.php?option=com_yoshop&view=category&id=16','component',1,115,2,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"16\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',74,75,0,'*',0),(120,'top','Сувениры','souvenirs','','handmade/souvenirs','index.php?option=com_yoshop&view=category&id=17','component',1,115,2,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"17\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',76,77,0,'*',0),(121,'top','Аксессуары','accesories','','handmade/accesories','index.php?option=com_yoshop&view=category&id=18','component',1,115,2,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"category\":\"18\",\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',78,79,0,'*',0),(122,'top','Аксессуары','accesories','','accesories','index.php?option=com_yoshop&view=category&id=19','component',1,1,1,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',81,82,0,'*',0),(123,'mainmenu','ewrt we','ert-wer','','ert-wer','index.php?option=com_yoshop&view=category&id=8','component',-2,1,1,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',83,84,0,'*',0),(124,'mainmenu','Корзина','cart','','cart','index.php?option=com_yoshop&view=cart','component',1,1,1,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',85,86,0,'*',0),(125,'mainmenu','Поиск','search','','search','index.php?option=com_yoshop&view=search&id=','component',1,1,1,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',87,88,0,'*',0),(126,'top','rutyueyrtui','rutyueyrtui','','rutyueyrtui','index.php?option=com_yoshop&view=category&id=16','component',1,1,1,10007,0,'0000-00-00 00:00:00',0,1,'',0,'{\"menu-anchor_title\":\"\",\"menu-anchor_css\":\"\",\"menu_image\":\"\",\"menu_text\":1,\"page_title\":\"\",\"show_page_heading\":0,\"page_heading\":\"\",\"pageclass_sfx\":\"\",\"menu-meta_description\":\"\",\"menu-meta_keywords\":\"\",\"robots\":\"\",\"secure\":0}',89,90,0,'*',0),(127,'main','com_postinstall','Post-installation messages','','Post-installation messages','index.php?option=com_postinstall','component',0,1,1,32,0,'0000-00-00 00:00:00',0,1,'class:postinstall',0,'',45,46,0,'*',1);
+/*!40000 ALTER TABLE `yodev_menu` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_menu_types` */
+--
+-- Table structure for table `yodev_menu_types`
+--
 
-DROP TABLE IF EXISTS `cwtaq_menu_types`;
-
-CREATE TABLE `cwtaq_menu_types` (
+DROP TABLE IF EXISTS `yodev_menu_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_menu_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `menutype` varchar(24) NOT NULL,
   `title` varchar(48) NOT NULL,
@@ -3584,17 +1370,26 @@ CREATE TABLE `cwtaq_menu_types` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_menutype` (`menutype`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_menu_types` */
+--
+-- Dumping data for table `yodev_menu_types`
+--
 
-insert  into `cwtaq_menu_types`(`id`,`menutype`,`title`,`description`) values (1,'mainmenu','Main Menu','The main menu for the site');
-insert  into `cwtaq_menu_types`(`id`,`menutype`,`title`,`description`) values (2,'hidden','Скрытое','');
+LOCK TABLES `yodev_menu_types` WRITE;
+/*!40000 ALTER TABLE `yodev_menu_types` DISABLE KEYS */;
+INSERT INTO `yodev_menu_types` VALUES (1,'mainmenu','Main Menu','The main menu for the site'),(2,'top','Верхнее','');
+/*!40000 ALTER TABLE `yodev_menu_types` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_messages` */
+--
+-- Table structure for table `yodev_messages`
+--
 
-DROP TABLE IF EXISTS `cwtaq_messages`;
-
-CREATE TABLE `cwtaq_messages` (
+DROP TABLE IF EXISTS `yodev_messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_messages` (
   `message_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id_from` int(10) unsigned NOT NULL DEFAULT '0',
   `user_id_to` int(10) unsigned NOT NULL DEFAULT '0',
@@ -3607,28 +1402,51 @@ CREATE TABLE `cwtaq_messages` (
   PRIMARY KEY (`message_id`),
   KEY `useridto_state` (`user_id_to`,`state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_messages` */
+--
+-- Dumping data for table `yodev_messages`
+--
 
-/*Table structure for table `cwtaq_messages_cfg` */
+LOCK TABLES `yodev_messages` WRITE;
+/*!40000 ALTER TABLE `yodev_messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_messages` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_messages_cfg`;
+--
+-- Table structure for table `yodev_messages_cfg`
+--
 
-CREATE TABLE `cwtaq_messages_cfg` (
+DROP TABLE IF EXISTS `yodev_messages_cfg`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_messages_cfg` (
   `user_id` int(10) unsigned NOT NULL DEFAULT '0',
   `cfg_name` varchar(100) NOT NULL DEFAULT '',
   `cfg_value` varchar(255) NOT NULL DEFAULT '',
   UNIQUE KEY `idx_user_var_name` (`user_id`,`cfg_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_messages_cfg` */
+--
+-- Dumping data for table `yodev_messages_cfg`
+--
 
-/*Table structure for table `cwtaq_modules` */
+LOCK TABLES `yodev_messages_cfg` WRITE;
+/*!40000 ALTER TABLE `yodev_messages_cfg` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_messages_cfg` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_modules`;
+--
+-- Table structure for table `yodev_modules`
+--
 
-CREATE TABLE `cwtaq_modules` (
+DROP TABLE IF EXISTS `yodev_modules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_modules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
   `title` varchar(100) NOT NULL DEFAULT '',
   `note` varchar(255) NOT NULL DEFAULT '',
   `content` text NOT NULL,
@@ -3649,86 +1467,56 @@ CREATE TABLE `cwtaq_modules` (
   KEY `published` (`published`,`access`),
   KEY `newsfeeds` (`module`,`published`),
   KEY `idx_language` (`language`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_modules` */
+--
+-- Dumping data for table `yodev_modules`
+--
 
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (1,'Меню главное (верх)','','',3,'apex-right',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_menu',1,0,'{\"menutype\":\"mainmenu\",\"startLevel\":\"1\",\"endLevel\":\"1\",\"showAllChildren\":\"0\",\"tag_id\":\"\",\"class_sfx\":\" pull-right modrole-menu-main-top\",\"window_open\":\"\",\"layout\":\"lady:navbar\",\"moduleclass_sfx\":\"_menu\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (2,'Login','','',1,'login',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_login',1,1,'',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (3,'Popular Articles','','',3,'cpanel',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_popular',3,1,'{\"count\":\"5\",\"catid\":\"\",\"user_id\":\"0\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\",\"automatic_title\":\"1\"}',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (4,'Recently Added Articles','','',4,'cpanel',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_latest',3,1,'{\"count\":\"5\",\"ordering\":\"c_dsc\",\"catid\":\"\",\"user_id\":\"0\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\",\"automatic_title\":\"1\"}',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (8,'Toolbar','','',1,'toolbar',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_toolbar',3,1,'',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (9,'Quick Icons','','',1,'icon',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_quickicon',3,1,'',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (10,'Logged-in Users','','',2,'cpanel',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_logged',3,1,'{\"count\":\"5\",\"name\":\"1\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\",\"automatic_title\":\"1\"}',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (12,'Admin Menu','','',1,'menu',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_menu',3,1,'{\"layout\":\"\",\"moduleclass_sfx\":\"\",\"shownew\":\"1\",\"showhelp\":\"1\",\"cache\":\"0\"}',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (13,'Admin Submenu','','',1,'submenu',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_submenu',3,1,'',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (14,'User Status','','',2,'status',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_status',3,1,'',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (15,'Title','','',1,'title',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_title',3,1,'',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (16,'Login Form','','',7,'position-7',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',-2,'mod_login',1,1,'{\"greeting\":\"1\",\"name\":\"0\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (17,'Breadcrumbs','','',1,'position-2',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',-2,'mod_breadcrumbs',1,1,'{\"moduleclass_sfx\":\"\",\"showHome\":\"1\",\"homeText\":\"Home\",\"showComponent\":\"1\",\"separator\":\"\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (79,'Multilanguage status','','',1,'status',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',0,'mod_multilangstatus',3,1,'{\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\"}',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (86,'Joomla Version','','',1,'footer',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_version',3,1,'{\"format\":\"short\",\"product\":\"1\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\"}',1,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (87,'Логотип','','<p><a href=\"../\">YOmayka</a></p>',1,'apex-left',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_custom',1,0,'{\"prepare_content\":\"0\",\"backgroundimage\":\"\",\"layout\":\"_:default\",\"moduleclass_sfx\":\" modrole-logo\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"static\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (88,'Поиск','','',2,'apex-right',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_search',1,0,'{\"label\":\"\",\"width\":\"20\",\"text\":\"\",\"button\":\"\",\"button_pos\":\"right\",\"imagebutton\":\"\",\"button_text\":\"\",\"opensearch\":\"1\",\"opensearch_title\":\"\",\"set_itemid\":\"\",\"layout\":\"lady:searchglass\",\"moduleclass_sfx\":\"\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (89,'Меню второго уровня','','',1,'apex-bottom',484,'2013-06-10 21:35:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_menu',1,0,'{\"menutype\":\"mainmenu\",\"startLevel\":\"1\",\"endLevel\":\"2\",\"showAllChildren\":\"1\",\"tag_id\":\"\",\"class_sfx\":\"\",\"window_open\":\"\",\"layout\":\"lady:submenu\",\"moduleclass_sfx\":\" modrole-menu-main-sub\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (90,'Навигация','','',1,'breadcrumbs',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',-2,'mod_breadcrumbs',1,0,'{\"showHere\":\"0\",\"showHome\":\"0\",\"homeText\":\"\",\"showLast\":\"1\",\"separator\":\">\",\"layout\":\"lady:yomayka\",\"moduleclass_sfx\":\" modrole-breadcrumbs\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (91,'Навигация','','',1,'breadcrumbs',484,'2013-06-06 22:33:02','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_breadcrumbs',1,0,'{\"showHere\":\"0\",\"showHome\":\"0\",\"homeText\":\"\",\"showLast\":\"0\",\"separator\":\">\",\"layout\":\"lady:yomayka\",\"moduleclass_sfx\":\" modrole-breadcrumbs\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (92,'Контакты - футер','','<ul>\r\n  <li>\r\n    <a href=\"mailto:inbox@yomayka.com\">\r\n      <span class=\"icon-envelope\"></span><span>inbox@yomayka.com</span>\r\n    </a>\r\n  </li>\r\n</ul>',1,'footer-top',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_custom',1,0,'{\"prepare_content\":\"0\",\"backgroundimage\":\"\",\"layout\":\"_:default\",\"moduleclass_sfx\":\" modrole-contacts\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"static\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (93,'Соц сети - футер','','<ul class=\"socials\">\r\n<li><a class=\"vk\" href=\"http://vk.com/yomayka\" target=\"_blank\">vk</a></li>\r\n</ul>',1,'footer-top',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_custom',1,0,'{\"prepare_content\":\"0\",\"backgroundimage\":\"\",\"layout\":\"_:default\",\"moduleclass_sfx\":\" modrole-socials\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"static\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (94,'Корзина','','<a class=\"icon-shopping-cart\" href=\"#\"></a>',1,'apex-right',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',-2,'mod_custom',1,0,'{\"prepare_content\":\"0\",\"backgroundimage\":\"\",\"layout\":\"_:default\",\"moduleclass_sfx\":\" modrole-cart\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"static\"}',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (95,'Jshopping Cart Ext.','','',0,'',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',-2,'mod_jshopping_cart_ext',1,1,'',0,'*');
-insert  into `cwtaq_modules`(`id`,`title`,`note`,`content`,`ordering`,`position`,`checked_out`,`checked_out_time`,`publish_up`,`publish_down`,`published`,`module`,`access`,`showtitle`,`params`,`client_id`,`language`) values (96,'Корзина','','',1,'apex-right',484,'2013-06-22 20:26:06','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_jshopping_cart_ext',1,0,'{\"show_count\":\"1\",\"moduleclass_sfx\":\" modrole-cart\"}',0,'*');
+LOCK TABLES `yodev_modules` WRITE;
+/*!40000 ALTER TABLE `yodev_modules` DISABLE KEYS */;
+INSERT INTO `yodev_modules` VALUES (1,0,'Меню (верхний уровень)','','',3,'apex-right',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_menu',1,0,'{\"menutype\":\"top\",\"base\":\"101\",\"startLevel\":\"1\",\"endLevel\":\"1\",\"showAllChildren\":\"0\",\"tag_id\":\"\",\"class_sfx\":\"\",\"window_open\":\"\",\"layout\":\"lady:navbar\",\"moduleclass_sfx\":\"role-menu-top visible-desktop\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h3\",\"header_class\":\"\",\"style\":\"0\"}',0,'*'),(2,0,'Login','','',1,'login',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_login',1,1,'',1,'*'),(3,0,'Popular Articles','','',3,'cpanel',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_popular',3,1,'{\"count\":\"5\",\"catid\":\"\",\"user_id\":\"0\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\",\"automatic_title\":\"1\"}',1,'*'),(4,0,'Recently Added Articles','','',4,'cpanel',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_latest',3,1,'{\"count\":\"5\",\"ordering\":\"c_dsc\",\"catid\":\"\",\"user_id\":\"0\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\",\"automatic_title\":\"1\"}',1,'*'),(8,0,'Toolbar','','',1,'toolbar',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_toolbar',3,1,'',1,'*'),(9,0,'Quick Icons','','',1,'icon',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_quickicon',3,1,'',1,'*'),(10,0,'Logged-in Users','','',2,'cpanel',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_logged',3,1,'{\"count\":\"5\",\"name\":\"1\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\",\"automatic_title\":\"1\"}',1,'*'),(12,0,'Admin Menu','','',1,'menu',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_menu',3,1,'{\"layout\":\"\",\"moduleclass_sfx\":\"\",\"shownew\":\"1\",\"showhelp\":\"1\",\"cache\":\"0\"}',1,'*'),(13,0,'Admin Submenu','','',1,'submenu',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_submenu',3,1,'',1,'*'),(14,0,'User Status','','',2,'status',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_status',3,1,'',1,'*'),(15,0,'Title','','',1,'title',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_title',3,1,'',1,'*'),(16,0,'Login Form','','',7,'position-7',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',0,'mod_login',1,1,'{\"greeting\":\"1\",\"name\":\"0\"}',0,'*'),(17,0,'Breadcrumbs','','',1,'position-2',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',0,'mod_breadcrumbs',1,1,'{\"moduleclass_sfx\":\"\",\"showHome\":\"1\",\"homeText\":\"Home\",\"showComponent\":\"1\",\"separator\":\"\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\"}',0,'*'),(79,0,'Multilanguage status','','',1,'status',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',0,'mod_multilangstatus',3,1,'{\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\"}',1,'*'),(86,0,'Joomla Version','','',1,'footer',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_version',3,1,'{\"format\":\"short\",\"product\":\"1\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"0\"}',1,'*'),(87,0,'Логотип','','<p><a href=\"http://dev.joomla.yomayka.com/\">yomayka</a></p>',1,'apex-left',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_custom',1,0,'{\"prepare_content\":\"0\",\"backgroundimage\":\"\",\"layout\":\"_:default\",\"moduleclass_sfx\":\" modrole-logo\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"static\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h3\",\"header_class\":\"\",\"style\":\"0\"}',0,'*'),(88,0,'Поиск','','',2,'apex-right',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_search',1,0,'{\"label\":\"\",\"width\":\"20\",\"text\":\"\",\"button\":\"\",\"button_pos\":\"right\",\"imagebutton\":\"\",\"button_text\":\"\",\"opensearch\":\"1\",\"opensearch_title\":\"\",\"set_itemid\":\"\",\"layout\":\"lady:searchglass\",\"moduleclass_sfx\":\"\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h3\",\"header_class\":\"\",\"style\":\"0\"}',0,'*'),(89,0,'Корзина','','',2,'apex-right',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_yoshop_cart',1,0,'{\"layout\":\"_:default\",\"moduleclass_sfx\":\"modrole-cart\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h3\",\"header_class\":\"\",\"style\":\"0\"}',0,'*'),(90,0,'Меню (второй уровень)','','',1,'apex-bottom',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_menu',1,0,'{\"menutype\":\"top\",\"base\":\"101\",\"startLevel\":\"1\",\"endLevel\":\"2\",\"showAllChildren\":\"1\",\"tag_id\":\"\",\"class_sfx\":\"\",\"window_open\":\"\",\"layout\":\"lady:yosubmenu\",\"moduleclass_sfx\":\"role-menu-top-sub\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h3\",\"header_class\":\"\",\"style\":\"0\"}',0,'*'),(91,0,'Меню (мобильные)','','',3,'apex-right',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_menu',1,0,'{\"menutype\":\"top\",\"base\":\"101\",\"startLevel\":\"1\",\"endLevel\":\"2\",\"showAllChildren\":\"1\",\"tag_id\":\"\",\"class_sfx\":\"\",\"window_open\":\"\",\"layout\":\"lady:navbar\",\"moduleclass_sfx\":\"role-menu-top-mobile\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"itemid\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h3\",\"header_class\":\"\",\"style\":\"0\"}',0,'*'),(92,0,'Слайдшоу на главной','','',0,'homepage-top',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',0,'mod_yoshop_featured',1,0,'{\"ids\":\"17,18,19,20,21,22,23,24\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h3\",\"header_class\":\"\",\"style\":\"0\"}',0,'*'),(93,0,'Случайная цитата','','',1,'homepage-center',0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'mod_random_text',1,0,'{\"content\":\"\\u041c\\u043e\\u0434\\u0430 \\u043f\\u0440\\u043e\\u0445\\u043e\\u0434\\u0438\\u0442, \\u0441\\u0442\\u0438\\u043b\\u044c \\u043e\\u0441\\u0442\\u0430\\u0435\\u0442\\u0441\\u044f. -- \\u041a\\u043e\\u043a\\u043e \\u0428\\u0430\\u043d\\u0435\\u043b\\u044c\\r\\n\\u041b\\u044e\\u0434\\u0438 \\u0443\\u0432\\u043b\\u0435\\u043a\\u0430\\u044e\\u0442\\u0441\\u044f \\u043d\\u0435 \\u043c\\u043e\\u0434\\u043e\\u0439, \\u0430 \\u0442\\u0435\\u043c\\u0438 \\u043d\\u0435\\u043c\\u043d\\u043e\\u0433\\u0438\\u043c\\u0438, \\u043a\\u0442\\u043e \\u0435\\u0435 \\u0441\\u043e\\u0437\\u0434\\u0430\\u0435\\u0442. -- \\u041a\\u043e\\u043a\\u043e \\u0428\\u0430\\u043d\\u0435\\u043b\\u044c\\r\\n\\u041d\\u0438\\u0447\\u0442\\u043e \\u0442\\u0430\\u043a \\u043d\\u0435 \\u0441\\u0442\\u0430\\u0440\\u0438\\u0442 \\u0436\\u0435\\u043d\\u0449\\u0438\\u043d\\u0443, \\u043a\\u0430\\u043a \\u0441\\u043b\\u0438\\u0448\\u043a\\u043e\\u043c \\u0431\\u043e\\u0433\\u0430\\u0442\\u044b\\u0439 \\u043a\\u043e\\u0441\\u0442\\u044e\\u043c. -- \\u041a\\u043e\\u043a\\u043e \\u0428\\u0430\\u043d\\u0435\\u043b\\u044c\\r\\n\\u041c\\u043e\\u0434\\u0430, \\u043a\\u0430\\u043a \\u0438 \\u0430\\u0440\\u0445\\u0438\\u0442\\u0435\\u043a\\u0442\\u0443\\u0440\\u0430, - \\u0432\\u043e\\u043f\\u0440\\u043e\\u0441 \\u043f\\u0440\\u043e\\u043f\\u043e\\u0440\\u0446\\u0438\\u0439. -- \\u041a\\u043e\\u043a\\u043e \\u0428\\u0430\\u043d\\u0435\\u043b\\u044c\\r\\n\\u042d\\u0432\\u043e\\u043b\\u044e\\u0446\\u0438\\u044f \\u0434\\u043b\\u0438\\u043d\\u044b \\u044e\\u0431\\u043a\\u0438 - \\u043e\\u0442 \\u043a\\u0430\\u0441\\u0430\\u043d\\u0438\\u044f \\u043f\\u043e\\u043b\\u0430 \\u0434\\u043e \\u043f\\u043e\\u043b\\u043d\\u043e\\u0439 \\u0442\\u0440\\u043e\\u0433\\u0430\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e\\u0441\\u0442\\u0438. -- \\u041f\\u0430\\u0432\\u0435\\u043b \\u0428\\u0430\\u0440\\u043f\\u043f\\r\\n\\u041c\\u043e\\u0434\\u044b \\u0431\\u043e\\u043b\\u044c\\u0448\\u0435 \\u043d\\u0435 \\u0441\\u0443\\u0449\\u0435\\u0441\\u0442\\u0432\\u0443\\u0435\\u0442.\\u0415\\u0435 \\u0441\\u043e\\u0437\\u0434\\u0430\\u044e\\u0442 \\u0434\\u043b\\u044f \\u043d\\u0435\\u0441\\u043a\\u043e\\u043b\\u044c\\u043a\\u0438\\u0445 \\u0441\\u043e\\u0442\\u0435\\u043d \\u043b\\u044e\\u0434\\u0435\\u0439. -- \\u041a\\u043e\\u043a\\u043e \\u0428\\u0430\\u043d\\u0435\\u043b\\u044c\\r\\n\\u041c\\u043e\\u0434\\u0430 \\u0437\\u0430\\u043d\\u0438\\u043c\\u0430\\u0435\\u0442\\u0441\\u044f \\u043f\\u043e\\u0438\\u0441\\u043a\\u0430\\u043c\\u0438 \\u0441\\u043b\\u0430\\u0431\\u044b\\u0445 \\u043c\\u0435\\u0441\\u0442 \\u0432 \\u0445\\u043e\\u0440\\u043e\\u0448\\u0435\\u043c \\u0432\\u043a\\u0443\\u0441\\u0435. -- \\u0412\\u0438\\u0442\\u0430 \\u041b\\u043e\\u0433\\u0432\\u0438\\u043d\\u0435\\u043d\\u043a\\u043e \\r\\n\\u0427\\u0442\\u043e \\u0432\\u043d\\u0430\\u0447\\u0430\\u043b\\u0435 \\u0441\\u043c\\u043e\\u0442\\u0440\\u0438\\u0442\\u0441\\u044f \\u0434\\u0438\\u043a\\u043e \\u2013 \\u0432\\u0441\\u043a\\u043e\\u0440\\u0435 \\u0441\\u0442\\u0430\\u043d\\u043e\\u0432\\u0438\\u0442\\u0441\\u044f \\u043c\\u043e\\u0434\\u043e\\u0439. -- \\u041d\\u0435\\u0439\\u0430\\u0445\\r\\n\\u041c\\u043e\\u0434\\u0443 \\u043c\\u043e\\u0436\\u043d\\u043e \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c. \\u0421\\u0442\\u0438\\u043b\\u044c \\u043d\\u0435\\u043e\\u0431\\u0445\\u043e\\u0434\\u0438\\u043c\\u043e \\u0438\\u043c\\u0435\\u0442\\u044c. -- \\u042d\\u0434\\u043d\\u0430 \\u0412\\u0443\\u043b\\u043c\\u0435\\u043d\\r\\n\\u0415\\u0441\\u043b\\u0438 \\u0442\\u0443\\u043f\\u043e \\u0441\\u043b\\u0435\\u0434\\u043e\\u0432\\u0430\\u0442\\u044c \\u043c\\u043e\\u0434\\u0435, \\u0441\\u0442\\u0430\\u043d\\u0435\\u0448\\u044c \\u0442\\u0443\\u043f\\u044b\\u043c \\u0438 \\u043c\\u043e\\u0434\\u043d\\u044b\\u043c. -- \\u041c\\u0438\\u0445\\u0430\\u0438\\u043b \\u041c\\u0430\\u043c\\u0447\\u0438\\u0447 \\r\\n\\u0411\\u043e\\u043b\\u044c\\u0448\\u0438\\u043d\\u0441\\u0442\\u0432\\u043e \\u043b\\u044e\\u0434\\u0435\\u0439 \\u0436\\u0438\\u0432\\u0435\\u0442 \\u043c\\u043e\\u0434\\u043e\\u0439, \\u0430 \\u043d\\u0435 \\u0440\\u0430\\u0437\\u0443\\u043c\\u043e\\u043c. -- \\u0413. \\u041b\\u0438\\u0445\\u0442\\u0435\\u043d\\u0431\\u0435\\u0440\\u0433\\r\\n\\u0415\\u0441\\u0442\\u044c \\u043b\\u044e\\u0434\\u0438, \\u0434\\u0430\\u0436\\u0435 \\u043c\\u044b\\u0441\\u043b\\u0438 \\u0441\\u0432\\u043e\\u0438 \\u043e\\u0431\\u043b\\u0430\\u0447\\u0430\\u044e\\u0449\\u0438\\u0435 \\u0441\\u043e\\u0433\\u043b\\u0430\\u0441\\u043d\\u043e \\u0442\\u0440\\u0435\\u0431\\u043e\\u0432\\u0430\\u043d\\u0438\\u044f\\u043c \\u043c\\u043e\\u0434\\u044b. -- \\u0411. \\u0410\\u0432\\u0435\\u0440\\u0431\\u0430\\u0445 \\r\\n\\u0413\\u043b\\u0443\\u043f\\u0435\\u0446 \\u0442\\u043e\\u0442, \\u043a\\u0442\\u043e \\u0432 \\u043c\\u043e\\u0434\\u0435 \\u0432\\u0438\\u0434\\u0438\\u0442 \\u0442\\u043e\\u043b\\u044c\\u043a\\u043e \\u043c\\u043e\\u0434\\u0443. -- \\u041e\\u043d\\u043e\\u0440\\u0435 \\u0434\\u0435 \\u0411\\u0430\\u043b\\u044c\\u0437\\u0430\\u043a \\r\\n\\u0412\\u0441\\u0435 \\u043d\\u043e\\u0432\\u043e\\u0435 \\u043f\\u043e\\u043d\\u0430\\u0447\\u0430\\u043b\\u0443 \\u043a\\u0430\\u0436\\u0435\\u0442\\u0441\\u044f \\u043d\\u0435\\u0432\\u043e\\u0437\\u043c\\u043e\\u0436\\u043d\\u044b\\u043c. -- \\u0410 \\u0432\\u0441\\u0435-\\u0442\\u0430\\u043a\\u0438 \\u043f\\u043e\\u0442\\u043e\\u043c \\u043c\\u044b \\u044d\\u0442\\u043e \\u043d\\u0430 \\u0441\\u0435\\u0431\\u044f \\u043d\\u0430\\u0434\\u0435\\u0432\\u0430\\u0435\\u043c. \\u042f\\u043d\\u0438\\u043d\\u0430 \\u0418\\u043f\\u043e\\u0445\\u043e\\u0440\\u0441\\u043a\\u0430\\u044f \\r\\n\\u0421\\u0430\\u043c\\u043e\\u0432\\u044b\\u0440\\u0430\\u0436\\u0430\\u044f\\u0441\\u044c, \\u0432\\u044b\\u0431\\u0438\\u0440\\u0430\\u0439\\u0442\\u0435 \\u0432\\u044b\\u0440\\u0430\\u0436\\u0435\\u043d\\u0438\\u044f! -- \\u0413\\u0435\\u043d\\u043d\\u0430\\u0434\\u0438\\u0439 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0438\\u043d\\r\\n\\u041c\\u043e\\u0434\\u0430 \\u0438\\u0437\\u043d\\u0430\\u0448\\u0438\\u0432\\u0430\\u0435\\u0442 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0435 \\u043e\\u0434\\u0435\\u0436\\u0434\\u044b, \\u0447\\u0435\\u043c \\u0447\\u0435\\u043b\\u043e\\u0432\\u0435\\u043a. -- \\u0423\\u0438\\u043b\\u044c\\u044f\\u043c \\u0428\\u0435\\u043a\\u0441\\u043f\\u0438\\u0440\\r\\n\\u041a\\u043e\\u0433\\u0434\\u0430 \\u0440\\u044f\\u0434\\u043e\\u043c \\u0441 \\u0432\\u0430\\u043c\\u0438 \\u0443 \\u043f\\u044f\\u0442\\u0438 \\u0447\\u0435\\u043b\\u043e\\u0432\\u0435\\u043a \\u0442\\u0430\\u043a\\u0438\\u0435 \\u0436\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0433\\u0438 - \\u044d\\u0442\\u043e \\u043d\\u0435 \\u043c\\u043e\\u0434\\u0430. \\u042d\\u0442\\u043e - \\u0430\\u0440\\u043c\\u0438\\u044f. -- NN \\r\\n\\u041f\\u0440\\u0438\\u0447\\u0435\\u0441\\u043a\\u0430 \\u2014 \\u044d\\u0442\\u043e \\u043d\\u0430\\u0441\\u0442\\u0440\\u043e\\u0435\\u043d\\u0438\\u0435 \\u043c\\u0430\\u0441\\u0442\\u0435\\u0440\\u0430 \\u043d\\u0430 \\u0433\\u043e\\u043b\\u043e\\u0432\\u0435 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u0430. -- \\u041a\\u043e\\u043d\\u0441\\u0442\\u0430\\u043d\\u0442\\u0438\\u043d \\u041c\\u0430\\u0434\\u0435\\u0439 \\r\\n\\u0415\\u0441\\u043b\\u0438 \\u0432\\u044b \\u043d\\u0435 \\u043f\\u043e\\u0441\\u043f\\u0435\\u0432\\u0430\\u0435\\u0442\\u0435 \\u0437\\u0430 \\u043c\\u043e\\u0434\\u043e\\u0439, \\u043f\\u043e\\u0434\\u043e\\u0436\\u0434\\u0438\\u0442\\u0435 \\u043d\\u0435\\u0441\\u043a\\u043e\\u043b\\u044c\\u043a\\u043e \\u043b\\u0435\\u0442, \\u0438 \\u043e\\u043d\\u0430 \\u0441\\u0430\\u043c\\u0430 \\u0434\\u043e\\u0433\\u043e\\u043d\\u0438\\u0442 \\u0432\\u0430\\u0441. -- \\u0411\\u043e\\u0440\\u0438\\u0441 \\u0422\\u0440\\u0443\\u0448\\u043a\\u0438\\u043d \\r\\n\\u0421\\u043e\\u0432\\u0440\\u0435\\u043c\\u0435\\u043d\\u043d\\u0430\\u044f \\u043c\\u043e\\u0434\\u0430 \\u043e\\u0442\\u0440\\u0438\\u0446\\u0430\\u0435\\u0442 \\u043f\\u043e\\u043b\\u043e\\u0432\\u0443\\u044e \\u043f\\u0440\\u0438\\u043d\\u0430\\u0434\\u043b\\u0435\\u0436\\u043d\\u043e\\u0441\\u0442\\u044c \\u0435\\u0451 \\u043d\\u043e\\u0441\\u0438\\u0442\\u0435\\u043b\\u044f. -- \\u0415\\u0432\\u0433\\u0435\\u043d\\u0438\\u0439 \\u0425\\u0430\\u043d\\u043a\\u0438\\u043d \\r\\n\\u0412\\u0441\\u0451 \\u0432\\u044b\\u0445\\u043e\\u0434\\u0438\\u0442 \\u0438\\u0437 \\u043c\\u043e\\u0434\\u044b, \\u043a\\u0440\\u043e\\u043c\\u0435 \\u043d\\u0435\\u0451 \\u0441\\u0430\\u043c\\u043e\\u0439. -- \\u041b\\u0435\\u043e\\u043d\\u0438\\u0434 \\u0421\\u0443\\u0445\\u043e\\u0440\\u0443\\u043a\\u043e\\u0432 \\r\\n\\u0421\\u0430\\u043c\\u0430\\u044f \\u0443\\u0434\\u043e\\u0431\\u043d\\u0430\\u044f \\u044e\\u0431\\u043a\\u0430 \\u044d\\u0442\\u043e \\u0431\\u0440\\u044e\\u043a\\u0438. -- \\u0411\\u0440\\u044e\\u043d\\r\\n\\u041c\\u043e\\u0434\\u0430 \\u043d\\u0435 \\u043f\\u043e\\u043c\\u043e\\u0436\\u0435\\u0442, \\u0435\\u0441\\u043b\\u0438 \\u043d\\u0435\\u0442 \\u0441\\u0442\\u0438\\u043b\\u044f - \\u043d\\u043e \\u0441\\u0442\\u0438\\u043b\\u044c \\u043f\\u043e\\u043c\\u043e\\u0436\\u0435\\u0442, \\u0435\\u0441\\u043b\\u0438 \\u043d\\u0435\\u0442 \\u043a\\u0440\\u0430\\u0441\\u043e\\u0442\\u044b. -- \\u0411\\u0440\\u044e\\u043d \\r\\n\\u0412 \\u044d\\u0442\\u043e\\u0439 \\u0436\\u0438\\u0437\\u043d\\u0438 \\u044f \\u0436\\u0430\\u043b\\u0435\\u044e \\u043b\\u0438\\u0448\\u044c \\u043e\\u0431 \\u043e\\u0434\\u043d\\u043e\\u043c \\u2014 \\u0447\\u0442\\u043e \\u0434\\u0436\\u0438\\u043d\\u0441\\u044b \\u043f\\u0440\\u0438\\u0434\\u0443\\u043c\\u0430\\u043b \\u043d\\u0435 \\u044f. -- \\u0418\\u0432 \\u0421\\u0435\\u043d \\u041b\\u043e\\u0440\\u0430\\u043d\\r\\n\\u041c\\u043e\\u0434\\u0430 \\u043d\\u0430\\u0447\\u0430\\u043b\\u0430\\u0441\\u044c \\u0441 \\u0444\\u0438\\u0433\\u043e\\u0432\\u043e\\u0433\\u043e \\u043b\\u0438\\u0441\\u0442\\u0430, \\u0438 \\u0441\\u0443\\u0434\\u044f \\u043f\\u043e \\u0432\\u0441\\u0435\\u043c\\u0443, \\u0438 \\u0437\\u0430\\u043a\\u043e\\u043d\\u0447\\u0438\\u0442\\u0441\\u044f \\u0442\\u0435\\u043c \\u0436\\u0435. -- \\u0427\\u0435\\u0440\\u043d\\u043e\\u0432 \\u0412.\\u0410. \\r\\n\\u041c\\u043e\\u0434\\u0430 \\u043d\\u0430 \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u043e\\u0441\\u0442\\u044c \\u0441\\u0434\\u0435\\u043b\\u0430\\u043b\\u0430 \\u0432\\u0441\\u0435\\u0445 \\u043f\\u043e\\u0445\\u043e\\u0436\\u0438\\u043c\\u0438. -- \\u0421\\u0442\\u0435\\u043f\\u0430\\u043d \\u0411\\u0430\\u043b\\u0430\\u043a\\u0438\\u043d \\r\\n\\u0418\\u0437-\\u043f\\u043e\\u0434 \\u043c\\u0438\\u043d\\u0438-\\u044e\\u0431\\u043a\\u0438 \\u043d\\u0435\\u043b\\u0435\\u043f\\u043e \\u0442\\u043e\\u0440\\u0447\\u0430\\u043b\\u0438 \\u043c\\u0438\\u043d\\u0438-\\u043d\\u043e\\u0433\\u0438. -- \\u0418\\u0433\\u043e\\u0440\\u044c \\u041a\\u0430\\u0440\\u043f\\u043e\\u0432\\r\\n\\u041e\\u0434\\u0435\\u0436\\u0434\\u0430 \\u0431\\u044b\\u0432\\u0430\\u0435\\u0442 \\u0440\\u0430\\u0437\\u043d\\u0430\\u044f: \\u0434\\u043e\\u043f\\u043e\\u0442\\u043e\\u043f\\u043d\\u0430\\u044f \\u0438 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438 \\u043f\\u043e\\u0441\\u043b\\u0435 \\u043f\\u043e\\u0442\\u043e\\u043f\\u0430. -- \\u0413\\u0430\\u0440\\u0440\\u0438 \\u0421\\u0438\\u043c\\u0430\\u043d\\u043e\\u0432\\u0438\\u0447 \\r\\n\\u0415\\u0441\\u043b\\u0438 \\u0436\\u0435\\u043d\\u0449\\u0438\\u043d\\u0430 \\u0431\\u0435\\u0440\\u0451\\u0442 \\u043c\\u043e\\u0434\\u0443 \\u0437\\u0430 \\u0433\\u043e\\u0440\\u043b\\u043e, \\u043a\\u0440\\u0438\\u043a \\u043c\\u043e\\u0434\\u044b \\u043f\\u0435\\u0440\\u0435\\u0445\\u043e\\u0434\\u0438\\u0442 \\u0432 \\u043f\\u0438\\u0441\\u043a. -- \\u0412\\u0430\\u043b\\u0435\\u043d\\u0442\\u0438\\u043d \\u0414\\u043e\\u043c\\u0438\\u043b\\u044c\\r\\n\\u0411\\u0443\\u0442\\u0438\\u043a - \\u044d\\u0442\\u043e \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u0434\\u043b\\u044f \\u0442\\u0435\\u0445, \\u043a\\u043e\\u043c\\u0443 \\u043d\\u0435 \\u0436\\u0430\\u043b\\u043a\\u043e \\u0442\\u0440\\u0430\\u0442\\u0438\\u0442\\u044c \\u0441\\u0432\\u043e\\u0438 \\u0434\\u0435\\u043d\\u044c\\u0433\\u0438 \\u043d\\u0430 \\u0432\\u0441\\u044f\\u043a\\u0443\\u044e \\u0445\\u0440\\u0435\\u043d\\u044c \\u0441 (\\u0438\\u0437\\u0432\\u0435\\u0441\\u0442\\u043d\\u044b\\u043c\\u0438) \\u043b\\u043e\\u0433\\u043e\\u0442\\u0438\\u043f\\u0430\\u043c\\u0438. -- \\u0412\\u043b\\u0430\\u0434\\u0438\\u043c\\u0438\\u0440 \\u0411\\u043e\\u0440\\u0438\\u0441\\u043e\\u0432\\r\\n\\u0413\\u043b\\u0430\\u0432\\u043d\\u043e\\u0435 \\u2013 \\u0442\\u043e, \\u0447\\u0442\\u043e \\u0432 \\u0432\\u0430\\u0441, \\u0430 \\u043d\\u0435 \\u0442\\u043e, \\u0447\\u0442\\u043e \\u043d\\u0430 \\u0432\\u0430\\u0441. -- \\u0414\\u0430\\u0440\\u0438\\u0439\\r\\n\\u041e\\u0434\\u043d\\u0438 \\u0441\\u043b\\u0435\\u0434\\u044f\\u0442 \\u0437\\u0430 \\u0441\\u043e\\u0431\\u043e\\u0439, \\u0434\\u0440\\u0443\\u0433\\u0438\\u0435 \\u2014 \\u0437\\u0430 \\u043c\\u043e\\u0434\\u043e\\u0439. -- \\u0412. \\u0421\\u0443\\u043c\\u0431\\u0430\\u0442\\u043e\\u0432\\r\\n\\u041c\\u043e\\u0434\\u043d\\u043e - \\u043d\\u0435 \\u0442\\u043e, \\u0447\\u0442\\u043e \\u043d\\u043e\\u0441\\u044f\\u0442 \\u0434\\u0440\\u0443\\u0433\\u0438\\u0435, \\u0430 \\u0442\\u043e, \\u0447\\u0442\\u043e \\u043d\\u043e\\u0441\\u0438\\u0448\\u044c \\u0442\\u044b \\u0441\\u0430\\u043c. -- NN\\r\\n\\u041c\\u043e\\u0434\\u0430 \\u043d\\u0430 \\u0431\\u0435\\u0437\\u043c\\u043e\\u0434\\u0438\\u0435. -- \\u0418\\u0448\\u0445\\u0430\\u043d \\u0413\\u0435\\u0432\\u043e\\u0440\\u0433\\u044f\\u043d \\r\\n\\u041c\\u043e\\u0434\\u0430 \\u043f\\u043e\\u043f\\u0430\\u0445\\u0438\\u0432\\u0430\\u0435\\u0442 \\u043e\\u0432\\u0435\\u0447\\u044c\\u0438\\u043c \\u0441\\u0442\\u0430\\u0434\\u043e\\u043c. -- \\u0418\\u0448\\u0445\\u0430\\u043d \\u0413\\u0435\\u0432\\u043e\\u0440\\u0433\\u044f\\u043d\\r\\n\\u041c\\u043e\\u0434\\u0430 \\u043f\\u0440\\u043e\\u0445\\u043e\\u0434\\u0438\\u0442 - \\u0441\\u0442\\u0438\\u043b\\u044c \\u043e\\u0441\\u0442\\u0430\\u0435\\u0442\\u0441\\u044f. -- \\u0418\\u0432 \\u0421\\u0435\\u043d-\\u041b\\u043e\\u0440\\u0430\\u043d\\r\\n\\u0414\\u0435\\u0432\\u0443\\u0448\\u043a\\u0430 \\u0432\\u0441\\u0435\\u0433\\u0434\\u0430 \\u043e\\u0434\\u0435\\u0432\\u0430\\u043b\\u0430\\u0441\\u044c \\u0443\\u043b\\u044c\\u0442\\u0440\\u0430\\u0441\\u043e\\u0432\\u0440\\u0435\\u043c\\u0435\\u043d\\u043d\\u043e \\u0438 \\u043a\\u0432\\u0430\\u0437\\u0438\\u043c\\u043e\\u0434\\u043d\\u043e. -- \\u0412\\u043b\\u0430\\u0434\\u0438\\u043c\\u0438\\u0440 \\u041f\\u043b\\u0435\\u0442\\u0438\\u043d\\u0441\\u043a\\u0438\\u0439\\r\\n\\u041d\\u0430\\u0445\\u043e\\u0434\\u044f\\u0441\\u044c \\u043d\\u0430 \\u043f\\u0438\\u043a\\u0435 \\u043c\\u043e\\u0434\\u044b, \\u043c\\u043e\\u0436\\u043d\\u043e \\u0431\\u043e\\u043b\\u044c\\u043d\\u043e \\u0443\\u043a\\u043e\\u043b\\u043e\\u0442\\u044c \\u0441\\u0432\\u043e\\u044e \\u0437\\u0430\\u0434\\u043d\\u0438\\u0446\\u0443. -- \\u0412\\u043b\\u0430\\u0434\\u0438\\u043c\\u0438\\u0440 \\u0411\\u0438\\u0440\\u0430\\u0448\\u0435\\u0432\\u0438\\u0447 \\r\\n\\u041c\\u043e\\u0434\\u0430 \\u043f\\u0440\\u0438\\u0445\\u043e\\u0434\\u0438\\u0442 \\u0438 \\u0443\\u0445\\u043e\\u0434\\u0438\\u0442, \\u0430 \\u0444\\u0438\\u0433\\u043e\\u0432\\u044b\\u0435 \\u043b\\u0438\\u0441\\u0442\\u043a\\u0438 \\u043e\\u0441\\u0442\\u0430\\u044e\\u0442\\u0441\\u044f\\u2026 -- \\u0412\\u0430\\u043b\\u0435\\u043d\\u0442\\u0438\\u043d \\u0414\\u043e\\u043c\\u0438\\u043b\\u044c \\r\\n\\u041c\\u043e\\u0434\\u0430 \\u0432\\u044b\\u0445\\u043e\\u0434\\u0438\\u0442 \\u0438\\u0437 \\u043c\\u043e\\u0434\\u044b, \\u0430 \\u0441\\u0442\\u0438\\u043b\\u044c \\u043d\\u0438\\u043a\\u043e\\u0433\\u0434\\u0430! -- \\u041a\\u043e\\u043a\\u043e \\u0428\\u0430\\u043d\\u0435\\u043b\\u044c\\r\\n\\u041c\\u043e\\u0436\\u043d\\u043e \\u0431\\u044b\\u0442\\u044c \\u0440\\u0430\\u0437\\u043e\\u0434\\u0435\\u0442\\u043e\\u0439, \\u043d\\u043e \\u043d\\u0435\\u043b\\u044c\\u0437\\u044f \\u0431\\u044b\\u0442\\u044c \\u0441\\u043b\\u0438\\u0448\\u043a\\u043e\\u043c \\u044d\\u043b\\u0435\\u0433\\u0430\\u043d\\u0442\\u043d\\u043e \\u0439. -- \\u041a\\u043e\\u043a\\u043e \\u0434\\u043e \\u0428\\u0430\\u043d\\u0435\\u043b\\u044c\\r\\n\\u041c\\u043e\\u0434\\u0443 \\u043d\\u0430\\u043b\\u044c\\u0437\\u044f \\u043d\\u0430\\u0437\\u044b\\u0432\\u0430\\u0442\\u044c \\u043c\\u043e\\u0434\\u043e\\u0439, \\u0435\\u0441\\u043b\\u0438 \\u0435\\u0435 \\u043d\\u0435 \\u043d\\u043e\\u0441\\u044f\\u0442 \\u043d\\u0430 \\u0443\\u043b\\u0438\\u0446\\u0435. -- \\u041a\\u043e\\u043a\\u043e \\u0428\\u0430\\u043d\\u0435\\u043b\\u044c \\r\\n\\u0427\\u0443\\u0436\\u043e\\u0435 \\u0447\\u0443\\u0432\\u0441\\u0442\\u0432\\u043e \\u0444\\u0430\\u043d\\u0442\\u0430\\u0437\\u0438\\u0438 \\u043c\\u043d\\u043e\\u0433\\u0438\\u043c \\u0437\\u0430\\u043c\\u0435\\u043d\\u044f\\u0435\\u0442 \\u0441\\u043e\\u0431\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u043e\\u0435 \\u0447\\u0443\\u0432\\u0441\\u0442\\u0432\\u043e \\u0432\\u043a\\u0443\\u0441\\u0430. -- \\u0425\\u043e\\u043c\\u0443\\u0446\\u0438\\u0439 \\r\\n\\u041c\\u043e\\u0434\\u0430 - \\u0443\\u0431\\u0435\\u0436\\u0438\\u0449\\u0435 \\u0443\\u0440\\u043e\\u0434\\u0430. -- \\u0412\\u043b\\u0430\\u0434\\u0438\\u043c\\u0438\\u0440 \\u041a\\u043d\\u044b\\u0440\\u044c \\r\\n\\u0421\\u0430\\u043c\\u0430\\u044f \\u043b\\u0443\\u0447\\u0448\\u0430\\u044f \\u043e\\u0434\\u0435\\u0436\\u0434\\u0430 \\u0434\\u043b\\u044f \\u0436\\u0435\\u043d\\u0449\\u0438\\u043d\\u044b \\u2014 \\u044d\\u0442\\u043e \\u043e\\u0431\\u044a\\u044f\\u0442\\u0438\\u044f \\u043b\\u044e\\u0431\\u044f\\u0449\\u0435\\u0433\\u043e \\u0435\\u0435 \\u043c\\u0443\\u0436\\u0447\\u0438\\u043d\\u044b. \\u041d\\u043e \\u0434\\u043b\\u044f \\u0442\\u0435\\u0445, \\u043a\\u0442\\u043e \\u043b\\u0438\\u0448\\u0435\\u043d \\u0442\\u0430\\u043a\\u043e\\u0433\\u043e \\u0441\\u0447\\u0430\\u0441\\u0442\\u044c\\u044f, \\u0435\\u0441\\u0442\\u044c \\u044f. -- \\u0418\\u0432 \\u0421\\u0435\\u043d \\u041b\\u043e\\u0440\\u0430\\u043d\\r\\n\\u0413\\u0430\\u0440\\u0434\\u0435\\u0440\\u043e\\u0431 \\u044d\\u0442\\u043e \\u043e\\u0431\\u0440\\u0430\\u0437 \\u0436\\u0438\\u0437\\u043d\\u0438. -- \\u0418\\u0432 \\u0421\\u0435\\u043d \\u041b\\u043e\\u0440\\u0430\\u043d\",\"layout\":\"_:default\",\"moduleclass_sfx\":\"\",\"cache\":\"1\",\"cache_time\":\"900\",\"cachemode\":\"static\",\"module_tag\":\"div\",\"bootstrap_size\":\"0\",\"header_tag\":\"h3\",\"header_class\":\"\",\"style\":\"0\"}',0,'*');
+/*!40000 ALTER TABLE `yodev_modules` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_modules_menu` */
+--
+-- Table structure for table `yodev_modules_menu`
+--
 
-DROP TABLE IF EXISTS `cwtaq_modules_menu`;
-
-CREATE TABLE `cwtaq_modules_menu` (
+DROP TABLE IF EXISTS `yodev_modules_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_modules_menu` (
   `moduleid` int(11) NOT NULL DEFAULT '0',
   `menuid` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`moduleid`,`menuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_modules_menu` */
+--
+-- Dumping data for table `yodev_modules_menu`
+--
 
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (1,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (2,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (3,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (4,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (6,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (7,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (8,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (9,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (10,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (12,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (13,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (14,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (15,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (16,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (17,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (79,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (86,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (87,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (88,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (89,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (90,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (91,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (92,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (93,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (94,0);
-insert  into `cwtaq_modules_menu`(`moduleid`,`menuid`) values (96,0);
+LOCK TABLES `yodev_modules_menu` WRITE;
+/*!40000 ALTER TABLE `yodev_modules_menu` DISABLE KEYS */;
+INSERT INTO `yodev_modules_menu` VALUES (1,0),(2,0),(3,0),(4,0),(6,0),(7,0),(8,0),(9,0),(10,0),(12,0),(13,0),(14,0),(15,0),(16,0),(17,0),(79,0),(86,0),(87,0),(88,0),(89,0),(90,0),(91,0),(92,0),(93,0);
+/*!40000 ALTER TABLE `yodev_modules_menu` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_newsfeeds` */
+--
+-- Table structure for table `yodev_newsfeeds`
+--
 
-DROP TABLE IF EXISTS `cwtaq_newsfeeds`;
-
-CREATE TABLE `cwtaq_newsfeeds` (
+DROP TABLE IF EXISTS `yodev_newsfeeds`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_newsfeeds` (
   `catid` int(11) NOT NULL DEFAULT '0',
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '',
   `alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `link` varchar(200) NOT NULL DEFAULT '',
-  `filename` varchar(200) DEFAULT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '0',
   `numarticles` int(10) unsigned NOT NULL DEFAULT '1',
   `cache_time` int(10) unsigned NOT NULL DEFAULT '3600',
@@ -3750,6 +1538,10 @@ CREATE TABLE `cwtaq_newsfeeds` (
   `xreference` varchar(50) NOT NULL COMMENT 'A reference to enable linkages to external data sets.',
   `publish_up` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `publish_down` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `description` text NOT NULL,
+  `version` int(10) unsigned NOT NULL DEFAULT '1',
+  `hits` int(10) unsigned NOT NULL DEFAULT '0',
+  `images` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_access` (`access`),
   KEY `idx_checkout` (`checked_out`),
@@ -3759,28 +1551,86 @@ CREATE TABLE `cwtaq_newsfeeds` (
   KEY `idx_language` (`language`),
   KEY `idx_xreference` (`xreference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_newsfeeds` */
+--
+-- Dumping data for table `yodev_newsfeeds`
+--
 
-/*Table structure for table `cwtaq_overrider` */
+LOCK TABLES `yodev_newsfeeds` WRITE;
+/*!40000 ALTER TABLE `yodev_newsfeeds` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_newsfeeds` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_overrider`;
+--
+-- Table structure for table `yodev_overrider`
+--
 
-CREATE TABLE `cwtaq_overrider` (
+DROP TABLE IF EXISTS `yodev_overrider`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_overrider` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
   `constant` varchar(255) NOT NULL,
   `string` text NOT NULL,
   `file` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_overrider` */
+--
+-- Dumping data for table `yodev_overrider`
+--
 
-/*Table structure for table `cwtaq_redirect_links` */
+LOCK TABLES `yodev_overrider` WRITE;
+/*!40000 ALTER TABLE `yodev_overrider` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_overrider` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_redirect_links`;
+--
+-- Table structure for table `yodev_postinstall_messages`
+--
 
-CREATE TABLE `cwtaq_redirect_links` (
+DROP TABLE IF EXISTS `yodev_postinstall_messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_postinstall_messages` (
+  `postinstall_message_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `extension_id` bigint(20) NOT NULL DEFAULT '700' COMMENT 'FK to #__extensions',
+  `title_key` varchar(255) NOT NULL DEFAULT '' COMMENT 'Lang key for the title',
+  `description_key` varchar(255) NOT NULL DEFAULT '' COMMENT 'Lang key for description',
+  `action_key` varchar(255) NOT NULL DEFAULT '',
+  `language_extension` varchar(255) NOT NULL DEFAULT 'com_postinstall' COMMENT 'Extension holding lang keys',
+  `language_client_id` tinyint(3) NOT NULL DEFAULT '1',
+  `type` varchar(10) NOT NULL DEFAULT 'link' COMMENT 'Message type - message, link, action',
+  `action_file` varchar(255) DEFAULT '' COMMENT 'RAD URI to the PHP file containing action method',
+  `action` varchar(255) DEFAULT '' COMMENT 'Action method name or URL',
+  `condition_file` varchar(255) DEFAULT NULL COMMENT 'RAD URI to file holding display condition method',
+  `condition_method` varchar(255) DEFAULT NULL COMMENT 'Display condition method, must return boolean',
+  `version_introduced` varchar(50) NOT NULL DEFAULT '3.2.0' COMMENT 'Version when this message was introduced',
+  `enabled` tinyint(3) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`postinstall_message_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `yodev_postinstall_messages`
+--
+
+LOCK TABLES `yodev_postinstall_messages` WRITE;
+/*!40000 ALTER TABLE `yodev_postinstall_messages` DISABLE KEYS */;
+INSERT INTO `yodev_postinstall_messages` VALUES (1,700,'PLG_TWOFACTORAUTH_TOTP_POSTINSTALL_TITLE','PLG_TWOFACTORAUTH_TOTP_POSTINSTALL_BODY','PLG_TWOFACTORAUTH_TOTP_POSTINSTALL_ACTION','plg_twofactorauth_totp',1,'action','site://plugins/twofactorauth/totp/postinstall/actions.php','twofactorauth_postinstall_action','site://plugins/twofactorauth/totp/postinstall/actions.php','twofactorauth_postinstall_condition','3.2.0',1),(2,700,'COM_CPANEL_MSG_EACCELERATOR_TITLE','COM_CPANEL_MSG_EACCELERATOR_BODY','COM_CPANEL_MSG_EACCELERATOR_BUTTON','com_cpanel',1,'action','admin://components/com_admin/postinstall/eaccelerator.php','admin_postinstall_eaccelerator_action','admin://components/com_admin/postinstall/eaccelerator.php','admin_postinstall_eaccelerator_condition','3.2.0',1),(3,700,'COM_CPANEL_MSG_PHPVERSION_TITLE','COM_CPANEL_MSG_PHPVERSION_BODY','','com_cpanel',1,'message','','','admin://components/com_admin/postinstall/phpversion.php','admin_postinstall_phpversion_condition','3.2.2',1);
+/*!40000 ALTER TABLE `yodev_postinstall_messages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_redirect_links`
+--
+
+DROP TABLE IF EXISTS `yodev_redirect_links`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_redirect_links` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `old_url` varchar(255) NOT NULL,
   `new_url` varchar(255) NOT NULL,
@@ -3793,55 +1643,50 @@ CREATE TABLE `cwtaq_redirect_links` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_link_old` (`old_url`),
   KEY `idx_link_modifed` (`modified_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_redirect_links` */
+--
+-- Dumping data for table `yodev_redirect_links`
+--
 
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (1,'http://localhost/yomayka/podushki','','http://localhost/yomayka/podushki','',2,0,'2013-05-28 20:09:32','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (2,'http://localhost/yomayka/pillows/pet','','','',1,0,'2013-05-30 06:26:48','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (3,'http://localhost/yomayka/yomana','','','',1,0,'2013-06-02 18:50:26','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (4,'http://localhost/yomayka/pillows/cool/autumn-target','','http://localhost/yomayka/pillows/cool','',3,0,'2013-06-06 23:26:08','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (5,'http://localhost/yomayka/pillows/it/products/products?category_id=7&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','','http://localhost/yomayka/pillows/it/ctrl','',1,0,'2013-06-06 23:56:42','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (6,'http://localhost/yomayka/pillows/cool/products/products?category_id=10&manufacturer_id=&label_id=&vendor_id=&page=&price_from=&price_to=','','http://localhost/yomayka/pillows/cool','',1,0,'2013-06-07 00:02:49','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (7,'http://localhost/yomayka/pillows/it/cart/view','','http://localhost/yomayka/pillows/it','',3,0,'2013-06-22 20:19:19','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (8,'http://localhost/yomayka//cart/view','','http://localhost/yomayka/pillows/it','',2,0,'2013-06-22 20:48:11','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (9,'http://localhost/yomayka/cart/view','','http://localhost/yomayka/pillows/it','',5,0,'2013-06-22 20:48:28','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (10,'http://localhost/yomayka/pillows/it/product/ajax_attrib_select_and_price/14?ajax=1&change_attr=0&qty=2','','http://localhost/yomayka/pillows/it/skype','',1,0,'2013-06-23 21:17:40','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (11,'http://localhost/yomayka/pillows/it/skype','','http://localhost/yomayka/pillows/it','',1,0,'2013-06-23 21:35:06','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (12,'http://localhost/yomayka/checkout/step2','','http://localhost/yomayka/cart/checkout/step2','',2,0,'2013-06-26 20:18:04','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (13,'http://localhost/yomayka/checkout','','','',3,0,'2013-06-26 20:18:11','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (14,'http://localhost/yomayka/cart/checkout','','','',3,0,'2013-06-26 20:25:27','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (15,'http://localhost/yomayka/cart/checkout/step2','','http://localhost/yomayka/cart','',1,0,'2013-06-26 20:31:06','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (16,'http://localhost/yomayka/cart','','','',1,0,'2013-06-26 20:31:11','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (17,'http://localhost/yomayka/PhpStorm-839d3861-741f-4175-a889-f5f3c558da60.php','','','',1,0,'2013-07-03 19:22:46','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (18,'http://localhost/yomayka/pillows/cool/product/ajax_attrib_select_and_price/15?ajax=1&change_attr=0&qty=14','','http://localhost/yomayka/pillows/cool/target-green','',1,0,'2013-07-03 19:46:57','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (19,'http://localhost/yomayka/pillows/cool/product/ajax_attrib_select_and_price/15?ajax=1&change_attr=0&qty=143','','http://localhost/yomayka/pillows/cool/target-green','',1,0,'2013-07-03 19:46:57','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (20,'http://localhost/yomayka/pillows/cool/product/ajax_attrib_select_and_price/15?ajax=1&change_attr=0&qty=1434','','http://localhost/yomayka/pillows/cool/target-green','',1,0,'2013-07-03 19:46:58','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (21,'http://localhost/yomayka/vk.com/yomayka','','http://localhost/yomayka/pillows/glamour/black-and-white','',10,0,'2013-07-07 09:12:05','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (22,'http://localhost/yomayka/ololo','','','',42,0,'2013-07-07 09:30:22','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (23,'http://localhost/yomayka/erjgwpijhg','','','',21,0,'2013-07-07 10:23:59','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (24,'http://localhost/yomayka/cartbuguyl','','','',55,0,'2013-07-07 10:39:55','0000-00-00 00:00:00');
-insert  into `cwtaq_redirect_links`(`id`,`old_url`,`new_url`,`referer`,`comment`,`hits`,`published`,`created_date`,`modified_date`) values (25,'http://localhost/yomayka/pillows/glamour/skype','','http://localhost/yomayka/component/search/?searchword=%D1%81%D0%BA%D0%B0%D0%B9%D0%BF&searchphrase=all&Itemid=118','',1,0,'2013-07-18 20:42:05','0000-00-00 00:00:00');
+LOCK TABLES `yodev_redirect_links` WRITE;
+/*!40000 ALTER TABLE `yodev_redirect_links` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_redirect_links` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_schemas` */
+--
+-- Table structure for table `yodev_schemas`
+--
 
-DROP TABLE IF EXISTS `cwtaq_schemas`;
-
-CREATE TABLE `cwtaq_schemas` (
+DROP TABLE IF EXISTS `yodev_schemas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_schemas` (
   `extension_id` int(11) NOT NULL,
   `version_id` varchar(20) NOT NULL,
   PRIMARY KEY (`extension_id`,`version_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_schemas` */
+--
+-- Dumping data for table `yodev_schemas`
+--
 
-insert  into `cwtaq_schemas`(`extension_id`,`version_id`) values (700,'2.5.11');
+LOCK TABLES `yodev_schemas` WRITE;
+/*!40000 ALTER TABLE `yodev_schemas` DISABLE KEYS */;
+INSERT INTO `yodev_schemas` VALUES (700,'3.3.0-2014-04-02');
+/*!40000 ALTER TABLE `yodev_schemas` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_session` */
+--
+-- Table structure for table `yodev_session`
+--
 
-DROP TABLE IF EXISTS `cwtaq_session`;
-
-CREATE TABLE `cwtaq_session` (
+DROP TABLE IF EXISTS `yodev_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_session` (
   `session_id` varchar(200) NOT NULL DEFAULT '',
   `client_id` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `guest` tinyint(4) unsigned DEFAULT '1',
@@ -3849,23 +1694,89 @@ CREATE TABLE `cwtaq_session` (
   `data` mediumtext,
   `userid` int(11) DEFAULT '0',
   `username` varchar(150) DEFAULT '',
-  `usertype` varchar(50) DEFAULT '',
   PRIMARY KEY (`session_id`),
-  KEY `whosonline` (`guest`,`usertype`),
   KEY `userid` (`userid`),
   KEY `time` (`time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_session` */
+--
+-- Dumping data for table `yodev_session`
+--
 
-insert  into `cwtaq_session`(`session_id`,`client_id`,`guest`,`time`,`data`,`userid`,`username`,`usertype`) values ('795838ecfcca4726cfb84f0860c81acd',0,1,'1377465397','__default|a:9:{s:22:\"session.client.browser\";s:108:\"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36\";s:15:\"session.counter\";i:5;s:8:\"registry\";O:9:\"JRegistry\":1:{s:7:\"\0*\0data\";O:8:\"stdClass\":0:{}}s:4:\"user\";O:5:\"JUser\":25:{s:9:\"\0*\0isRoot\";b:0;s:2:\"id\";i:0;s:4:\"name\";N;s:8:\"username\";N;s:5:\"email\";N;s:8:\"password\";N;s:14:\"password_clear\";s:0:\"\";s:8:\"usertype\";N;s:5:\"block\";N;s:9:\"sendEmail\";i:0;s:12:\"registerDate\";N;s:13:\"lastvisitDate\";N;s:10:\"activation\";N;s:6:\"params\";N;s:6:\"groups\";a:0:{}s:5:\"guest\";i:1;s:13:\"lastResetTime\";N;s:10:\"resetCount\";N;s:10:\"\0*\0_params\";O:9:\"JRegistry\":1:{s:7:\"\0*\0data\";O:8:\"stdClass\":0:{}}s:14:\"\0*\0_authGroups\";a:1:{i:0;i:1;}s:14:\"\0*\0_authLevels\";a:2:{i:0;i:1;i:1;i:1;}s:15:\"\0*\0_authActions\";N;s:12:\"\0*\0_errorMsg\";N;s:10:\"\0*\0_errors\";a:0:{}s:3:\"aid\";i:0;}s:19:\"js_id_currency_orig\";s:1:\"1\";s:14:\"js_id_currency\";s:1:\"1\";s:19:\"session.timer.start\";i:1377465182;s:18:\"session.timer.last\";i:1377465288;s:17:\"session.timer.now\";i:1377465396;}',0,'','');
-insert  into `cwtaq_session`(`session_id`,`client_id`,`guest`,`time`,`data`,`userid`,`username`,`usertype`) values ('969gq4b35deap6u27ui7ush3m3',1,0,'1377465161','__default|a:8:{s:15:\"session.counter\";i:13;s:19:\"session.timer.start\";i:1377464934;s:18:\"session.timer.last\";i:1377465159;s:17:\"session.timer.now\";i:1377465160;s:22:\"session.client.browser\";s:108:\"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36\";s:8:\"registry\";O:9:\"JRegistry\":1:{s:7:\"\0*\0data\";O:8:\"stdClass\":4:{s:11:\"application\";O:8:\"stdClass\":1:{s:4:\"lang\";s:0:\"\";}s:13:\"com_installer\";O:8:\"stdClass\":3:{s:7:\"message\";s:0:\"\";s:17:\"extension_message\";s:0:\"\";s:12:\"redirect_url\";N;}s:11:\"com_plugins\";O:8:\"stdClass\":2:{s:7:\"plugins\";O:8:\"stdClass\":4:{s:6:\"filter\";O:8:\"stdClass\":4:{s:6:\"search\";s:3:\"pix\";s:6:\"access\";i:0;s:5:\"state\";s:0:\"\";s:6:\"folder\";s:0:\"\";}s:10:\"limitstart\";i:0;s:8:\"ordercol\";s:6:\"folder\";s:9:\"orderdirn\";s:3:\"asc\";}s:4:\"edit\";O:8:\"stdClass\":1:{s:6:\"plugin\";O:8:\"stdClass\":2:{s:2:\"id\";a:1:{i:0;i:10009;}s:4:\"data\";N;}}}s:6:\"global\";O:8:\"stdClass\":1:{s:4:\"list\";O:8:\"stdClass\":1:{s:5:\"limit\";i:20;}}}}s:4:\"user\";O:5:\"JUser\":25:{s:9:\"\0*\0isRoot\";b:1;s:2:\"id\";s:3:\"484\";s:4:\"name\";s:10:\"Super User\";s:8:\"username\";s:6:\"andrey\";s:5:\"email\";s:20:\"andreyalek@gmail.com\";s:8:\"password\";s:65:\"b2fa7060e9d39283b19cb1279fb8a214:wZrX588JdP8SPYu5q6GcmZCnYainnKYG\";s:14:\"password_clear\";s:0:\"\";s:8:\"usertype\";s:10:\"deprecated\";s:5:\"block\";s:1:\"0\";s:9:\"sendEmail\";s:1:\"1\";s:12:\"registerDate\";s:19:\"2013-05-28 19:12:35\";s:13:\"lastvisitDate\";s:19:\"2013-07-26 00:27:38\";s:10:\"activation\";s:1:\"0\";s:6:\"params\";s:0:\"\";s:6:\"groups\";a:1:{i:8;s:1:\"8\";}s:5:\"guest\";i:0;s:13:\"lastResetTime\";s:19:\"0000-00-00 00:00:00\";s:10:\"resetCount\";s:1:\"0\";s:10:\"\0*\0_params\";O:9:\"JRegistry\":1:{s:7:\"\0*\0data\";O:8:\"stdClass\":0:{}}s:14:\"\0*\0_authGroups\";a:2:{i:0;i:1;i:1;i:8;}s:14:\"\0*\0_authLevels\";a:4:{i:0;i:1;i:1;i:1;i:2;i:2;i:3;i:3;}s:15:\"\0*\0_authActions\";N;s:12:\"\0*\0_errorMsg\";N;s:10:\"\0*\0_errors\";a:0:{}s:3:\"aid\";i:0;}s:13:\"session.token\";s:32:\"6fc651b585287f9b934b34d18047f190\";}',484,'andrey','');
+LOCK TABLES `yodev_session` WRITE;
+/*!40000 ALTER TABLE `yodev_session` DISABLE KEYS */;
+INSERT INTO `yodev_session` VALUES ('jglahlgr26p3qv3hhtcsu50v72',1,0,'1409778164','__default|a:8:{s:15:\"session.counter\";i:14;s:19:\"session.timer.start\";i:1409777551;s:18:\"session.timer.last\";i:1409778163;s:17:\"session.timer.now\";i:1409778164;s:22:\"session.client.browser\";s:104:\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.94 Safari/537.36\";s:8:\"registry\";O:24:\"Joomla\\Registry\\Registry\":1:{s:7:\"\\0\\0\\0data\";O:8:\"stdClass\":3:{s:11:\"application\";O:8:\"stdClass\":1:{s:4:\"lang\";s:0:\"\";}s:13:\"com_installer\";O:8:\"stdClass\":2:{s:7:\"message\";s:0:\"\";s:17:\"extension_message\";s:0:\"\";}s:16:\"com_joomlaupdate\";O:8:\"stdClass\":3:{s:4:\"file\";N;s:8:\"password\";s:32:\"eYGq9ArACDmThbtrBDIO8aMdn8ihP7aM\";s:8:\"filesize\";i:8241082;}}}s:4:\"user\";O:5:\"JUser\":27:{s:9:\"\\0\\0\\0isRoot\";b:1;s:2:\"id\";s:3:\"477\";s:4:\"name\";s:10:\"Super User\";s:8:\"username\";s:6:\"andrey\";s:5:\"email\";s:17:\"admin@yomayka.com\";s:8:\"password\";s:34:\"$P$DqapdG0vF5YHOC0muR2467bDOcEzcu.\";s:14:\"password_clear\";s:0:\"\";s:5:\"block\";s:1:\"0\";s:9:\"sendEmail\";s:1:\"1\";s:12:\"registerDate\";s:19:\"2013-10-12 15:53:07\";s:13:\"lastvisitDate\";s:19:\"2014-09-03 17:54:57\";s:10:\"activation\";s:1:\"0\";s:6:\"params\";s:2:\"{}\";s:6:\"groups\";a:1:{i:8;s:1:\"8\";}s:5:\"guest\";i:0;s:13:\"lastResetTime\";s:19:\"0000-00-00 00:00:00\";s:10:\"resetCount\";s:1:\"0\";s:12:\"requireReset\";N;s:10:\"\\0\\0\\0_params\";O:24:\"Joomla\\Registry\\Registry\":1:{s:7:\"\\0\\0\\0data\";O:8:\"stdClass\":0:{}}s:14:\"\\0\\0\\0_authGroups\";a:2:{i:0;i:1;i:1;i:8;}s:14:\"\\0\\0\\0_authLevels\";a:4:{i:0;i:1;i:1;i:1;i:2;i:2;i:3;i:3;}s:15:\"\\0\\0\\0_authActions\";N;s:12:\"\\0\\0\\0_errorMsg\";N;s:10:\"\\0\\0\\0_errors\";a:0:{}s:3:\"aid\";i:0;s:6:\"otpKey\";s:0:\"\";s:4:\"otep\";s:0:\"\";}s:13:\"session.token\";s:32:\"66138520c146bfe7f751cbb3877a4910\";}',477,'andrey'),('uai3odf8lkn1ilnm1o631acnf5',0,1,'1409777557','__default|a:7:{s:15:\"session.counter\";i:2;s:19:\"session.timer.start\";i:1409777547;s:18:\"session.timer.last\";i:1409777547;s:17:\"session.timer.now\";i:1409777557;s:22:\"session.client.browser\";s:104:\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.94 Safari/537.36\";s:8:\"registry\";O:9:\"JRegistry\":1:{s:7:\"\\0\\0\\0data\";O:8:\"stdClass\":0:{}}s:4:\"user\";O:5:\"JUser\":24:{s:9:\"\\0\\0\\0isRoot\";b:0;s:2:\"id\";i:0;s:4:\"name\";N;s:8:\"username\";N;s:5:\"email\";N;s:8:\"password\";N;s:14:\"password_clear\";s:0:\"\";s:5:\"block\";N;s:9:\"sendEmail\";i:0;s:12:\"registerDate\";N;s:13:\"lastvisitDate\";N;s:10:\"activation\";N;s:6:\"params\";N;s:6:\"groups\";a:1:{i:0;s:1:\"9\";}s:5:\"guest\";i:1;s:13:\"lastResetTime\";N;s:10:\"resetCount\";N;s:10:\"\\0\\0\\0_params\";O:9:\"JRegistry\":1:{s:7:\"\\0\\0\\0data\";O:8:\"stdClass\":0:{}}s:14:\"\\0\\0\\0_authGroups\";a:2:{i:0;i:1;i:1;i:9;}s:14:\"\\0\\0\\0_authLevels\";a:3:{i:0;i:1;i:1;i:1;i:2;i:5;}s:15:\"\\0\\0\\0_authActions\";N;s:12:\"\\0\\0\\0_errorMsg\";N;s:10:\"\\0\\0\\0_errors\";a:0:{}s:3:\"aid\";i:0;}}',0,'');
+/*!40000 ALTER TABLE `yodev_session` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_template_styles` */
+--
+-- Table structure for table `yodev_tags`
+--
 
-DROP TABLE IF EXISTS `cwtaq_template_styles`;
+DROP TABLE IF EXISTS `yodev_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_tags` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `lft` int(11) NOT NULL DEFAULT '0',
+  `rgt` int(11) NOT NULL DEFAULT '0',
+  `level` int(10) unsigned NOT NULL DEFAULT '0',
+  `path` varchar(255) NOT NULL DEFAULT '',
+  `title` varchar(255) NOT NULL,
+  `alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `note` varchar(255) NOT NULL DEFAULT '',
+  `description` mediumtext NOT NULL,
+  `published` tinyint(1) NOT NULL DEFAULT '0',
+  `checked_out` int(11) unsigned NOT NULL DEFAULT '0',
+  `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `access` int(10) unsigned NOT NULL DEFAULT '0',
+  `params` text NOT NULL,
+  `metadesc` varchar(1024) NOT NULL COMMENT 'The meta description for the page.',
+  `metakey` varchar(1024) NOT NULL COMMENT 'The meta keywords for the page.',
+  `metadata` varchar(2048) NOT NULL COMMENT 'JSON encoded metadata properties.',
+  `created_user_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `created_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by_alias` varchar(255) NOT NULL DEFAULT '',
+  `modified_user_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `modified_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `images` text NOT NULL,
+  `urls` text NOT NULL,
+  `hits` int(10) unsigned NOT NULL DEFAULT '0',
+  `language` char(7) NOT NULL,
+  `version` int(10) unsigned NOT NULL DEFAULT '1',
+  `publish_up` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `publish_down` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `tag_idx` (`published`,`access`),
+  KEY `idx_access` (`access`),
+  KEY `idx_checkout` (`checked_out`),
+  KEY `idx_path` (`path`),
+  KEY `idx_left_right` (`lft`,`rgt`),
+  KEY `idx_alias` (`alias`),
+  KEY `idx_language` (`language`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE `cwtaq_template_styles` (
+--
+-- Dumping data for table `yodev_tags`
+--
+
+LOCK TABLES `yodev_tags` WRITE;
+/*!40000 ALTER TABLE `yodev_tags` DISABLE KEYS */;
+INSERT INTO `yodev_tags` VALUES (1,0,0,1,0,'','ROOT','root','','',1,0,'0000-00-00 00:00:00',1,'{}','','','',0,'2011-01-01 00:00:01','',0,'0000-00-00 00:00:00','','',0,'*',1,'0000-00-00 00:00:00','0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `yodev_tags` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_template_styles`
+--
+
+DROP TABLE IF EXISTS `yodev_template_styles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_template_styles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `template` varchar(50) NOT NULL DEFAULT '',
   `client_id` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -3875,312 +1786,274 @@ CREATE TABLE `cwtaq_template_styles` (
   PRIMARY KEY (`id`),
   KEY `idx_template` (`template`),
   KEY `idx_home` (`home`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_template_styles` */
+--
+-- Dumping data for table `yodev_template_styles`
+--
 
-insert  into `cwtaq_template_styles`(`id`,`template`,`client_id`,`home`,`title`,`params`) values (2,'bluestork',1,'1','Bluestork - Default','{\"useRoundedCorners\":\"1\",\"showSiteName\":\"0\"}');
-insert  into `cwtaq_template_styles`(`id`,`template`,`client_id`,`home`,`title`,`params`) values (3,'atomic',0,'0','Atomic - Default','{}');
-insert  into `cwtaq_template_styles`(`id`,`template`,`client_id`,`home`,`title`,`params`) values (4,'beez_20',0,'0','Beez2 - Default','{\"wrapperSmall\":\"53\",\"wrapperLarge\":\"72\",\"logo\":\"images\\/joomla_black.gif\",\"sitetitle\":\"Joomla!\",\"sitedescription\":\"Open Source Content Management\",\"navposition\":\"left\",\"templatecolor\":\"personal\",\"html5\":\"0\"}');
-insert  into `cwtaq_template_styles`(`id`,`template`,`client_id`,`home`,`title`,`params`) values (5,'hathor',1,'0','Hathor - Default','{\"showSiteName\":\"0\",\"colourChoice\":\"\",\"boldText\":\"0\"}');
-insert  into `cwtaq_template_styles`(`id`,`template`,`client_id`,`home`,`title`,`params`) values (6,'beez5',0,'0','Beez5 - Default','{\"wrapperSmall\":\"53\",\"wrapperLarge\":\"72\",\"logo\":\"images\\/sampledata\\/fruitshop\\/fruits.gif\",\"sitetitle\":\"Joomla!\",\"sitedescription\":\"Open Source Content Management\",\"navposition\":\"left\",\"html5\":\"0\"}');
-insert  into `cwtaq_template_styles`(`id`,`template`,`client_id`,`home`,`title`,`params`) values (7,'lady',0,'1','lady - По умолчанию','{\"position1-width\":\"12\",\"position2-width\":\"12\",\"position3-width\":\"12\",\"position4-width\":\"12\",\"position5-width\":\"12\",\"position6-width\":\"12\",\"position7-width\":\"12\"}');
+LOCK TABLES `yodev_template_styles` WRITE;
+/*!40000 ALTER TABLE `yodev_template_styles` DISABLE KEYS */;
+INSERT INTO `yodev_template_styles` VALUES (4,'beez3',0,'0','Beez3 - Default','{\"wrapperSmall\":\"53\",\"wrapperLarge\":\"72\",\"logo\":\"images\\/joomla_black.gif\",\"sitetitle\":\"Joomla!\",\"sitedescription\":\"Open Source Content Management\",\"navposition\":\"left\",\"templatecolor\":\"personal\",\"html5\":\"0\"}'),(5,'hathor',1,'0','Hathor - Default','{\"showSiteName\":\"0\",\"colourChoice\":\"\",\"boldText\":\"0\"}'),(7,'protostar',0,'0','protostar - Default','{\"templateColor\":\"\",\"logoFile\":\"\",\"googleFont\":\"1\",\"googleFontName\":\"Open+Sans\",\"fluidContainer\":\"0\"}'),(8,'isis',1,'1','isis - Default','{\"templateColor\":\"\",\"logoFile\":\"\"}'),(9,'lady',0,'1','Lady - По умолчанию','{}');
+/*!40000 ALTER TABLE `yodev_template_styles` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_update_categories` */
+--
+-- Table structure for table `yodev_ucm_base`
+--
 
-DROP TABLE IF EXISTS `cwtaq_update_categories`;
+DROP TABLE IF EXISTS `yodev_ucm_base`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_ucm_base` (
+  `ucm_id` int(10) unsigned NOT NULL,
+  `ucm_item_id` int(10) NOT NULL,
+  `ucm_type_id` int(11) NOT NULL,
+  `ucm_language_id` int(11) NOT NULL,
+  PRIMARY KEY (`ucm_id`),
+  KEY `idx_ucm_item_id` (`ucm_item_id`),
+  KEY `idx_ucm_type_id` (`ucm_type_id`),
+  KEY `idx_ucm_language_id` (`ucm_language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE `cwtaq_update_categories` (
-  `categoryid` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) DEFAULT '',
-  `description` text NOT NULL,
-  `parent` int(11) DEFAULT '0',
-  `updatesite` int(11) DEFAULT '0',
-  PRIMARY KEY (`categoryid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Update Categories';
+--
+-- Dumping data for table `yodev_ucm_base`
+--
 
-/*Data for the table `cwtaq_update_categories` */
+LOCK TABLES `yodev_ucm_base` WRITE;
+/*!40000 ALTER TABLE `yodev_ucm_base` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_ucm_base` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_update_sites` */
+--
+-- Table structure for table `yodev_ucm_content`
+--
 
-DROP TABLE IF EXISTS `cwtaq_update_sites`;
+DROP TABLE IF EXISTS `yodev_ucm_content`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_ucm_content` (
+  `core_content_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `core_type_alias` varchar(255) NOT NULL DEFAULT '' COMMENT 'FK to the content types table',
+  `core_title` varchar(255) NOT NULL,
+  `core_alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `core_body` mediumtext NOT NULL,
+  `core_state` tinyint(1) NOT NULL DEFAULT '0',
+  `core_checked_out_time` varchar(255) NOT NULL DEFAULT '',
+  `core_checked_out_user_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `core_access` int(10) unsigned NOT NULL DEFAULT '0',
+  `core_params` text NOT NULL,
+  `core_featured` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `core_metadata` varchar(2048) NOT NULL COMMENT 'JSON encoded metadata properties.',
+  `core_created_user_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `core_created_by_alias` varchar(255) NOT NULL DEFAULT '',
+  `core_created_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `core_modified_user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Most recent user that modified',
+  `core_modified_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `core_language` char(7) NOT NULL,
+  `core_publish_up` datetime NOT NULL,
+  `core_publish_down` datetime NOT NULL,
+  `core_content_item_id` int(10) unsigned DEFAULT NULL COMMENT 'ID from the individual type table',
+  `asset_id` int(10) unsigned DEFAULT NULL COMMENT 'FK to the #__assets table.',
+  `core_images` text NOT NULL,
+  `core_urls` text NOT NULL,
+  `core_hits` int(10) unsigned NOT NULL DEFAULT '0',
+  `core_version` int(10) unsigned NOT NULL DEFAULT '1',
+  `core_ordering` int(11) NOT NULL DEFAULT '0',
+  `core_metakey` text NOT NULL,
+  `core_metadesc` text NOT NULL,
+  `core_catid` int(10) unsigned NOT NULL DEFAULT '0',
+  `core_xreference` varchar(50) NOT NULL COMMENT 'A reference to enable linkages to external data sets.',
+  `core_type_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`core_content_id`),
+  KEY `tag_idx` (`core_state`,`core_access`),
+  KEY `idx_access` (`core_access`),
+  KEY `idx_alias` (`core_alias`),
+  KEY `idx_language` (`core_language`),
+  KEY `idx_title` (`core_title`),
+  KEY `idx_modified_time` (`core_modified_time`),
+  KEY `idx_created_time` (`core_created_time`),
+  KEY `idx_content_type` (`core_type_alias`),
+  KEY `idx_core_modified_user_id` (`core_modified_user_id`),
+  KEY `idx_core_checked_out_user_id` (`core_checked_out_user_id`),
+  KEY `idx_core_created_user_id` (`core_created_user_id`),
+  KEY `idx_core_type_id` (`core_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Contains core content data in name spaced fields';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE `cwtaq_update_sites` (
+--
+-- Dumping data for table `yodev_ucm_content`
+--
+
+LOCK TABLES `yodev_ucm_content` WRITE;
+/*!40000 ALTER TABLE `yodev_ucm_content` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_ucm_content` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_ucm_history`
+--
+
+DROP TABLE IF EXISTS `yodev_ucm_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_ucm_history` (
+  `version_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ucm_item_id` int(10) unsigned NOT NULL,
+  `ucm_type_id` int(10) unsigned NOT NULL,
+  `version_note` varchar(255) NOT NULL DEFAULT '' COMMENT 'Optional version name',
+  `save_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `editor_user_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `character_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of characters in this version.',
+  `sha1_hash` varchar(50) NOT NULL DEFAULT '' COMMENT 'SHA1 hash of the version_data column.',
+  `version_data` mediumtext NOT NULL COMMENT 'json-encoded string of version data',
+  `keep_forever` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0=auto delete; 1=keep',
+  PRIMARY KEY (`version_id`),
+  KEY `idx_ucm_item_id` (`ucm_type_id`,`ucm_item_id`),
+  KEY `idx_save_date` (`save_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `yodev_ucm_history`
+--
+
+LOCK TABLES `yodev_ucm_history` WRITE;
+/*!40000 ALTER TABLE `yodev_ucm_history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_ucm_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_update_sites`
+--
+
+DROP TABLE IF EXISTS `yodev_update_sites`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_update_sites` (
   `update_site_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT '',
   `type` varchar(20) DEFAULT '',
   `location` text NOT NULL,
   `enabled` int(11) DEFAULT '0',
   `last_check_timestamp` bigint(20) DEFAULT '0',
+  `extra_query` varchar(1000) DEFAULT '',
   PRIMARY KEY (`update_site_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Update Sites';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Update Sites';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_update_sites` */
+--
+-- Dumping data for table `yodev_update_sites`
+--
 
-insert  into `cwtaq_update_sites`(`update_site_id`,`name`,`type`,`location`,`enabled`,`last_check_timestamp`) values (1,'Joomla Core','collection','http://update.joomla.org/core/list.xml',1,1377464955);
-insert  into `cwtaq_update_sites`(`update_site_id`,`name`,`type`,`location`,`enabled`,`last_check_timestamp`) values (2,'Joomla Extension Directory','collection','http://update.joomla.org/jed/list.xml',0,1370294768);
-insert  into `cwtaq_update_sites`(`update_site_id`,`name`,`type`,`location`,`enabled`,`last_check_timestamp`) values (3,'Accredited Joomla! Translations','collection','http://update.joomla.org/language/translationlist.xml',1,1377464957);
-insert  into `cwtaq_update_sites`(`update_site_id`,`name`,`type`,`location`,`enabled`,`last_check_timestamp`) values (4,'Plugin plg_system_pixanalytic update site','extension','http://labs.pixpro.net/updates/plugins/plg_system_pixanalytic_update.xml',1,0);
+LOCK TABLES `yodev_update_sites` WRITE;
+/*!40000 ALTER TABLE `yodev_update_sites` DISABLE KEYS */;
+INSERT INTO `yodev_update_sites` VALUES (1,'Joomla Core','collection','http://update.joomla.org/core/list.xml',1,1409778164,''),(2,'Joomla Extension Directory','collection','http://update.joomla.org/jed/list.xml',1,1409778092,''),(3,'Accredited Joomla! Translations','collection','http://update.joomla.org/language/translationlist_3.xml',1,1409778092,'');
+/*!40000 ALTER TABLE `yodev_update_sites` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_update_sites_extensions` */
+--
+-- Table structure for table `yodev_update_sites_extensions`
+--
 
-DROP TABLE IF EXISTS `cwtaq_update_sites_extensions`;
-
-CREATE TABLE `cwtaq_update_sites_extensions` (
+DROP TABLE IF EXISTS `yodev_update_sites_extensions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_update_sites_extensions` (
   `update_site_id` int(11) NOT NULL DEFAULT '0',
   `extension_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`update_site_id`,`extension_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Links extensions to update sites';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_update_sites_extensions` */
+--
+-- Dumping data for table `yodev_update_sites_extensions`
+--
 
-insert  into `cwtaq_update_sites_extensions`(`update_site_id`,`extension_id`) values (1,700);
-insert  into `cwtaq_update_sites_extensions`(`update_site_id`,`extension_id`) values (2,700);
-insert  into `cwtaq_update_sites_extensions`(`update_site_id`,`extension_id`) values (3,600);
-insert  into `cwtaq_update_sites_extensions`(`update_site_id`,`extension_id`) values (3,10004);
-insert  into `cwtaq_update_sites_extensions`(`update_site_id`,`extension_id`) values (4,10009);
+LOCK TABLES `yodev_update_sites_extensions` WRITE;
+/*!40000 ALTER TABLE `yodev_update_sites_extensions` DISABLE KEYS */;
+INSERT INTO `yodev_update_sites_extensions` VALUES (1,700),(2,700),(3,600),(3,10003);
+/*!40000 ALTER TABLE `yodev_update_sites_extensions` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_updates` */
+--
+-- Table structure for table `yodev_updates`
+--
 
-DROP TABLE IF EXISTS `cwtaq_updates`;
-
-CREATE TABLE `cwtaq_updates` (
+DROP TABLE IF EXISTS `yodev_updates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_updates` (
   `update_id` int(11) NOT NULL AUTO_INCREMENT,
   `update_site_id` int(11) DEFAULT '0',
   `extension_id` int(11) DEFAULT '0',
-  `categoryid` int(11) DEFAULT '0',
   `name` varchar(100) DEFAULT '',
   `description` text NOT NULL,
   `element` varchar(100) DEFAULT '',
   `type` varchar(20) DEFAULT '',
   `folder` varchar(20) DEFAULT '',
   `client_id` tinyint(3) DEFAULT '0',
-  `version` varchar(10) DEFAULT '',
+  `version` varchar(32) DEFAULT '',
   `data` text NOT NULL,
   `detailsurl` text NOT NULL,
   `infourl` text NOT NULL,
+  `extra_query` varchar(1000) DEFAULT '',
   PRIMARY KEY (`update_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8 COMMENT='Available Updates';
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COMMENT='Available Updates';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_updates` */
+--
+-- Dumping data for table `yodev_updates`
+--
 
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (1,3,0,0,'Armenian','','pkg_hy-AM','package','',0,'2.5.8.1','','http://update.joomla.org/language/details/hy-AM_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (2,3,0,0,'Bahasa Indonesia','','pkg_id-ID','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/id-ID_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (3,3,0,0,'Danish','','pkg_da-DK','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/da-DK_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (4,3,0,0,'Khmer','','pkg_km-KH','package','',0,'2.5.7.1','','http://update.joomla.org/language/details/km-KH_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (5,3,0,0,'Swedish','','pkg_sv-SE','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/sv-SE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (6,3,0,0,'Hungarian','','pkg_hu-HU','package','',0,'2.5.8.1','','http://update.joomla.org/language/details/hu-HU_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (7,3,0,0,'Bulgarian','','pkg_bg-BG','package','',0,'2.5.7.1','','http://update.joomla.org/language/details/bg-BG_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (8,3,0,0,'French','','pkg_fr-FR','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/fr-FR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (9,3,0,0,'Italian','','pkg_it-IT','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/it-IT_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (10,3,0,0,'Spanish','','pkg_es-ES','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/es-ES_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (11,3,0,0,'Dutch','','pkg_nl-NL','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nl-NL_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (12,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (13,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.7.2','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (14,3,0,0,'Slovak','','pkg_sk-SK','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/sk-SK_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (15,3,0,0,'Belarusian','','pkg_be-BY','package','',0,'2.5.8.1','','http://update.joomla.org/language/details/be-BY_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (16,3,0,0,'Latvian','','pkg_lv-LV','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/lv-LV_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (17,3,0,0,'Estonian','','pkg_et-EE','package','',0,'2.5.7.1','','http://update.joomla.org/language/details/et-EE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (18,3,0,0,'Romanian','','pkg_ro-RO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ro-RO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (19,3,0,0,'Flemish','','pkg_nl-BE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nl-BE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (20,3,0,0,'Macedonian','','pkg_mk-MK','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/mk-MK_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (21,3,0,0,'Japanese','','pkg_ja-JP','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ja-JP_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (22,3,0,0,'Serbian Latin','','pkg_sr-YU','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/sr-YU_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (23,3,0,0,'Arabic Unitag','','pkg_ar-AA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ar-AA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (24,3,0,0,'German','','pkg_de-DE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/de-DE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (25,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.9.2','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (26,3,0,0,'English AU','','pkg_en-AU','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/en-AU_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (27,3,0,0,'English US','','pkg_en-US','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/en-US_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (28,3,0,0,'Serbian Cyrillic','','pkg_sr-RS','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/sr-RS_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (29,3,0,0,'Lithuanian','','pkg_lt-LT','package','',0,'2.5.7.1','','http://update.joomla.org/language/details/lt-LT_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (30,3,0,0,'Albanian','','pkg_sq-AL','package','',0,'2.5.1.5','','http://update.joomla.org/language/details/sq-AL_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (31,3,0,0,'Persian','','pkg_fa-IR','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/fa-IR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (32,3,0,0,'Galician','','pkg_gl-ES','package','',0,'2.5.7.4','','http://update.joomla.org/language/details/gl-ES_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (33,3,0,0,'Polish','','pkg_pl-PL','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/pl-PL_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (34,3,0,0,'Syriac','','pkg_sy-IQ','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/sy-IQ_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (35,3,0,0,'Portuguese','','pkg_pt-PT','package','',0,'2.5.8.1','','http://update.joomla.org/language/details/pt-PT_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (37,3,0,0,'Hebrew','','pkg_he-IL','package','',0,'2.5.7.1','','http://update.joomla.org/language/details/he-IL_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (38,3,0,0,'Catalan','','pkg_ca-ES','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/ca-ES_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (39,3,0,0,'Laotian','','pkg_lo-LA','package','',0,'2.5.6.1','','http://update.joomla.org/language/details/lo-LA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (40,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (41,3,0,0,'Chinese Simplified','','pkg_zh-CN','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/zh-CN_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (42,3,0,0,'Greek','','pkg_el-GR','package','',0,'2.5.6.1','','http://update.joomla.org/language/details/el-GR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (43,3,0,0,'Esperanto','','pkg_eo-XX','package','',0,'2.5.6.1','','http://update.joomla.org/language/details/eo-XX_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (44,3,0,0,'Finnish','','pkg_fi-FI','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/fi-FI_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (45,3,0,0,'Portuguese Brazil','','pkg_pt-BR','package','',0,'2.5.9.1','','http://update.joomla.org/language/details/pt-BR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (46,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (47,3,0,0,'Vietnamese','','pkg_vi-VN','package','',0,'2.5.8.1','','http://update.joomla.org/language/details/vi-VN_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (48,3,0,0,'Kurdish Sorani','','pkg_ckb-IQ','package','',0,'2.5.9.1','','http://update.joomla.org/language/details/ckb-IQ_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (49,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (50,3,0,0,'Croatian','','pkg_hr-HR','package','',0,'2.5.9.1','','http://update.joomla.org/language/details/hr-HR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (51,3,0,0,'Azeri','','pkg_az-AZ','package','',0,'2.5.7.1','','http://update.joomla.org/language/details/az-AZ_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (52,3,0,0,'Norwegian Nynorsk','','pkg_nn-NO','package','',0,'2.5.8.1','','http://update.joomla.org/language/details/nn-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (53,3,0,0,'Tamil India','','pkg_ta-IN','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ta-IN_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (54,3,0,0,'Scottish Gaelic','','pkg_gd-GB','package','',0,'2.5.7.1','','http://update.joomla.org/language/details/gd-GB_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (55,3,0,0,'Thai','','pkg_th-TH','package','',0,'2.5.8.1','','http://update.joomla.org/language/details/th-TH_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (56,3,0,0,'Basque','','pkg_eu-ES','package','',0,'1.7.0.1','','http://update.joomla.org/language/details/eu-ES_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (57,3,0,0,'Uyghur','','pkg_ug-CN','package','',0,'2.5.7.2','','http://update.joomla.org/language/details/ug-CN_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (58,3,0,0,'Korean','','pkg_ko-KR','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/ko-KR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (59,3,0,0,'Hindi','','pkg_hi-IN','package','',0,'2.5.6.1','','http://update.joomla.org/language/details/hi-IN_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (60,3,0,0,'Welsh','','pkg_cy-GB','package','',0,'2.5.6.1','','http://update.joomla.org/language/details/cy-GB_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (61,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.10.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (62,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (63,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (64,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (65,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (66,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (67,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (68,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (69,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (70,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (71,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (72,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (73,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (74,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (75,3,0,0,'Czech','','pkg_cs-CZ','package','',0,'2.5.11.2','','http://update.joomla.org/language/details/cs-CZ_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (76,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (77,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (78,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (79,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (80,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (81,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (82,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (83,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (84,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (85,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.11.10','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (86,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (87,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.11.2','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (88,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (89,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (90,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (91,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (92,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.11.10','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (93,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (94,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (95,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.11.10','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (96,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.11.2','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (97,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (98,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (99,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (100,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.11.2','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (101,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (102,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (103,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (104,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (105,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (106,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.11.10','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (107,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (108,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.11.2','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (109,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (110,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (111,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.11.10','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (112,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (113,3,0,0,'Korean','','pkg_ko-KR','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ko-KR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (114,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (115,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (116,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.11.2','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (117,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (118,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (119,3,0,0,'Korean','','pkg_ko-KR','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ko-KR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (120,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (121,1,700,0,'Joomla','','joomla','file','',0,'2.5.13','','http://update.joomla.org/core/extension.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (122,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (123,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.11.10','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (124,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (125,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.11.2','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (126,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (127,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (128,3,0,0,'Korean','','pkg_ko-KR','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ko-KR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (129,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (130,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (131,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.11.10','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (132,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (133,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.11.2','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (134,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (135,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (136,3,0,0,'Korean','','pkg_ko-KR','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ko-KR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (137,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (138,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (139,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.11.10','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (140,3,0,0,'Arabic Unitag','','pkg_ar-AA','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/ar-AA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (141,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (142,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.11.2','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (143,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.10.2','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (144,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (145,3,0,0,'Korean','','pkg_ko-KR','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ko-KR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (146,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (147,1,0,0,'Joomla','','joomla','file','',0,'2.5.14','','http://update.joomla.org/core/extension.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (148,3,0,0,'Bahasa Indonesia','','pkg_id-ID','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/id-ID_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (149,3,0,0,'Danish','','pkg_da-DK','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/da-DK_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (150,3,0,0,'French','','pkg_fr-FR','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/fr-FR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (151,3,0,0,'Italian','','pkg_it-IT','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/it-IT_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (152,3,0,0,'Spanish','','pkg_es-ES','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/es-ES_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (153,3,0,0,'Dutch','','pkg_nl-NL','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/nl-NL_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (154,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (155,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.13.11','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (156,3,0,0,'Slovak','','pkg_sk-SK','package','',0,'2.5.14.2','','http://update.joomla.org/language/details/sk-SK_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (157,3,0,0,'Latvian','','pkg_lv-LV','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/lv-LV_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (158,3,0,0,'Bahasa Indonesia','','pkg_id-ID','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/id-ID_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (159,3,0,0,'Danish','','pkg_da-DK','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/da-DK_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (160,3,0,0,'Flemish','','pkg_nl-BE','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/nl-BE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (161,3,0,0,'Macedonian','','pkg_mk-MK','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/mk-MK_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (162,3,0,0,'Japanese','','pkg_ja-JP','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/ja-JP_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (163,3,0,0,'French','','pkg_fr-FR','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/fr-FR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (164,3,0,0,'Serbian Latin','','pkg_sr-YU','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/sr-YU_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (165,3,0,0,'Italian','','pkg_it-IT','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/it-IT_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (166,3,0,0,'Arabic Unitag','','pkg_ar-AA','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/ar-AA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (167,3,0,0,'Spanish','','pkg_es-ES','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/es-ES_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (168,3,0,0,'German','','pkg_de-DE','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/de-DE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (169,3,0,0,'Dutch','','pkg_nl-NL','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/nl-NL_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (170,3,0,0,'Turkish','','pkg_tr-TR','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/tr-TR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (171,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (172,3,0,0,'Ukrainian','','pkg_uk-UA','package','',0,'2.5.13.11','','http://update.joomla.org/language/details/uk-UA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (173,3,0,0,'Slovak','','pkg_sk-SK','package','',0,'2.5.14.2','','http://update.joomla.org/language/details/sk-SK_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (174,3,0,0,'Serbian Cyrillic','','pkg_sr-RS','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/sr-RS_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (175,3,0,0,'Latvian','','pkg_lv-LV','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/lv-LV_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (176,3,0,0,'Czech','','pkg_cs-CZ','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/cs-CZ_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (177,3,0,0,'Flemish','','pkg_nl-BE','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/nl-BE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (178,3,0,0,'Persian','','pkg_fa-IR','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/fa-IR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (179,3,0,0,'Macedonian','','pkg_mk-MK','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/mk-MK_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (180,3,0,0,'Polish','','pkg_pl-PL','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/pl-PL_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (181,3,0,0,'Japanese','','pkg_ja-JP','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/ja-JP_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (182,3,0,0,'Serbian Latin','','pkg_sr-YU','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/sr-YU_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (183,3,0,0,'Arabic Unitag','','pkg_ar-AA','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/ar-AA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (184,3,10004,0,'Russian','','pkg_ru-RU','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/ru-RU_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (185,3,0,0,'German','','pkg_de-DE','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/de-DE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (186,3,0,0,'Catalan','','pkg_ca-ES','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/ca-ES_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (187,3,0,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/nb-NO_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (188,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (189,3,0,0,'Serbian Cyrillic','','pkg_sr-RS','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/sr-RS_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (190,3,0,0,'Chinese Simplified','','pkg_zh-CN','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/zh-CN_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (191,3,0,0,'Czech','','pkg_cs-CZ','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/cs-CZ_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (192,3,0,0,'Persian','','pkg_fa-IR','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/fa-IR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (193,3,0,0,'Finnish','','pkg_fi-FI','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/fi-FI_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (194,3,0,0,'Polish','','pkg_pl-PL','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/pl-PL_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (195,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (196,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (197,3,0,0,'Catalan','','pkg_ca-ES','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/ca-ES_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (198,3,0,0,'Croatian','','pkg_hr-HR','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/hr-HR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (199,3,0,0,'Afrikaans','','pkg_af-ZA','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/af-ZA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (200,3,0,0,'Chinese Simplified','','pkg_zh-CN','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/zh-CN_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (201,3,0,0,'Tamil India','','pkg_ta-IN','package','',0,'2.5.14.2','','http://update.joomla.org/language/details/ta-IN_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (202,3,0,0,'Finnish','','pkg_fi-FI','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/fi-FI_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (203,3,0,0,'Thai','','pkg_th-TH','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/th-TH_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (204,3,0,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/zh-TW_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (205,3,0,0,'Korean','','pkg_ko-KR','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ko-KR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (206,3,0,0,'Bosnian','','pkg_bs-BA','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/bs-BA_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (207,3,0,0,'Croatian','','pkg_hr-HR','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/hr-HR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (208,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (209,3,0,0,'Tamil India','','pkg_ta-IN','package','',0,'2.5.14.2','','http://update.joomla.org/language/details/ta-IN_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (210,3,0,0,'Thai','','pkg_th-TH','package','',0,'2.5.13.1','','http://update.joomla.org/language/details/th-TH_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (211,3,0,0,'Korean','','pkg_ko-KR','package','',0,'2.5.11.1','','http://update.joomla.org/language/details/ko-KR_details.xml','');
-insert  into `cwtaq_updates`(`update_id`,`update_site_id`,`extension_id`,`categoryid`,`name`,`description`,`element`,`type`,`folder`,`client_id`,`version`,`data`,`detailsurl`,`infourl`) values (212,3,0,0,'Swahili','','pkg_sw-KE','package','',0,'2.5.14.1','','http://update.joomla.org/language/details/sw-KE_details.xml','');
+LOCK TABLES `yodev_updates` WRITE;
+/*!40000 ALTER TABLE `yodev_updates` DISABLE KEYS */;
+INSERT INTO `yodev_updates` VALUES (2,3,0,'Malay','','pkg_ms-MY','package','',0,'3.3.1.1','','http://update.joomla.org/language/details3/ms-MY_details.xml','',''),(3,3,0,'Romanian','','pkg_ro-RO','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/ro-RO_details.xml','',''),(4,3,0,'Flemish','','pkg_nl-BE','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/nl-BE_details.xml','',''),(5,3,0,'Chinese Traditional','','pkg_zh-TW','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/zh-TW_details.xml','',''),(6,3,0,'French','','pkg_fr-FR','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/fr-FR_details.xml','',''),(7,3,0,'Galician','','pkg_gl-ES','package','',0,'3.3.1.2','','http://update.joomla.org/language/details3/gl-ES_details.xml','',''),(8,3,0,'German','','pkg_de-DE','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/de-DE_details.xml','',''),(9,3,0,'Greek','','pkg_el-GR','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/el-GR_details.xml','',''),(10,3,0,'Japanese','','pkg_ja-JP','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/ja-JP_details.xml','',''),(11,3,0,'Hebrew','','pkg_he-IL','package','',0,'3.1.1.1','','http://update.joomla.org/language/details3/he-IL_details.xml','',''),(12,3,0,'EnglishAU','','pkg_en-AU','package','',0,'3.3.1.1','','http://update.joomla.org/language/details3/en-AU_details.xml','',''),(13,3,0,'EnglishUS','','pkg_en-US','package','',0,'3.3.1.1','','http://update.joomla.org/language/details3/en-US_details.xml','',''),(14,3,0,'Hungarian','','pkg_hu-HU','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/hu-HU_details.xml','',''),(15,3,0,'Afrikaans','','pkg_af-ZA','package','',0,'3.2.0.1','','http://update.joomla.org/language/details3/af-ZA_details.xml','',''),(16,3,0,'Arabic Unitag','','pkg_ar-AA','package','',0,'3.3.2.1','','http://update.joomla.org/language/details3/ar-AA_details.xml','',''),(17,3,0,'Belarusian','','pkg_be-BY','package','',0,'3.2.1.1','','http://update.joomla.org/language/details3/be-BY_details.xml','',''),(18,3,0,'Bulgarian','','pkg_bg-BG','package','',0,'3.3.0.1','','http://update.joomla.org/language/details3/bg-BG_details.xml','',''),(19,3,0,'Catalan','','pkg_ca-ES','package','',0,'3.3.2.1','','http://update.joomla.org/language/details3/ca-ES_details.xml','',''),(20,3,0,'Chinese Simplified','','pkg_zh-CN','package','',0,'3.3.1.1','','http://update.joomla.org/language/details3/zh-CN_details.xml','',''),(21,3,0,'Croatian','','pkg_hr-HR','package','',0,'3.1.5.1','','http://update.joomla.org/language/details3/hr-HR_details.xml','',''),(22,3,0,'Czech','','pkg_cs-CZ','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/cs-CZ_details.xml','',''),(23,3,0,'Danish','','pkg_da-DK','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/da-DK_details.xml','',''),(24,3,0,'Dutch','','pkg_nl-NL','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/nl-NL_details.xml','',''),(25,3,0,'Estonian','','pkg_et-EE','package','',0,'3.3.1.2','','http://update.joomla.org/language/details3/et-EE_details.xml','',''),(26,3,0,'Italian','','pkg_it-IT','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/it-IT_details.xml','',''),(27,3,0,'Korean','','pkg_ko-KR','package','',0,'3.2.3.1','','http://update.joomla.org/language/details3/ko-KR_details.xml','',''),(28,3,0,'Latvian','','pkg_lv-LV','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/lv-LV_details.xml','',''),(29,3,0,'Macedonian','','pkg_mk-MK','package','',0,'3.3.2.1','','http://update.joomla.org/language/details3/mk-MK_details.xml','',''),(30,3,0,'Norwegian Bokmal','','pkg_nb-NO','package','',0,'3.2.2.1','','http://update.joomla.org/language/details3/nb-NO_details.xml','',''),(31,3,0,'Persian','','pkg_fa-IR','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/fa-IR_details.xml','',''),(32,3,0,'Polish','','pkg_pl-PL','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/pl-PL_details.xml','',''),(33,3,0,'Portuguese','','pkg_pt-PT','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/pt-PT_details.xml','',''),(34,3,0,'Slovak','','pkg_sk-SK','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/sk-SK_details.xml','',''),(35,3,0,'Swedish','','pkg_sv-SE','package','',0,'3.3.3.3','','http://update.joomla.org/language/details3/sv-SE_details.xml','',''),(36,3,0,'Syriac','','pkg_sy-IQ','package','',0,'3.3.2.1','','http://update.joomla.org/language/details3/sy-IQ_details.xml','',''),(37,3,0,'Tamil','','pkg_ta-IN','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/ta-IN_details.xml','',''),(38,3,0,'Thai','','pkg_th-TH','package','',0,'3.3.2.1','','http://update.joomla.org/language/details3/th-TH_details.xml','',''),(39,3,0,'Turkish','','pkg_tr-TR','package','',0,'3.3.2.1','','http://update.joomla.org/language/details3/tr-TR_details.xml','',''),(40,3,0,'Ukrainian','','pkg_uk-UA','package','',0,'3.3.3.15','','http://update.joomla.org/language/details3/uk-UA_details.xml','',''),(41,3,0,'Uyghur','','pkg_ug-CN','package','',0,'3.3.0.1','','http://update.joomla.org/language/details3/ug-CN_details.xml','',''),(42,3,0,'Albanian','','pkg_sq-AL','package','',0,'3.1.1.1','','http://update.joomla.org/language/details3/sq-AL_details.xml','',''),(43,3,0,'Portuguese Brazil','','pkg_pt-BR','package','',0,'3.0.2.1','','http://update.joomla.org/language/details3/pt-BR_details.xml','',''),(44,3,0,'Serbian Latin','','pkg_sr-YU','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/sr-YU_details.xml','',''),(45,3,0,'Spanish','','pkg_es-ES','package','',0,'3.3.1.3','','http://update.joomla.org/language/details3/es-ES_details.xml','',''),(46,3,0,'Bosnian','','pkg_bs-BA','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/bs-BA_details.xml','',''),(47,3,0,'Serbian Cyrillic','','pkg_sr-RS','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/sr-RS_details.xml','',''),(48,3,0,'Vietnamese','','pkg_vi-VN','package','',0,'3.2.1.1','','http://update.joomla.org/language/details3/vi-VN_details.xml','',''),(49,3,0,'Bahasa Indonesia','','pkg_id-ID','package','',0,'3.3.0.2','','http://update.joomla.org/language/details3/id-ID_details.xml','',''),(50,3,0,'Finnish','','pkg_fi-FI','package','',0,'3.3.2.1','','http://update.joomla.org/language/details3/fi-FI_details.xml','',''),(51,3,0,'Swahili','','pkg_sw-KE','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/sw-KE_details.xml','',''),(52,3,0,'Montenegrin','','pkg_srp-ME','package','',0,'3.3.1.1','','http://update.joomla.org/language/details3/srp-ME_details.xml','',''),(53,3,0,'EnglishCA','','pkg_en-CA','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/en-CA_details.xml','',''),(54,3,0,'FrenchCA','','pkg_fr-CA','package','',0,'3.3.3.1','','http://update.joomla.org/language/details3/fr-CA_details.xml','',''),(55,3,0,'Welsh','','pkg_cy-GB','package','',0,'3.3.0.1','','http://update.joomla.org/language/details3/cy-GB_details.xml','',''),(56,3,0,'Sinhala','','pkg_si-LK','package','',0,'3.3.1.1','','http://update.joomla.org/language/details3/si-LK_details.xml','','');
+/*!40000 ALTER TABLE `yodev_updates` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_user_notes` */
+--
+-- Table structure for table `yodev_user_keys`
+--
 
-DROP TABLE IF EXISTS `cwtaq_user_notes`;
+DROP TABLE IF EXISTS `yodev_user_keys`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_user_keys` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `series` varchar(255) NOT NULL,
+  `invalid` tinyint(4) NOT NULL,
+  `time` varchar(200) NOT NULL,
+  `uastring` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `series` (`series`),
+  UNIQUE KEY `series_2` (`series`),
+  UNIQUE KEY `series_3` (`series`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE `cwtaq_user_notes` (
+--
+-- Dumping data for table `yodev_user_keys`
+--
+
+LOCK TABLES `yodev_user_keys` WRITE;
+/*!40000 ALTER TABLE `yodev_user_keys` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_user_keys` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_user_notes`
+--
+
+DROP TABLE IF EXISTS `yodev_user_notes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_user_notes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL DEFAULT '0',
   `catid` int(10) unsigned NOT NULL DEFAULT '0',
@@ -4200,43 +2073,74 @@ CREATE TABLE `cwtaq_user_notes` (
   KEY `idx_user_id` (`user_id`),
   KEY `idx_category_id` (`catid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_user_notes` */
+--
+-- Dumping data for table `yodev_user_notes`
+--
 
-/*Table structure for table `cwtaq_user_profiles` */
+LOCK TABLES `yodev_user_notes` WRITE;
+/*!40000 ALTER TABLE `yodev_user_notes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_user_notes` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_user_profiles`;
+--
+-- Table structure for table `yodev_user_profiles`
+--
 
-CREATE TABLE `cwtaq_user_profiles` (
+DROP TABLE IF EXISTS `yodev_user_profiles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_user_profiles` (
   `user_id` int(11) NOT NULL,
   `profile_key` varchar(100) NOT NULL,
   `profile_value` varchar(255) NOT NULL,
   `ordering` int(11) NOT NULL DEFAULT '0',
   UNIQUE KEY `idx_user_id_profile_key` (`user_id`,`profile_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Simple user profile storage table';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_user_profiles` */
+--
+-- Dumping data for table `yodev_user_profiles`
+--
 
-/*Table structure for table `cwtaq_user_usergroup_map` */
+LOCK TABLES `yodev_user_profiles` WRITE;
+/*!40000 ALTER TABLE `yodev_user_profiles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_user_profiles` ENABLE KEYS */;
+UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `cwtaq_user_usergroup_map`;
+--
+-- Table structure for table `yodev_user_usergroup_map`
+--
 
-CREATE TABLE `cwtaq_user_usergroup_map` (
+DROP TABLE IF EXISTS `yodev_user_usergroup_map`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_user_usergroup_map` (
   `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__users.id',
   `group_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__usergroups.id',
   PRIMARY KEY (`user_id`,`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_user_usergroup_map` */
+--
+-- Dumping data for table `yodev_user_usergroup_map`
+--
 
-insert  into `cwtaq_user_usergroup_map`(`user_id`,`group_id`) values (484,8);
-insert  into `cwtaq_user_usergroup_map`(`user_id`,`group_id`) values (485,8);
+LOCK TABLES `yodev_user_usergroup_map` WRITE;
+/*!40000 ALTER TABLE `yodev_user_usergroup_map` DISABLE KEYS */;
+INSERT INTO `yodev_user_usergroup_map` VALUES (477,8);
+/*!40000 ALTER TABLE `yodev_user_usergroup_map` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_usergroups` */
+--
+-- Table structure for table `yodev_usergroups`
+--
 
-DROP TABLE IF EXISTS `cwtaq_usergroups`;
-
-CREATE TABLE `cwtaq_usergroups` (
+DROP TABLE IF EXISTS `yodev_usergroups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_usergroups` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
   `parent_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Adjacency List Reference Id',
   `lft` int(11) NOT NULL DEFAULT '0' COMMENT 'Nested set lft.',
@@ -4247,30 +2151,32 @@ CREATE TABLE `cwtaq_usergroups` (
   KEY `idx_usergroup_title_lookup` (`title`),
   KEY `idx_usergroup_adjacency_lookup` (`parent_id`),
   KEY `idx_usergroup_nested_set_lookup` (`lft`,`rgt`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_usergroups` */
+--
+-- Dumping data for table `yodev_usergroups`
+--
 
-insert  into `cwtaq_usergroups`(`id`,`parent_id`,`lft`,`rgt`,`title`) values (1,0,1,20,'Public');
-insert  into `cwtaq_usergroups`(`id`,`parent_id`,`lft`,`rgt`,`title`) values (2,1,6,17,'Registered');
-insert  into `cwtaq_usergroups`(`id`,`parent_id`,`lft`,`rgt`,`title`) values (3,2,7,14,'Author');
-insert  into `cwtaq_usergroups`(`id`,`parent_id`,`lft`,`rgt`,`title`) values (4,3,8,11,'Editor');
-insert  into `cwtaq_usergroups`(`id`,`parent_id`,`lft`,`rgt`,`title`) values (5,4,9,10,'Publisher');
-insert  into `cwtaq_usergroups`(`id`,`parent_id`,`lft`,`rgt`,`title`) values (6,1,2,5,'Manager');
-insert  into `cwtaq_usergroups`(`id`,`parent_id`,`lft`,`rgt`,`title`) values (7,6,3,4,'Administrator');
-insert  into `cwtaq_usergroups`(`id`,`parent_id`,`lft`,`rgt`,`title`) values (8,1,18,19,'Super Users');
+LOCK TABLES `yodev_usergroups` WRITE;
+/*!40000 ALTER TABLE `yodev_usergroups` DISABLE KEYS */;
+INSERT INTO `yodev_usergroups` VALUES (1,0,1,18,'Public'),(2,1,8,15,'Registered'),(3,2,9,14,'Author'),(4,3,10,13,'Editor'),(5,4,11,12,'Publisher'),(6,1,4,7,'Manager'),(7,6,5,6,'Administrator'),(8,1,16,17,'Super Users'),(9,1,2,3,'Guest');
+/*!40000 ALTER TABLE `yodev_usergroups` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_users` */
+--
+-- Table structure for table `yodev_users`
+--
 
-DROP TABLE IF EXISTS `cwtaq_users`;
-
-CREATE TABLE `cwtaq_users` (
+DROP TABLE IF EXISTS `yodev_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `username` varchar(150) NOT NULL DEFAULT '',
   `email` varchar(100) NOT NULL DEFAULT '',
   `password` varchar(100) NOT NULL DEFAULT '',
-  `usertype` varchar(25) NOT NULL DEFAULT '',
   `block` tinyint(4) NOT NULL DEFAULT '0',
   `sendEmail` tinyint(4) DEFAULT '0',
   `registerDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -4279,58 +2185,73 @@ CREATE TABLE `cwtaq_users` (
   `params` text NOT NULL,
   `lastResetTime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date of last password reset',
   `resetCount` int(11) NOT NULL DEFAULT '0' COMMENT 'Count of password resets since lastResetTime',
+  `otpKey` varchar(1000) NOT NULL DEFAULT '' COMMENT 'Two factor authentication encrypted keys',
+  `otep` varchar(1000) NOT NULL DEFAULT '' COMMENT 'One time emergency passwords',
+  `requireReset` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Require user to reset password on next login',
   PRIMARY KEY (`id`),
-  KEY `usertype` (`usertype`),
   KEY `idx_name` (`name`),
   KEY `idx_block` (`block`),
   KEY `username` (`username`),
   KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=486 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=478 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_users` */
+--
+-- Dumping data for table `yodev_users`
+--
 
-insert  into `cwtaq_users`(`id`,`name`,`username`,`email`,`password`,`usertype`,`block`,`sendEmail`,`registerDate`,`lastvisitDate`,`activation`,`params`,`lastResetTime`,`resetCount`) values (484,'Super User','andrey','andreyalek@gmail.com','b2fa7060e9d39283b19cb1279fb8a214:wZrX588JdP8SPYu5q6GcmZCnYainnKYG','deprecated',0,1,'2013-05-28 19:12:35','2013-08-25 21:09:11','0','','0000-00-00 00:00:00',0);
-insert  into `cwtaq_users`(`id`,`name`,`username`,`email`,`password`,`usertype`,`block`,`sendEmail`,`registerDate`,`lastvisitDate`,`activation`,`params`,`lastResetTime`,`resetCount`) values (485,'Ann','ann','amoney@mail.ru','c931333f6b0875a25d7a84923fd0e3f7:1dijNknwX3NIHOS9Jjzut9AhkaiY7K5v','',0,1,'2013-07-25 23:25:28','2013-07-26 00:27:53','','{\"admin_style\":\"\",\"admin_language\":\"\",\"language\":\"\",\"editor\":\"\",\"helpsite\":\"\",\"timezone\":\"\"}','0000-00-00 00:00:00',0);
+LOCK TABLES `yodev_users` WRITE;
+/*!40000 ALTER TABLE `yodev_users` DISABLE KEYS */;
+INSERT INTO `yodev_users` VALUES (477,'Super User','andrey','admin@yomayka.com','$P$DqapdG0vF5YHOC0muR2467bDOcEzcu.',0,1,'2013-10-12 15:53:07','2014-09-03 21:01:29','0','{}','0000-00-00 00:00:00',0,'','',0);
+/*!40000 ALTER TABLE `yodev_users` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_viewlevels` */
+--
+-- Table structure for table `yodev_viewlevels`
+--
 
-DROP TABLE IF EXISTS `cwtaq_viewlevels`;
-
-CREATE TABLE `cwtaq_viewlevels` (
+DROP TABLE IF EXISTS `yodev_viewlevels`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_viewlevels` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
   `title` varchar(100) NOT NULL DEFAULT '',
   `ordering` int(11) NOT NULL DEFAULT '0',
   `rules` varchar(5120) NOT NULL COMMENT 'JSON encoded access control.',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_assetgroup_title_lookup` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_viewlevels` */
+--
+-- Dumping data for table `yodev_viewlevels`
+--
 
-insert  into `cwtaq_viewlevels`(`id`,`title`,`ordering`,`rules`) values (1,'Public',0,'[1]');
-insert  into `cwtaq_viewlevels`(`id`,`title`,`ordering`,`rules`) values (2,'Registered',1,'[6,2,8]');
-insert  into `cwtaq_viewlevels`(`id`,`title`,`ordering`,`rules`) values (3,'Special',2,'[6,3,8]');
+LOCK TABLES `yodev_viewlevels` WRITE;
+/*!40000 ALTER TABLE `yodev_viewlevels` DISABLE KEYS */;
+INSERT INTO `yodev_viewlevels` VALUES (1,'Public',0,'[1]'),(2,'Registered',1,'[6,2,8]'),(3,'Special',2,'[6,3,8]'),(5,'Guest',0,'[9]');
+/*!40000 ALTER TABLE `yodev_viewlevels` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cwtaq_weblinks` */
+--
+-- Table structure for table `yodev_weblinks`
+--
 
-DROP TABLE IF EXISTS `cwtaq_weblinks`;
-
-CREATE TABLE `cwtaq_weblinks` (
+DROP TABLE IF EXISTS `yodev_weblinks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_weblinks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `catid` int(11) NOT NULL DEFAULT '0',
-  `sid` int(11) NOT NULL DEFAULT '0',
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `url` varchar(250) NOT NULL DEFAULT '',
   `description` text NOT NULL,
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `hits` int(11) NOT NULL DEFAULT '0',
   `state` tinyint(1) NOT NULL DEFAULT '0',
   `checked_out` int(11) NOT NULL DEFAULT '0',
   `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ordering` int(11) NOT NULL DEFAULT '0',
-  `archived` tinyint(1) NOT NULL DEFAULT '0',
-  `approved` tinyint(1) NOT NULL DEFAULT '1',
   `access` int(11) NOT NULL DEFAULT '1',
   `params` text NOT NULL,
   `language` char(7) NOT NULL DEFAULT '',
@@ -4346,6 +2267,8 @@ CREATE TABLE `cwtaq_weblinks` (
   `xreference` varchar(50) NOT NULL COMMENT 'A reference to enable linkages to external data sets.',
   `publish_up` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `publish_down` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `version` int(10) unsigned NOT NULL DEFAULT '1',
+  `images` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_access` (`access`),
   KEY `idx_checkout` (`checked_out`),
@@ -4356,10 +2279,145 @@ CREATE TABLE `cwtaq_weblinks` (
   KEY `idx_language` (`language`),
   KEY `idx_xreference` (`xreference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cwtaq_weblinks` */
+--
+-- Dumping data for table `yodev_weblinks`
+--
+
+LOCK TABLES `yodev_weblinks` WRITE;
+/*!40000 ALTER TABLE `yodev_weblinks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `yodev_weblinks` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_yoshop_media`
+--
+
+DROP TABLE IF EXISTS `yodev_yoshop_media`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_yoshop_media` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `path` varchar(512) CHARACTER SET latin1 DEFAULT NULL,
+  `path_prev` varchar(512) CHARACTER SET latin1 DEFAULT NULL,
+  `path_large` varchar(512) CHARACTER SET latin1 DEFAULT NULL,
+  `type` tinyint(3) unsigned NOT NULL,
+  `ordering` int(11) NOT NULL DEFAULT '0',
+  `parent_id` int(11) NOT NULL,
+  `is_title` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `yodev_yoshop_media`
+--
+
+LOCK TABLES `yodev_yoshop_media` WRITE;
+/*!40000 ALTER TABLE `yodev_yoshop_media` DISABLE KEYS */;
+INSERT INTO `yodev_yoshop_media` VALUES (93,'7-9606-P9265732.JPG','7-9606-P9265732_100x88.JPG','7-9606-P9265732_1000x879.JPG',1,0,7,0),(94,'7-7110-P9265732.jpg','7-7110-P9265732_100x88.jpg','7-7110-P9265732_1000x878.jpg',1,0,7,0),(95,'7-5250-P9265733.JPG','7-5250-P9265733_100x99.JPG','7-5250-P9265733_1000x987.JPG',1,0,7,0),(96,'7-3307-P9265733.jpg','7-3307-P9265733_100x99.jpg','7-3307-P9265733_1000x987.jpg',1,0,7,0),(97,'7-7061-P9265734.JPG','7-7061-P9265734_75x100.JPG','7-7061-P9265734_750x1000.JPG',1,0,7,0),(98,'7-6466-P9265735.JPG','7-6466-P9265735_75x100.JPG','7-6466-P9265735_750x1000.JPG',1,0,7,0),(99,'8-1459-P9265740.JPG','8-1459-P9265740_75x100.JPG','8-1459-P9265740_750x1000.JPG',1,0,8,0),(100,'8-4312-P9265740.jpg','8-4312-P9265740_75x100.jpg','8-4312-P9265740_750x1000.jpg',1,0,8,0),(101,'8-1601-P9265741.JPG','8-1601-P9265741_100x75.JPG','8-1601-P9265741_1000x750.JPG',1,0,8,1),(102,'8-1528-P9265742.JPG','8-1528-P9265742_96x100.JPG','8-1528-P9265742_963x1000.JPG',1,0,8,0),(103,'8-1826-P9265742.jpg','8-1826-P9265742_96x100.jpg','8-1826-P9265742_963x1000.jpg',1,0,8,0),(110,'12-7719-43608650_w640_h640_img2989.jpg','12-7719-43608650_w640_h640_img2989_100x75.jpg','12-7719-43608650_w640_h640_img2989_1000x750.jpg',1,0,12,1),(111,'13-5634-43687678_w640_h640_img3038.jpg','13-5634-43687678_w640_h640_img3038_87x100.jpg','13-5634-43687678_w640_h640_img3038_871x1000.jpg',1,0,13,1),(112,'14-2225-43689103_w640_h640_img3054.jpg','14-2225-43689103_w640_h640_img3054_87x100.jpg','14-2225-43689103_w640_h640_img3054_873x1000.jpg',1,0,14,1),(113,'15-8880-43689103_w640_h640_img3054.jpg','15-8880-43689103_w640_h640_img3054_87x100.jpg','15-8880-43689103_w640_h640_img3054_873x1000.jpg',1,0,15,0),(114,'16-2195-P9265745.JPG','16-2195-P9265745_100x96.JPG','16-2195-P9265745_1000x958.JPG',1,0,16,1),(115,'16-3320-P9265745.jpg','16-3320-P9265745_100x96.jpg','16-3320-P9265745_1000x957.jpg',1,0,16,0),(116,'17-9312-P9265743.JPG','17-9312-P9265743_99x100.JPG','17-9312-P9265743_991x1000.JPG',1,0,17,1),(117,'17-9893-P9265743.jpg','17-9893-P9265743_99x100.jpg','17-9893-P9265743_991x1000.jpg',1,0,17,0),(118,'18-6942-P9265744.JPG','18-6942-P9265744_100x97.JPG','18-6942-P9265744_1000x972.JPG',1,0,18,1),(119,'19-1415-P9265746.JPG','19-1415-P9265746_100x89.JPG','19-1415-P9265746_1000x894.JPG',1,0,19,1),(120,'19-5057-P9265746.jpg','19-5057-P9265746_100x89.jpg','19-5057-P9265746_1000x894.jpg',1,0,19,0),(121,'35-5111-NIX kayaks route 2013.jpg','35-5111-NIX kayaks route 2013_300x150.jpg','35-5111-NIX kayaks route 2013_1000x499.jpg',1,0,35,0),(122,'35-8462-NIX kayaks route 2013.jpg','35-8462-NIX kayaks route 2013_300x150.jpg','35-8462-NIX kayaks route 2013_1000x499.jpg',1,0,35,0),(123,'35-9148-NIX kayaks route 2013.jpg','35-9148-NIX kayaks route 2013_300x150.jpg','35-9148-NIX kayaks route 2013_1000x499.jpg',1,0,35,0),(124,'35-8304458653.tmp','35-8304458653_300x200.tmp','35-8304458653_1000x667.tmp',1,0,35,1),(125,'7-7148665667.tmp','7-7148665667_300x400.tmp','7-7148665667_1000x1333.tmp',1,0,7,0),(126,'7-4595722128.tmp','7-4595722128_300x225.tmp','7-4595722128_1000x750.tmp',1,0,7,0),(127,'7-7854669367.tmp','7-7854669367_300x275.tmp','7-7854669367_1000x916.tmp',1,0,7,0),(128,'7-6550592480.tmp','7-6550592480_300x225.tmp','7-6550592480_1000x750.tmp',1,0,7,0),(129,'7-3831730601.tmp','7-3831730601_300x181.tmp','7-3831730601_1000x602.tmp',1,0,7,0),(130,'7-2409361141.tmp','7-2409361141_300x209.tmp','7-2409361141_1000x696.tmp',1,0,7,1),(131,'37-3318458361.tmp','37-3318458361_300x225.tmp','37-3318458361_1000x750.tmp',1,0,37,0),(136,'40-4043850849.tmp','40-4043850849_300x225.tmp','40-4043850849_1000x750.tmp',1,0,40,1),(137,'40-8964373835.tmp','40-8964373835_300x225.tmp','40-8964373835_1000x750.tmp',1,0,40,0),(138,'40-9273511115.tmp','40-9273511115_300x225.tmp','40-9273511115_1000x750.tmp',1,0,40,0),(139,'40-4004493848.tmp','40-4004493848_300x225.tmp','40-4004493848_1000x750.tmp',1,0,40,0),(140,'40-9693439924.tmp','40-9693439924_300x225.tmp','40-9693439924_1000x750.tmp',1,0,40,0),(141,'40-7546471980.tmp','40-7546471980_300x225.tmp','40-7546471980_1000x750.tmp',1,0,40,0),(142,'40-1347352209.tmp','40-1347352209_300x225.tmp','40-1347352209_1000x750.tmp',1,0,40,0),(143,'40-2402658293.tmp','40-2402658293_300x225.tmp','40-2402658293_1000x750.tmp',1,0,40,0);
+/*!40000 ALTER TABLE `yodev_yoshop_media` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_yoshop_order`
+--
+
+DROP TABLE IF EXISTS `yodev_yoshop_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_yoshop_order` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `email` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `phone` varchar(20) CHARACTER SET latin1 DEFAULT NULL,
+  `description` text CHARACTER SET latin1,
+  `created_date` datetime NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `last_event_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `yodev_yoshop_order`
+--
+
+LOCK TABLES `yodev_yoshop_order` WRITE;
+/*!40000 ALTER TABLE `yodev_yoshop_order` DISABLE KEYS */;
+INSERT INTO `yodev_yoshop_order` VALUES (10,NULL,'123123123','qweqw@wer.com','13123123',NULL,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00'),(11,NULL,'12313r','123@123.com','123','123123123123123123','0000-00-00 00:00:00',0,'0000-00-00 00:00:00'),(12,NULL,'12313r','123@123.com','123','123123123123123123','2013-11-19 22:30:46',0,'0000-00-00 00:00:00'),(13,NULL,'12313r','123@123.com','123','123123123123123123','2013-11-19 22:33:29',0,'0000-00-00 00:00:00'),(14,NULL,'12313r','','123','123123123123123123','2013-11-19 22:45:02',0,'0000-00-00 00:00:00'),(15,NULL,'12312341c4','','2341431241','','2013-11-19 22:52:21',1,'0000-00-00 00:00:00'),(16,NULL,'12312341c4','','2341431241','','2013-11-19 22:53:24',0,'0000-00-00 00:00:00'),(17,NULL,'er t23tv23v','','523452525','','2013-11-19 22:53:43',0,'0000-00-00 00:00:00'),(18,NULL,'1234123 41','','2341243143','','2013-11-19 23:01:04',0,'0000-00-00 00:00:00'),(19,NULL,'1234141234 1','','123411341','','2013-11-19 23:05:54',0,'0000-00-00 00:00:00'),(20,NULL,'123123123','','1234141','','2013-11-19 23:08:14',0,'0000-00-00 00:00:00'),(21,NULL,'ewrtw etwetwe','','we werwer','','2013-11-19 23:10:43',0,'0000-00-00 00:00:00'),(22,NULL,'wer wvert','','ert wertwert','','2013-11-19 23:11:05',0,'0000-00-00 00:00:00'),(23,NULL,'erwer w','','wer qwerq','','2013-11-19 23:13:05',0,'0000-00-00 00:00:00'),(24,NULL,'13241234134','','1234124134','','2013-11-19 23:21:01',0,'0000-00-00 00:00:00'),(25,NULL,'wrtwertvwetvwe','','1241234','','2013-11-19 23:35:08',0,'0000-00-00 00:00:00'),(26,NULL,'??????','andrealek@gmail.com','1234567879','test desc','2013-11-19 23:36:42',0,'0000-00-00 00:00:00'),(27,NULL,'r wert er twert ','','123123123','','2013-11-19 23:43:59',0,'0000-00-00 00:00:00'),(28,NULL,'qweqweqwe','qwe@qwe.com','123123123','qweasdasdf asdf asf','2013-11-20 23:45:21',0,'0000-00-00 00:00:00'),(29,NULL,'qweqweqwe','qwe@qwe.com','123123123','qweasdasdf asdf asf','2013-11-20 23:47:00',0,'0000-00-00 00:00:00'),(30,NULL,'qweqweqwe','qwe@qwe.com','123123123','qweasdasdf asdf asf','2013-11-20 23:48:55',0,'0000-00-00 00:00:00'),(31,NULL,'qweqweqwe','qwe@qwe.com','123123123','qweasdasdf asdf asf','2013-11-20 23:54:08',0,'0000-00-00 00:00:00'),(32,NULL,'ewrt vwqertwertc','wqre@wqre.com','4123412412','ert wertwetr we','2013-11-20 23:56:05',0,'0000-00-00 00:00:00'),(33,NULL,'ewrt vwqertwertc','wqre@wqre.com','4123412412','ert wertwetr we','2013-11-20 23:56:19',0,'0000-00-00 00:00:00'),(34,NULL,'ewrt vwqertwertc','wqre@wqre.com','4123412412','ert wertwetr we','2013-11-21 00:06:55',0,'0000-00-00 00:00:00'),(35,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:08:31',0,'0000-00-00 00:00:00'),(36,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:10:40',0,'0000-00-00 00:00:00'),(37,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:13:01',0,'0000-00-00 00:00:00'),(38,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:20:00',0,'0000-00-00 00:00:00'),(39,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:21:15',0,'0000-00-00 00:00:00'),(40,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:44:24',0,'0000-00-00 00:00:00'),(41,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:44:34',0,'0000-00-00 00:00:00'),(42,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:46:52',0,'0000-00-00 00:00:00'),(43,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:47:55',0,'0000-00-00 00:00:00'),(44,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:49:47',0,'0000-00-00 00:00:00'),(45,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:50:56',0,'0000-00-00 00:00:00'),(46,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:53:20',0,'0000-00-00 00:00:00'),(47,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:55:35',0,'0000-00-00 00:00:00'),(48,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:56:17',0,'0000-00-00 00:00:00'),(49,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:57:46',0,'0000-00-00 00:00:00'),(50,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:59:12',0,'0000-00-00 00:00:00'),(51,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 00:59:45',0,'0000-00-00 00:00:00'),(52,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:01:42',0,'0000-00-00 00:00:00'),(53,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:03:50',0,'0000-00-00 00:00:00'),(54,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:07:31',0,'0000-00-00 00:00:00'),(55,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:09:16',0,'0000-00-00 00:00:00'),(56,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:15:53',0,'0000-00-00 00:00:00'),(57,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:16:07',0,'0000-00-00 00:00:00'),(58,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:16:37',0,'0000-00-00 00:00:00'),(59,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:17:01',0,'0000-00-00 00:00:00'),(60,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:29:36',0,'0000-00-00 00:00:00'),(61,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:29:59',0,'0000-00-00 00:00:00'),(62,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:30:43',0,'0000-00-00 00:00:00'),(63,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:31:55',0,'0000-00-00 00:00:00'),(64,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:37:41',0,'0000-00-00 00:00:00'),(65,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:40:08',0,'0000-00-00 00:00:00'),(66,NULL,'wer qwer qwer ','qwe@qe.com','1134523456236','dfdfg sdfg sdg s','2013-11-21 01:40:41',0,'0000-00-00 00:00:00'),(67,NULL,'werqwerqewr','qwe@we.com','3465623785623','eruoitwe ueoir uer ','2013-11-22 07:09:21',0,'0000-00-00 00:00:00'),(68,NULL,'werqwerqewr','andreyalek@gmail.com','3465623785623','eruoitwe ueoir uer ','2013-11-22 07:10:05',0,'0000-00-00 00:00:00'),(69,NULL,'werqwerqewr','andreyalek@gmail.com','3465623785623','eruoitwe ueoir uer ','2013-11-22 07:13:15',0,'0000-00-00 00:00:00'),(70,NULL,'werqwerqewr','andreyalek@gmail.com','3465623785623','eruoitwe ueoir uer ','2013-11-22 07:13:21',0,'0000-00-00 00:00:00'),(71,NULL,'werqwerqewr','andreyalek@gmail.com','3465623785623','eruoitwe ueoir uer ','2013-11-22 07:13:39',0,'0000-00-00 00:00:00'),(72,NULL,'werqwerqewr','andreyalek@gmail.com','3465623785623','eruoitwe ueoir uer ','2013-11-22 07:13:58',0,'0000-00-00 00:00:00'),(73,NULL,'rtqwervqw qw tqwrt','andreyalek@gmail.com','123123123',' rodfs gufdug fd gosuog','2013-11-23 18:42:24',0,'0000-00-00 00:00:00'),(74,NULL,'qwr wer','andreyalek@gmail.com','34234523532','gidofjgd fgsd gfjsog sd','2013-11-23 18:46:32',0,'0000-00-00 00:00:00'),(75,NULL,'wet wert wert e','andreyalek@gmail.com','458967394869','e ritoer toieuto isutho','2013-11-23 18:48:10',0,'0000-00-00 00:00:00'),(76,NULL,'wert rh erth ','andreyalek@gmail.com','46592659265',' eroi  eroit wuert uweu to','2013-11-23 18:49:51',0,'0000-00-00 00:00:00'),(77,NULL,'wert rh erth ','andreyalek@gmail.com','46592659265',' eroi  eroit wuert uweu to','2013-11-23 18:53:18',0,'0000-00-00 00:00:00'),(78,NULL,'wert rh erth ','andreyalek@gmail.com','46592659265',' eroi  eroit wuert uweu to','2013-11-23 18:53:52',0,'0000-00-00 00:00:00'),(79,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 18:57:15',0,'0000-00-00 00:00:00'),(80,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 18:59:43',0,'0000-00-00 00:00:00'),(81,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 19:01:35',0,'0000-00-00 00:00:00'),(82,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 19:02:24',0,'0000-00-00 00:00:00'),(83,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 19:13:41',0,'0000-00-00 00:00:00'),(84,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 19:23:52',0,'0000-00-00 00:00:00'),(85,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 19:25:47',0,'0000-00-00 00:00:00'),(86,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 19:26:01',0,'0000-00-00 00:00:00'),(87,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 19:26:11',0,'0000-00-00 00:00:00'),(88,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 19:32:28',0,'0000-00-00 00:00:00'),(89,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 20:32:18',0,'0000-00-00 00:00:00'),(90,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 20:37:58',0,'0000-00-00 00:00:00'),(91,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 21:05:26',0,'0000-00-00 00:00:00'),(92,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 21:07:37',0,'0000-00-00 00:00:00'),(93,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 22:01:36',0,'0000-00-00 00:00:00'),(94,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 22:07:01',0,'0000-00-00 00:00:00'),(95,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-23 22:13:26',0,'0000-00-00 00:00:00'),(96,NULL,'Andrey','','123123132','ert iertiouseoir tusuyois','2013-11-24 01:00:28',0,'0000-00-00 00:00:00'),(97,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-24 01:00:54',0,'0000-00-00 00:00:00'),(98,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-24 01:01:03',0,'0000-00-00 00:00:00'),(99,NULL,'Andrey','andreyalek@gmail.com','123123132','ert iertiouseoir tusuyois','2013-11-24 01:03:35',0,'0000-00-00 00:00:00'),(100,NULL,'Ololo','andreyalek@gmail.com','123123123','qweqweqwe','2013-12-08 17:11:55',0,'0000-00-00 00:00:00'),(101,NULL,'Ololo','andreyalek@gmail.com','123123123','qweqweqwe','2013-12-08 17:12:07',0,'0000-00-00 00:00:00'),(110,NULL,'Ololo','and@rktpowerkt.com','123123123','erwqe er weg','2013-12-08 17:46:28',0,'0000-00-00 00:00:00'),(112,NULL,'Ololo','and@rktpowerkt.com','123123123','erwqe er weg','2013-12-08 17:51:26',0,'0000-00-00 00:00:00'),(113,NULL,'Ololo','and@rktpowerkt.com','123123123','erwqe er weg','2013-12-08 17:54:23',0,'0000-00-00 00:00:00'),(114,NULL,'Ololo','and@rktpowerkt.com','123123123','erwqe er weg','2013-12-08 17:55:46',0,'0000-00-00 00:00:00'),(115,NULL,'Ololo','and@rktpowerkt.com','123123123','erwqe er weg','2013-12-08 17:56:07',0,'0000-00-00 00:00:00'),(116,NULL,'Ololo','and@rktpowerkt.com','123123123','erwqe er weg','2013-12-08 17:57:59',0,'0000-00-00 00:00:00'),(118,NULL,'wertwet wert w','ertw@erter.com','623548273','','2013-12-08 18:01:20',0,'0000-00-00 00:00:00'),(119,NULL,'routwerot','qweqwe@qwe.com','34513248152','','2013-12-08 18:02:27',0,'0000-00-00 00:00:00'),(120,NULL,'ewrwq erw','qweq@wqer.com','345864586','','2013-12-08 18:13:50',1,'2013-12-08 18:13:50'),(121,NULL,'ololo','andreyalek@gmail.com','123123123','ert weirtiweriuweyt yweiut','2013-12-17 22:41:10',1,'2013-12-17 22:41:10'),(122,NULL,'?????????a','andreyalek@gmail.com','34592734572398','er werhgwierghwehg','2013-12-17 23:23:03',1,'2013-12-17 23:23:03'),(123,NULL,'?????????a','andreyalek@gmail.com','34592734572398','er werhgwierghwehg','2013-12-17 23:27:34',1,'2013-12-17 23:27:34'),(124,NULL,'?????????a','andreyalek@gmail.com','34592734572398','er werhgwierghwehg','2013-12-17 23:36:36',1,'2013-12-17 23:36:36'),(125,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-17 23:41:09',1,'2013-12-17 23:41:09'),(126,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-17 23:44:02',1,'2013-12-17 23:44:02'),(127,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-17 23:49:49',1,'2013-12-17 23:49:49'),(128,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-17 23:52:03',1,'2013-12-17 23:52:03'),(129,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-17 23:52:27',1,'2013-12-17 23:52:27'),(130,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-18 00:02:20',1,'2013-12-18 00:02:20'),(131,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-18 00:04:53',1,'2013-12-18 00:04:53'),(132,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-18 00:08:17',1,'2013-12-18 00:08:17'),(133,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-18 00:09:18',2,'2013-12-18 00:09:18'),(134,NULL,'ertwert wet','andreyalek@gmail.com','345824562835','3 42gwergweg','2013-12-18 00:11:05',1,'2013-12-18 00:11:05');
+/*!40000 ALTER TABLE `yodev_yoshop_order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_yoshop_order_product`
+--
+
+DROP TABLE IF EXISTS `yodev_yoshop_order_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_yoshop_order_product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(10) unsigned DEFAULT NULL,
+  `product_id` int(10) unsigned DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `price_base` int(10) unsigned NOT NULL,
+  `count` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=274 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `yodev_yoshop_order_product`
+--
+
+LOCK TABLES `yodev_yoshop_order_product` WRITE;
+/*!40000 ALTER TABLE `yodev_yoshop_order_product` DISABLE KEYS */;
+INSERT INTO `yodev_yoshop_order_product` VALUES (3,10,NULL,'orderproduct','',0,0),(4,10,NULL,'orderproduct','',0,0),(5,11,NULL,'orderproduct','',0,0),(6,11,NULL,'orderproduct','',0,0),(7,12,NULL,'','',100,0),(8,12,NULL,'orderproduct','',0,0),(9,13,NULL,'','',0,0),(10,13,NULL,'','',0,0),(11,14,NULL,'','',0,0),(12,14,NULL,'','',0,0),(13,15,NULL,'','',0,0),(14,15,NULL,'','',0,0),(15,16,NULL,'','',0,0),(16,16,NULL,'','',0,0),(17,17,NULL,'','',0,0),(18,17,NULL,'','',0,0),(19,18,NULL,'','',0,0),(20,18,NULL,'','',0,0),(21,19,NULL,'','',0,0),(22,19,NULL,'','',0,0),(23,20,NULL,'','',0,0),(24,20,NULL,'','',0,0),(25,21,NULL,'','',0,0),(26,21,NULL,'','',0,0),(27,22,NULL,'','',0,0),(28,22,NULL,'','',0,0),(29,23,NULL,'','',0,0),(30,23,NULL,'','',0,0),(31,24,NULL,'','',0,0),(32,24,NULL,'','',0,0),(33,25,NULL,'','',0,0),(34,25,NULL,'','',0,0),(35,26,NULL,'','',0,0),(36,26,NULL,'','',0,0),(37,26,NULL,'','',0,0),(38,26,NULL,'','',0,0),(39,26,NULL,'','',0,0),(40,26,NULL,'','',0,0),(41,26,NULL,'','',0,0),(42,26,NULL,'','',0,0),(43,27,NULL,'','',0,0),(44,27,NULL,'','',0,0),(45,27,NULL,'','',0,0),(46,27,NULL,'','',0,0),(47,27,NULL,'','',0,0),(48,27,NULL,'','',0,0),(49,27,NULL,'','',0,0),(50,27,NULL,'','',0,0),(51,27,NULL,'','',0,0),(52,27,NULL,'','',0,0),(53,28,NULL,'','',0,0),(54,29,NULL,'','',0,0),(55,30,NULL,'','',0,0),(56,31,NULL,'','',0,0),(57,32,NULL,'','',0,0),(58,33,NULL,'','',0,0),(59,34,NULL,'','',0,0),(60,35,NULL,'','',0,0),(61,35,NULL,'','',0,0),(62,36,NULL,'','',0,0),(63,36,NULL,'','',0,0),(64,37,NULL,'','',0,0),(65,37,NULL,'','',0,0),(66,38,NULL,'','',0,0),(67,38,NULL,'','',0,0),(68,39,NULL,'','',0,0),(69,39,NULL,'','',0,0),(70,40,NULL,'','',0,0),(71,40,NULL,'','',0,0),(72,41,NULL,'','',0,0),(73,41,NULL,'','',0,0),(74,42,NULL,'','',0,0),(75,42,NULL,'','',0,0),(76,43,NULL,'','',0,0),(77,43,NULL,'','',0,0),(78,44,NULL,'','',0,0),(79,44,NULL,'','',0,0),(80,45,NULL,'','',0,0),(81,45,NULL,'','',0,0),(82,46,NULL,'','',0,0),(83,46,NULL,'','',0,0),(84,47,NULL,'','',0,0),(85,47,NULL,'','',0,0),(86,48,NULL,'','',0,0),(87,48,NULL,'','',0,0),(88,49,NULL,'','',0,0),(89,49,NULL,'','',0,0),(90,50,NULL,'','',0,0),(91,50,NULL,'','',0,0),(92,51,NULL,'','',0,0),(93,51,NULL,'','',0,0),(94,52,NULL,'','',0,0),(95,52,NULL,'','',0,0),(96,53,NULL,'','',0,0),(97,53,NULL,'','',0,0),(98,54,NULL,'','',0,0),(99,54,NULL,'','',0,0),(100,55,NULL,'','',0,0),(101,55,NULL,'','',0,0),(102,56,NULL,'','',0,0),(103,56,NULL,'','',0,0),(104,57,NULL,'','',0,0),(105,57,NULL,'','',0,0),(106,58,NULL,'','',0,0),(107,58,NULL,'','',0,0),(108,59,NULL,'','',0,0),(109,59,NULL,'','',0,0),(110,60,NULL,'','',0,0),(111,60,NULL,'','',0,0),(112,61,NULL,'','',0,0),(113,61,NULL,'','',0,0),(114,62,NULL,'','',0,0),(115,62,NULL,'','',0,0),(116,63,NULL,'','',0,0),(117,63,NULL,'','',0,0),(118,64,NULL,'','',0,0),(119,64,NULL,'','',0,0),(120,65,NULL,'','',0,0),(121,65,NULL,'','',0,0),(122,66,NULL,'','',0,0),(123,66,NULL,'','',0,0),(124,67,NULL,'','',0,0),(125,67,NULL,'','',0,0),(126,67,NULL,'','',0,0),(127,68,NULL,'','',0,0),(128,68,NULL,'','',0,0),(129,68,NULL,'','',0,0),(130,69,NULL,'','',0,0),(131,69,NULL,'','',0,0),(132,69,NULL,'','',0,0),(133,70,NULL,'','',0,0),(134,70,NULL,'','',0,0),(135,70,NULL,'','',0,0),(136,71,NULL,'','',0,0),(137,71,NULL,'','',0,0),(138,71,NULL,'','',0,0),(139,72,NULL,'','',0,0),(140,72,NULL,'','',0,0),(141,72,NULL,'','',0,0),(142,73,NULL,'','',0,0),(143,73,NULL,'','',0,0),(144,73,NULL,'','',0,0),(145,73,NULL,'','',0,0),(146,74,NULL,'','',0,0),(147,74,NULL,'','',0,0),(148,74,NULL,'','',0,0),(149,74,NULL,'','',0,0),(150,75,NULL,'','',0,0),(151,75,NULL,'','',0,0),(152,75,NULL,'','',0,0),(153,75,NULL,'','',0,0),(154,76,NULL,'','',0,0),(155,76,NULL,'','',0,0),(156,76,NULL,'','',0,0),(157,76,NULL,'','',0,0),(158,77,NULL,'','',0,0),(159,77,NULL,'','',0,0),(160,77,NULL,'','',0,0),(161,77,NULL,'','',0,0),(162,78,NULL,'','',0,0),(163,78,NULL,'','',0,0),(164,78,NULL,'','',0,0),(165,78,NULL,'','',0,0),(166,79,NULL,'','',0,0),(167,79,NULL,'','',0,0),(168,79,NULL,'','',0,0),(169,79,NULL,'','',0,0),(170,80,NULL,'','',0,0),(171,80,NULL,'','',0,0),(172,80,NULL,'','',0,0),(173,80,NULL,'','',0,0),(174,81,NULL,'','',0,0),(175,81,NULL,'','',0,0),(176,81,NULL,'','',0,0),(177,81,NULL,'','',0,0),(178,82,NULL,'','',0,0),(179,82,NULL,'','',0,0),(180,82,NULL,'','',0,0),(181,82,NULL,'','',0,0),(182,83,NULL,'','',0,0),(183,83,NULL,'','',0,0),(184,83,NULL,'','',0,0),(185,83,NULL,'','',0,0),(186,84,NULL,'','',0,0),(187,84,NULL,'','',0,0),(188,84,NULL,'','',0,0),(189,84,NULL,'','',0,0),(190,85,NULL,'','',0,0),(191,85,NULL,'','',0,0),(192,85,NULL,'','',0,0),(193,85,NULL,'','',0,0),(194,86,NULL,'','',0,0),(195,86,NULL,'','',0,0),(196,86,NULL,'','',0,0),(197,86,NULL,'','',0,0),(198,87,NULL,'','',0,0),(199,87,NULL,'','',0,0),(200,87,NULL,'','',0,0),(201,87,NULL,'','',0,0),(202,88,NULL,'','',0,0),(203,88,NULL,'','',0,0),(204,88,NULL,'','',0,0),(205,88,NULL,'','',0,0),(206,89,NULL,'','',0,0),(207,89,NULL,'','',0,0),(208,89,NULL,'','',0,0),(209,89,NULL,'','',0,0),(210,90,NULL,'','',0,0),(211,90,NULL,'','',0,0),(212,90,NULL,'','',0,0),(213,90,NULL,'','',0,0),(214,91,NULL,'','',0,0),(215,91,NULL,'','',0,0),(216,91,NULL,'','',0,0),(217,91,NULL,'','',0,0),(218,92,NULL,'','',0,0),(219,92,NULL,'','',0,0),(220,92,NULL,'','',0,0),(221,92,NULL,'','',0,0),(222,93,NULL,'','',0,0),(223,93,NULL,'','',0,0),(224,93,NULL,'','',0,0),(225,93,NULL,'','',0,0),(226,94,NULL,'','',0,0),(227,94,NULL,'','',0,0),(228,94,NULL,'','',0,0),(229,94,NULL,'','',0,0),(230,95,NULL,'','',0,0),(231,95,NULL,'','',0,0),(232,95,NULL,'','',0,0),(233,95,NULL,'','',0,0),(234,96,NULL,'','',0,0),(235,96,NULL,'','',0,0),(236,96,NULL,'','',0,0),(237,96,NULL,'','',0,0),(238,97,NULL,'','',0,0),(239,97,NULL,'','',0,0),(240,97,NULL,'','',0,0),(241,97,NULL,'','',0,0),(242,98,NULL,'','',0,0),(243,98,NULL,'','',0,0),(244,98,NULL,'','',0,0),(245,98,NULL,'','',0,0),(246,99,NULL,'','',0,0),(247,99,NULL,'','',0,0),(248,99,NULL,'','',0,0),(249,99,NULL,'','',0,0),(250,NULL,NULL,'','',100,0),(251,113,7,'','',100,0),(252,114,7,'','',100,0),(253,115,7,'','',100,0),(254,116,7,'','',100,0),(255,118,7,'','',100,1),(256,119,7,'','',100,1),(257,119,8,'','',90,1),(258,119,12,'','',85,1),(259,120,8,'','',90,1),(260,121,8,'','',90,1),(261,122,7,'Скайп','',100,1),(262,123,7,'Скайп','',100,1),(263,124,7,'Скайп','',100,1),(264,125,7,'Скайп','',100,1),(265,126,7,'Скайп','',100,1),(266,127,7,'Скайп','',100,1),(267,128,7,'Скайп','',100,1),(268,129,7,'Скайп','',100,1),(269,130,7,'Скайп','',100,1),(270,131,7,'Скайп','',100,1),(271,132,7,'Скайп','',100,1),(272,133,7,'Скайп','',100,1),(273,134,7,'Скайп','',100,1);
+/*!40000 ALTER TABLE `yodev_yoshop_order_product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `yodev_yoshop_product`
+--
+
+DROP TABLE IF EXISTS `yodev_yoshop_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `yodev_yoshop_product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ordering` int(11) NOT NULL,
+  `state` tinyint(1) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `price_base` int(10) unsigned NOT NULL,
+  `count` int(11) NOT NULL,
+  `category` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `yodev_yoshop_product`
+--
+
+LOCK TABLES `yodev_yoshop_product` WRITE;
+/*!40000 ALTER TABLE `yodev_yoshop_product` DISABLE KEYS */;
+INSERT INTO `yodev_yoshop_product` VALUES (7,3,0,0,'Скайп','',100,0,11),(8,4,0,0,'','',90,0,11),(12,8,0,0,'','',85,0,11),(13,9,0,0,'','',60,0,11),(14,10,0,0,'','',100,0,11),(15,11,-2,0,'','',599,0,11),(16,12,0,0,'','',40,0,11),(17,13,0,0,'','',150,0,11),(18,14,0,0,'','',170,0,11),(19,15,0,0,'Шапочка в полоску','Прикольная молодежная шпка коричнево-черная. Зимняя. Подкладка - флис.',80,0,11),(20,16,-5,0,'','',0,0,NULL),(22,17,-5,0,'','',0,0,NULL),(23,18,-5,0,'','',0,0,NULL),(24,19,-5,0,'','',0,0,NULL),(25,20,-5,0,'','',0,0,NULL),(26,21,-2,0,'','',0,0,NULL),(27,22,-2,477,'','',0,0,NULL),(28,23,-5,477,'','',0,0,NULL),(29,24,-5,477,'','',0,0,NULL),(30,25,-5,477,'','',0,0,NULL),(31,26,-5,477,'','',0,0,NULL),(32,27,-5,477,'','',0,0,NULL),(33,28,-5,477,'','',0,0,NULL),(34,29,-5,477,'','',0,0,NULL),(35,30,0,477,'','',0,0,19),(36,31,-5,477,'','',0,0,NULL),(37,32,-5,477,'','',0,0,NULL),(38,33,-5,477,'','',0,0,NULL),(39,34,-5,477,'','',0,0,NULL),(40,35,0,477,'Футболка-подушка','',80,0,14);
+/*!40000 ALTER TABLE `yodev_yoshop_product` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-09-03 22:23:22

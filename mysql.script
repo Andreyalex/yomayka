@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS `yomayka_dev`;
+GRANT ALL ON `yomayka_dev`.* TO yomayka@localhost identified by 'yomayka123';
