@@ -44,6 +44,8 @@ then
     echo "SET PERMISSIONS TO PROJECT SOURCES"
     sudo chmod 0755 -R ./src
     sudo chmod 0775 -R ./src/configuration.php
+    sudo chmod 0775 -R ./src/cache
+    sudo chmod 0775 -R ./src/administrator/cache
     sudo chmod 0775 -R ./src/logs
     sudo chmod 0775 -R ./src/tmp
     sudo chown andrey:www-data -R ./src
