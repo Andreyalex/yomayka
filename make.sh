@@ -27,7 +27,7 @@ then
 fi
 
 
-if [ "$setNginx" -eq ]
+if [ "$setNginx" -eq 1 ]
 then
     echo
     echo "ADD VIRTUAL SERVER TO NGINX"
