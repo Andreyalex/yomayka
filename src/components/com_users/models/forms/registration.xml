@@ -4,9 +4,9 @@
 		label="COM_USERS_REGISTRATION_DEFAULT_LABEL"
 	>
 
-		<field name="spacer" type="spacer" class="text"
-				label="COM_USERS_REGISTER_REQUIRED"
-			/>
+		<!--<field name="spacer" type="spacer" class="text"-->
+				<!--label="COM_USERS_REGISTER_REQUIRED"-->
+			<!--/>-->
 
 		<field name="name" type="text"
 			description="COM_USERS_REGISTER_NAME_DESC"

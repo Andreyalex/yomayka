@@ -1,0 +1,11 @@
+<?php
+
+namespace YoTest;
+
+class Factory {
+
+    public static function __callStatic($methodName)
+    {
+        return JFactory::$methodName();
+    }
+}

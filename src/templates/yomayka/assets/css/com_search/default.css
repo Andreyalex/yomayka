@@ -1,0 +1,54 @@
+
+.search-component #searchForm {
+    width: 410px;
+    margin: 0 auto;
+}
+
+.search-component #searchForm .only .control-group {
+    float: left;
+    margin-top: 0 !important;
+    width: 49%;
+}
+
+.search-component #searchForm .only .control-group .controls {
+    margin-left: 225px;
+}
+
+.search-component #searchForm .only .control-group .controls label {
+    padding-top: 0;
+}
+
+.search-component .submit-group {
+    text-align: center;
+    margin: 40px 0 0px;
+}
+
+.search-component  .accordion-group {
+    border: none;
+}
+.search-component .accordion-toggle {
+    font-size: 20px;
+    margin-left: -15px;
+}
+
+.search-component .search-results .row-fluid {
+    margin-top:20px
+}
+
+.search-component .result-title {
+    float: left;
+    margin: 0;
+}
+
+.search-component .result-category {
+    float: left;
+    margin: 8px 0 0 20px;
+}
+
+.search-component .result-category span {
+    padding: 5px 10px;
+}
+
+.search-component .result-text {
+    clear: both;
+}

@@ -1,0 +1,62 @@
+#header ul.mod-menucss {
+    padding:0;
+    margin:0;
+    height: 44px;
+    background-color: black;
+}
+
+#header ul.mod-menucss li{
+    position: relative;
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding:0;
+} 
+
+#header ul.mod-menucss li > a {
+    transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+}
+
+#header ul.mod-menucss li.active > a {
+    background-color: #EBEFF1 !important;
+}    
+
+#header ul.mod-menucss li.active > a span {
+    background-color: #EBEFF1 !important;
+    color: #626262 !important;
+}    
+
+#header ul.mod-menucss li a:hover {
+    background-color: #626262;
+}    
+
+#header ul.mod-menucss li a span {
+    color: #fff;
+    display: inline-block;
+}    
+
+#header ul.mod-menucss ul{
+    position: absolute;
+    top: 44px;
+    visibility:hidden;
+    z-index:65535;    
+    background-color: black;
+    border-radius: 0 0 2px 2px;
+} 
+
+#header ul.mod-menucss li:hover ul{
+    visibility:visible;
+} 
+
+#header ul.mod-menucss li a{
+    margin: 2px;
+    height: 40px;
+    display: block;
+    text-decoration:none;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 2px;
+} 

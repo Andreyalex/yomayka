@@ -1,0 +1,4 @@
+#pos-apex-right .module.modtype-mod_login-buttonlink,
+#pos-apex-right .module.modtype-mod_login-buttonlink > * {
+    display: inline-block;
+}
