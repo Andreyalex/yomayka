@@ -73,7 +73,6 @@ class YoViewHelperHtml
             'id'          => $fieldElement->id,
             'value'       => $fieldElement->value,
             'label'       => $fieldElement->title,
-            'type'        => $fieldElement->type,
             'name'        => $fieldElement->name,
             'class'       => $fieldElement->class,
             'size'        => $fieldElement->size,
@@ -84,6 +83,17 @@ class YoViewHelperHtml
         if (trim($fieldElement->input) == '') {
             $options['input'] = '';
         }
+
+        return self::renderControl($options);
+    }
+
+    public static function renderDataAsControl($label, $value)
+    {
+        $options = array(
+            'value'       => $value,
+            'label'       => JText::_($label),
+            'disabled'    => true
+        );
 
         return self::renderControl($options);
     }
@@ -106,9 +116,13 @@ class YoViewHelperHtml
 
     public static function renderControl($options)
     {
-        $input = !isset($options['input'])? '<input class="form-control" name="{name}" type="{type}" id="{id}" placeholder="{placeholder}" value="{value}" {required} />' : $options['input'];
+        $input = !isset($options['input'])? '<input class="form-control" name="{name}" type="{type}" id="{id}" placeholder="{placeholder}" value="{value}" {required} {disabled} />' : $options['input'];
 
         $req = $options['required']? ' <span class="text-danger">*</span>' : '';
+
+        if ($options['disabled'] === true) {
+            $options['disabled'] = 'disabled="disabled"';
+        }
 
         $tpl = '
             <div class="form-group">
