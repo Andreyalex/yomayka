@@ -16,11 +16,11 @@ JHtml::_('behavior.keepalive');
     
     <div class="btn-group">
          <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
-            <?php if($params->get('name') == 0) { {
+            <?php if($params->get('name') == 0) {
                 echo JText::_($user->get('name'));
-            } else : {
+            } else  {
                 echo JText::_($user->get('username'));
-            } } ?>
+            } ?>
             <span class="caret"></span>
         </a>
         <div class="dropdown-menu">    
@@ -43,7 +43,7 @@ JHtml::_('behavior.keepalive');
     
 
 
-<?php else : ?>
+<?php } else { ?>
     <div class="btn-group">
       <a class="btn btn-success dropdown-toggle" href="#mod_loginModal" role="button" data-toggle="modal">
         <?php echo JText::_('JLOGIN') ?>

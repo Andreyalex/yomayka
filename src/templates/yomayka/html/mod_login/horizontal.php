@@ -14,32 +14,32 @@ JHtml::_('behavior.keepalive');
 
 <form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" method="post" id="login-form" class="form-horizontal">
 	<?php if ($params->get('greeting')) { ?>
-    
+
     <div class="btn-group">
         <button class="btn btn-primary">
-            <?php if($params->get('name') == 0) { {
+            <?php if($params->get('name') == 0) {
                 echo JText::_($user->get('name'));
-            } else : {
+            } else  {
                 echo JText::_($user->get('username'));
-            } } ?>
+            } ?>
         </button>
         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
             <span class="caret"></span>
         </button>
-        <div class="dropdown-menu">    
+        <div class="dropdown-menu">
             <div class="logout-button">
                 <input type="submit" name="Submit" class="button btn btn-primary" value="<?php echo JText::_('JLOGOUT'); ?>" />
                 <input type="hidden" name="option" value="com_users" />
                 <input type="hidden" name="task" value="user.logout" />
                 <input type="hidden" name="return" value="<?php echo $return; ?>" />
-                <?php echo JHtml::_('form.token'); ?> 
+                <?php echo JHtml::_('form.token'); ?>
             </div>
         </div>
-    </div>    
+    </div>
     <?php } ?>
-        
+
 </form>
-<?php else : ?>
+<?php } else { ?>
 <form id="login-form" class="form-horizontal" action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" method="post">
 	<?php if ($params->get('pretext')) { ?>
 	<div class="pretext pull-left">
@@ -49,7 +49,7 @@ JHtml::_('behavior.keepalive');
 
         <input id="modlgn-username" type="text" name="username" class="inputbox input-medium"  size="18" />
         <input id="modlgn-passwd" type="password" name="password" class="inputbox input-medium" size="18"  />
-    
+
         <div class="btn-group">
     		<button class="btn btn-primary" onclick="this.form.submit()"><?php echo JText::_('JLOGIN') ?></button>
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -75,7 +75,7 @@ JHtml::_('behavior.keepalive');
                 </ul>
             </div>
         </div>
-    
+
 		<input type="hidden" name="option" value="com_users" />
 		<input type="hidden" name="task" value="user.login" />
 		<input type="hidden" name="return" value="<?php echo $return; ?>" />
