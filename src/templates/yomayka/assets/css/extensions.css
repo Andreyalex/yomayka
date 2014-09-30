@@ -1,0 +1,400 @@
+/*
+ * Contains styles for specific modules in specific position/page.
+ */
+
+
+
+
+
+/* mod_menu */
+
+.role-menu-top {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.role-menu-top .navbar-default {
+    background: none;
+    border: none;
+}
+
+.role-menu-top .container-fluid,
+.role-menu-top .container-fluid .navbar-collapse
+{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.role-menu-top .navbar {
+    margin-bottom: 0;
+}
+
+.role-menu-top .navbar .navbar-inner {
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    filter: none;
+}
+
+.role-menu-top .nav {
+    padding: 0px;
+    margin: 0px;
+}
+
+.role-menu-top .nav li > a {
+    margin-left: 40px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.role-menu-top li a {
+
+    font-size: 24px;
+    font-weight: 300;
+    font-family: 'Eurofurencelight', 'Open Sans Condensed', Helvetica, Arial, sans-serif;
+    line-height: 64px;
+    text-shadow: none;
+    padding: 0 0 10px;
+    margin: 0 0 -1px 30px;
+    color: #888888;
+    text-decoration: none;
+    background: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    text-shadow: 1px 0 1px #ddd;
+}
+
+.role-menu-top li.current a {
+    color: #000000;
+    /*border-bottom: 2px solid #008800;*/
+    background-color: transparent !important;
+    background: url("images/current-menu.png") center bottom no-repeat;
+}
+
+.role-menu-top ul li a,
+.role-menu-top ul li a:hover,
+.role-menu-top ul li a:focus
+{
+    background: none;
+}
+
+.role-menu-top ul li a:hover,
+.role-menu-top ul li a:focus
+{
+    color: #333333;
+}
+
+.role-menu-top ul.open li.active a,
+.role-menu-top ul.open li.current a {
+    background: none !important;
+}
+
+.role-menu-top li.open a {
+    color: #333333;
+    /*border-bottom: 2px solid #008800;*/
+    background: url("images/current-menu-filled.png") center bottom no-repeat !important;
+}
+
+
+
+
+
+
+
+
+
+
+/* mod_menu Submenu */
+
+/* IT */
+.menuitem.alias-it .icon:before {
+    content: "\f099";
+}
+/* Cool */
+.menuitem.alias-cool .icon:before {
+    content: "\f0c2";
+}
+/* Glamour */
+.menuitem.alias-glamour .icon:before {
+    content: "\f006";
+}
+/* Pets */
+.menuitem.alias-pets .icon:before {
+    content: "\f08a";
+}
+/* Furniture */
+.menuitem.alias-furniture .icon:before {
+    content: "\f0c8";
+}
+/* Auto */
+.menuitem.alias-auto .icon:before {
+    content: "\f0d1";
+}
+
+.role-menu-top-sub {
+    position: relative;
+}
+
+.role-menu-top-sub .module-content {
+    /*position: absolute;*/
+    overflow: hidden;
+    width: 100%;
+}
+
+.role-menu-top-sub .groups-container {
+    margin: 0;
+    margin-top: -105px;
+    padding: 0px;
+    overflow: hidden;
+    /*background-color: #f9f9f9;*/
+    transition: margin-top 0.5s;
+    clear: both;
+}
+
+.role-menu-top-sub .groups-container.open {
+    margin-top: 0;
+}
+
+.role-menu-top-sub .group {
+    display: none;
+    margin: 0;
+}
+
+.role-menu-top-sub .group.open {
+    display: block;
+}
+
+.role-menu-top-sub li {
+    float: left;
+    width: 16.53%;
+    /*height: 70px;*/
+    text-align: center;
+    margin: 20px 20px 15px;
+    display: block;
+}
+
+.role-menu-top-sub li a {
+    line-height: 34px;
+    display: block;
+}
+
+.role-menu-top-sub li .icon {
+    /*line-height: 42px;*/
+    font-size: 42px;
+    /*height: 42px;*/
+    display: block;
+
+    transition: font-size 0.2s;
+    transition: color 0.2s;
+    font-family: 'FontAwesome';
+}
+
+.role-menu-top-sub li .text {
+    font-size: 27px;
+    text-shadow: 0 0 1px rgba(0,0,0,0.1);
+    font-family: 'Eurofurencelight', 'Open Sans Condensed';
+    line-height: 20px;
+}
+
+
+.role-menu-top-sub li .icon,
+.role-menu-top-sub li .text {
+    /*color: #7dabd1;*/
+    color: #333333;
+}
+
+.role-menu-top-sub li:hover .icon,
+.role-menu-top-sub li:hover .text {
+    color: #7dabd1;
+}
+
+.role-menu-top-sub li:hover .icon {
+    font-size: 48px;
+}
+
+.role-menu-top-sub li.active .text {
+    /*border-bottom: 2px solid #008800;*/
+}
+
+#footer .socials .item {
+    font-size: 0px;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+/* mod_menu Submenu items dimensions */
+.role-menu-top-sub .group.items-count-6 .menuitem {
+    width: 13.2%;
+}
+
+.role-menu-top-mobile {
+    padding-top: 12px;
+    margin-bottom: 0px;
+    clear: both;
+}
+
+@media(max-width:679px){
+
+    .role-menu-top-mobile {
+        margin-top: -50px;
+        float: right;
+    }
+}
+
+.role-menu-top-mobile .navbar {
+    margin-bottom: 0;
+}
+
+.role-menu-top-mobile .navbar .navbar-inner {
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    filter: none;
+}
+
+.role-menu-top-mobile .nav {
+    padding: 0px;
+    margin: 0px;
+}
+
+.role-menu-top-mobile li a,
+.role-menu-top-mobile li.current a,
+.role-menu-top-mobile li.active a,
+.role-menu-top-mobile li a:hover {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: #000000 !important;
+    border-radius: 0px !important;
+}
+
+.role-menu-top-mobile li.current > a,
+.role-menu-top-mobile li.active > a {
+    background: url(images/current-menu-mobile.png) center left no-repeat !important;
+}
+
+.role-menu-top-mobile li a {
+
+    font-size: 24px;
+    font-weight: 300;
+    font-family: 'Eurofurencelight', 'Open Sans Condensed', Helvetica, Arial, sans-serif;
+    line-height: 30px;
+    text-shadow: none;
+    padding-left: 30px !important;
+    margin: 0;
+    color: #888888;
+    text-decoration: none;
+    background: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    text-shadow: 1px 0 1px #ddd;
+}
+
+.role-menu-top-mobile .btn-navbar {
+    padding: 15px 20px;
+    margin-right: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+/* social nets module */
+.modtype-mod_custom.social a {
+    margin: 23px 0 0 23px;
+    display: block;
+    white-space: nowrap;
+}
+
+.modtype-mod_custom.social a img {
+    height: 16px;
+    width: 16px;
+}
+
+.modtype-mod_custom.social a span {
+    color: #ccc;
+    padding-left: 4px;
+}
+
+@media (max-width:979px) {
+
+    .modtype-mod_custom.social a {
+        margin: 10px 0 0 20px;
+        display: block;
+    }
+
+    .modtype-mod_custom.social a img {
+        height: 32px;
+        width: 32px;
+    }
+
+    .modtype-mod_custom.social a span {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+/* mod_serch on header */
+#apex .modtype-mod_search {
+    margin-top: 0px;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+@media (max-width:679px) {
+
+    #apex .modtype-mod_search {
+        margin-right: 50px;
+    }
+}
+
+#apex .modtype-mod_search-searchglass .search-module {
+    position: relative;
+    text-align: right;
+}
+
+#apex .modtype-mod_search-searchglass .inputbox {
+    padding-right: 30px;
+    border-radius: 0px;
+}
+
+#apex .modtype-mod_search-searchglass button {
+    border: none;
+    background: transparent;
+    height: 30px;
+    width: 30px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+

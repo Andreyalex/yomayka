@@ -1,4 +1,341 @@
-#pos-apex-right .module.modtype-mod_login-buttonlink,
-#pos-apex-right .module.modtype-mod_login-buttonlink > * {
-    display: inline-block;
+/**
+  * Contains
+  *  - common css for HTML elements
+  *  - css for blocks and some elements of the layout.
+  * It's not for modules styles.
+  */
+
+/* font */
+/*@font-face{
+  font-family:'FontAwesome';
+  src:url('../fonts/awesome/fontawesome-webfont.eot?v=3.0.1');
+  src:url('../fonts/awesome/fontawesome-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'),
+  url('../fonts/awesome/fontawesome-webfont.woff?v=3.0.1') format('woff'),
+  url('../fonts/awesome/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
+  font-weight:normal;
+  font-style:normal
+}*/
+
+body, html {
+    height: 100%;
+}
+
+body {
+    color: #222;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    background: url("../img/bkg-crack.jpg");
+}
+
+@media (max-width:767px) {
+    body {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    display: table-cell;
+    font-weight: 300;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* Defining of outer main elements of layout */
+#overall {
+    min-height: 100%;
+    position: relative;
+    /*overflow-x: hidden;*/
+    margin: 0;
+}
+
+#apex {
+    /*background: url("../img/body-bkg.png") repeat center center #ffffff;*/
+}
+
+#pos-apex-right {
+    padding-top: 20px;
+    text-align: right;
+}
+
+@media (max-width: 679px) {
+    #pos-apex-left {
+        float: none;
+    }
+
+    #pos-apex-left .modrole-logo .custom {
+        text-align: center;
+    }
+
+    #pos-apex-right {
+        padding-top: 0px;
+        float: none;
+        text-align: center;
+    }
+}
+
+
+#non-footer {
+    padding-bottom: 100px;
+}
+
+#footer {
+    min-width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+#layout {
+    /*background: url("../img/layout-shadow.png") repeat-x top center transparent;*/
+    /*background: #ffffff;*/
+}
+
+@media (max-width:779px) {
+    .layout-case > * {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (min-width:980px) {
+    #apex {
+        left: 0;
+        /*position: fixed;*/
+        right: 0;
+        top: 0;
+        z-index: 1030;
+    }
+
+    #apex-spacer {
+        /*height: 110px;*/
+    }
+
+}
+
+@media (max-width:479px) {
+    #apex .moduletable.mod-logo {
+        display: block;
+        margin: auto;
+        float: none;
+        clear: both;
+        width: 170px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+}
+
+#pos-apex-top {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /*    box-shadow: 0 5px 5px #000000 inset;
+        -moz-box-shadow: 0 5px 5px #000000 inset;
+        -webkit-box-shadow: 0 5px 5px #000000 inset;
+
+        background: url("../img/apex-top-bkg.png") repeat top left #222222;*/
+}
+
+#pos-apex-middle {
+    /*border-bottom: 1px solid #ffffff;*/
+    border-bottom: 1px solid #bed5e8;
+    background: #fcfdfe;
+    position: relative;
+    z-index: 200;
+}
+
+#pos-apex-bottom {
+    /*background-color: #f1f6fa;*/
+    background-color: #dfeaf3;
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #bed5e8;
+    margin-top: -5px;
+    z-index: 100;
+}
+
+/* Addons for framework */
+
+.content-only {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+#main_place {
+    opacity: 0;
+    transition: opacity 1s;
+    -webkit-transition: opacity 0.5s; /* Safari */
+}
+
+#main_place.layout-case .container {
+    /*padding-top: 40px;*/
+}
+
+* > .page-header:first-child {
+    margin-top: 0;
+}
+
+.item-page, .blog .item {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Footer styling */
+#footer {
+    border-top: 1px solid #bed5e8;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    min-height: 60px;
+    /*background: url("../img/apex-top-bkg.png") repeat top left #222222;*/
+    background: #fcfdfe;
+    /*color: #fff;*/
+    font-size: 20px;
+    font-family: 'Eurofurencelight';
+
+}
+
+#footer > * {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.form-horizontal .control-group label {
+    float: left;
+    max-width: 160px;
+}
+
+a.btn-success {
+    color: #ffffff;
+}
+
+.control-group .star {
+    color: red;
+}
+
+[class*="icon-"] {
+    background-image: none !important;
+}
+
+.iconfont {
+    font-family: 'FontAwesome'
+}
+
+#apex .logo {
+    font-size: 60px;
+    letter-spacing: 1px;
+    line-height: 122px;
+    font-weight: 800;
+    text-shadow: 0px 0px 1px #fff;
+    color: #333;
+    font-family: 'Eurofurencelight';
+}
+
+.page-header {
+    padding-bottom: 0;
+    overflow: hidden;
+    border-bottom: none;
+    margin: 0;
+}
+
+.page-header > * {
+    color: #bed5e8;
+    margin-top: 20px;
+    display: block;
+    overflow: hidden;
+    float: left;
+}
+
+.page-header .icon {
+    float: left;
+    line-height: 50px;
+    /*font-size: 60px;*/
+    font-size: 32px;
+    margin-right: 20px;
+    color: #bed5e8;
+}
+
+.page-header .content {
+    float: left;
+    line-height: 50px;
+    /*font-size: 60px;*/
+    font-size: 32px;
+    margin-right: 20px;
+    font-weight: 300;
+    font-family: 'TickerTape', 'Open Sans Condensed', Helvetica, Arial, sans-serif;
+    color: #bed5e8;
+}
+
+.page-header.open .category-title .control:before {
+    content: "\f078";
+}
+
+.page-header .category-title .icon {
+    font-family: 'FontAwesome';
+}
+
+.messenger {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    display: none;
+    transition: opacity 1s;
+    opacity: 0;
+}
+
+.messenger.visible {
+    display: none;
+    opacity: 1;
+}
+
+form.form-validate textarea.invalid,
+form.form-validate input.invalid {
+    border: 1px solid red;
+}
+
+.page-message {
+    font-family: 'Eurofurencelight', 'Open Sans Condensed', Helvetica, Arial, sans-serif;
+    color: #66cc66;
+    font-size: 30px;
+    font-weight: 100;
+    text-align: center;
+    line-height: 40px;
+}
+
+.page-message .page-message-error {
+    color: #dd7777;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+#header-top {
+    border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    -webkit-border-radius: 0 0 4px 4px;
+
+    background-color: #f4f4f4;
+
+    marjshopgin-bottom: 20px;
+}
+
+.breadcrumb {
+    background-color: transparent;
+}
+
+/* Logo module */
+#apex .modrole-logo a {
+    font-family: 'Eurofurencelight', 'Open Sans Condensed', Helvetica, Arial, sans-serif;
+    font-size: 80px;
+    font-weight: 600;
+    line-height: 120px;
+    color: #666666;
+    text-shadow: 0px 0px 1px #666666, -1px 1px 0px #444444, 1px 1px 0px #444444;
+}
+
+#inner_content_place {
+    margin-top: 20px;
 }

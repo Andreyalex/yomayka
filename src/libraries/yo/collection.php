@@ -102,9 +102,21 @@ class YoCollection implements ArrayAccess, Iterator, Countable
 
                 $parts = explode('Model', $this->_rowClass);
 
-                $this->_collection[$idx] = ($parts[0] == 'Yo')?
-                    $this->di->createModel($parts[1], 'YoModel', array('state' => new JObject($item))) :
-                    new $this->_rowClass($item);
+                JModelLegacy::addIncludePath(
+                    JPATH_SITE.'/components/com_'.strtolower($parts[0]).'/models',
+                    $parts[0].'Model'
+                );
+
+                JModelLegacy::addIncludePath(
+                    JPATH_ADMINISTRATOR.'/components/com_'.strtolower($parts[0]).'/models',
+                    $parts[0].'Model'
+                );
+
+                $this->_collection[$idx] = JModelLegacy::getInstance(
+                    $parts[1],
+                    $parts[0].'Model',
+                    array('state' => new JObject($item))
+                );
             }
         }
 

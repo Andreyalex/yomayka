@@ -11,6 +11,6 @@
 // No direct access
 defined('_JEXEC') or die;
 
-class YoshopController extends YoshopControllerAbstract
+class YoshopController extends YoControllerAbstract
 {
 }

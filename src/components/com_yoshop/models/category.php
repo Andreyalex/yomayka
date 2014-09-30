@@ -16,7 +16,7 @@ jimport('joomla.event.dispatcher');
 /**
  * Yoshop model.
  */
-class YoshopModelCategory extends YoshopModelForm
+class YoshopModelCategory extends YoModelForm
 {
 
     var $_item = null;
@@ -256,7 +256,7 @@ class YoshopModelCategory extends YoshopModelForm
         $res[] = $cid;
 
         /** @var YoshopModelProducts $products */
-        $products = $this->di->createModel('products');
+        $products = JModelLegacy::getInstance('Products', 'YoshopModel');
         $products->setState('filter.categories', $res);
         $res = $products->getItems();
         if ($res === false) {

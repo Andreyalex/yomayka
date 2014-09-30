@@ -9,6 +9,14 @@
 
 defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
+$input = JFactory::getApplication()->input;
+
+$tab = $input->get('sub1')? $input->get('sub1') : 'profile';
+
+$pageUrl = JRoute::_('index.php?option=com_users&view=profile', false);
+
+JHtml::stylesheet(YOSHOP_ASSETS_BASEURL.'/category/category.css');
+
 ?>
 
 <div class="profile<?php echo $this->pageclass_sfx?> row-fluid">
@@ -19,18 +27,34 @@ JHtml::_('behavior.tooltip');
         </div>
     <?php } ?>
 
-    <div class="col-sm-6 col-sm-push-3">
-        <div class="panel panel-default">
-            <div class="panel-heading"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;<?php echo JText::_("COM_USERS_PROFILE_CORE_LEGEND"); ?></div>
-            <div class="panel-body">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;<?php echo JText::_("COM_USERS_PROFILE_CORE_LEGEND"); ?></div>
+        <div class="panel-body">
 
-                <form class="form-horizontal">
-                    <?php echo $this->loadTemplate('core'); ?> <?php //not needed for now echo $this->loadTemplate('params'); ?> <?php //not needed for now echo $this->loadTemplate('custom'); ?>
-                    <?php if (JFactory::getUser()->id == $this->data->id) { ?>
-                    <div class="form-actions"> <a href="<?php echo JRoute::_('index.php?option=com_users&task=profile.edit&user_id='.(int) $this->data->id);?>" class="btn btn-primary"> <?php echo JText::_('COM_USERS_Edit_Profile'); ?></a> </div>
-                    <?php } ?>
-                </form>
-            </div>
+            <ul class="nav nav-pills">
+                <li <?php echo $tab == 'profile'? 'class="active"':''; ?>><a href="<?php echo $pageUrl; ?>"><?php echo JText::_("COM_JPROFILE"); ?></a></li>
+                <li <?php echo $tab == 'products'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'/products'; ?>"><?php echo JText::_("COM_USERS_PRODUCTS"); ?></a></li>
+                <li <?php echo $tab == 'messages'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'/messages'; ?>"><?php echo JText::_("COM_USERS_MESSAGES"); ?></a></li>
+            </ul>
+
+            <?php
+                switch($tab) {
+                    case 'profile':
+                        echo $this->loadTemplate('core');
+                        break;
+
+                    case 'products':
+                        echo $this->loadTemplate('products');
+                        break;
+
+                    case 'messages':
+                        echo $this->loadTemplate('messages');
+                        break;
+
+                }
+                if ($tab == 'profile') {
+                }
+            ?>
         </div>
     </div>
 </div>

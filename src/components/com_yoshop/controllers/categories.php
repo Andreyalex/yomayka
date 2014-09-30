@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 /**
  * Categories list controller class.
  */
-class YoshopControllerCategories extends YoshopControllerAbstract
+class YoshopControllerCategories extends YoControllerAbstract
 {
 	/**
 	 * Proxy for getModel.

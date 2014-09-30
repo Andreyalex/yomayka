@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die;
 
+
+?><form class="form-horizontal"><?php
+
     echo YoViewHelperHtml::renderDataAsControl(
         'COM_USERS_PROFILE_NAME_LABEL',
         $this->data->name
@@ -33,3 +36,9 @@ defined('_JEXEC') or die;
         'COM_USERS_PROFILE_NAME_LABEL',
         $this->data->name
     );
+
+    if (JFactory::getUser()->id == $this->data->id) {
+        ?><div class="form-actions"> <a href="<?php echo JRoute::_('index.php?option=com_users&task=profile.edit&user_id='.(int) $this->data->id);?>" class="btn btn-primary"> <?php echo JText::_('COM_USERS_Edit_Profile'); ?></a> </div><?php
+    } ?>
+</form>
+

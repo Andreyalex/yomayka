@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_yoshop
  * @since       1.5
  */
-class YoshopModelSearch extends YoshopModel
+class YoshopModelSearch extends YoModel
 {
 	/**
 	 * Search data array

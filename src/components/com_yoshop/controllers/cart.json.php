@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 /**
  * Cart controller class.
  */
-class YoshopControllerCart extends YoshopControllerJson
+class YoshopControllerCart extends YoControllerJson
 {
     public function addProduct()
     {

@@ -11,19 +11,18 @@ defined('_JEXEC') or die;
 
 try {
 
-    require_once(JPATH_COMPONENT_ADMINISTRATOR . '/constants.php');
-    require_once JPATH_COMPONENT_ADMINISTRATOR . '/classes/autoload.php';
-    YoshopAutoload::setup();
-
-    $di = YoshopDi::getInstance();
+    require_once 'bootstrap.php';
+    YoshopBootstrap::init();
 
     // Execute the task.
+    $di = YoDi::getInstance('Yoshop');
     jimport('joomla.application.component.controller');
     $controller	= JControllerLegacy::getInstance('Yoshop');
     $controller->di = $di;
-    $controller->execute(YoshopDi::getInstance()->app->input->get('task'));
+    $controller->execute(YoDi::getInstance()->app->input->get('task'));
     $controller->redirect();
 
 } catch (Exception $e) {
     JFactory::getDocument()->applicationError = $e;
 }
+

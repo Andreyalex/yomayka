@@ -17,7 +17,7 @@ require_once JPATH_ADMINISTRATOR.'/components/com_search/helpers/search.php';
 /**
  * View to edit
  */
-class YoshopViewSearch extends YoshopView {
+class YoshopViewSearch extends YoView {
 
     protected $state;
     protected $params;
@@ -45,7 +45,7 @@ class YoshopViewSearch extends YoshopView {
 
         $model->setAreas('yoshop');
         $data = $model->getData();
-        $this->products = new YoshopCollection($data, array('rowClass' => 'YoshopModelProduct'));
+        $this->products = new YoCollection($data, array('rowClass' => 'YoshopModelProduct'));
 
         $this->total      = $model->getTotal();
         $this->pagination = $model->getPagination();

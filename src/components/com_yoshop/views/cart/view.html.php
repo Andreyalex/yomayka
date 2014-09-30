@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 jimport('joomla.application.component.view');
 
-class YoshopViewCart extends YoshopView {
+class YoshopViewCart extends YoView {
 
     protected $state;
     protected $item;

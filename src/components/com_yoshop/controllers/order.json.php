@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 /**
  * Order controller class.
  */
-class YoshopControllerOrder extends YoshopControllerJson
+class YoshopControllerOrder extends YoControllerJson
 {
     public function create()
     {

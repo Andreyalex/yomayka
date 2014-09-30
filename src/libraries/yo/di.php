@@ -9,15 +9,18 @@
 
 class YoDi
 {
-    protected static $_instance;
+    protected static $instance;
 
-    public function getInstance($name = 'common', $options = array())
+    protected $context;
+
+    public function getInstance($context = 'Yo', $options = array())
     {
-        if (!self::$_instance[$name]) {
-            self::$_instance[$name] = new self($options);
+        if (!self::$instance[$context]) {
+            self::$instance[$context] = new self($options);
+            self::$instance[$context]->setContext($context);
         }
 
-        return self::$_instance[$name];
+        return self::$instance[$context];
     }
 
     public function __get($name)
@@ -36,16 +39,20 @@ class YoDi
         throw new Exception("Service $name does not exist in Di");
     }
 
-    public function createModel($type, $prefix = 'YoModel', $config = array())
+    public function createModel($type, $prefix = null, $config = array())
     {
+        $prefix || $prefix = ucfirst($this->context) . 'Model';
+
         if (!isset($config['di'])) {
             $config['di'] = $this;
         }
         return JModelLegacy::getInstance($type, $prefix, $config);
     }
 
-    public function createTable($type, $prefix = 'Yo Table', $config = array())
+    public function createTable($type, $prefix = null, $config = array())
     {
+        $prefix || $prefix = ucfirst($this->context) . 'Table';
+
         if (!isset($config['di'])) {
             $config['di'] = $this;
         }
@@ -60,5 +67,10 @@ class YoDi
         } else {
             return new $class($config);
         }
+    }
+
+    public function setContext($context)
+    {
+        $this->context = $context;
     }
 }

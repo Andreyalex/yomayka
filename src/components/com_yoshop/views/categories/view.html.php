@@ -15,7 +15,7 @@ jimport('joomla.application.component.view');
 /**
  * View class for a list of Yoshop.
  */
-class YoshopViewCategories extends YoshopView
+class YoshopViewCategories extends YoView
 {
 	protected $items;
 	protected $pagination;

@@ -5,7 +5,7 @@
     <meta charset="utf-8" >
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/bootstrap/css/bootstrap-theme.min.css">
+<!--    <link rel="stylesheet" href="--><?php //echo $tplBaseUrl; ?><!--/assets/bootstrap/css/bootstrap-theme.min.css">-->
 
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/fonts/eurofurencelight/styles.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/fonts/tickertape/styles.css" type="text/css" media="screen" />
@@ -33,14 +33,14 @@
     <!--<script type="text/javascript">window.jQCustom = jQuery.noConflict(true);</script>-->
 
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/template.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/overrides.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/extensions.css" type="text/css" media="screen" />
     <!--[if lt IE 8]>
-    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/ie7.css" type="text/css" />
+    <!--<link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/ie7.css" type="text/css" />-->
     <![endif]-->
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/ie8.css" type="text/css" />
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <!--<link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/ie8.css" type="text/css" />-->
+    <!--<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>-->
     <![endif]-->
 
     <!-- Le fav and touch icons -->

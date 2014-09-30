@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 /**
  * Category controller class.
  */
-class YoshopControllerCategory extends YoshopControllerAbstract
+class YoshopControllerCategory extends YoControllerAbstract
 {
 
 	/**

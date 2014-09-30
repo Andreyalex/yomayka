@@ -15,7 +15,7 @@ JLoader::import('helpers.product', JPATH_COMPONENT);
 /**
  * Methods supporting a list of Yoshop records.
  */
-class YoshopModelProducts extends YoshopModelList {
+class YoshopModelProducts extends YoModelList {
 
     /**
      * Constructor.
@@ -38,13 +38,13 @@ class YoshopModelProducts extends YoshopModelList {
     protected function populateState($ordering = null, $direction = null) {
 
         // Initialise variables.
-        $app = $this->di->app;
+        $app = JFactory::getApplication();
 
         // List state information
         $limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
         $this->setState('list.limit', $limit);
 
-        $limitstart = $this->di->app->input->getInt('limitstart', 0);
+        $limitstart = $app->input->getInt('limitstart', 0);
         $this->setState('list.start', $limitstart);
 
         
@@ -100,6 +100,6 @@ class YoshopModelProducts extends YoshopModelList {
         if(!is_array($res)) {
             throw new Exception($this->getError());
         }
-        return new YoshopCollection($res, array('rowClass' => 'YoshopModelProduct'));
+        return new YoCollection($res, array('rowClass' => 'YoshopModelProduct'));
     }
 }

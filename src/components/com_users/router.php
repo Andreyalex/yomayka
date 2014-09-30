@@ -227,11 +227,13 @@ class UsersRouter extends JComponentRouterBase
 		}
 
 		// Get the package from the route segments.
-		$userId = array_pop($segments);
+		$userId = $segments[count($segments)-1];
 
 		if (!is_numeric($userId))
 		{
 			$vars['view'] = 'profile';
+            !empty($segments[1]) && $vars['sub1'] = $segments[1];
+            !empty($segments[2]) && $vars['sub2'] = $segments[2];
 			return $vars;
 		}
 

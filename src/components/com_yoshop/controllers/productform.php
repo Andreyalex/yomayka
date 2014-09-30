@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 /**
  * Product controller class.
  */
-class YoshopControllerProductForm extends YoshopControllerAbstract
+class YoshopControllerProductForm extends YoControllerAbstract
 {
 
 	/**

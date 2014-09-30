@@ -215,7 +215,7 @@ include('head.php');
             if ($countModuleLeft || $countModuleRight || $isShowCenter) {?>
 			<div id="main_place" class="layout-case">
 				<div class="container">
-					<div class="row">
+					<div class="row-fluid">
 					
 						<?php if ($countModuleLeft) { ?>
 						<div id="left_bar" class="span3 pull-left">

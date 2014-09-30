@@ -46,6 +46,18 @@ class UsersViewProfile extends JViewLegacy
 		$this->twofactormethods = UsersHelper::getTwoFactorMethods();
 		$this->otpConfig        = $this->get('OtpConfig');
 
+        $app = JFactory::getApplication();
+        $input = $app->input;
+
+        switch ($input->get('sub1')) {
+            case 'products':
+                JModelLegacy::addIncludePath(JPATH_SITE.'/components/com_yoshop/models', 'YoshopModel');
+                /** @var YoshopModelProducts $cat */
+                $productsModel = JModelLegacy::getInstance('Products', 'YoshopModel', array());
+                $this->products = $productsModel->getItems();
+                break;
+        }
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
