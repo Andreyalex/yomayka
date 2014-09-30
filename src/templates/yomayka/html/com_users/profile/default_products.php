@@ -29,12 +29,12 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_yoshop')) 
 
                 <div class="inner">
 
-                    <a class="image" href="<?php print $product->link; ?>">
+                    <a class="image" href="<?php echo JUri::current() .'/'. $product->id; ?>">
                         <img src="<?php print YOSHOP_PRODUCT_MEDIA_BASEURL . '/' . $product->media[0]->path_prev; ?>" alt="<?php print htmlspecialchars($product->name); ?>" />
                     </a>
 
                     <div class="title">
-                        <a class="nonlink" href="<?php print $product->link; ?>">
+                        <a class="nonlink" href="<?php echo JUri::current() .'/'. $product->id; ?>">
                             <?php print $product->name; ?>
                         </a>
                     </div>

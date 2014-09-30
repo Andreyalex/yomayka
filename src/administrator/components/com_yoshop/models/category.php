@@ -15,7 +15,7 @@ jimport('joomla.application.component.modeladmin');
 /**
  * Yoshop model.
  */
-class YoshopModelcategory extends YoshopModelAdmin
+class YoshopModelcategory extends YoModelAdmin
 {
 	/**
 	 * @var		string	The prefix to use with controller messages.

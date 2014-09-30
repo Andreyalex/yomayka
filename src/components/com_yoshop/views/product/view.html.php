@@ -30,6 +30,7 @@ class YoshopViewProduct extends YoView {
 		$app  = $this->di->app;
         $user = JFactory::getUser();
 
+        /** @var YoDi $this->di */
         $model = $this->di->createModel('product');
         $cart = $this->di->createModel('cart');
         $this->product = $model->getItem($app->input->get('id'));

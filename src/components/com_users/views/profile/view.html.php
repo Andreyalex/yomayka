@@ -49,12 +49,20 @@ class UsersViewProfile extends JViewLegacy
         $app = JFactory::getApplication();
         $input = $app->input;
 
-        switch ($input->get('sub1')) {
+        switch ($input->get('subView')) {
             case 'products':
-                JModelLegacy::addIncludePath(JPATH_SITE.'/components/com_yoshop/models', 'YoshopModel');
-                /** @var YoshopModelProducts $cat */
-                $productsModel = JModelLegacy::getInstance('Products', 'YoshopModel', array());
-                $this->products = $productsModel->getItems();
+
+                $di = YoDi::getInstance('Yoshop');
+
+                if ($input->get('subItem')) {
+                    /** @var YoshopModelProduct $productModel */
+                    $productModel = $di->createModel('product');
+                    $this->product = $productModel->getItem($input->get('subItem'));
+                } else {
+                    /** @var YoshopModelProduct $productModel */
+                    $productsModel = $di->createModel('products');
+                    $this->products = $productsModel->getItems();
+                }
                 break;
         }
 

@@ -14,7 +14,7 @@ jimport('joomla.application.component.modellist');
 /**
  * Methods supporting a list of Yoshop records.
  */
-class YoshopModelOrders extends YoshopModelList {
+class YoshopModelOrders extends YoModelList {
 
     /**
      * Constructor.

@@ -15,7 +15,7 @@ jimport('joomla.application.component.modeladmin');
 /**
  * Yoshop model.
  */
-class YoshopModelProductform extends YoshopModelAdmin
+class YoshopModelProductform extends YoModelAdmin
 {
     public $name = 'product';
 

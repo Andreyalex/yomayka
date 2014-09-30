@@ -15,7 +15,7 @@ jimport('joomla.application.component.modelform');
 /**
  * Yoshop model.
  */
-class YoshopModelCart extends YoshopModelForm
+class YoshopModelCart extends YoModelForm
 {
     protected $_collection;
 
@@ -25,7 +25,7 @@ class YoshopModelCart extends YoshopModelForm
 
         $session = JFactory::getSession();
         $items = $session->get('yoshopCart');
-        $this->_collection = new YoshopCollection($items, array('rowClass' => 'YoshopModelCartitem'));
+        $this->_collection = new YoCollection($items, array('rowClass' => 'YoshopModelCartitem'));
     }
 
     public function getTable($type = 'Media', $prefix = 'YoshopTable', $config = array())

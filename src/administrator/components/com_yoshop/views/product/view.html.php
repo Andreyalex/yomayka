@@ -15,7 +15,7 @@ jimport('joomla.application.component.view');
 /**
  * View to edit
  */
-class YoshopViewProduct extends YoshopView
+class YoshopViewProduct extends YoView
 {
     protected $state;
     protected $item;

@@ -11,7 +11,9 @@ defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
 $input = JFactory::getApplication()->input;
 
-$tab = $input->get('sub1')? $input->get('sub1') : 'profile';
+$tab = $input->get('subView')? $input->get('subView') : 'profile';
+
+$itemId = $input->get('subItem')? $input->get('subItem') : null;
 
 $pageUrl = JRoute::_('index.php?option=com_users&view=profile', false);
 
@@ -44,15 +46,13 @@ JHtml::stylesheet(YOSHOP_ASSETS_BASEURL.'/category/category.css');
                         break;
 
                     case 'products':
-                        echo $this->loadTemplate('products');
+                        echo $this->loadTemplate($itemId? 'product' : 'products');
                         break;
 
                     case 'messages':
                         echo $this->loadTemplate('messages');
                         break;
 
-                }
-                if ($tab == 'profile') {
                 }
             ?>
         </div>

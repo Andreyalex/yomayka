@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 /**
  * Product controller class.
  */
-class YoshopControllerProduct extends YoshopControllerJson
+class YoshopControllerProduct extends YoControllerJson
 {
     public function addMedia()
     {

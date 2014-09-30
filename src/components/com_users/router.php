@@ -227,43 +227,42 @@ class UsersRouter extends JComponentRouterBase
 		}
 
 		// Get the package from the route segments.
-		$userId = $segments[count($segments)-1];
+        $item = empty($segments)? null : array_shift($segments);
 
-		if (!is_numeric($userId))
-		{
-			$vars['view'] = 'profile';
-            !empty($segments[1]) && $vars['sub1'] = $segments[1];
-            !empty($segments[2]) && $vars['sub2'] = $segments[2];
-			return $vars;
-		}
+        if (is_numeric($item))
+        {
+            $userId = $item;
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true)
+                ->select($db->quoteName('id'))
+                ->from($db->quoteName('#__users'))
+                ->where($db->quoteName('id') . ' = ' . (int) $userId);
+            $db->setQuery($query);
+            $userId = $db->loadResult();
 
-		if (is_numeric($userId))
-		{
-			$db = JFactory::getDbo();
-			$query = $db->getQuery(true)
-				->select($db->quoteName('id'))
-				->from($db->quoteName('#__users'))
-				->where($db->quoteName('id') . ' = ' . (int) $userId);
-			$db->setQuery($query);
-			$userId = $db->loadResult();
-		}
+            // Set the package id if present.
+            if ($userId)
+            {
+                // Set the package id.
+                $vars['user_id'] = (int) $userId;
 
-		// Set the package id if present.
-		if ($userId)
-		{
-			// Set the package id.
-			$vars['user_id'] = (int) $userId;
+                // Set the view to package if not already set.
+                if (empty($vars['view']))
+                {
+                    $vars['view'] = 'profile';
+                }
+            }
+            else
+            {
+                JError::raiseError(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
+            }
 
-			// Set the view to package if not already set.
-			if (empty($vars['view']))
-			{
-				$vars['view'] = 'profile';
-			}
-		}
-		else
-		{
-			JError::raiseError(404, JText::_('JGLOBAL_RESOURCE_NOT_FOUND'));
-		}
+            $item = empty($segments)? null : array_shift($segments);
+        }
+
+        $vars['view'] = !empty($item)? $item : 'profile';
+        empty($segments) || $vars['subView'] = array_shift($segments);
+        empty($segments) || $vars['subItem'] = array_shift($segments);
 
 		return $vars;
 	}

@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 jimport('joomla.application.component.modelform');
 
-class YoshopModelCartitem extends YoshopModel
+class YoshopModelCartitem extends YoModel
 {
     public $product = null;
     public $count = null;

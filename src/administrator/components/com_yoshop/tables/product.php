@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 /**
  * product Table class
  */
-class YoshopTableproduct extends YoshopTable {
+class YoshopTableproduct extends YoTable {
 
     /**
      * Constructor

@@ -9,9 +9,7 @@
 // no direct access
 defined('_JEXEC') or die;
 
-YoshopHelperHtml::addStylesheet('product/default.css');
-
-YoshopHelperHtml::initJsApp('product/default');
+JHtml::stylesheet(JUri::base().'/templates/yomayka/html/com_users/profile/default.css');
 
 //Load admin language file
 $lang = JFactory::getLanguage();
@@ -60,25 +58,7 @@ if(!empty($product->name)) {
             <?php if(!empty($product->description)) { ?>
                 <div class="description"><?php echo $this->escape($product->description); ?></div>
             <?php } ?>
-
-            <?php if(!empty($product->price_base)) { ?>
-                <div class="price">
-                    <span class="pull-left btn btn-large btn-success cart cart-add" data-cart-action="add" data-id="<?php echo $product->id; ?>" style="<?php echo $this->isInCart? 'display:none;':''?>" >
-                        <i class="icon-shopping-cart"></i>&nbsp;
-                        <?php echo JText::_('COM_YOSHOP_ADD_TO_CART');?>
-                    </span>
-                    <span class="pull-left btn btn-large btn-info cart cart-remove" data-cart-action="remove" data-id="<?php echo $product->id; ?>" style="<?php echo !$this->isInCart? 'display:none;':''?>" >
-                        <i class="icon-shopping-cart"></i>&nbsp;
-                        <?php echo JText::_('COM_YOSHOP_REMOVE_FROM_CART');?>
-                    </span>
-                    <!--                    <span class="cart cart-add" <i class="icon-shopping-cart"></i></span>-->
-                    <!--                    <span class="cart cart-remove" >-->
-
-                    <span class="icon-tag"></span><span><?php echo $this->escape($product->price_base); ?>грн</span></div>
-            <?php } ?>
         </div>
-
-        <div class="comments" style="clear:both">{comments}</div>
 
     <?php } ?>
 </div>

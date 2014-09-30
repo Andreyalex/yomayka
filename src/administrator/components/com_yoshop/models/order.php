@@ -15,7 +15,7 @@ jimport('joomla.application.component.modeladmin');
 /**
  * Yoshop model.
  */
-class YoshopModelOrder extends YoshopModel
+class YoshopModelOrder extends YoModel
 {
     protected function populateState()
     {
@@ -23,7 +23,7 @@ class YoshopModelOrder extends YoshopModel
 
         $dbo = JFactory::getDbo();
         $dbo->setQuery('SELECT * from #__yoshop_order_product WHERE order_id='.(int)$this->state->id);
-        $this->state->products = new YoshopCollection($dbo->loadObjectList(), array('rowClass' => 'YoshopModelOrderproduct'));
+        $this->state->products = new YoCollection($dbo->loadObjectList(), array('rowClass' => 'YoshopModelOrderproduct'));
     }
 
     public function create($data)
