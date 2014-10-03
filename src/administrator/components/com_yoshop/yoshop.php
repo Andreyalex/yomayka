@@ -11,23 +11,20 @@
     // no direct access
     defined('_JEXEC') or die;
 
-    require_once('constants.php');
-
     // Access check.
     if (!JFactory::getUser()->authorise('core.manage', 'com_yoshop'))
     {
         throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
     }
 
-    require_once(JPATH_COMPONENT_ADMINISTRATOR . '/constants.php');
-    require_once JPATH_COMPONENT_ADMINISTRATOR . '/classes/autoload.php';
-    YoshopAutoload::setup();
-
-    $di = YoshopDi::getInstance();
+    require_once 'bootstrap.php';
+    YoshopBootstrap::init();
 
     // Execute the task.
+    $di = YoDi::getInstance('Yoshop');
     jimport('joomla.application.component.controller');
     $controller	= JControllerLegacy::getInstance('Yoshop');
     $controller->di = $di;
     $controller->execute($di->app->input->get('task'));
     $controller->redirect();
+

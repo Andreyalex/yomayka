@@ -15,7 +15,7 @@ jimport('joomla.application.component.modeladmin');
 /**
  * Yoshop model.
  */
-class YoshopModelOrder extends YoModel
+class YoshopModelOrder extends YoModelAdmin
 {
     protected function populateState()
     {
@@ -42,8 +42,8 @@ class YoshopModelOrder extends YoModel
             };
 
             foreach($data['items'] as $item) {
-                $modelProduct = $this->di->createModel('product');
-                $modelOrderProduct = $this->di->createModel('orderproduct');
+                $modelProduct = $this->createModel('product');
+                $modelOrderProduct = $this->createModel('orderproduct');
                 $product = $modelProduct->getItem($item['productId']);
                 $product->product_id = $product->id;
                 $product->order_id = $this->state->id;
@@ -114,4 +114,6 @@ class YoshopModelOrder extends YoModel
             'last_event_date' => date('Y-m-d H:i:s')
         ));
     }
+
+    public function getForm($data = array(), $loadData = true) {}
 }

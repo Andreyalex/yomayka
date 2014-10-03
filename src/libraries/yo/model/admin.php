@@ -18,6 +18,8 @@ jimport('joomla.event.dispatcher');
  */
 abstract class YoModelAdmin extends JModelAdmin
 {
+    public $data = null;
+
     protected $text_prefix = 'COM_YO';
 
     /**
@@ -28,13 +30,13 @@ abstract class YoModelAdmin extends JModelAdmin
      * @since   0.5
      * @throws  Exception
      */
-    public function __construct($config = array())
+    public function __construct($config)
     {
+        !empty($config['state']) && $config['state'] = new JObject($config['state']);
+
         parent::__construct($config);
 
-        if (!empty($config['di'])) {
-            $this->di = $config['di'];
-        }
+        $this->populateState();
     }
 
     /**
@@ -46,13 +48,68 @@ abstract class YoModelAdmin extends JModelAdmin
      */
     public function getItem($id = null)
     {
-        $item = parent::getItem($id);
+        if (empty($id)) throw new Exception('Id is absent');
 
-        $this->state = $item;
+        $item = parent::getItem($id)->getProperties();
+
+        $this->state->setProperties($item);
 
         $this->populateState();
 
-        return $this->state;
+        return $item;
     }
+
+    /**
+     * Method to save the form data.
+     *
+     * @param	array		The form data.
+     * @return	mixed		The user id on success, false on failure.
+     * @since	1.6
+     */
+    public function save($data)
+    {
+        $table = $this->getTable();
+        if ($table->save($data) === true) {
+            $this->state = JArrayHelper::toObject($table->getProperties(), 'JObject');
+            $this->populateState();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function delete($data)
+    {
+        if (is_numeric($data)) {
+            $id = (int) $data;
+        } else {
+            $id = (!empty($data['id'])) ? $data['id'] : (int)$this->getState('id');
+        }
+
+        $table = $this->getTable();
+        if ($table->delete($id) === true) {
+            return $id;
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getState($property = null, $default = null)
+    {
+        if ($property) {
+            if (method_exists($this, 'getState'.ucfirst($property))) {
+                return $this->{'getState'.ucfirst($property)}($default);
+            }
+        }
+        return parent::getState($property = null, $default = null);
+    }
+
+    public function getTable($type = null, $prefix = 'YoTable', $config = array())
+    {
+        return parent::getTable($type, $prefix, $config);
+    }
+
 
 }

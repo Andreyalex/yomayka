@@ -16,7 +16,7 @@ jimport('joomla.event.dispatcher');
 /**
  * Yoshop model.
  */
-class YoshopModelCategory extends YoModelForm
+class YoshopModelCategory extends YoModelAdmin
 {
 
     var $_item = null;

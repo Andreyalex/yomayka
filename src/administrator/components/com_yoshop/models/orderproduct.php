@@ -15,7 +15,7 @@ jimport('joomla.application.component.modeladmin');
 /**
  * Yoshop model.
  */
-class YoshopModelOrderproduct extends YoModel
+class YoshopModelOrderproduct extends YoModelAdmin
 {
     public function getTotalPrice()
     {
@@ -29,4 +29,6 @@ class YoshopModelOrderproduct extends YoModel
         $res['total_price'] = $this->getTotalPrice();
         return $res;
     }
+
+    public function getForm($data = array(), $loadData = true) {}
 }

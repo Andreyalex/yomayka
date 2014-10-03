@@ -26,19 +26,19 @@ class YoshopViewOrder extends YoView
 	 */
 	public function display($tpl = null)
 	{
-        $app = $this->di->app;
+        $app = JFactory::getApplication();
 
         $id = $app->input->get('id');
 
         /** @var YoshopModelOrderform $order */
-        $orderForm = $this->di->createModel('orderform');
+        $orderForm = $this->createModel('orderform');
         $orderForm->getItem($id);
         $orderForm->getState();
         $this->form = $orderForm->getForm();
 
 
         /** @var YoshopModelOrder $order */
-        $order = $this->di->createModel('order');
+        $order = $this->createModel('order');
 
 		$this->state = $this->get('State');
 		$this->item = $order->getItem($id);
@@ -47,7 +47,7 @@ class YoshopViewOrder extends YoView
 
         $this->products = array();
         foreach($order->getProducts() as $item) {
-            $product = $this->di->createModel('product');
+            $product = $this->createModel('product');
             $product->getItem($item->product_id);
             $this->products[] = (object) array(
                 'item' => $item,
@@ -69,7 +69,7 @@ class YoshopViewOrder extends YoView
 	 */
 	protected function addToolbar()
 	{
-		$this->di->app->input->set('hidemainmenu', true);
+		JFactory::getApplication()->input->set('hidemainmenu', true);
 
 		$user		= JFactory::getUser();
 		$isNew		= ($this->item->id == 0);

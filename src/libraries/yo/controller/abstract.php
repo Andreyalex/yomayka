@@ -14,28 +14,4 @@ jimport('joomla.application.component.controller');
 
 class YoControllerAbstract extends JControllerLegacy
 {
-    public function __construct($config = array())
-    {
-        parent::__construct($config);
-
-        if (!empty($config['di'])) {
-            $this->di = $config['di'];
-        }
-    }
-
-    protected function createModel($name, $prefix = 'YoModel', $config = array())
-    {
-        if (empty($config['di'])) {
-            $config['di'] = $this->di;
-        }
-        return parent::createModel($name, $prefix, $config);
-    }
-
-    protected function createView($name, $prefix = '', $type = '', $config = array())
-    {
-        if (empty($config['di'])) {
-            $config['di'] = $this->di;
-        }
-        return parent::createView($name, $prefix, $type, $config);
-    }
 }

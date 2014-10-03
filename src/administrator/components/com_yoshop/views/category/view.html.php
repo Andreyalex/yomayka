@@ -44,7 +44,7 @@ class YoshopViewCategory extends YoView
 	 */
 	protected function addToolbar()
 	{
-		$this->di->app->input->set('hidemainmenu', true);
+		JFactory::getApplication()->input->set('hidemainmenu', true);
 
 		$user		= JFactory::getUser();
 		$isNew		= ($this->item->id == 0);

@@ -49,7 +49,7 @@ class YoshopModelcategory extends YoModelAdmin
 	public function getForm($data = array(), $loadData = true)
 	{
 		// Initialise variables.
-		$app	= $this->di->app;
+		$app	= JFactory::getApplication();
 
 		// Get the form.
 		$form = $this->loadForm('com_yoshop.category', 'category', array('control' => 'jform', 'load_data' => $loadData));
@@ -71,7 +71,7 @@ class YoshopModelcategory extends YoModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = $this->di->app->getUserState('com_yoshop.edit.category.data', array());
+		$data = JFactory::getApplication()->getUserState('com_yoshop.edit.category.data', array());
 
 		if (empty($data)) {
 			$data = $this->getItem();

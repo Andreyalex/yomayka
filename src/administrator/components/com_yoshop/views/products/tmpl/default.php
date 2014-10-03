@@ -168,7 +168,7 @@ if (!empty($this->extra_sidebar)) {
 						<span class="sortable-handler hasTooltip <?php echo $disableClassName?>" title="<?php echo $disabledLabel?>">
 							<i class="icon-menu"></i>
 						</span>
-						<input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering;?>" class="width-20 text-area-order " />
+						<input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->get('ordering');?>" class="width-20 text-area-order " />
 					    <?php else : ?>
 						<span class="sortable-handler inactive" >
 							<i class="icon-menu"></i>
@@ -177,46 +177,46 @@ if (!empty($this->extra_sidebar)) {
 					</td>
                     <?php endif; ?>
 					<td class="center hidden-phone">
-						<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+						<?php echo JHtml::_('grid.id', $i, $item->get('id')); ?>
 					</td>
                     <td class="center">
-                    <?php if (isset($item->media[0]->path_prev)): ?>
-                        <a href="<?php echo $item->link; ?>">
-                            <img src="<?php echo YOSHOP_CONTENT_BASEURL . '/product/images/' . $item->media[0]->path_prev; ?>">
+                    <?php var_dump($item->get('media')[0]); die; if ($item->get('media')[0]->get('path_prev')): ?>
+                        <a href="<?php echo $item->get('link'); ?>">
+                            <img src="<?php echo YOSHOP_CONTENT_BASEURL . '/product/images/' . $item->get('media')[0]->get('path_prev'); ?>">
                         </a>
                     <?php endif; ?>
                     </td>
 
                     <?php if (isset($this->items[0]->state)): ?>
 					<td class="center">
-						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'products.', $canChange, 'cb'); ?>
+						<?php echo JHtml::_('jgrid.published', $item->get('state'), $i, 'products.', $canChange, 'cb'); ?>
 					</td>
                     <?php endif; ?>
 
                     <td>
 
-                        <?php echo $item->created_by; ?>
+                        <?php echo $item->get('created_by'); ?>
                     </td>
                     <td>
-                    <?php if (isset($item->checked_out) && $item->checked_out) : ?>
-                        <?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'products.', $canCheckin); ?>
+                    <?php if ($item->get('checked_out') && $item->get('checked_out')) : ?>
+                        <?php echo JHtml::_('jgrid.checkedout', $i, $item->get('editor'), $item->get('checked_out_time'), 'products.', $canCheckin); ?>
                     <?php endif; ?>
                     <?php if ($canEdit) : ?>
-                        <a href="<?php echo JRoute::_('index.php?option=com_yoshop&task=product.edit&id='.(int) $item->id); ?>">
-                        <?php echo $this->escape($item->name); ?></a>
+                        <a href="<?php echo JRoute::_('index.php?option=com_yoshop&task=product.edit&id='.(int) $item->get('id')); ?>">
+                        <?php echo $this->escape($item->get('name')); ?></a>
                     <?php else : ?>
-                        <?php echo $this->escape($item->name); ?>
+                        <?php echo $this->escape($item->get('name')); ?>
                     <?php endif; ?>
                     </td>
                     <td>
 
-                        <?php echo $item->description; ?>
+                        <?php echo $item->get('description'); ?>
                     </td>
 
 
                     <?php if (isset($this->items[0]->id)): ?>
                         <td class="center hidden-phone">
-                            <?php echo (int) $item->id; ?>
+                            <?php echo (int) $item->get('id'); ?>
                         </td>
                     <?php endif; ?>
 				</tr>

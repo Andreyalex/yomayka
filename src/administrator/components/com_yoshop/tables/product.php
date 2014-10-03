@@ -35,7 +35,7 @@ class YoshopTableproduct extends YoTable {
     public function bind($array, $ignore = '') {
 
         
-		$input = $this->di->app->input;
+		$input = JFactory::getApplication()->input;
 		$task = $input->getString('task', '');
 		if(($task == 'save' || $task == 'apply') && (!JFactory::getUser()->authorise('core.edit.state','com_yoshop') && $array['state'] == 1)){
 			$array['state'] = 0;

@@ -17,11 +17,4 @@ jimport('joomla.table.table');
  */
 class YoTable extends JTable
 {
-    public function __construct($table, $key, $db, $config = array())
-    {
-        parent::__construct($table, $key, $db);
-
-        $this->di = !empty($config['di'])?
-            $config['di'] : YoDi::getInstance();
-    }
 }

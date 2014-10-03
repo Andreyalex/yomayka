@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_yoshop
  * @since       1.5
  */
-class YoshopModelSearch extends YoModel
+class YoshopModelSearch extends YoModelAdmin
 {
 	/**
 	 * Search data array
@@ -215,4 +215,6 @@ class YoshopModelSearch extends YoModel
 
 		return $this->_areas;
 	}
+
+    public function getForm($data = array(), $loadData = true) {}
 }

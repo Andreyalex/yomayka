@@ -27,9 +27,6 @@ class YoCollection implements ArrayAccess, Iterator, Countable
 
         if (!empty($options['rowClass'])) $this->_rowClass = $options['rowClass'];
         if (!empty($options['idx'])) $this->_idx = $options['idx'];
-
-        $this->di = !empty($config['di'])?
-            $config['di'] : YoDi::getInstance();
     }
 
     public function valid()
@@ -115,7 +112,7 @@ class YoCollection implements ArrayAccess, Iterator, Countable
                 $this->_collection[$idx] = JModelLegacy::getInstance(
                     $parts[1],
                     $parts[0].'Model',
-                    array('state' => new JObject($item))
+                    array('state' => $item)
                 );
             }
         }

@@ -44,7 +44,7 @@ class YoshopModelOrderform extends YoModelAdmin
     public function getForm($data = array(), $loadData = true)
     {
         // Initialise variables.
-        $app	= $this->di->app;
+        $app	= JFactory::getApplication();
 
         // Get the form.
         $form = $this->loadForm('com_yoshop.order', 'order', array('control' => 'jform', 'load_data' => $loadData));
@@ -66,7 +66,7 @@ class YoshopModelOrderform extends YoModelAdmin
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = $this->di->app->getUserState('com_yoshop.edit.order.data', array());
+        $data = JFactory::getApplication()->getUserState('com_yoshop.edit.order.data', array());
 
         if (empty($data)) {
             $data = $this->getItem();

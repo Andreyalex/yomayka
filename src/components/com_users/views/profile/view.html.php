@@ -58,8 +58,9 @@ class UsersViewProfile extends JViewLegacy
                     /** @var YoshopModelProduct $productModel */
                     $productModel = $di->createModel('product');
                     $this->product = $productModel->getItem($input->get('subItem'));
+                    $this->productForm = $productModel->getForm();
                 } else {
-                    /** @var YoshopModelProduct $productModel */
+                    /** @var YoshopModelProducts $productsModel */
                     $productsModel = $di->createModel('products');
                     $this->products = $productsModel->getItems();
                 }

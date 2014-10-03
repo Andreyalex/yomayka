@@ -20,7 +20,10 @@ defined('_JEXEC') or die;
 <div class="items">
     <ul class="items_list">
 <?php $show = false; ?>
-        <?php foreach ($this->items as $item) : ?>
+        <?php
+            foreach ($this->items as $product) :
+                $item = $product->state;
+            ?>
 
             
 				<?php

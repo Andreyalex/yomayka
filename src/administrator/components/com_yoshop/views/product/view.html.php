@@ -27,7 +27,7 @@ class YoshopViewProduct extends YoView
     public function display($tpl = null)
     {
         /** @var YoshopModelProduct $model */
-        $model = $this->di->createModel('productform');
+        $model = $this->createModel('product');
 
         $id = JFactory::getApplication()->input->get('id');
 
@@ -35,11 +35,6 @@ class YoshopViewProduct extends YoView
         $this->state	= $model->getState();
         $this->item		= $model->getItem();
         $this->form		= $model->getForm();
-
-        if (empty($this->item->id)) {
-            $model->createDraft();
-            $this->di->app->redirect('index.php?option=com_yoshop&view=product&layout=edit&id='.$model->getState('product.id'));
-        }
 
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
@@ -51,11 +46,11 @@ class YoshopViewProduct extends YoView
     }
 
     /**
-     * Add the page title and toolbar.
+     * Add the page title    and toolbar.
      */
     protected function addToolbar()
     {
-        $this->di->app->input->set('hidemainmenu', true);
+        JFactory::getApplication()->input->set('hidemainmenu', true);
 
         $user		= JFactory::getUser();
         $isNew		= ($this->item->id == 0);

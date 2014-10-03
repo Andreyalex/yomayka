@@ -18,8 +18,10 @@ require_once JPATH_ADMINISTRATOR . '/components/com_yoshop/helpers/product.php';
 /**
  * Yoshop model.
  */
-class YoshopModelProduct extends YoModel
+class YoshopModelProduct extends YoModelAdmin
 {
+    public $name = 'product';
+
     protected $text_prefix = 'COM_YOSHOP';
 
     /**
@@ -48,7 +50,7 @@ class YoshopModelProduct extends YoModel
     {
         $pks = (array) $pks;
 
-        $media = $this->di->createModel('media');
+        $media = $this->createModel('media');
 
         // Iterate the items to delete each one.
         foreach ($pks as $i => $pk)
@@ -72,17 +74,25 @@ class YoshopModelProduct extends YoModel
 
     public function populateState()
     {
-        parent::populateState();
-
-        $dbo = JFactory::getDbo();
-
         if (empty($this->state->id)) return;
 
-        $this->state->link = YoshopHelperProduct::createUrl((object)$this->state);
+        parent::populateState();
 
-        $dbo = JFactory::getDbo();
-        $dbo->setQuery('SELECT * from #__yoshop_media WHERE parent_id='.$this->state->id.' ORDER BY is_title DESC');
-        $this->state->media = new YoCollection($dbo->loadObjectList(), array('rowClass' => 'YoshopModelMedia'));
+        $this->state->link = YoshopHelperProduct::createUrl((object)$this->state);
+    }
+
+    /**
+     * Lazy load for media files
+     * @return mixed
+     */
+    public function getStateMedia()
+    {
+        if (!$this->state->media) {
+            $dbo = JFactory::getDbo();
+            $dbo->setQuery('SELECT * from #__yoshop_media WHERE parent_id='.$this->state->id.' ORDER BY is_title DESC');
+            $this->state->media = new YoCollection($dbo->loadObjectList(), array('rowClass' => 'YoshopModelMedia'));
+        }
+        return $this->state->media;
     }
 
     public function getTable($type = 'Product', $prefix = 'YoshopTable', $config = array())
@@ -105,7 +115,73 @@ class YoshopModelProduct extends YoModel
     public function isInCart()
     {
         /** @var YoshopModelCart $cart */
-        $cart = $this->di->createModel('cart');
+        $cart = $this->createModel('cart');
         $cart->getProduct($this->state->id);
+    }
+
+    /**
+     * Method to get the record form.
+     *
+     * @param	array	$data		An optional array of data for the form to interogate.
+     * @param	boolean	$loadData	True if the form is to load its own data (default case), false if not.
+     * @return	JForm	A JForm object on success, false on failure
+     * @since	1.6
+     */
+    public function getForm($data = array(), $loadData = true)
+    {
+        // Initialise variables.
+        $app	= JFactory::getApplication();
+
+        // Get the form.
+        $form = $this->loadForm('com_yoshop.product', 'product', array('control' => 'jform', 'load_data' => $loadData));
+
+
+        if (empty($form)) {
+            return false;
+        }
+
+        return $form;
+    }
+
+    /**
+     * Method to get the data that should be injected in the form.
+     *
+     * @return	mixed	The data for the form.
+     * @since	1.6
+     */
+    protected function loadFormData()
+    {
+        // Check the session for previously entered form data.
+        $data = JFactory::getApplication()->getUserState('com_yoshop.edit.product.data', array());
+
+        if (empty($data)) {
+            $data = $this->getItem();
+
+        }
+
+        return $data;
+    }
+
+    public function createDraft()
+    {
+        $user = JFactory::getUser();
+
+        $this->save(array(
+            'id'               => null,
+            'state'            => '-5',
+            'created_by'       => $user->id,
+            'isDraft'          => true
+        ));
+
+        return $this->getState('product.id');
+    }
+
+    public function save($data)
+    {
+        if($data['state'] == -5 && empty($data['isDraft'])) {
+            $data['state'] = 1;
+        }
+
+        return parent::save($data);
     }
 }

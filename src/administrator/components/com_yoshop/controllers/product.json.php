@@ -24,7 +24,7 @@ class YoshopControllerProduct extends YoControllerJson
 
 
         try {
-            $input = $this->di->app->input;
+            $input = JFactory::getApplication()->input;
 
             $jform = $input->post->get('jform', array(), 'array');
             $id = $jform['id'];
@@ -78,7 +78,7 @@ class YoshopControllerProduct extends YoControllerJson
 
 
         try {
-            $input = $this->di->app->input;
+            $input = JFactory::getApplication()->input;
 
             $id = $input->post->get('id');
 
@@ -107,7 +107,7 @@ class YoshopControllerProduct extends YoControllerJson
 
     public function titleMedia()
     {
-        $input = $this->di->app->input;
+        $input = JFactory::getApplication()->input;
 
         $id = $input->post->get('id');
 
@@ -135,7 +135,7 @@ class YoshopControllerProduct extends YoControllerJson
 
         try {
 
-            $input = $this->di->app->input;
+            $input = JFactory::getApplication()->input;
 
             $id = $input->get('id');
 

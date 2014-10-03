@@ -16,15 +16,17 @@ class YoDi
     public function getInstance($context = 'Yo', $options = array())
     {
         if (!self::$instance[$context]) {
-            self::$instance[$context] = new self($options);
-            self::$instance[$context]->setContext($context);
+            $di = new self($options);
+            $di->setContext($context);
 
-            $bootstrap = JPATH_SITE . '/components/com_'.strtolower($context).'/bootstrap.php';
+            $bootstrap = JPATH_ADMINISTRATOR. '/components/com_'.strtolower($context).'/bootstrap.php';
             if (file_exists($bootstrap)) {
                 require_once $bootstrap;
                 $className = ucfirst($context).'Bootstrap';
-                $className::init();
+                $className::init($di);
             }
+
+            self::$instance[$context] = $di;
         }
 
         return self::$instance[$context];
@@ -78,6 +80,6 @@ class YoDi
 
     public function setContext($context)
     {
-        $this->context = $context;
+        $this->context = strtolower($context);
     }
 }

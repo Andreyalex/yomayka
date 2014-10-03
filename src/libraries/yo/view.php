@@ -9,18 +9,9 @@
 
 class YoView extends JViewLegacy
 {
-    public function __construct($config = array())
-    {
-        parent::__construct($config);
-
-        if (!empty($config['di'])) {
-            $this->di = $config['di'];
-        }
-    }
-
     public function display($tpl = null)
     {
-        $app = $this->di->app;
+        $app = JFactory::getApplication();
 
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
@@ -40,7 +31,7 @@ class YoView extends JViewLegacy
      */
     protected function _prepareDocument()
     {
-        $app	= $this->di->app;
+        $app	= JFactory::getApplication();
         $menus	= $app->getMenu();
         $title	= null;
 

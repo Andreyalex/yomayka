@@ -15,7 +15,7 @@ jimport('joomla.application.component.modeladmin');
 /**
  * Yoshop model.
  */
-class YoshopModelMedia extends YoModel
+class YoshopModelMedia extends YoModelAdmin
 {
 	/**
 	 * @var		string	The prefix to use with controller messages.
@@ -137,4 +137,5 @@ class YoshopModelMedia extends YoModel
         return YOSHOP_CONTENT_BASEURL . '/product/images/' . $this->state->path_prev;
     }
 
+    public function getForm($data = array(), $loadData = true) {}
 }

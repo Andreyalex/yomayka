@@ -153,28 +153,17 @@ class YoshopModelproducts extends YoModelList {
         return $query;
     }
 
-    public function getItems($prepare = true)
+    public function getItems($raw = false)
     {
-        $prepare = (bool) $prepare;
-
         $res = parent::getItems();
+
+        if ($raw) {
+            return $res;
+        }
 
         if(!is_array($res)) {
             throw new Exception($this->getError());
         }
-
-        if ($prepare) {
-
-            $dbo = JFactory::getDbo();
-
-            foreach($res as &$item) {
-                $item->link = JRoute::_('index.php?option=com_yoshop&task=product.edit&id='.$item->id);
-
-                $dbo->setQuery('SELECT * from #__yoshop_media WHERE parent_id='.$item->id.' ORDER BY is_title DESC');
-                $item->media = $dbo->loadObjectList();
-            }
-        }
-
-        return $res;
+        return new YoCollection($res, array('rowClass' => 'YoshopModelProduct'));
     }
 }

@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 jimport('joomla.application.component.modelform');
 
-class YoshopModelCartitem extends YoModel
+class YoshopModelCartitem extends YoModelAdmin
 {
     public $product = null;
     public $count = null;
@@ -22,7 +22,7 @@ class YoshopModelCartitem extends YoModel
         parent::__construct($config);
 
         /** @var YoshopModelProduct $product */
-        $product = $this->di->createModel('product');
+        $product = $this->createModel('product');
         $this->product = $product->getItem($config['state']->id);
 
         $this->count = $config['state']->count;
@@ -46,4 +46,6 @@ class YoshopModelCartitem extends YoModel
     {
         return $this->product->id;
     }
+
+    public function getForm($data = array(), $loadData = true) {}
 }

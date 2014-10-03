@@ -38,7 +38,7 @@ class YoshopControllerCategories extends JControllerAdmin
 	public function saveOrderAjax()
 	{
 		// Get the input
-		$input = $this->di->app->input;
+		$input = JFactory::getApplication()->input;
 		$pks = $input->post->get('cid', array(), 'array');
 		$order = $input->post->get('order', array(), 'array');
 
@@ -58,7 +58,7 @@ class YoshopControllerCategories extends JControllerAdmin
 		}
 
 		// Close the application
-		$this->di->app->close();
+		JFactory::getApplication()->close();
 	}
     
     

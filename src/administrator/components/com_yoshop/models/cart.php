@@ -15,7 +15,7 @@ jimport('joomla.application.component.modelform');
 /**
  * Yoshop model.
  */
-class YoshopModelCart extends YoModelForm
+class YoshopModelCart extends YoModelAdmin
 {
     protected $_collection;
 

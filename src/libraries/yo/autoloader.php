@@ -43,7 +43,7 @@ class YoAutoloader
      *
      * @since   12.1
      */
-    public static function registerPrefix($prefix, $path, $reset = false)
+    public static function registerPrefix($prefix, $path, $type = null, $reset = false)
     {
         // Verify the library path exists.
         if (!file_exists($path)) {
@@ -52,11 +52,11 @@ class YoAutoloader
 
         // If the prefix is not yet registered or we have an explicit reset flag then set set the path.
         if (!isset(self::$prefixes[$prefix]) || $reset) {
-            self::$prefixes[$prefix] = array($path);
+            self::$prefixes[$prefix] = array(array($path, $type));
         }
         // Otherwise we want to simply add the path to the prefix.
         else {
-            self::$prefixes[$prefix][] = $path;
+            self::$prefixes[$prefix][] = array($path, $type);
         }
     }
 
@@ -99,8 +99,19 @@ class YoAutoloader
         //$parts = (count($parts) === 1) ? array($parts[0], $parts[0]) : $parts;
 
         foreach ($lookup as $base) {
-            // Generate the path based on the class name parts.
-            $path = $base.'/'.implode('/', array_map('strtolower', $parts)).'.php';
+
+            $folders = $base[0];
+            $type = $base[1];
+
+            switch($type) {
+                case 'view':
+                    // Generate the path based on the class name parts.
+                    $path = $folders.'/'.implode('/', array_map('strtolower', $parts)).'/view.html.php';
+                    break;
+                default:
+                    // Generate the path based on the class name parts.
+                    $path = $folders.'/'.implode('/', array_map('strtolower', $parts)).'.php';
+            }
 
             // Load the file if it exists.
             if (file_exists($path)) {

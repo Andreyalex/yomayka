@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 
 try {
 
-    require_once 'bootstrap.php';
+    require_once JPATH_ADMINISTRATOR . '/components/com_yoshop/bootstrap.php';
     YoshopBootstrap::init();
 
     // Execute the task.
@@ -19,7 +19,7 @@ try {
     jimport('joomla.application.component.controller');
     $controller	= JControllerLegacy::getInstance('Yoshop');
     $controller->di = $di;
-    $controller->execute(YoDi::getInstance()->app->input->get('task'));
+    $controller->execute($di->app->input->get('task'));
     $controller->redirect();
 
 } catch (Exception $e) {

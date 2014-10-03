@@ -95,3 +95,6 @@ if (JDEBUG)
 {
 	$_PROFILER = JProfiler::getInstance('Application');
 }
+
+require_once JPATH_LIBRARIES.'/'.'yo/autoloader.php';
+YoAutoloader::setup();

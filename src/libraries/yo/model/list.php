@@ -28,12 +28,12 @@ abstract class YoModelList extends JModelList
      * @since   0.5
      * @throws  Exception
      */
-    public function __construct($config = array())
+    public function __construct($config)
     {
+        !empty($config['state']) && $config['state'] = new JObject($config['state']);
+
         parent::__construct($config);
 
-        if (!empty($config['di'])) {
-            $this->di = $config['di'];
-        }
+        $this->populateState();
     }
 }
