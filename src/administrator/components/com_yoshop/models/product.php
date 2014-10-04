@@ -22,6 +22,8 @@ class YoshopModelProduct extends YoModelAdmin
 {
     public $name = 'product';
 
+    public $prefix = 'yoshop';
+
     protected $text_prefix = 'COM_YOSHOP';
 
     /**
@@ -72,27 +74,17 @@ class YoshopModelProduct extends YoModelAdmin
         return true;
     }
 
-    public function populateState()
+    public function setItem($data)
     {
-        if (empty($this->state->id)) return;
-
-        parent::populateState();
-
-        $this->state->link = YoshopHelperProduct::createUrl((object)$this->state);
-    }
-
-    /**
-     * Lazy load for media files
-     * @return mixed
-     */
-    public function getStateMedia()
-    {
-        if (!$this->state->media) {
+        if (!empty($data->id)) {
             $dbo = JFactory::getDbo();
-            $dbo->setQuery('SELECT * from #__yoshop_media WHERE parent_id='.$this->state->id.' ORDER BY is_title DESC');
-            $this->state->media = new YoCollection($dbo->loadObjectList(), array('rowClass' => 'YoshopModelMedia'));
+            $dbo->setQuery('SELECT * from #__yoshop_media WHERE parent_id='.$data->id.' ORDER BY is_title DESC');
+            $data->media = new YoCollection($dbo->loadObjectList(), array('rowClass' => 'YoshopModelMedia'));
+
+            $data->link = YoshopHelperProduct::createUrl((object)$data);
         }
-        return $this->state->media;
+
+        parent::setItem($data);
     }
 
     public function getTable($type = 'Product', $prefix = 'YoshopTable', $config = array())
@@ -116,50 +108,7 @@ class YoshopModelProduct extends YoModelAdmin
     {
         /** @var YoshopModelCart $cart */
         $cart = $this->createModel('cart');
-        $cart->getProduct($this->state->id);
-    }
-
-    /**
-     * Method to get the record form.
-     *
-     * @param	array	$data		An optional array of data for the form to interogate.
-     * @param	boolean	$loadData	True if the form is to load its own data (default case), false if not.
-     * @return	JForm	A JForm object on success, false on failure
-     * @since	1.6
-     */
-    public function getForm($data = array(), $loadData = true)
-    {
-        // Initialise variables.
-        $app	= JFactory::getApplication();
-
-        // Get the form.
-        $form = $this->loadForm('com_yoshop.product', 'product', array('control' => 'jform', 'load_data' => $loadData));
-
-
-        if (empty($form)) {
-            return false;
-        }
-
-        return $form;
-    }
-
-    /**
-     * Method to get the data that should be injected in the form.
-     *
-     * @return	mixed	The data for the form.
-     * @since	1.6
-     */
-    protected function loadFormData()
-    {
-        // Check the session for previously entered form data.
-        $data = JFactory::getApplication()->getUserState('com_yoshop.edit.product.data', array());
-
-        if (empty($data)) {
-            $data = $this->getItem();
-
-        }
-
-        return $data;
+        $cart->getProduct($this->data->id);
     }
 
     public function createDraft()

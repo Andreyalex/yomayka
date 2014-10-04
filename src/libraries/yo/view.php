@@ -13,13 +13,17 @@ class YoView extends JViewLegacy
     {
         $app = JFactory::getApplication();
 
+        if($app->input->get('tmpl') == 'modal') {
+            $tpl = 'modal';
+        }
+
+        if (method_exists($this, $this->_layout.'Hook')) {
+            $this->{$this->_layout.'Hook'}($tpl);
+        }
+
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
             throw new Exception(implode("\n", $errors));
-        }
-
-        if($app->input->get('tmpl') == 'modal') {
-            $tpl = 'modal';
         }
 
         parent::display($tpl);

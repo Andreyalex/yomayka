@@ -33,7 +33,7 @@ class YoViewHelperHtml
         $options['src']   = YOSHOP_PRODUCT_MEDIA_BASEURL.'/'.$options['src'];
         $options['class'] = 'media-'.$options['size'];
 
-        $tpl = '<a href="{src}" class="image media-entity {class}"><img src="{src}" /></a>';
+        $tpl = '<a href="{{src}}" class="image media-entity {{class}}"><img src="{{src}}" /></a>';
 
         return self::render($tpl, $options);
     }
@@ -42,9 +42,9 @@ class YoViewHelperHtml
     {
         $tpl = '
             <div class="page-header">
-                <a href="{link}" class="alias-{alias}">
-                    <span class="icon icon-{icon}"></span>
-                    <span class="content">{title}</span>
+                <a href="{{link}}" class="alias-{{alias}}">
+                    <span class="icon icon-{{icon}}"></span>
+                    <span class="content">{{title}}</span>
                 </a>
             </div>';
 
@@ -53,11 +53,12 @@ class YoViewHelperHtml
 
     public static function renderFormAssets($resource, $returnValue = null)
     {
-        list($component, $controller, $action) = explode('.', $resource);
+        list($component, $controller, $action, $id) = explode('.', $resource);
 
         $res =
             '<input type="hidden" name="option" value="com_'.$component.'" />
              <input type="hidden" name="task" value="'.$controller.'.'.$action.'" />'.
+             ($id? '<input type="hidden" name="id" value="'.$id.'" />' : '').
              JHtml::_('form.token');
 
         if ($returnValue) {
@@ -80,8 +81,16 @@ class YoViewHelperHtml
             'required'    => $fieldElement->required? 'required aria-required="true"' : ''
         );
 
-        if (trim($fieldElement->input) == '') {
-            $options['input'] = '';
+        switch ($fieldElement->type) {
+            case 'Text':
+            case 'Hidden':
+                (trim($fieldElement->input)=='') && ($options['input'] = '');
+                break;
+            case 'Textarea':
+                $options['input'] = str_replace('<textarea', '<textarea class="form-control"', $fieldElement->input);
+                break;
+            default:
+                $options['input'] = $fieldElement->input;
         }
 
         return self::renderControl($options);
@@ -101,11 +110,11 @@ class YoViewHelperHtml
     public static function renderBs2Control($options)
     {
         $input = isset($options['input'])? $options['input'] :
-             '<input name="{name}" type="{type}" id="{id}" placeholder="{placeholder}" value="{value}" {required} />';
+             '<input name="{{name}}" type="{{type}}" id="{{id}}" placeholder="{{placeholder}}" value="{{value}}" {{required}} />';
 
         $tpl = '
             <div class="control-group">
-                <label class="control-label" for="{id}">{label}</label>
+                <label class="control-label" for="{{id}}">{{label}}</label>
                 <div class="controls">'
                 .$input.
                 '</div>
@@ -116,7 +125,7 @@ class YoViewHelperHtml
 
     public static function renderControl($options)
     {
-        $input = !isset($options['input'])? '<input class="form-control" name="{name}" type="{type}" id="{id}" placeholder="{placeholder}" value="{value}" {required} {disabled} />' : $options['input'];
+        $input = !isset($options['input'])? '<input class="form-control" name="{{name}}" type="{{type}}" id="{{id}}" placeholder="{{placeholder}}" value="{{value}}" {{required}} {{disabled}} />' : $options['input'];
 
         $req = $options['required']? ' <span class="text-danger">*</span>' : '';
 
@@ -126,7 +135,7 @@ class YoViewHelperHtml
 
         $tpl = '
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="{id}">{label}'.$req.'</label>
+                <label class="col-sm-2 control-label" for="{{id}}">{{label}}'.$req.'</label>
                 <div class="col-sm-10">'
                 .$input.
                 '</div>
@@ -142,9 +151,9 @@ class YoViewHelperHtml
 
         $reps = array();
         $matches = array();
-        preg_match_all('/{([^}]+)}/', $tpl, $matches);
+        preg_match_all('/{{([^}]+)}}/', $tpl, $matches);
         foreach($matches[1] as $key) {
-            $reps["{{$key}}"] = isset($data[$key])? $data[$key] : '';
+            $reps["{{{$key}}}"] = isset($data[$key])? $data[$key] : '';
         }
 
         return str_replace(array_keys($reps), array_values($reps), $tpl);
@@ -157,7 +166,7 @@ class YoViewHelperHtml
         $defaults = array('currency' => JText::_('COM_YOSHOP_CURRENCY_UAH'));
 
         return self::render(
-            '<span class="value">{value}</span>&nbsp;<span class="currency">{currency}</span>',
+            '<span class="value">{{value}}</span>&nbsp;<span class="currency">{{currency}}</span>',
             $options,
             $defaults
         );
@@ -169,7 +178,7 @@ class YoViewHelperHtml
         $defaults = array('countItem' => JText::_('COM_YOSHOP_COUNT_ITEM'));
 
         return self::render(
-            '<span class="value">{value}</span>&nbsp;<span class="countItem">{countItem}</span>',
+            '<span class="value">{{value}}</span>&nbsp;<span class="countItem">{{countItem}}</span>',
             $options,
             $defaults
         );

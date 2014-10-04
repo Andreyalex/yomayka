@@ -23,9 +23,9 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_yoshop')) 
 <div id="yoshop-products-list" class="tiles">
     <?php if (count($this->products) > 0) {
         $i=0;
-        foreach ($this->products as $k=>$item){
-            $product = $item->getState();
-            $media = $item->getState('media')[0]->getState()->path_prev;
+        foreach ($this->products as $k => $row){
+            $product = $row->data;
+            $media = $product->media[0]->data->path_prev;
             ?>
             <div class="item grid-2col-item<?php echo $i % 2; ?> grid-3col-item<?php echo $i % 3; ?>  grid-4col-item<?php echo $i % 4; ?>" data-id="<?php echo $product->id; ?>">
 

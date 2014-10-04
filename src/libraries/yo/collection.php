@@ -112,8 +112,10 @@ class YoCollection implements ArrayAccess, Iterator, Countable
                 $this->_collection[$idx] = JModelLegacy::getInstance(
                     $parts[1],
                     $parts[0].'Model',
-                    array('state' => $item)
+                    array()
                 );
+
+                $this->_collection[$idx]->setItem($item);
             }
         }
 

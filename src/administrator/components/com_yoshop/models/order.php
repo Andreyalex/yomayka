@@ -17,13 +17,16 @@ jimport('joomla.application.component.modeladmin');
  */
 class YoshopModelOrder extends YoModelAdmin
 {
-    protected function populateState()
+    public function getItem($id = null)
     {
-        if (empty($this->state->id)) return;
+        parent::getItem($id);
 
-        $dbo = JFactory::getDbo();
-        $dbo->setQuery('SELECT * from #__yoshop_order_product WHERE order_id='.(int)$this->state->id);
-        $this->state->products = new YoCollection($dbo->loadObjectList(), array('rowClass' => 'YoshopModelOrderproduct'));
+        if (!empty($id)) {
+            $dbo = JFactory::getDbo();
+            $dbo->setQuery('SELECT * from #__yoshop_order_product WHERE order_id=' . (int) $id);
+            $this->data->products = new YoCollection($dbo->loadObjectList(), array('rowClass' => 'YoshopModelOrderproduct'));
+        }
+        return $this->data;
     }
 
     public function create($data)
@@ -46,7 +49,7 @@ class YoshopModelOrder extends YoModelAdmin
                 $modelOrderProduct = $this->createModel('orderproduct');
                 $product = $modelProduct->getItem($item['productId']);
                 $product->product_id = $product->id;
-                $product->order_id = $this->state->id;
+                $product->order_id = $this->data->id;
                 $product->count = $item['count'];
                 $product->id = null;
                 if (!$modelOrderProduct->save($product)) {
@@ -100,12 +103,12 @@ class YoshopModelOrder extends YoModelAdmin
 
     public function getProducts()
     {
-        return $this->state->products;
+        return $this->data->products;
     }
 
     public function setInProgress()
     {
-        if (!$this->state->id) {
+        if (!$this->data->id) {
             throw new Exception('Cannot update not loaded order');
         }
 

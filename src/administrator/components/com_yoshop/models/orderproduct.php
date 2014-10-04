@@ -19,13 +19,13 @@ class YoshopModelOrderproduct extends YoModelAdmin
 {
     public function getTotalPrice()
     {
-        $res = (int)$this->state->price_base * (int)$this->state->count;
+        $res = (int)$this->data->price_base * (int)$this->data->count;
         return $res;
     }
 
     public function toArray()
     {
-        $res = (array) $this->state;
+        $res = (array) $this->data;
         $res['total_price'] = $this->getTotalPrice();
         return $res;
     }

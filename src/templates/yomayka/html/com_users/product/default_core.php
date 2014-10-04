@@ -21,7 +21,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_yoshop')) 
     $canEdit = JFactory::getUser()->id == $this->item->created_by;
 }
 
-$product = $this->product;
+$product = $this->product->data;
 
 $carouselFullWidth =
     empty($product->name) &&
@@ -38,9 +38,11 @@ if(!empty($product->name)) {
 
         <div id="myCarousel" class="carousel slide <?php echo $carouselFullWidth? 'fullwidth':'';?>">
             <div class="carousel-inner">
-                <?php for($i=0; $i < count($product->media); $i++) { ?>
+                <?php
+                $media = $product->media;
+                for($i=0; $i < count($media); $i++) { ?>
                     <div class="item<?php echo !$i? ' active':'' ?>">
-                        <?php echo YoshopHelperHtml::renderMedia($product->media[$i]); ?>
+                        <?php echo YoshopHelperHtml::renderMedia($media[$i]->data); ?>
                     </div>
                     <?php $i++; } ?>
             </div>
@@ -51,31 +53,16 @@ if(!empty($product->name)) {
 
 
         <div class="details">
-            <?php if(!empty($product->name)) { ?>
-                <div class="title"><h1><?php echo $this->escape($product->name); ?></h1></div>
+            <?php if(!empty($product->data->name)) { ?>
+                <div class="title"><h1><?php echo $this->escape($product->data->name); ?></h1></div>
             <?php } ?>
 
             <div class="share shareinit"></div>
 
-            <?php if(!empty($product->description)) { ?>
-                <div class="description"><?php echo $this->escape($product->description); ?></div>
+            <?php if(!empty($product->data->description)) { ?>
+                <div class="description"><?php echo $this->escape($product->data->description); ?></div>
             <?php } ?>
 
-            <?php if(!empty($product->price_base)) { ?>
-                <div class="price">
-                    <span class="pull-left btn btn-large btn-success cart cart-add" data-cart-action="add" data-id="<?php echo $product->id; ?>" style="<?php echo $this->isInCart? 'display:none;':''?>" >
-                        <i class="icon-shopping-cart"></i>&nbsp;
-                        <?php echo JText::_('COM_YOSHOP_ADD_TO_CART');?>
-                    </span>
-                    <span class="pull-left btn btn-large btn-info cart cart-remove" data-cart-action="remove" data-id="<?php echo $product->id; ?>" style="<?php echo !$this->isInCart? 'display:none;':''?>" >
-                        <i class="icon-shopping-cart"></i>&nbsp;
-                        <?php echo JText::_('COM_YOSHOP_REMOVE_FROM_CART');?>
-                    </span>
-                    <!--                    <span class="cart cart-add" <i class="icon-shopping-cart"></i></span>-->
-                    <!--                    <span class="cart cart-remove" >-->
-
-                    <span class="icon-tag"></span><span><?php echo $this->escape($product->price_base); ?>грн</span></div>
-            <?php } ?>
         </div>
 
         <div class="comments" style="clear:both">{comments}</div>

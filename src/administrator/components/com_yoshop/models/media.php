@@ -134,7 +134,7 @@ class YoshopModelMedia extends YoModelAdmin
 
     public function getPreview()
     {
-        return YOSHOP_CONTENT_BASEURL . '/product/images/' . $this->state->path_prev;
+        return YOSHOP_CONTENT_BASEURL . '/product/images/' . $this->data->path_prev;
     }
 
     public function getForm($data = array(), $loadData = true) {}

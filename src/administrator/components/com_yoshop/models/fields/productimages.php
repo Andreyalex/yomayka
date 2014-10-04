@@ -39,7 +39,7 @@ class JFormFieldProductimages extends JFormField
 
         $values = $this->_getItems();
 
-        $root = JUri::base() . 'components/com_yoshop/models/fields/productimages';
+        $root = 'administrator/components/com_yoshop/models/fields/productimages';
         JHTML::stylesheet($root . '/productimages.css');
         JHTML::script($root . '/jquery.ui.widget.js');
         JHTML::script($root . '/jquery.iframe-transport.js');
@@ -53,8 +53,9 @@ class JFormFieldProductimages extends JFormField
                 <div>Подождите...</div>
             </div>
             <div class="pane-main">
-            <ul class="pane-images"></ul>
-            <input id="piFileupload" type="file" name="files[]" data-url="index.php?option=com_yoshop&format=json" multiple>
+                <ul class="pane-images"></ul>
+                <input id="piFileupload" type="file" name="files[]" data-url="index.php?option=com_yoshop&format=json" multiple>
+            </div>
         </div>
 
         <script>

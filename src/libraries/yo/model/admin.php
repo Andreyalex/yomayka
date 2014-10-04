@@ -20,6 +20,8 @@ abstract class YoModelAdmin extends JModelAdmin
 {
     public $data = null;
 
+    public $prefix = null; // [yoshop] from [Yoshop]ModelProduct
+
     protected $text_prefix = 'COM_YO';
 
     /**
@@ -30,13 +32,10 @@ abstract class YoModelAdmin extends JModelAdmin
      * @since   0.5
      * @throws  Exception
      */
-    public function __construct($config)
+    public function __construct($config = array())
     {
-        !empty($config['state']) && $config['state'] = new JObject($config['state']);
-
         parent::__construct($config);
-
-        $this->populateState();
+        $this->setItem(!empty($config['data'])? (array) $config['data'] : null);
     }
 
     /**
@@ -48,15 +47,23 @@ abstract class YoModelAdmin extends JModelAdmin
      */
     public function getItem($id = null)
     {
-        if (empty($id)) throw new Exception('Id is absent');
+        if (!empty($id)) {
+            $this->setItem(parent::getItem($id));
+        }
 
-        $item = parent::getItem($id)->getProperties();
+        return $this->data;
+    }
 
-        $this->state->setProperties($item);
-
-        $this->populateState();
-
-        return $item;
+    /**
+     * Method to get an ojbect.
+     *
+     * @param	integer	The id of the object to get.
+     *
+     * @return	mixed	Object on success, false on failure.
+     */
+    public function setItem($item)
+    {
+        $this->data = ($item instanceof JObject)? $item : new JObject($item);
     }
 
     /**
@@ -96,20 +103,75 @@ abstract class YoModelAdmin extends JModelAdmin
         return true;
     }
 
-    public function getState($property = null, $default = null)
-    {
-        if ($property) {
-            if (method_exists($this, 'getState'.ucfirst($property))) {
-                return $this->{'getState'.ucfirst($property)}($default);
-            }
-        }
-        return parent::getState($property = null, $default = null);
-    }
-
     public function getTable($type = null, $prefix = 'YoTable', $config = array())
     {
         return parent::getTable($type, $prefix, $config);
     }
 
+    /**
+     * Method to get a form object.
+     *
+     * @param   string   $name     The name of the form.
+     * @param   string   $source   The form source. Can be XML string if file flag is set to false.
+     * @param   array    $options  Optional array of options for the form creation.
+     * @param   boolean  $clear    Optional argument to force load a new form.
+     * @param   string   $xpath    An optional xpath to search for the fields.
+     *
+     * @return  mixed  JForm object on success, False on error.
+     *
+     * @see     JForm
+     * @since   12.2
+     */
+    protected function loadForm($name, $source = null, $options = array(), $clear = false, $xpath = false)
+    {
+        $prefix = JPATH_ADMINISTRATOR . '/components/com_'. $this->prefix;
+        JForm::addFormPath($prefix . '/models/forms');
+        JForm::addFieldPath($prefix . '/models/fields');
+        JForm::addFormPath($prefix . '/model/form');
+        JForm::addFieldPath($prefix . '/model/field');
 
+        return parent::loadForm($name, $source, $options, $clear, $xpath);
+    }
+
+    /**
+     * Method to get the record form.
+     *
+     * @param	array	$data		An optional array of data for the form to interogate.
+     * @param	boolean	$loadData	True if the form is to load its own data (default case), false if not.
+     * @return	JForm	A JForm object on success, false on failure
+     * @since	1.6
+     */
+    public function getForm($data = array(), $loadData = true)
+    {
+        // Get the form.
+        $form = $this->loadForm("com_{$this->prefix}.{$this->name}", $this->name, array('control' => 'jform', 'load_data' => $loadData));
+
+        if (empty($form)) {
+            return false;
+        }
+
+        JFactory::getLanguage()->load("com_{$this->prefix}");
+        JFactory::getLanguage()->load("com_{$this->prefix}", JPATH_ADMINISTRATOR);
+
+        return $form;
+    }
+
+    /**
+     * Method to get the data that should be injected in the form.
+     *
+     * @return	mixed	The data for the form.
+     * @since	1.6
+     */
+    protected function loadFormData()
+    {
+        // Check the session for previously entered form data.
+        $data = JFactory::getApplication()->getUserState("com_{$this->prefix}.edit.{$this->name}.data", array());
+
+        if (empty($data)) {
+            $data = $this->getItem();
+
+        }
+
+        return $data;
+    }
 }

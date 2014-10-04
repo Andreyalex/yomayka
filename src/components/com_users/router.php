@@ -261,8 +261,8 @@ class UsersRouter extends JComponentRouterBase
         }
 
         $vars['view'] = !empty($item)? $item : 'profile';
-        empty($segments) || $vars['subView'] = array_shift($segments);
-        empty($segments) || $vars['subItem'] = array_shift($segments);
+        empty($segments) || $vars['subId'] = array_shift($segments);
+        empty($segments) || $vars['action'] = array_shift($segments);
 
 		return $vars;
 	}

@@ -49,24 +49,6 @@ class UsersViewProfile extends JViewLegacy
         $app = JFactory::getApplication();
         $input = $app->input;
 
-        switch ($input->get('subView')) {
-            case 'products':
-
-                $di = YoDi::getInstance('Yoshop');
-
-                if ($input->get('subItem')) {
-                    /** @var YoshopModelProduct $productModel */
-                    $productModel = $di->createModel('product');
-                    $this->product = $productModel->getItem($input->get('subItem'));
-                    $this->productForm = $productModel->getForm();
-                } else {
-                    /** @var YoshopModelProducts $productsModel */
-                    $productsModel = $di->createModel('products');
-                    $this->products = $productsModel->getItems();
-                }
-                break;
-        }
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{

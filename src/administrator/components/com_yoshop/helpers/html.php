@@ -20,7 +20,7 @@ class YoshopHelperHtml
         $options = array_merge(array(
             'size' => 'normal',
             'link' => '#'
-        ), $options);
+        ), (array) $options);
 
         switch($options['size']) {
             case 'preview': $options['src'] = $media->path_prev; break;
