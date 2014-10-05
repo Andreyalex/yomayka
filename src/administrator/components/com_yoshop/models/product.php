@@ -34,15 +34,13 @@ class YoshopModelProduct extends YoModelAdmin
      * @return	mixed	Object on success, false on failure.
      * @since	1.6
      */
-    public function getImages($pk = null)
+    public function getMedia($pk = null)
     {
         $dbo = JFactory::getDbo();
 
         $dbo->setQuery(
-            'SELECT `id`, `path`, `is_title`, `parent_id` FROM `#__yoshop_media` '.
-            'WHERE '.
-            '`type`='.YOSHOP_MEDIA_TYPE_IMAGE.' and '.
-            '`parent_id`='.(int)$pk
+            ' SELECT * FROM `#__yoshop_media` WHERE `parent_id`='.(int)$pk.
+            ' ORDER BY is_title DESC, ordering ASC'
         );
 
         return $dbo->loadObjectList();
@@ -77,10 +75,7 @@ class YoshopModelProduct extends YoModelAdmin
     public function setItem($data)
     {
         if (!empty($data->id)) {
-            $dbo = JFactory::getDbo();
-            $dbo->setQuery('SELECT * from #__yoshop_media WHERE parent_id='.$data->id.' ORDER BY is_title DESC');
-            $data->media = new YoCollection($dbo->loadObjectList(), array('rowClass' => 'YoshopModelMedia'));
-
+            $data->media = new YoCollection($this->getMedia($data->id), array('rowClass' => 'YoshopModelMedia'));
             $data->link = YoshopHelperProduct::createUrl((object)$data);
         }
 
@@ -132,5 +127,22 @@ class YoshopModelProduct extends YoModelAdmin
         }
 
         return parent::save($data);
+    }
+
+    public function setOrderMedia($ids)
+    {
+        $flip = array_flip($ids);
+        foreach($this->data->media as $media) {
+            if (in_array($media->data->id, $ids)) {
+                $media->data->ordering = $flip[$media->data->id];
+                $media->data->is_title = (int) ($media->data->ordering == 0);
+                $media->save();
+            } else {
+                $media->data->ordering = count($ids);
+                $media->save();
+            }
+        }
+
+        return true;
     }
 }

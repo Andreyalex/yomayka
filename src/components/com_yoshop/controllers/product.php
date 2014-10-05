@@ -23,7 +23,7 @@ class YoshopControllerProduct extends YoControllerAbstract
 	 */
 	public function edit()
 	{
-		$app			= $this->di->app;
+		$app = $this->di->app;
 
 		// Get the previous edit id (if any) and the current edit id.
 		$previousId = (int) $app->getUserState('com_yoshop.edit.product.id');
@@ -219,6 +219,14 @@ class YoshopControllerProduct extends YoControllerAbstract
 		// Flush the data from the session.
 		$app->setUserState('com_yoshop.edit.product.data', null);
 	}
-    
-    
+
+    public function add()
+    {
+        /** @var YoshopModelProduct $product */
+        $product = $this->createModel('productform');
+        $id = $product->createDraft();
+
+        $this->input->set('id', $id);
+        return parent::edit();
+    }
 }

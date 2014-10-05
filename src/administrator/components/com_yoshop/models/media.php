@@ -74,7 +74,7 @@ class YoshopModelMedia extends YoModelAdmin
      *
      * @since   12.2
      */
-    public function save($data)
+    public function save($data = null)
     {
         if (!empty($data['file'])) {
 
@@ -90,10 +90,11 @@ class YoshopModelMedia extends YoModelAdmin
             }
 
             $img = new JImage(YOSHOP_PRODUCT_MEDIA_PATH . '/' . $target);
-            $thumbs = $img->createThumbs(array('300x9999', '1000x9999'), JImage::SCALE_INSIDE, YOSHOP_PRODUCT_MEDIA_PATH);
+            $thumbs = $img->createThumbs(array('100x9999', '300x9999', '1000x9999'), JImage::SCALE_INSIDE, YOSHOP_PRODUCT_MEDIA_PATH);
 
-            $data['path_prev']  = array_pop(explode('/',$thumbs[0]->getPath()));
-            $data['path_large'] = array_pop(explode('/',$thumbs[1]->getPath()));
+            $data['path_icon']  = array_pop(explode('/',$thumbs[0]->getPath()));
+            $data['path_prev']  = array_pop(explode('/',$thumbs[1]->getPath()));
+            $data['path_large'] = array_pop(explode('/',$thumbs[2]->getPath()));
 
             $data['path'] = $target;
             unset ($data['file']);

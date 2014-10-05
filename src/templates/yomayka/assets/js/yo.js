@@ -1,22 +1,49 @@
 // Yo declaration and creation
-;(function() {
+; window.yo = (function() {
 
-    var _this = this;
+    var module = this;
 
-    // Default settings
-    this.config = {
-        debug: 1
+    module.options = {
+        baseUrl: window.siteBaseUrl,
+        debug: false,
+        sendLogs: true
     }
 
-    this.models = {}
+    module.models = {}
 
-    this.debug = function() {
-        if (_this.config.debug && console && console.log) {
-            try { 
+    module.debug = function() {
+        if (module.options.debug && console && console.log) {
+            try {
                 console.log.apply(console, arguments)
             } catch(e) {}
         }
     }
 
-    window.yo = this;
+    module.log = function(message, type, assets) {
+
+        assets || (assets = {})
+        type || (type = 'message');
+
+        assets.url = window.location.href
+
+        module.options.debug && module.debug(type, message);
+
+        module.options.sendLogs && jQuery && jQuery.ajax({
+            url: module.options.baseUrl + 'index.php?format=json',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                option: 'com_yoshop',
+                task: 'logger.add',
+                item: {
+                    type: type,
+                    message: message,
+                    assets: assets,
+                    context: 'client'
+                }
+            }
+        })
+    }
+
+    return module;
 })();

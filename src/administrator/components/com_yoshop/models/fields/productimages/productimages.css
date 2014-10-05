@@ -13,19 +13,36 @@
     overflow: hidden;
     margin: 0;
     padding: 0;
+    margin-bottom: 10px;
+}
+
+#piContainer .place-titled {
+    background: #e8ffe8;
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border-radius: 11px;
 }
 
 #piContainer .item {
     float: left;
-    max-width: 100px;
+    width: 122px;
+    height: 122px;
     position: relative;
     margin: 10px;
     padding: 10px;
     border: 1px solid #dddddd;
     border-radius: 11px;
     list-style: none;
+    text-align: center;
+    line-height: 100px;
+    background: #ffffff;
 }
 
+#piContainer .item img {
+    max-width: 100px;
+    max-height: 100px;
+}
 #piContainer .item .remove {
     position: absolute;
     top: 0;
@@ -40,6 +57,7 @@
     font-size: 11px;
     text-align: center;
     cursor: pointer;
+    line-height: 13px;
 }
 
 #piContainer .item .main {
@@ -56,6 +74,8 @@
     font-size: 11px;
     text-align: center;
     cursor: pointer;
+    line-height: 13px;
+    display: none;
 }
 
 #piContainer .item.title .main {

@@ -3,7 +3,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta charset="utf-8" >
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+
+    <script type="text/javascript"> window.siteBaseUrl = "<?php echo JUri::base(); ?>"</script>
+
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/bootstrap/css/bootstrap.min.css">
 <!--    <link rel="stylesheet" href="--><?php //echo $tplBaseUrl; ?><!--/assets/bootstrap/css/bootstrap-theme.min.css">-->
 
@@ -14,10 +17,9 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
     <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/jquery/jquery.js"></script>
-    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/jquery/ui/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/jquery/ui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/bootstrap/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript"> window.siteBaseUrl = "<?php echo JUri::base(); ?>"</script>
+    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/js/yo.js"></script>
 
     <?php
         if (isset($this->customAssets)) {

@@ -151,5 +151,4 @@ class YoshopModelmedias extends YoModelList {
         
         return $items;
     }
-
 }

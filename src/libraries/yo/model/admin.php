@@ -34,8 +34,21 @@ abstract class YoModelAdmin extends JModelAdmin
      */
     public function __construct($config = array())
     {
+        // Able to receive entity's id
+        if (is_numeric($config)) {
+            $id = (int) $config;
+            $config = array();
+        }
+
         parent::__construct($config);
-        $this->setItem(!empty($config['data'])? (array) $config['data'] : null);
+
+        // Lets fetch data by id
+        // or set data itself (if some of them are passed)
+        if (!empty($id)) {
+            $this->getItem($id);
+        } else {
+            $this->setItem(!empty($config['data'])? (array) $config['data'] : null);
+        }
     }
 
     /**
@@ -73,16 +86,17 @@ abstract class YoModelAdmin extends JModelAdmin
      * @return	mixed		The user id on success, false on failure.
      * @since	1.6
      */
-    public function save($data)
+    public function save($data = null)
     {
+        $data || ($data = $this->data);
         $table = $this->getTable();
-        if ($table->save($data) === true) {
-            $this->state = JArrayHelper::toObject($table->getProperties(), 'JObject');
-            $this->populateState();
-            return true;
-        } else {
+        if ($table->save($data) !== true) {
             return false;
         }
+
+        $this->setItem($table->getProperties());
+
+        return true;
     }
 
     function delete($data)

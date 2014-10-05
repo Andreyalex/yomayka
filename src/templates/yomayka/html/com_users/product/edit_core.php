@@ -10,10 +10,10 @@
 defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
-JHtml::_('behavior.tooltip');
-JHtml::_('behavior.formvalidation');
-JHtml::_('formbehavior.chosen', 'select');
-JHtml::_('behavior.keepalive');
+//JHtml::_('behavior.tooltip');
+//JHtml::_('behavior.formvalidation');
+//JHtml::_('formbehavior.chosen', 'select');
+//JHtml::_('behavior.keepalive');
 
 // Import CSS
 $document = JFactory::getDocument();
@@ -43,6 +43,19 @@ $document->addStyleSheet('administrator/components/com_yoshop/assets/css/yoshop.
     }
 </script>
 
+
+<a  class="btn btn-default"
+    href="<?php echo JRoute::_('index.php?option=com_users&view=products'); ?>"
+>
+    <?php echo JText::_("COM_USERS_BACK"); ?>
+</a>
+
+<a  class="btn btn-success"
+    href="<?php echo JRoute::_('index.php?option=com_users&view=product&id='.$this->id); ?>"
+>
+    <?php echo JText::_("COM_USERS_SHOW"); ?>
+</a>
+
 <form class="form-horizontal form-validate" role="form" id="member-registration" action="<?php echo JRoute::_('index.php'); ?>" method="post" enctype="multipart/form-data">
 
     <?php $fields = (array) $this->form->getFieldset();?>
@@ -61,6 +74,6 @@ $document->addStyleSheet('administrator/components/com_yoshop/assets/css/yoshop.
         </div>
     </div>
 
-    <?php echo YoViewHelperHtml::renderFormAssets('users.product.edit.'.$this->id, $this->form->getValue('return')); ?>
+    <?php echo YoViewHelperHtml::renderFormAssets('yoshop.product.edit.'.$this->id, $this->form->getValue('return')); ?>
 
 </form>

@@ -8,18 +8,18 @@
                filter="safehtml"
                 />
 
-        <field name="price_base" type="text" size="40" class="inputbox"
-               label="COM_YOSHOP_FORM_LBL_PRODUCT_PRICE"
-               description="COM_YOSHOP_FORM_DESC_PRODUCT_PRICE"
-               filter="numeric"
-                />
+        <!--<field name="price_base" type="text" size="40" class="inputbox"-->
+               <!--label="COM_YOSHOP_FORM_LBL_PRODUCT_PRICE"-->
+               <!--description="COM_YOSHOP_FORM_DESC_PRODUCT_PRICE"-->
+               <!--filter="numeric"-->
+                <!--/>-->
 
-        <field
-                name="category"
-                type="category" extension="com_yoshop"
-                label="COM_YOSHOP_FORM_LBL_PRODUCT_CATEGORY"
-                description="COM_YOSHOP_FORM_DESC_PRODUCT_CATEGORY"
-                />
+        <!--<field-->
+                <!--name="category"-->
+                <!--type="category" extension="com_yoshop"-->
+                <!--label="COM_YOSHOP_FORM_LBL_PRODUCT_CATEGORY"-->
+                <!--description="COM_YOSHOP_FORM_DESC_PRODUCT_CATEGORY"-->
+                <!--/>-->
 
         <field
                 name="images"
@@ -56,9 +56,9 @@
             <option value="0">JUNPUBLISHED</option>
         </field>
 
-        <field name="created_by" type="createdby" default=""
-               label="COM_YOSHOP_FORM_LBL_PRODUCT_CREATED_BY"
-               description="COM_YOSHOP_FORM_DESC_PRODUCT_CREATED_BY"/>
+        <!--<field name="created_by" type="createdby" default=""-->
+               <!--label="COM_YOSHOP_FORM_LBL_PRODUCT_CREATED_BY"-->
+               <!--description="COM_YOSHOP_FORM_DESC_PRODUCT_CREATED_BY"/>-->
 
 
         <!--<field name="checked_out" type="hidden" filter="unset"/>-->

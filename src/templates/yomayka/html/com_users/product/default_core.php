@@ -33,6 +33,20 @@ if(!empty($product->name)) {
 }
 ?>
 
+<a  class="btn btn-default"
+    href="<?php echo JRoute::_('index.php?option=com_users&view=products'); ?>"
+    >
+    <?php echo JText::_("COM_USERS_BACK"); ?>
+</a>
+
+<?php if ($product) { ?>
+    <a  class="btn btn-success"
+        href="<?php echo JRoute::_('index.php?option=com_users&view=product').'/'.$this->id.'?layout=edit'; ?>"
+        >
+        <?php echo JText::_("COM_USERS_EDIT"); ?>
+    </a>
+<?php } ?>
+
 <div id="yoshop-product">
     <?php if ($product) { ?>
 

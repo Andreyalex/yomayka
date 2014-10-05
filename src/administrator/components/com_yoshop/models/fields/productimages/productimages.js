@@ -6,14 +6,17 @@
  * To change this template use File | Settings | File Templates.
  */
 
-window.productimagesFormElement = (function($){
+jQuery(function(){
+
+  window.productimagesFormElement = (function($){
 
     var _view = null,
         _data = null,
         _uploadControl = null,
         _basePath = '/',
         _itemTemplate =
-            '<li class="item {item.class}" data-id="{item.id}"><img width="200px" src="{item.path}"><span class="remove">X</span><span class="main">T</span></li>';
+            '<li class="item {item.class}" data-id="{item.id}"><img src="{item.path}"><span class="remove">X</span><span class="main">T</span></li>',
+        _productId = null;
 
     var module = {
 
@@ -25,15 +28,19 @@ window.productimagesFormElement = (function($){
 
             _data          = options.data || [];
 
-            _basePath      = options.basePath
+            _basePath      = options.basePath;
+
+            _productId     = $('[name="id"]').val();
 
             //_data = $(options.formElement);
 
             _uploadControl.click(function(){
                 $('[name="task"]') && $('[name="task"]').attr('value', 'product.addMedia');
+                $('[name="option"]') && $('[name="option"]').attr('value', 'com_yoshop');
             })
 
             _uploadControl.fileupload({
+                url: '/index.php?option=com_yoshop&format=json',
                 dataType: 'json',
                 singleFileUploads: false,
                 done: function (e, data)
@@ -48,11 +55,29 @@ window.productimagesFormElement = (function($){
                     module.addItems(res.data);
 
                     module.unblockUI();
+                },
+                error: function(err) {
+                    msg = err.statusText;
+                    data = {
+                        responseText: err.responseText,
+                        httpCode: err.status
+                    }
+                    yo.log(msg, 'error', data);
+
+                    module.unblockUI();
+                    // message('An error occured please try again later.', 'error');
+                    alert('An error occured please try again later.');
                 }
             });
             _uploadControl.bind('fileuploadsend', function(){
                 module.blockUI();
             })
+
+            _view.find('.pane-images').sortable({
+                'stop': module.saveOrder
+            });
+
+            _view.find('.pane-images').disableSelection();
 
             module.render();
         },
@@ -69,7 +94,7 @@ window.productimagesFormElement = (function($){
         {
             $.ajax({
                 type: 'POST',
-                url: 'index.php?option=com_yoshop',
+                url: '/index.php?option=com_yoshop',
                 dataType: 'json',
                 data: {
                     'task': 'product.deleteMedia',
@@ -110,7 +135,7 @@ window.productimagesFormElement = (function($){
         {
             $.ajax({
                 type: 'POST',
-                url: 'index.php?option=com_yoshop',
+                url: '/index.php?option=com_yoshop',
                 dataType: 'json',
                 data: {
                     'task': 'product.titleMedia',
@@ -188,7 +213,7 @@ window.productimagesFormElement = (function($){
         },
 
         blockUI: function(messages){
-            !messages && (messages = ['Подождите...']);
+            messages || (messages = ['Подождите...']);
             _view.find('.pane-block > div').html(messages.join("<br/>"));
             _view.addClass('blocked');
         },
@@ -196,15 +221,43 @@ window.productimagesFormElement = (function($){
         unblockUI: function(){
             _view.removeClass('blocked');
         },
+
         showMessages: function(messages){
             setTimeout(function(){
                 module.unblockUI();
             },2000);
             module.blockUI(messages);
-        }
+        },
 
+        saveOrder: function() {
+
+            var ids = []
+            _view.find('.pane-images .item').each(function(idx, item){
+                ids.push($(item).data('id'));
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '/index.php?option=com_yoshop',
+                dataType: 'json',
+                data: {
+                    'task': 'product.saveOrderMedia',
+                    'format': 'json',
+                    'ids': ids,
+                    'id': _productId
+                },
+                success: function(res)
+                {
+                    if (!res.status) {
+                        res.messages && module.showMessages(res.messages);
+                        return;
+                    }
+                }
+            });
+        }
     }
 
     return module;
 
-})(jQuery)
+  })(jQuery);
+})

@@ -53,19 +53,21 @@ class JFormFieldProductimages extends JFormField
                 <div>Подождите...</div>
             </div>
             <div class="pane-main">
+                <div class="place-titled"></div>
                 <ul class="pane-images"></ul>
-                <input id="piFileupload" type="file" name="files[]" data-url="index.php?option=com_yoshop&format=json" multiple>
+                <input id="piFileupload" type="file" name="files[]" multiple>
             </div>
         </div>
 
         <script>
-            window.productimagesFormElement.init({
-                'view': '#piContainer',
-                'data': <?php echo json_encode($values); ?>,
-                'uploadControl': '#piFileupload',
-                'basePath': '<?php echo YOSHOP_CONTENT_BASEURL; ?>/product/images/'
+            jQuery(function(){
+                window.productimagesFormElement.init({
+                    'view': '#piContainer',
+                    'data': <?php echo json_encode($values); ?>,
+                    'uploadControl': '#piFileupload',
+                    'basePath': '<?php echo YOSHOP_CONTENT_BASEURL; ?>/product/images/'
+                });
             });
-
         </script>
 
         <?php
@@ -80,10 +82,9 @@ class JFormFieldProductimages extends JFormField
         $dbo = JFactory::getDbo();
 
         $dbo->setQuery(
-            'SELECT `id`, `path`, `path_prev`, `path_large`, `is_title`, `parent_id` FROM `#__yoshop_media` '.
-            'WHERE '.
-            '`type`='.YOSHOP_MEDIA_TYPE_IMAGE.' and '.
-            '`parent_id`='.(int)$this->form->getValue('id')
+            ' SELECT `id`, `path`, `path_prev`, `path_large`, `is_title`, `ordering`, `parent_id` FROM `#__yoshop_media` '.
+            ' WHERE `parent_id`='.(int)$this->form->getValue('id').
+            ' ORDER BY is_title DESC, ordering ASC'
         );
 
         return $dbo->loadAssocList();
