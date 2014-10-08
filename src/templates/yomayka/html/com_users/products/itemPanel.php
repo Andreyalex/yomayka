@@ -11,34 +11,34 @@ defined('_JEXEC') or die;
 
 $acive = $productData->state == 1? 1:0;
 
+$editUrl = 'component/users/product/'.$productData->id.'?layout=edit';
+
 ?>
 <div class="inner">
-    <a class="image" href="<?php echo 'component/users/product/'. $productData->id; ?>">
+    <div class="title">
+        <a class="nonlink" href="<?php echo $editUrl ?>">
+            <?php print $productData->name; ?>
+        </a>
+    </div>
+    <a class="image" href="<?php echo $editUrl ?>">
         <img src="<?php print YOSHOP_PRODUCT_MEDIA_BASEURL . '/' . $media; ?>" alt="<?php print htmlspecialchars($productData->name); ?>" />
     </a>
 
     <div class="cpanel">
-        <a class="nonlink title" href="<?php echo 'component/users/product/'.$productData->id; ?>">
-            <?php print $productData->name; ?>
-        </a>
-
-        <br/>
-
-        <a class="btn btn-default glyphicon glyphicon-zoom-in" href="<?php echo 'component/users/product/'.$productData->id; ?>"></a>
-        <a class="btn btn-default glyphicon glyphicon-edit" href="<?php echo 'component/users/product/'.$productData->id.'?layout=edit'; ?>"></a>
+        <a class="btn btn-default glyphicon glyphicon-arrow-up" href="<?php echo 'component/users/product/'.$productData->id; ?>"></a>
+        <a class="btn btn-default glyphicon glyphicon-edit" href="<?php echo $editUrl ?>"></a>
         <a class="btn btn-danger glyphicon glyphicon-trash" href="<?php echo 'component/users/product/'.$productData->id.'?task=product.remove'; ?>"></a>
-
-        <div style="position:absolute;bottom:0;right:0">
-            <a class="btn btn-default glyphicon glyphicon-arrow-up" href="<?php echo 'component/users/product/'.$productData->id; ?>"></a>
-            <button
-                type="button"
-                class="btn btn-default glyphicon glyphicon-off <?=$acive?'active':''?>"
-                data-state="<?=$acive?>"
-                data-toggle="button"
-                data-event="click:publish.product:toggle:<?php echo $productData->id ;?>">
-            </button>
+        <button
+            type="button"
+            class="btn btn-default glyphicon glyphicon-off <?=$acive?'active':''?>"
+            data-state="<?=$acive?>"
+            data-toggle="button"
+            data-event="click:publish.product:toggle:<?php echo $productData->id ;?>">
+        </button>
+        <div class="stats">
+            <span><?php echo YoshopHelperProduct::printViewsCount($productData); ?><span>
+            <span><?php echo YoshopHelperProduct::printMessagesCount($productData); ?><span>
         </div>
-
     </div>
 </div>
 

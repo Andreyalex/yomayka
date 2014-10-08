@@ -30,13 +30,13 @@ JHtml::stylesheet(JUri::base().'templates/yomayka/assets/css/com_users/products.
     <?php } ?>
 
     <div class="panel panel-default">
-        <div class="panel-heading"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;<?php echo JText::_("COM_USERS_ADMIN_PANEL"); ?></div>
+        <div class="panel-heading"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;<?php echo JText::_("Ваша панель управления"); ?></div>
         <div class="panel-body">
 
             <ul class="nav nav-pills">
-                <li <?php echo $tab == 'profile'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'profile'; ?>"><?php echo JText::_("COM_JPROFILE"); ?></a></li>
-                <li <?php echo $tab == 'products'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'products'; ?>"><?php echo JText::_("COM_USERS_PRODUCTS"); ?></a></li>
-                <li <?php echo $tab == 'messages'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'messages'; ?>"><?php echo JText::_("COM_USERS_MESSAGES"); ?></a></li>
+                <li <?php echo $tab == 'profile'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'profile'; ?>"><?php echo JText::_("Профиль"); ?></a></li>
+                <li <?php echo $tab == 'products'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'products'; ?>"><?php echo JText::_("Товарьі"); ?></a></li>
+                <li <?php echo $tab == 'messages'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'messages'; ?>"><?php echo JText::_("Сообщения"); ?></a></li>
             </ul>
 
             <?php echo $this->loadTemplate('core'); ?>

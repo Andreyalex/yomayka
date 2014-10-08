@@ -16,7 +16,7 @@ class YoshopHelperProduct
     /**
      * @param $item stdClass
      */
-    public static function createUrl($item)
+    public static function createUrl($item, $base = null)
     {
         $params = array(
             'category_id' => $item->category,
@@ -26,15 +26,19 @@ class YoshopHelperProduct
 
         $route = !empty($params['Itemid'])?
             $route = JRoute::_('index.php?Itemid='.$params['Itemid']) :
-            '/component/yoshop/product';
+            ($base? $base : '/component/yoshop/product');
 
         return $route.'/'.implode('/', $segments);
     }
 
-    public static function printPrice($value, $vat)
+    public static function printViewsCount($productData)
     {
-
+         return JText::_("Просмотров").':'.(int)$productData->stat->viewsPerDay.'/'.(int)$productData->stat->views;
     }
 
+    public static function printMessagesCount($productData)
+    {
+         return JText::_("Сообщений").':'.(int)$productData->stat->messagesNew.'/'.(int)$productData->stat->messages;
+    }
 }
 
