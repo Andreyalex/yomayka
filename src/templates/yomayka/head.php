@@ -19,15 +19,7 @@
     <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/jquery/jquery.js"></script>
     <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/jquery/ui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/js/yo.js"></script>
-
-    <?php
-        if (isset($this->customAssets)) {
-            foreach($this->customAssets as $asset) {
-                echo $asset."\n";
-            }
-        }
-    ?>
+    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/yo/yo.js"></script>
 
     <jdoc:include type="head" />
 
@@ -51,4 +43,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $tplBaseUrl; ?>/assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $tplBaseUrl; ?>/assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="<?php echo $tplBaseUrl; ?>/assets/ico/apple-touch-icon-57-precomposed.png">
-</head>
+
+      <?php
+      if (isset($this->customAssets)) {
+          foreach($this->customAssets as $asset) {
+              echo $asset."\n";
+          }
+      }
+      ?>
+
+  </head>

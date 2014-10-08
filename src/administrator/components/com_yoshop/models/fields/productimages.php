@@ -39,7 +39,7 @@ class JFormFieldProductimages extends JFormField
 
         $values = $this->_getItems();
 
-        $root = 'administrator/components/com_yoshop/models/fields/productimages';
+        $root = JUri::base().'administrator/components/com_yoshop/models/fields/productimages';
         JHTML::stylesheet($root . '/productimages.css');
         JHTML::script($root . '/jquery.ui.widget.js');
         JHTML::script($root . '/jquery.iframe-transport.js');

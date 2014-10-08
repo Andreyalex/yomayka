@@ -45,18 +45,24 @@ jQuery(function(){
                 singleFileUploads: false,
                 done: function (e, data)
                 {
+                    module.unblockUI();
+
                     var res = data.result;
 
                     if (!res.status) {
-                        res.messages && module.showMessages(res.messages);
+                        var message = res.messages || 'An error occured. Please try agail later'
+                        module.showMessages(message, 'error');
                         return;
                     }
 
                     module.addItems(res.data);
-
-                    module.unblockUI();
+                    module.showMessages('Image uploaded successfully', 'message')
                 },
                 error: function(err) {
+
+                    module.unblockUI();
+                    module.showMessages('An error occured please try again later.', 'error')
+
                     msg = err.statusText;
                     data = {
                         responseText: err.responseText,
@@ -64,11 +70,9 @@ jQuery(function(){
                     }
                     yo.log(msg, 'error', data);
 
-                    module.unblockUI();
-                    // message('An error occured please try again later.', 'error');
-                    alert('An error occured please try again later.');
                 }
             });
+
             _uploadControl.bind('fileuploadsend', function(){
                 module.blockUI();
             })
@@ -103,8 +107,11 @@ jQuery(function(){
                 },
                 success: function(res)
                 {
+                    module.unblockUI();
+
                     if (!res.status) {
-                        res.messages && module.showMessages(res.messages);
+                        var message = res.messages || 'An error occured. Please try agail later'
+                        module.showMessages(message, 'error');
                         return;
                     }
 
@@ -144,8 +151,11 @@ jQuery(function(){
                 },
                 success: function(res)
                 {
+                    module.unblockUI();
+
                     if (!res.status) {
-                        res.messages && module.showMessages(res.messages);
+                        var message = res.messages || 'An error occured. Please try agail later'
+                        module.showMessages(message, 'error');
                         return;
                     }
 
@@ -216,17 +226,17 @@ jQuery(function(){
             messages || (messages = ['Подождите...']);
             _view.find('.pane-block > div').html(messages.join("<br/>"));
             _view.addClass('blocked');
+            yo.trigger('start.process');
         },
 
         unblockUI: function(){
             _view.removeClass('blocked');
+            yo.trigger('done.process');
         },
 
-        showMessages: function(messages){
-            setTimeout(function(){
-                module.unblockUI();
-            },2000);
-            module.blockUI(messages);
+        showMessages: function(message, type){
+            (typeof message !== 'string') && (message = message.join(', '))
+            yo.trigger(type+'.notify', message);
         },
 
         saveOrder: function() {
@@ -248,12 +258,17 @@ jQuery(function(){
                 },
                 success: function(res)
                 {
+                    yo.trigger('done.process');
+
                     if (!res.status) {
-                        res.messages && module.showMessages(res.messages);
+                        var message = res.messages || 'An error occured. Please try agail later'
+                        module.showMessages(message, 'error');
                         return;
                     }
                 }
             });
+
+            yo.trigger('start.process');
         }
     }
 

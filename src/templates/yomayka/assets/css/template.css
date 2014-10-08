@@ -280,13 +280,12 @@ a.btn-success {
     top: 0;
     right: 0;
     margin: 10px;
-    display: none;
-    transition: opacity 1s;
+    transition: opacity 0.5s;
+    z-index: 10000;
     opacity: 0;
 }
 
 .messenger.visible {
-    display: none;
     opacity: 1;
 }
 
@@ -339,3 +338,34 @@ form.form-validate input.invalid {
 #inner_content_place {
     margin-top: 20px;
 }
+
+.preloader {
+    display: block;
+    width: 48px;
+    height: 48px;
+    background: url('../img/preloader.gif');
+    top:10px;
+    right:10px;
+    position: fixed;
+    transition: opacity 0.5s;
+    z-index: 10000;
+    opacity: 0;
+}
+
+.preloader.visible {
+    opacity: 1;
+}
+
+a.nonlink {
+    text-decoration: none !important;
+}
+
+[data-toggle="button"].btn-default {
+    color: #dddddd;
+}
+
+[data-toggle="button"].active.btn-default {
+    background: #66cc66;
+    color: #ffffff;
+}
+

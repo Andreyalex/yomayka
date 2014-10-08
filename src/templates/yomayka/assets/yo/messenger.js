@@ -1,7 +1,9 @@
-define(['jquery', 'yo'], function($, yo){
+;(function(){
+
+  var messenger = function($, yo){
 
     var _tpl =
-    '<div class="alert alert-block {status}"><button type="button" class="close" data-dismiss="alert">&times;</button>{content}</div>',
+    '<div class="alert alert-block {status}" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>{content}</div>',
 
 
     module = function(options)
@@ -26,31 +28,43 @@ define(['jquery', 'yo'], function($, yo){
         show: function(text, status)
         {
             var $this = this,
-                className = (!status? 'error' : status),
-                compiled  = yo.render(_tpl, {content: text, status: 'alert-'+status}),
+                className = (status=='error'? 'danger' : 'success'),
+                compiled  = yo.render(_tpl, {content: text, status: 'alert-'+className}),
                 messageId = Math.random(10000, 99999)
 
-            $this.domNode.html(compiled);
-            $this.domNode.css('display', 'block');
             setTimeout(function(){
-                $this.domNode.addClass('visible');
-            },10)
 
-            $this.messageId = messageId;
-            setTimeout(function(){
-                if ($this.messageId != messageId) return
-                $this.hide()
-            },4000)
+                $this.domNode.html(compiled)
+                $this.domNode.removeClass('hidden')
+                setTimeout(function(){
+                    $this.domNode.addClass('visible')
+                },10)
+
+                $this.messageId = messageId
+                setTimeout(function(){
+                    if ($this.messageId != messageId) return
+                    $this.hide()
+                },4000)
+                
+            }, 500);
         },
 
         hide: function(){
             var $this = this
             $this.domNode.removeClass('visible')
             setTimeout(function(){
-                $this.domNode.css('display', 'block');
-            },1000)
+                $this.domNode.addClass('hidden')
+            },500)
         }
     })
 
     return module
-});
+  }
+
+  if (window['define']) {
+    define(['jquery', 'yo'], messenger);
+  } else {
+    window.yo.widget.messenger = messenger;
+  }
+
+})()

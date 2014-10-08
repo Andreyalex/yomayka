@@ -66,6 +66,7 @@ class YoshopControllerProduct extends YoControllerAbstract
 
 		// Get the user data.
 		$data = $this->di->app->input->get('jform', array(), 'array');
+		$returnUrl = $this->di->app->input->get('return', '', 'base64');
 
 		// Validate the posted data.
 		$form = $model->getForm();
@@ -126,9 +127,7 @@ class YoshopControllerProduct extends YoControllerAbstract
 
         // Redirect to the list screen.
         $this->setMessage(JText::_('COM_YOSHOP_ITEM_SAVED_SUCCESSFULLY'));
-        $menu = & JSite::getMenu();
-        $item = $menu->getActive();
-        $this->setRedirect(JRoute::_($item->link, false));
+        $this->setRedirect(base64_decode($returnUrl));
 
 		// Flush the data from the session.
 		$app->setUserState('com_yoshop.edit.product.data', null);

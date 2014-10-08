@@ -55,15 +55,17 @@ class YoViewHelperHtml
     {
         list($component, $controller, $action, $id) = explode('.', $resource);
 
+        if (!$returnValue) {
+            $uri = JUri::getInstance();
+            $returnValue = $uri->toString(array('path'));
+        }
+
         $res =
             '<input type="hidden" name="option" value="com_'.$component.'" />
-             <input type="hidden" name="task" value="'.$controller.'.'.$action.'" />'.
+             <input type="hidden" name="task" value="'.$controller.'.'.$action.'" />
+             <input type="hidden" name="return" value="'.base64_encode($returnValue).'" />'.
              ($id? '<input type="hidden" name="id" value="'.$id.'" />' : '').
              JHtml::_('form.token');
-
-        if ($returnValue) {
-             $res .= '<input type="hidden" name="return" value="'.base64_encode($returnValue).'" />';
-        }
 
         return $res;
     }
@@ -184,20 +186,24 @@ class YoViewHelperHtml
         );
     }
 
-    public static function initJsApp($route, $data = array())
+    public static function initJsApp($route = null, $data = array())
     {
         $document = JFactory::getDocument();
 
         if (!isset($document->customAssets)) {
             $document->customAssets = array();
         }
+
+
         $document->customAssets[] =
             '<script type="text/javascript">'.
-                "window.yoshopJsRoute='$route'\n".
+                ($route? "window.yoshopJsRoute='$route'\n" : '').
                 "window.yoshopJsData=".json_encode($data)."\n".
             '</script>';
+
+        $base = JUri::base().'templates/yomayka/assets';
         $document->customAssets[] =
-            '<script type="text/javascript" src="'.YOSHOP_ASSETS_BASEURL.'/require.js" data-main="'.YOSHOP_ASSETS_BASEURL.'/main"></script>';
+            '<script type="text/javascript" src="'.$base.'/require.js" data-main="'.$base.'/main"></script>';
     }
 
     public static function addStylesheet($url)

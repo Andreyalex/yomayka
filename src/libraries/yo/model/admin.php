@@ -90,7 +90,7 @@ abstract class YoModelAdmin extends JModelAdmin
     {
         $data || ($data = $this->data);
         $table = $this->getTable();
-        if ($table->save($data) !== true) {
+        if ($table->save((array)$data) !== true) {
             return false;
         }
 

@@ -1,0 +1,114 @@
+
+/* Products list page */
+#yoshop-products-list {
+    margin-top: 30px;
+}
+
+#yoshop-products-list .item {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#yoshop-products-list .item .inner {
+    height: 150px;
+    display: block;
+    position: relative;
+    border: 1px solid #bed5e8;
+    padding: 15px;
+    background: #fcfcfc;
+    box-shadow: 0 0 1px #DAE7F2;
+    border-radius:4px;
+}
+
+#yoshop-products-list .item .inner.inactive {
+}
+
+#yoshop-products-list .item .image {
+    width: 150px;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+    display: block;
+    position: relative;
+    float: left;
+}
+
+#yoshop-products-list .item .cpanel {
+    width: 150px;
+    height: 120px;
+    display: block;
+    position: relative;
+    float: right;
+    text-align: right;
+}
+
+#yoshop-products-list .item .cpanel label.btn {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    width: 40px;
+}
+
+#yoshop-products-list .item .image img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+@media (min-width: 640px) {
+
+    #yoshop-products-list .item.grid-3col-item0 {
+        width: 31.8%;
+        margin-right:1.5%;
+        text-align: left;
+    }
+
+    #yoshop-products-list .item.grid-3col-item1 {
+        width: 30.3%;
+        margin: 0 1.5%
+    }
+
+    #yoshop-products-list .item.grid-3col-item2 {
+        width: 31.8%;
+        margin-left:1.5%;
+        text-align: right;
+    }
+
+}
+
+
+@media (min-width: 480px) and (max-width: 639px) {
+
+    #yoshop-products-list .item.grid-2col-item0 {
+        width: 50%;
+    }
+
+    #yoshop-products-list .item.grid-2col-item1 {
+        width: 50%;
+    }
+}
+
+
+@media (max-width: 479px) {
+
+    #yoshop-products-list .item {
+        width: 100% !important;
+    }
+
+    #yoshop-products-list .item .inner {
+        width: 300px;
+        height: 300px;
+        line-height: 300px;
+    }
+}
+
+#yoshop-products-list .item .cpanel .title {
+    font-family: 'Open Sans';
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0 0 0;
+    color: #555555;
+    font-weight: 100;
+    text-shadow: 1px 0 1px #ddd;
+}

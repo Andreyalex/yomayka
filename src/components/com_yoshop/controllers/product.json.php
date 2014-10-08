@@ -121,4 +121,21 @@ class YoshopControllerProduct extends YoControllerJson
         $collection = $model->getImages();
         $this->setData($collection);
     }
+
+    public function publish()
+    {
+        $input = JFactory::getApplication()->input->post;
+        $jform = $input->get('jform', array(), 'array');
+
+        if (empty($jform['id'])) {
+            throw new Exception('Product id absent');
+        }
+
+        $product = new YoshopModelProduct($jform['id']);
+
+        $product->data->state = (int) $jform['value'];
+        if (!$product->save()) {
+            throw new Exception($product->getError());
+        }
+    }
 }

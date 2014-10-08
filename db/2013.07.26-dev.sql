@@ -2,7 +2,8 @@
 SQLyog Ultimate - MySQL GUI v8.21 
 MySQL - 5.0.96-community : Database - advan383_dev
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 

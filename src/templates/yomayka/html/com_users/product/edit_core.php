@@ -18,22 +18,24 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 // Import CSS
 $document = JFactory::getDocument();
 $document->addStyleSheet('administrator/components/com_yoshop/assets/css/yoshop.css');
+
+YoViewHelperHtml::initJsApp();
+
 ?>
 <script type="text/javascript">
-    js = jQuery.noConflict();
-    js(document).ready(function(){
-        
+    jQuery(document).ready(function(){
+
     });
-    
+
     Joomla.submitbutton = function(task)
     {
         if(task == 'product.cancel'){
             Joomla.submitform(task, document.getElementById('product-form'));
         }
         else{
-            
+
             if (task != 'product.cancel' && document.formvalidator.isValid(document.id('product-form'))) {
-                
+
                 Joomla.submitform(task, document.getElementById('product-form'));
             }
             else {
@@ -56,7 +58,7 @@ $document->addStyleSheet('administrator/components/com_yoshop/assets/css/yoshop.
     <?php echo JText::_("COM_USERS_SHOW"); ?>
 </a>
 
-<form class="form-horizontal form-validate" role="form" id="member-registration" action="<?php echo JRoute::_('index.php'); ?>" method="post" enctype="multipart/form-data">
+<form class="form-horizontal form-validate" role="form" id="member-registration" action="<?php echo JRoute::_('index.php?option=com_yoshop'); ?>" method="post" enctype="multipart/form-data">
 
     <?php $fields = (array) $this->form->getFieldset();?>
     <?php foreach ($fields as $field) {// Iterate through the fields in the set and display them.?>
@@ -74,6 +76,30 @@ $document->addStyleSheet('administrator/components/com_yoshop/assets/css/yoshop.
         </div>
     </div>
 
-    <?php echo YoViewHelperHtml::renderFormAssets('yoshop.product.edit.'.$this->id, $this->form->getValue('return')); ?>
+    <?php echo YoViewHelperHtml::renderFormAssets('yoshop.product.save.'.$this->id); ?>
 
 </form>
+
+<script>
+    window.requireJsAppInit = function(){
+      require(['jquery', 'yo', 'messenger', 'preloader'], function($, yo, Messenger, Preloader) {
+
+        var preloader = new Preloader;
+        var messenger = new Messenger;
+
+        yo.on('start.process', function(){
+            preloader.show();
+        })
+        yo.on('done.process', function(){
+            preloader.hide();
+        })
+
+        yo.on('message.notify', function(ev){
+            messenger.show(ev.params.text, 'message');
+        })
+        yo.on('error.notify', function(ev){
+            messenger.show(ev.text, 'error');
+        })
+      })
+    }
+</script>

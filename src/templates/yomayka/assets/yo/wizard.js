@@ -56,7 +56,6 @@ define(['jquery', 'yo'], function($, yo){
 
         hideStep: function(step)
         {
-            console.log($(_domNode).find('.step'+step))
             $(_domNode).find('.step'+step).fadeOut();
         },
 

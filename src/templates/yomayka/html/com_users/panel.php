@@ -17,7 +17,7 @@ $itemId = $input->get('subItem')? $input->get('subItem') : null;
 
 $pageUrl = JRoute::_('index.php?option=com_users', false);
 
-JHtml::stylesheet(YOSHOP_ASSETS_BASEURL.'/category/category.css');
+JHtml::stylesheet(JUri::base().'templates/yomayka/assets/css/com_users/products.css');
 
 ?>
 

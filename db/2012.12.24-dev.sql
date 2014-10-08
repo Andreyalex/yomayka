@@ -2,7 +2,8 @@
 SQLyog Ultimate - MySQL GUI v8.21 
 MySQL - 5.5.27-log : Database - yomayka
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 

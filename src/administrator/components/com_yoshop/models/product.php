@@ -120,9 +120,9 @@ class YoshopModelProduct extends YoModelAdmin
         return $this->getState('product.id');
     }
 
-    public function save($data)
+    public function save($data = null)
     {
-        if($data['state'] == -5 && empty($data['isDraft'])) {
+        if(!empty($data) && $data['state'] == -5 && empty($data['isDraft'])) {
             $data['state'] = 1;
         }
 

@@ -20,41 +20,15 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_yoshop')) 
     $canEdit = JFactory::getUser()->id == $this->item->created_by;
 }
 ?>
-<div id="yoshop-products-list" class="tiles">
+<div id="yoshop-products-list">
     <?php if (count($this->products) > 0) {
         $i=0;
         foreach ($this->products as $k => $row){
-            $product = $row->data;
-            $media = $product->media[0]->data->path_prev;
+            $productData = $row->data;
+            $media = $productData->media[0]->data->path_prev;
             ?>
-            <div class="item grid-2col-item<?php echo $i % 2; ?> grid-3col-item<?php echo $i % 3; ?>  grid-4col-item<?php echo $i % 4; ?>" data-id="<?php echo $product->id; ?>">
-
-                <div class="inner">
-
-                    <a class="image" href="<?php echo 'component/users/product/'. $product->id; ?>">
-                        <img src="<?php print YOSHOP_PRODUCT_MEDIA_BASEURL . '/' . $media; ?>" alt="<?php print htmlspecialchars($product->name); ?>" />
-                    </a>
-
-                    <div class="title">
-                        <a class="nonlink" href="<?php echo 'component/users/product/'.$product->id; ?>">
-                            <?php print $product->name; ?>
-                        </a>
-                    </div>
-
-                    <div class="thin-line"></div>
-                    <div class="description-short">
-                        <?php echo $product->description; ?>
-                    </div>
-
-                    <?php if ($product->price_base){?>
-                        <div class="price">
-                            <span class="icon icon-tag"></span>
-                        <span class="value">
-                            <?php print $product->price_base; ?>
-                        </span>
-                        </div>
-                    <?php }?>
-                </div>
+            <div class="item grid-2col-item<?php echo $i % 2; ?> grid-3col-item<?php echo $i % 3; ?>  grid-4col-item<?php echo $i % 4; ?>" data-id="<?php echo $productData->id; ?>">
+                <?php include 'itemPanel.php'; ?>
             </div>
             <?php
             $i++;
@@ -67,3 +41,26 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_yoshop')) 
     <?php } ?>
 
 </div>
+
+<script>
+    jQuery(function(){
+
+        yo.enableEvents()
+
+        yo.on('publish.product', function(event){
+            jQuery.ajax({
+                url: window.siteBaseUrl,
+                method: 'post',
+                data: {
+                    option: 'com_yoshop',
+                    format: 'json',
+                    task: 'product.publish',
+                    jform: event.params
+                },
+                error: function(res) {
+                    yo.trigger('error.notify', res.messages.join(', '))
+                }
+            })
+        })
+    })
+</script>
