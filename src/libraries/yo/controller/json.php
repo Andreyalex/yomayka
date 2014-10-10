@@ -32,12 +32,21 @@ class YoControllerJson extends YoControllerAbstract
 
     public function setData($data)
     {
+        if (is_object($data) && method_exists($data, 'toArray')) {
+            $data = $data->toArray();
+        }
         $this->_response['data'] = $data;
     }
 
     public function setArtefacts($data)
     {
         $this->_response['_artefacts'] = (string) $data;
+    }
+
+    public function setError($code, $trace)
+    {
+        $this->_response['errorCode'] = $code;
+        $this->_response['errorTrace'] = $trace;
     }
 
     public function setResponse($status, $messages = array(), $data = array())
@@ -60,6 +69,7 @@ class YoControllerJson extends YoControllerAbstract
             parent::execute($task);
         } catch (Exception $e) {
             $this->setStatus(false);
+            $this->setError(500, $e->getTraceAsString());
             $this->setMessages(array($e->getMessage()));
         }
         $content = ob_get_contents();

@@ -18,7 +18,11 @@ jimport('joomla.event.dispatcher');
  */
 abstract class YoModelList extends JModelList
 {
-    protected $text_prefix = 'COM_YO';
+    public $text_prefix = 'COM_YO';
+
+    public $rowClassName = null;
+
+    public $data = null;
 
     /**
      * Constructor
@@ -30,10 +34,35 @@ abstract class YoModelList extends JModelList
      */
     public function __construct($config)
     {
-        !empty($config['state']) && $config['state'] = new JObject($config['state']);
-
         parent::__construct($config);
 
+        !empty($config['data']) && $this->setData($config['data']);
+
         $this->populateState();
+    }
+
+    /**
+     * Method to set items.
+     *
+     * @param	integer	The id of the object to get.
+     *
+     * @return	mixed	Object on success, false on failure.
+     */
+    public function setData($items)
+    {
+        $this->data = $items? new YoCollection($items, array('rowClass' => $this->rowClassName)) : null;
+    }
+
+    /**
+     * Method to get an array of data items.
+     *
+     * @return  mixed  An array of data items on success, false on failure.
+     *
+     * @since   12.2
+     */
+    public function getItems()
+    {
+        $this->setData(parent::getItems());
+        return $this->data;
     }
 }

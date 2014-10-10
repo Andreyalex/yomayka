@@ -14,7 +14,9 @@ jimport('joomla.application.component.modellist');
 /**
  * Methods supporting a list of Yoshop records.
  */
-class YoshopModelproducts extends YoModelList {
+class YoshopModelProducts extends YoModelList
+{
+    public $rowClassName = 'YoshopModelProduct';
 
     /**
      * Constructor.
@@ -46,7 +48,7 @@ class YoshopModelproducts extends YoModelList {
      */
     protected function populateState($ordering = null, $direction = null) {
         // Initialise variables.
-        $app = JFactory::getApplication('administrator');
+        $app = JFactory::getApplication();
 
         // Load the filter state.
         $search = $app->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
@@ -54,8 +56,6 @@ class YoshopModelproducts extends YoModelList {
 
         $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
         $this->setState('filter.state', $published);
-
-        
 
         // Load the parameters.
         $params = JComponentHelper::getParams('com_yoshop');
@@ -151,19 +151,5 @@ class YoshopModelproducts extends YoModelList {
         }
 
         return $query;
-    }
-
-    public function getItems($raw = false)
-    {
-        $res = parent::getItems();
-
-        if ($raw) {
-            return $res;
-        }
-
-        if(!is_array($res)) {
-            throw new Exception($this->getError());
-        }
-        return new YoCollection($res, array('rowClass' => 'YoshopModelProduct'));
     }
 }

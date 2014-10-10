@@ -47,7 +47,7 @@ abstract class YoModelAdmin extends JModelAdmin
         if (!empty($id)) {
             $this->getItem($id);
         } else {
-            $this->setItem(!empty($config['data'])? (array) $config['data'] : null);
+            $this->setItem(!empty($config['data'])? (object) $config['data'] : null);
         }
     }
 
@@ -76,7 +76,7 @@ abstract class YoModelAdmin extends JModelAdmin
      */
     public function setItem($item)
     {
-        $this->data = ($item instanceof JObject)? $item : new JObject($item);
+        $this->data = (object) ($item instanceof JObject? $item->getProperties() : $item);
     }
 
     /**
@@ -187,5 +187,14 @@ abstract class YoModelAdmin extends JModelAdmin
         }
 
         return $data;
+    }
+
+    public function toArray()
+    {
+        $result = array();
+        foreach($this->data as $key => $item) {
+            $result[$key] = method_exists($item, 'toArray')? $item->toArray() : $item;
+        }
+        return $result;
     }
 }
