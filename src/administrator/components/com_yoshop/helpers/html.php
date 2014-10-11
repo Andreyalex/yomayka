@@ -150,6 +150,20 @@ class YoshopHelperHtml
         $base = YOSHOP_ASSETS_BASEURL;
         JHtml::stylesheet($base.'/'.$url);
     }
+
+    public static function renderPagination($pagination)
+    {
+        $tpl = '';
+        if ($pagination->get('pages.total') > 1) {
+            $tpl .= '
+              <div class="pagination">
+                <p class="counter pull-right">' . $pagination->getPagesCounter() . '</p>' .
+                $pagination->getPagesLinks() . '</div>';
+        }
+
+        return $tpl;
+
+    }
 }
 
 
