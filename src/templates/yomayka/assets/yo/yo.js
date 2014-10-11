@@ -7,6 +7,7 @@
 
     yo.models = {}
     yo.widgets = {}
+    yo.events = {}
 
     var _registry = {};
 
@@ -100,41 +101,62 @@
     }
 
     yo.enableEvents = function () {
+
       jQuery('[data-event]').each(function (idx, element) {
 
         var
-          eventDef = jQuery(element).data('event').split(':'),
-          sourceEvent = eventDef[0],
-          eventToGenerate = eventDef[1],
-          dataSource = eventDef[2],
-          itemId = eventDef[3]
+          targetEvent = jQuery(element).attr('data-event'),
+          sourceData = jQuery(element).attr('data-eventSource').split(':'),
+          sourceEvent = sourceData[0],
+          behavior = sourceData[1]? sourceData[1] : null
 
-        yo.debug('parsed event: '+eventDef)
+        yo.debug('parsed event: '+targetEvent)
 
-        jQuery(element).on(sourceEvent, function (event) {
-
-          yo.debug('catched event: ' + event.name, event)
-
-          var data = {
-            id: itemId
-          }
-
-          switch (dataSource) {
-            case 'radio':
-              data.value = jQuery('[type="radio"]:checked', element).val()
-              break
-            case 'toggle':
-              data.value = jQuery(element).attr('data-state')=='1'?0:1
-              jQuery(element).attr('data-state', data.value)
-              break
-          }
-
-          yo.trigger(eventToGenerate, data);
-        })
+        yo.createEvent(targetEvent, sourceEvent, '[data-event="'+targetEvent+'"]', behavior)
       })
+
       yo.debug('Extended events enabled.');
     }
 
+    /**
+     *
+     * @param selector '.product-publish-button'
+     * @param targetEvent 'products.publish'
+     * @param sourceEvent 'click'
+     * @param behavior 'toggle'
+     */
+    yo.createEvent = function(targetEvent, sourceEvent, selector, behavior)
+    {
+      var idx = sourceEvent+'-'+selector+'-'+targetEvent;
+      if (yo.events[idx]){
+        yo.debug('Event '+idx+' already exists');
+        return;
+      }
+
+      jQuery('body').on(sourceEvent, selector, function (event) {
+
+        yo.debug('catched event: ' + event.name, event)
+
+        var data = {
+          id: jQuery(this).attr('data-id')
+        }
+
+        switch (behavior) {
+          case 'radio':
+            data.value = jQuery('[type="radio"]:checked', this).val()
+            break
+          case 'toggle':
+            data.value = jQuery(this).attr('data-state')=='1'?0:1
+            jQuery(this).attr('data-state', data.value)
+            break
+        }
+
+        yo.trigger(targetEvent, data);
+      })
+
+      yo.events[idx] = true;
+
+    }
 
     return yo;
   }

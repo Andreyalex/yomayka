@@ -31,9 +31,12 @@ $editUrl = 'component/users/product/'.$productData->id.'?layout=edit';
         <button
             type="button"
             class="btn btn-default glyphicon glyphicon-off <?=$acive?'active':''?>"
-            data-state="<?=$acive?>"
             data-toggle="button"
-            data-event="click:publish.product:toggle:<?php echo $productData->id ;?>">
+            data-state="<?=$acive?>"
+            data-event="product.publish"
+            data-eventSource="click:toggle"
+            data-id="<?php echo $productData->id;?>"
+        >
         </button>
         <div class="stats">
             <span><?php echo YoshopHelperProduct::printViewsCount($productData); ?><span>

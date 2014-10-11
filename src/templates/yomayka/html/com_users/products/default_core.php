@@ -47,7 +47,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_yoshop')) 
 
         yo.enableEvents()
 
-        yo.on('publish.product', function(event){
+        yo.on('product.publish', function(event){
             jQuery.ajax({
                 url: window.siteBaseUrl,
                 method: 'post',
