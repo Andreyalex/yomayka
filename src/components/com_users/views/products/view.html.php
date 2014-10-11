@@ -34,16 +34,12 @@ class UsersViewProducts extends JViewLegacy
      */
     public function display($tpl = null)
     {
-        // Get the view data.
-        $this->form   = $this->get('Form');
-        $this->state  = $this->get('State');
-        $this->params = $this->state->params;
+        YoDi::getInstance('Yoshop');
 
-        $di = YoDi::getInstance('Yoshop');
-
-        /** @var YoshopModelProducts $productsModel */
-        $productsModel = $di->createModel('products');
-        $this->products = $productsModel->getItems();
+        /** @var YoshopModelProducts $this->model */
+        $this->model = new YoshopModelProducts;
+        $this->products = $this->model->getItems();
+        $this->pagination = $this->model->getPagination();
 
         return parent::display($tpl);
     }

@@ -105,14 +105,14 @@
       jQuery('[data-event]').each(function (idx, element) {
 
         var
-          targetEvent = jQuery(element).attr('data-event'),
-          sourceData = jQuery(element).attr('data-eventSource').split(':'),
-          sourceEvent = sourceData[0],
-          behavior = sourceData[1]? sourceData[1] : null
+          dataEvent = jQuery(element).attr('data-event'),
+          parts = dataEvent.split(':'),
+          targetEvent = parts[1],
+          sourceEvent = parts[0]
 
-        yo.debug('parsed event: '+targetEvent)
+          yo.debug('parsed event: '+targetEvent)
 
-        yo.createEvent(targetEvent, sourceEvent, '[data-event="'+targetEvent+'"]', behavior)
+        yo.createEvent(targetEvent, sourceEvent, '[data-event="'+dataEvent+'"]')
       })
 
       yo.debug('Extended events enabled.');
@@ -125,7 +125,7 @@
      * @param sourceEvent 'click'
      * @param behavior 'toggle'
      */
-    yo.createEvent = function(targetEvent, sourceEvent, selector, behavior)
+    yo.createEvent = function(targetEvent, sourceEvent, selector)
     {
       var idx = sourceEvent+'-'+selector+'-'+targetEvent;
       if (yo.events[idx]){
@@ -135,20 +135,31 @@
 
       jQuery('body').on(sourceEvent, selector, function (event) {
 
-        yo.debug('catched event: ' + event.name, event)
+        yo.debug('catched event', event)
 
-        var data = {
-          id: jQuery(this).attr('data-id')
+        var parts, behavior, dataBehavior, el = jQuery(this)
+
+        dataBehavior = el.attr('data-behavior');
+
+        if (dataBehavior) {
+          parts = dataBehavior.split(':')
+          behavior = parts[0]
         }
 
+        var
+          data = {
+            id: el.attr('data-id')
+          }
+
         switch (behavior) {
-          case 'radio':
-            data.value = jQuery('[type="radio"]:checked', this).val()
+          case 'toggle': // toggle:[currentState]:[toggleVal1],[toggleVal2]
+            var state = parts[2], values = parts[1].split(',')
+            data.value = (values[0] == state? values[1] : values[0])
+            el.attr('data-behavior', parts[0]+':'+parts[1]+':'+data.value)
             break
-          case 'toggle':
-            data.value = jQuery(this).attr('data-state')=='1'?0:1
-            jQuery(this).attr('data-state', data.value)
-            break
+
+          default:
+            data.value = el.val();
         }
 
         yo.trigger(targetEvent, data);

@@ -1,11 +1,4 @@
 <?php
-/**
- * @package		Joomla.Site
- * @subpackage	com_users
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- * @since		1.6
- */
 
 defined('_JEXEC') or die;
 
@@ -15,22 +8,19 @@ JHtml::_('behavior.formvalidation');
 //load user_profile plugin language
 $lang = JFactory::getLanguage();
 $lang->load( 'plg_user_profile', JPATH_ADMINISTRATOR );
+
+ob_start();
+
 ?>
 
+<div class="clearfix"></div>
+
 <div class="profile-edit<?php echo $this->pageclass_sfx?>">
-	<?php if ($this->params->get('show_page_heading')) { ?>
-	<div class="page-header">
-		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
-	</div>
-	<?php } ?>
 
     <div class="col-sm-6 col-sm-push-3">
         <div class="panel panel-default">
-            <div class="panel-heading"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;<?php echo JText::_("COM_USERS_PROFILE_CORE_LEGEND"); ?></div>
+<!--            <div class="panel-heading"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;--><?php //echo JText::_("COM_USERS_PROFILE_CORE_LEGEND"); ?><!--</div>-->
             <div class="panel-body">
-
-
-
                 <form id="member-profile" action="<?php echo JRoute::_('index.php?option=com_users&task=profile.save'); ?>" method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
                     <?php foreach ($this->form->getFieldsets() as $group => $fieldset) {
 
@@ -73,3 +63,8 @@ $lang->load( 'plg_user_profile', JPATH_ADMINISTRATOR );
         </div>
     </div>
 </div>
+
+<?php
+$content = ob_get_clean();
+include __DIR__.'/../panel.php';
+?>
