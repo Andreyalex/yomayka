@@ -3,14 +3,9 @@
     defined('_JEXEC') or die;
 
     JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
-    //JHtml::_('behavior.tooltip');
-    //JHtml::_('behavior.formvalidation');
-    //JHtml::_('formbehavior.chosen', 'select');
-    //JHtml::_('behavior.keepalive');
-
-    // Import CSS
-    $document = JFactory::getDocument();
-    $document->addStyleSheet('administrator/components/com_yoshop/assets/css/yoshop.css');
+    JHtml::_('jquery.framework', false, null, false);
+    JHtml::_('behavior.core');
+    JHtml::_('behavior.keepalive');
 
     YoViewHelperHtml::initJsApp();
 

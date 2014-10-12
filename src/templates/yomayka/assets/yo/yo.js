@@ -175,9 +175,7 @@
   if (window['define']) {  // Yo declaration and creation
     define(['jquery'], module);
   } else {
-    jQuery(function (jQuery) {
-      window.yo = new module(jQuery);
-    });
+      window.yo = new module;
   }
 
 })()

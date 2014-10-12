@@ -2,10 +2,13 @@
 
     defined('_JEXEC') or die;
 
-    ob_start();
+    JHtml::_('jquery.framework', false, null, false);
+    JHtml::script(JUri::root().'templates/yomayka/assets/bootstrap/js/bootstrap.min.js');
 
     $listOrdering = $this->model->getState('list.direction');
     $filterSearch = $this->model->getState('filter.search');
+
+    ob_start();
 ?>
 
     <div class="cpanel" style="float:right">
@@ -78,7 +81,14 @@
                         yo.trigger('error.notify', res.messages.join(', '))
                     },
                     success: function(res) {
+                        var container = jQuery('#yoshop-products-list')
+                        container.css('width', container.width())
+                        container.css('height', container.height())
                         jQuery('#yoshop-products-list').html(res)
+                        setTimeout(function(){
+                            container.css('width', '')
+                            container.css('height', '')
+                        }, 100)
                     }
                 })
             })
@@ -97,7 +107,13 @@
                         yo.trigger('error.notify', res.messages.join(', '))
                     },
                     success: function(res) {
+                        container.css('width', container.width())
+                        container.css('height', container.height())
                         jQuery('#yoshop-products-list').html(res)
+                        setTimeout(function(){
+                            container.css('width', '')
+                            container.css('height', '')
+                        }, 100)
                     }
                 })
             })

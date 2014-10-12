@@ -2,6 +2,7 @@
 /* Products list page */
 #yoshop-products-list {
     margin-top: 30px;
+    overflow: hidden;
 }
 
 #yoshop-products-list .item {

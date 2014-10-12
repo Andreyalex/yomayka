@@ -39,6 +39,8 @@ class JFormFieldProductimages extends JFormField
 
         $values = $this->_getItems();
 
+        JHtml::_('jquery.ui', array('core', 'sortable'));
+
         $root = JUri::base().'administrator/components/com_yoshop/models/fields/productimages';
         JHTML::stylesheet($root . '/productimages.css');
         JHTML::script($root . '/jquery.ui.widget.js');

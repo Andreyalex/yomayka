@@ -9,25 +9,16 @@
         window.siteCurrentUrl = "<?php echo JUri::current(); ?>"
     </script>
 
-    <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/bootstrap/css/bootstrap.min.css">
-<!--    <link rel="stylesheet" href="--><?php //echo $tplBaseUrl; ?><!--/assets/bootstrap/css/bootstrap-theme.min.css">-->
-
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/fonts/eurofurencelight/styles.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/fonts/tickertape/styles.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/fonts/awesome/css/font-awesome.min.css" type="text/css" media="screen" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
-    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/jquery/jquery.js"></script>
-    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/jquery/ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo $tplBaseUrl; ?>/assets/yo/yo.js"></script>
 
     <jdoc:include type="head" />
-
-    <?php // If there is other jQuery has been loaded then revert to our first one ?>
-    <!--<script type="text/javascript">window.jQCustom = jQuery.noConflict(true);</script>-->
 
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/template.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $tplBaseUrl; ?>/assets/css/extensions.css" type="text/css" media="screen" />
@@ -40,7 +31,6 @@
     <!--<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>-->
     <![endif]-->
 
-    <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="<?php echo $tplBaseUrl; ?>/assets/assets/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $tplBaseUrl; ?>/assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $tplBaseUrl; ?>/assets/ico/apple-touch-icon-114-precomposed.png">
