@@ -84,7 +84,7 @@
                         var container = jQuery('#yoshop-products-list')
                         container.css('width', container.width())
                         container.css('height', container.height())
-                        jQuery('#yoshop-products-list').html(res)
+                        container.html(res)
                         setTimeout(function(){
                             container.css('width', '')
                             container.css('height', '')
@@ -107,9 +107,10 @@
                         yo.trigger('error.notify', res.messages.join(', '))
                     },
                     success: function(res) {
+                        var container = jQuery('#yoshop-products-list')
                         container.css('width', container.width())
                         container.css('height', container.height())
-                        jQuery('#yoshop-products-list').html(res)
+                        container.html(res)
                         setTimeout(function(){
                             container.css('width', '')
                             container.css('height', '')
