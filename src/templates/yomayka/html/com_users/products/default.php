@@ -8,6 +8,10 @@
     $listOrdering = $this->model->getState('list.direction');
     $filterSearch = $this->model->getState('filter.search');
 
+    $urlAdd = YoRoute::_('users:product:edit');
+
+    YoViewHelperHtml::initJsApp();
+
     ob_start();
 ?>
 
@@ -42,84 +46,63 @@
 
     <div class="clearfix"></div>
 
-    <div id="yoshop-products-list">
+    <div id="yoshop-products-list" class="smoothed">
         <?php include 'list.php'; ?>
     </div>
 
     <script>
-        jQuery(function(){
+        window.requireJsAppInit = function(){
+            require(['jquery', 'yo', 'messenger', 'preloader'], function($, yo, Messenger, Preloader) {
 
-            yo.enableEvents()
+                console.log(yo.Request)
 
-            yo.on('product.publish', function(event){
-                jQuery.ajax({
-                    url: window.siteBaseUrl,
-                    method: 'post',
-                    data: {
-                        option: 'com_yoshop',
-                        format: 'json',
-                        task: 'product.publish',
-                        jform: event.params
-                    },
-                    error: function(res) {
-                        yo.trigger('error.notify', res.messages.join(', '))
-                    }
+                /* Set common event system */
+
+                yo.enableEvents()
+
+                var preloader = new Preloader;
+                preloader.initDefaultBehavior();
+
+                var messenger = new Messenger;
+                messenger.initDefaultBehavior();
+
+                yo.on('product.publish', function(event){
+                    yo.request(
+                        'post json|yoshop:product.publish',
+                        {data:{jform: event.params}}
+                    )
+                })
+
+                /* Handle page business actions */
+
+                yo.on('product.delete', function(event){
+                    yo.request(
+                        'post json|yoshop:product.delete',
+                        {data:{jform: event.params}},
+                        null,
+                        function(res){
+                            jQuery(event.target).parents('.item').remove()
+                        }
+                    )
+                })
+
+                yo.on('ordering', function(event){
+                    yo.request(
+                        'post html|users:products:list:component',
+                        {data:{'filter_order_Dir': event.params.value}},
+                        jQuery('#yoshop-products-list')
+                    )
+                })
+
+                yo.on('filter', function(event){
+                    yo.request(
+                        'post html|users:products:list:component',
+                        {data:{ 'filter': {search: event.params.value}}},
+                        jQuery('#yoshop-products-list')
+                    )
                 })
             })
-
-            yo.on('ordering', function(event){
-
-                jQuery.ajax({
-                    url: window.siteCurrentUrl,
-                    method: 'get',
-                    data: {
-                        layout: 'list',
-                        tmpl: 'component',
-                        'filter_order_Dir': event.params.value
-                    },
-                    error: function(res) {
-                        yo.trigger('error.notify', res.messages.join(', '))
-                    },
-                    success: function(res) {
-                        var container = jQuery('#yoshop-products-list')
-                        container.css('width', container.width())
-                        container.css('height', container.height())
-                        container.html(res)
-                        setTimeout(function(){
-                            container.css('width', '')
-                            container.css('height', '')
-                        }, 100)
-                    }
-                })
-            })
-
-            yo.on('filter', function(event){
-
-                jQuery.ajax({
-                    url: window.siteCurrentUrl,
-                    method: 'get',
-                    data: {
-                        layout: 'list',
-                        tmpl: 'component',
-                        'filter': {search: event.params.value}
-                    },
-                    error: function(res) {
-                        yo.trigger('error.notify', res.messages.join(', '))
-                    },
-                    success: function(res) {
-                        var container = jQuery('#yoshop-products-list')
-                        container.css('width', container.width())
-                        container.css('height', container.height())
-                        container.html(res)
-                        setTimeout(function(){
-                            container.css('width', '')
-                            container.css('height', '')
-                        }, 100)
-                    }
-                })
-            })
-
-        })
+        }
     </script>
 
 <?php

@@ -28,17 +28,17 @@ class YoshopViewProducts extends YoView
 	public function display($tpl = null)
 	{
         $app                = $this->di->app;
-        
+
         $this->state		= $this->get('State');
         $this->items		= $this->get('Items');
         $this->pagination	= $this->get('Pagination');
         $this->params       = $app->getParams('com_yoshop');
-        
+
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {;
             throw new Exception(implode("\n", $errors));
         }
-        
+
         $this->_prepareDocument();
         parent::display($tpl);
 	}
@@ -88,6 +88,6 @@ class YoshopViewProducts extends YoView
 		{
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
-	}    
-    	
+	}
+
 }

@@ -1,8 +1,23 @@
 
+/* User Panel */
+.user-panel > .cpanel,
+.user-panel > form > .cpanel {
+    float: right;
+    margin-top:2px;
+}
+
+.user-panel > .clearfix,
+.user-panel > form > .clearfix {
+    padding-bottom: 15px;
+}
+
+
 /* Products list page */
 #yoshop-products-list {
-    margin-top: 30px;
     overflow: hidden;
+    margin-left: -0.8%;
+    margin-right: -0.8%;
+    width: 101.6%
 }
 
 #yoshop-products-list .item {
@@ -60,21 +75,25 @@
 
 @media (min-width: 640px) {
 
-    #yoshop-products-list .item.grid-3col-item0 {
-        width: 31.3%;
-        margin-right:2%;
+    #yoshop-products-list .item {
+        width: 31.8%;
+        margin: 0 0.75% 15px;
     }
 
-    #yoshop-products-list .item.grid-3col-item1 {
-        width: 31.3%;
-        margin: 0 1%
-    }
+    /*#yoshop-products-list .item.grid-3col-item0 {*/
+        /*width: 31.3%;*/
+        /*margin-right:2%;*/
+    /*}*/
 
-    #yoshop-products-list .item.grid-3col-item2 {
-        width: 31.3%;
-        margin-left: 2%;
-    }
+    /*#yoshop-products-list .item.grid-3col-item1 {*/
+        /*width: 31.3%;*/
+        /*margin: 0 1%*/
+    /*}*/
 
+    /*#yoshop-products-list .item.grid-3col-item2 {*/
+        /*width: 31.3%;*/
+        /*margin-left: 2%;*/
+    /*}*/
 }
 
 

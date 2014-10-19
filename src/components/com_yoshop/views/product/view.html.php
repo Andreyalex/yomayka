@@ -108,6 +108,6 @@ class YoshopViewProduct extends YoView {
 		{
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
-	}        
-    
+	}
+
 }

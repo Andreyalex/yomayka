@@ -40,7 +40,22 @@
             setTimeout(function(){
                 $this.domNode.addClass('hidden')
             },500)
-        }
+        },
+
+      /**
+       * var p = new preloader, p.initDefaultBehavior()
+       */
+      initDefaultBehavior: function() {
+
+        var preloader = this
+
+        yo.on('start.process', function(){
+          preloader.show();
+        })
+        yo.on('done.process', function(){
+          preloader.hide();
+        })
+      }
     })
 
     return preloader

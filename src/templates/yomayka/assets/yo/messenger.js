@@ -27,6 +27,10 @@
 
         show: function(text, status)
         {
+            if (!text) return;
+
+            text.join && (text = text.join(' '))
+
             var $this = this,
                 className = (status=='error'? 'danger' : 'success'),
                 compiled  = yo.render(_tpl, {content: text, status: 'alert-'+className}),
@@ -55,7 +59,22 @@
             setTimeout(function(){
                 $this.domNode.addClass('hidden')
             },500)
-        }
+        },
+
+      /**
+       * var m = new messenger, m.initDefaultBehavior()
+       */
+      initDefaultBehavior: function() {
+
+        var messenger = this
+        yo.on('message.notify', function(ev){
+          messenger.show(ev.params.text, 'message');
+        })
+
+        yo.on('error.notify', function(ev){
+          messenger.show(ev.params.text, 'error');
+        })
+      }
     })
 
     return module

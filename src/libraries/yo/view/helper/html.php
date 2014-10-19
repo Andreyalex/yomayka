@@ -57,7 +57,7 @@ class YoViewHelperHtml
 
         if (!$returnValue) {
             $uri = JUri::getInstance();
-            $returnValue = $uri->toString(array('path'));
+            $returnValue = $uri->toString(array('path', 'query', 'fragment'));
         }
 
         $res =
@@ -86,6 +86,7 @@ class YoViewHelperHtml
         switch ($fieldElement->type) {
             case 'Text':
             case 'Hidden':
+            case 'Password':
                 (trim($fieldElement->input)=='') && ($options['input'] = '');
                 break;
             case 'Textarea':

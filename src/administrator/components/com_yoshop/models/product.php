@@ -34,7 +34,7 @@ class YoshopModelProduct extends YoModelAdmin
      * @return	mixed	Object on success, false on failure.
      * @since	1.6
      */
-    public function getMedia($pk = null)
+    public function getMedia($pk)
     {
         $dbo = JFactory::getDbo();
 
@@ -46,21 +46,21 @@ class YoshopModelProduct extends YoModelAdmin
         return $dbo->loadObjectList();
     }
 
-    public function delete(&$pks)
+    public function delete(&$pks = null)
     {
+        $pks || $pks = array($this->data->id);
         $pks = (array) $pks;
 
-        $media = $this->createModel('media');
+        $media = new YoshopModelMedia();
 
         // Iterate the items to delete each one.
         foreach ($pks as $i => $pk)
         {
-            $parentPk = array($pk);
-            if(!parent::delete($parentPk)) {
+            if(!parent::delete($pk)) {
                 throw new Exception('Cannot delete the media');
             }
 
-            $images = (array) $this->getImages($pk);
+            $images = (array) $this->getMedia($pk);
 
             $imgPks = array(); foreach($images as $img) $imgPks[] = $img->id;
 

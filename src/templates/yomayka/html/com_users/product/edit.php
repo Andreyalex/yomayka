@@ -9,10 +9,11 @@
 
     YoViewHelperHtml::initJsApp();
 
+    $actionText = $this->form->getValue('id')? JText::_('Сохранить') : JText::_('Создать');
+    $actionText = $this->form->getValue('id')? JText::_('Сохранить') : JText::_('Создать');
+
     ob_start();
 ?>
-    <div class="clearfix"></div>
-
     <script type="text/javascript">
         jQuery(document).ready(function(){
 
@@ -37,19 +38,13 @@
     </script>
 
 
-    <a  class="btn btn-default"
-        href="<?php echo JRoute::_('index.php?option=com_users&view=products'); ?>"
-        >
-        <?php echo JText::_("COM_USERS_BACK"); ?>
-    </a>
-
-    <a  class="btn btn-success"
-        href="<?php echo JRoute::_('index.php?option=com_users&view=product&id='.$this->id); ?>"
-        >
-        <?php echo JText::_("COM_USERS_SHOW"); ?>
-    </a>
-
     <form class="form-horizontal form-validate" role="form" id="member-registration" action="<?php echo JRoute::_('index.php?option=com_yoshop'); ?>" method="post" enctype="multipart/form-data">
+        <div class="cpanel" style="float:right">
+            <button type="submit" class="btn btn-success"><?=$actionText?></button>
+            <a class="btn btn-danger" href="<?php echo YoRoute::_('users:products');?>"><?php echo JText::_('JCANCEL');?></a>
+        </div>
+
+        <div class="clearfix"></div>
 
         <?php $fields = (array) $this->form->getFieldset();?>
         <?php foreach ($fields as $field) {// Iterate through the fields in the set and display them.?>
@@ -60,13 +55,6 @@
             <?php } ?>
         <?php } ?>
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default"><?php echo JText::_('JREGISTER');?></button>
-                <a class="btn" href="<?php echo JRoute::_('');?>" title="<?php echo JText::_('JCANCEL');?>"><?php echo JText::_('JCANCEL');?></a>
-            </div>
-        </div>
-
         <?php echo YoViewHelperHtml::renderFormAssets('yoshop.product.save.'.$this->id); ?>
 
     </form>
@@ -76,21 +64,10 @@
             require(['jquery', 'yo', 'messenger', 'preloader'], function($, yo, Messenger, Preloader) {
 
                 var preloader = new Preloader;
+                preloader.initDefaultBehavior();
+
                 var messenger = new Messenger;
-
-                yo.on('start.process', function(){
-                    preloader.show();
-                })
-                yo.on('done.process', function(){
-                    preloader.hide();
-                })
-
-                yo.on('message.notify', function(ev){
-                    messenger.show(ev.params.text, 'message');
-                })
-                yo.on('error.notify', function(ev){
-                    messenger.show(ev.text, 'error');
-                })
+                messenger.initDefaultBehavior();
             })
         }
     </script>

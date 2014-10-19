@@ -138,4 +138,27 @@ class YoshopControllerProduct extends YoControllerJson
             throw new Exception($product->getError());
         }
     }
+
+    public function delete()
+    {
+        $input = JFactory::getApplication()->input->post;
+        $jform = $input->get('jform', array(), 'array');
+
+        if (empty($jform['id'])) {
+            throw new Exception('Product id absent');
+        }
+
+        $product = new YoshopModelProduct($jform['id']);
+        $dbo = JFactory::getDbo();
+        $dbo->transactionStart();
+        try {
+            if (!$product->delete()) {
+                throw new Exception($product->getError());
+            }
+        } catch (Exception $e) {
+            $dbo->transactionRollback();
+            throw $e;
+        }
+        $dbo->transactionCommit();
+    }
 }

@@ -23,7 +23,13 @@ if (count($this->products) > 0) {
                 <div class="cpanel">
                     <a class="btn btn-default glyphicon glyphicon-arrow-up" href="<?php echo 'component/users/product/'.$productData->id; ?>"></a>
                     <a class="btn btn-default glyphicon glyphicon-edit" href="<?php echo $editUrl ?>"></a>
-                    <a class="btn btn-danger glyphicon glyphicon-trash" href="<?php echo 'component/users/product/'.$productData->id.'?task=product.remove'; ?>"></a>
+                    <button
+                        class="btn btn-danger glyphicon glyphicon-trash"
+                        data-event="click:product.delete"
+                        data-behavior="confirm:<?php echo JText::_('Действительно удалить')." {$productData->name}?"; ?>"
+                        data-id="<?php echo $productData->id;?>"
+                    >
+                    </button>
                     <button
                         class="btn btn-default glyphicon glyphicon-off <?=$acive?'active':''?>"
                         data-toggle="button"

@@ -108,13 +108,10 @@ abstract class YoModelAdmin extends JModelAdmin
         }
 
         $table = $this->getTable();
-        if ($table->delete($id) === true) {
-            return $id;
-        } else {
+        if ($table->delete($id) !== true) {
             return false;
         }
-
-        return true;
+        return $id;
     }
 
     public function getTable($type = null, $prefix = 'YoTable', $config = array())

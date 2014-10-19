@@ -63,11 +63,12 @@ jQuery(function(){
                     module.unblockUI();
                     module.showMessages('An error occured please try again later.', 'error')
 
-                    msg = err.statusText;
-                    data = {
+                    var
+                      msg = err.statusText,
+                      data = {
                         responseText: err.responseText,
                         httpCode: err.status
-                    }
+                      }
                     yo.log(msg, 'error', data);
 
                 }

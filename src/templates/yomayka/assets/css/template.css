@@ -369,3 +369,11 @@ a.nonlink {
     color: #ffffff;
 }
 
+/* Add needed css property to add smoothness */
+.smoothed {
+    transition: opacity 0.1s;
+}
+
+.transparent {
+    opacity: 0;
+}
