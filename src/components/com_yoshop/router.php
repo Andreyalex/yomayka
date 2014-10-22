@@ -14,6 +14,23 @@ class YoshopRouter {
 
     public static $parsed = array();
 
+    public static $built = array();
+
+    public static $routes = array( // without "components/yoshop"
+        ':view:/:id:/:layout:' =>  // product/16/edit
+            array(),
+        ':view:/:id:' =>  // product/16
+            array(
+                'layout' => 'default'
+            ),
+        ':view:' =>  // product/16
+            array(
+                'view' => 'products',
+                'layout' => 'default'
+            )
+    );
+
+
     /**
      * Should create:
      * <categoryAlias>
@@ -24,7 +41,15 @@ class YoshopRouter {
      */
     public static function build(&$query)
     {
-        $segments = array();
+        if (count($query) == 1 && isset($query['option'])) {
+            return array();
+        }
+
+        $sig = implode('-',$query);
+
+        if (isset(self::$built[$sig])) {
+            return self::$built[$sig];
+        }
 
         if (!empty($query['category_id'])) {
 
@@ -46,7 +71,34 @@ class YoshopRouter {
             $segments[] = $query['product_id'];
         }
 
-        return $segments;
+        foreach(self::$routes as $pattern => $sequence) {
+
+            $matches = array();
+            preg_match_all("|(?::([^/:]+))|", $pattern, $matches);
+            $sequence = !empty($matches[1])? $matches[1] : array();
+
+            $matched = true;
+            $preserved = $query;
+            $segments = array();
+            foreach($sequence as $key) {
+                if (!isset($query[$key])) {
+                    $matched = false;
+                    break;
+                }
+                $segments[] = $query[$key];
+                unset($query[$key]);
+            }
+
+            if ($matched) {
+                break;
+            } else {
+                $query = $preserved;
+            }
+
+        }
+
+        self::$built[$sig] = $segments;
+        return self::$built[$sig];
     }
 
     /**
@@ -61,30 +113,32 @@ class YoshopRouter {
             return self::$parsed[$route];
         }
 
-        $routes = array(
-            'regexp' => array( // without "components/yoshop"
-                '([a-z]+)(?:/([0-9]+))?(?:/([a-z]+))?' => array(
-                    'view' => 'products',
-                    'id' => null,
-                    'layout' => 'default'
-                )
-            )
-        );
-
         $vars = array();
         $vars['option'] = 'com_yoshop';
 
-        foreach($routes['regexp'] as $pattern => $defaults) {
+        foreach(self::$routes as $pattern => $defaults) {
+
             $matches = array();
-            if (!preg_match("|^$pattern$|", $route, $matches)) {
+            preg_match_all("|(?::([^/:]+))|", $pattern, $matches);
+            $keys = !empty($matches[1])? $matches[1] : array();
+
+            $regular = str_replace(
+                array(':view:', ':id:', ':layout:'),
+                array('([^/]+)', '([0-9]+)', '([^/]+)'),
+                $pattern
+            );
+
+            $matches = array();
+            if (!preg_match("|^$regular$|", $route, $matches)) {
                 continue;
             }
+            array_shift($matches);
 
-            $i=1;
-            foreach($defaults as $key => $defaultValue) {
-                $vars[$key] = !empty($matches[$i])? $matches[$i] : $defaultValue;
-                $i++;
-            }
+            $vars = array_merge(
+                $defaults,
+                array_combine($keys, $matches)
+            );
+
             self::$parsed[$route] = $vars;
             return $vars;
         }

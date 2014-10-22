@@ -41,7 +41,7 @@
     <form class="form-horizontal form-validate" role="form" id="member-registration" action="<?php echo JRoute::_('index.php?option=com_yoshop'); ?>" method="post" enctype="multipart/form-data">
         <div class="cpanel" style="float:right">
             <button type="submit" class="btn btn-success"><?=$actionText?></button>
-            <a class="btn btn-danger" href="<?php echo YoRoute::_('users:products');?>"><?php echo JText::_('JCANCEL');?></a>
+            <a class="btn btn-danger" href="<?php echo YoRoute::_('yoshop:userproducts');?>"><?php echo JText::_('JCANCEL');?></a>
         </div>
 
         <div class="clearfix"></div>

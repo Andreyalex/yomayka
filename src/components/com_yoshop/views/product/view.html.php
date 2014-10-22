@@ -20,94 +20,40 @@ class YoshopViewProduct extends YoView {
     protected $state;
     protected $item;
     protected $form;
-    protected $params;
+    protected $product;
+    protected $menuItem;
+    protected $isInCart;
 
     /**
      * Display the view
      */
     public function display($tpl = null) {
         
-		$app  = $this->di->app;
-        $user = JFactory::getUser();
+		$app  = JFactory::getApplication();
 
         /** @var YoDi $this->di */
-        $model = $this->di->createModel('product');
-        $cart = $this->di->createModel('cart');
-        $this->product = $model->getItem($app->input->get('id'));
+        $this->product = new YoshopModelProduct;
         $this->menuItem = $app->getMenu()->getActive();
-        $this->isInCart = $cart->hasProduct($this->product->id);
-
-
-        $this->params  = $app->getParams('com_yoshop');
-   		
-        // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            throw new Exception(implode("\n", $errors));
-        }
-
-        if($this->_layout == 'edit') {
-            
-            $authorised = $user->authorise('core.create', 'com_yoshop');
-
-            if ($authorised !== true) {
-                throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
-            }
-        }
-        
-        $this->_prepareDocument();
-
-        if($app->input->get('tmpl') == 'modal') {
-            $tpl = 'modal';
-        }
+        $this->id = $app->input->get('id');
+        $this->product->getItem($this->id);
 
         parent::display($tpl);
     }
 
+    public function defaultHook()
+    {
+        $cart = new YoshopModelCart;
+        $this->isInCart = $cart->hasProduct($this->product->id);
+    }
 
-	/**
-	 * Prepares the document
-	 */
-	protected function _prepareDocument()
-	{
-		$app	= $this->di->app;
-		$menus	= $app->getMenu();
-		$title	= null;
+    public function editHook()
+    {
+        $this->form = $this->product->getForm();
 
-		// Because the application sets a default page title,
-		// we need to get it from the menu item itself
-		$menu = $menus->getActive();
-		if($menu)
-		{
-			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-		} else {
-			$this->params->def('page_heading', JText::_('com_yoshop_DEFAULT_PAGE_TITLE'));
-		}
-		$title = $this->params->get('page_title', '');
-		if (empty($title)) {
-			$title = $app->getCfg('sitename');
-		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
-		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
-			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
-		}
-		$this->document->setTitle($title);
-
-		if ($this->params->get('menu-meta_description'))
-		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
-		}
-
-		if ($this->params->get('menu-meta_keywords'))
-		{
-			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
-		}
-
-		if ($this->params->get('robots'))
-		{
-			$this->document->setMetadata('robots', $this->params->get('robots'));
-		}
-	}
-
+//        $user = JFactory::getUser();
+//        $authorised = $user->authorise('core.create', 'com_yoshop');
+//        if ($authorised !== true) {
+//            throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
+//        }
+    }
 }

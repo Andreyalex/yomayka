@@ -35,7 +35,6 @@ class YoshopViewUserproduct extends YoView {
         $this->params  = $app->getParams('com_yoshop');
         $this->product = new YoshopModelProduct();
         $this->id = $app->input->get('subId');
-        $this->id || ($this->id = $app->getUserState('com_yoshop.edit.product.currentId'));
         $this->product->getItem($this->id);
 
         parent::display($tpl);

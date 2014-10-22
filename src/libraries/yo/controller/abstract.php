@@ -368,8 +368,6 @@ class YoControllerAbstract extends JControllerAdmin
      */
     protected function getRedirectToItemAppend($recordId = null, $urlVar = 'id')
     {
-        $this->currentId = $recordId;
-
         $tmpl   = $this->input->get('tmpl');
         $layout = $this->input->get('layout', 'edit', 'string');
         $append = '';
@@ -759,17 +757,5 @@ class YoControllerAbstract extends JControllerAdmin
         }
 
         return parent::getModel($name, $prefix, $config);
-    }
-
-    public function setRedirect($url, $msg = null, $type = null)
-    {
-        $return = JFactory::getApplication()->input->get('return');
-        if (!empty($return)) {
-            $url = base64_decode($return);
-            if ($this->currentId) {
-                $url .= '&id' . $this->currentId;
-            }
-        }
-        parent::setRedirect($url, $msg, $type);
     }
 }
