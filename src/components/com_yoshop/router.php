@@ -10,62 +10,100 @@
 // No direct access
 defined('_JEXEC') or die;
 
-/**
- * Should create:
- * <categoryAlias>
- * <categoryAlias>/<itemAlias>
- * <categoryAlias>/<itemAlias>/[add/edit]
- * @param	array	A named array
- * @return	array
- */
-function YoshopBuildRoute(&$query)
-{
-    $segments = array();
+class YoshopRouter {
 
-    if (!empty($query['category_id'])) {
+    public static $parsed = array();
 
-        if(empty($query['Itemid'])) {
-            // Create category route
-            $dbo = JFactory::getDbo();
-            $dbo->setQuery("SELECT * FROM #__menu WHERE link LIKE \"index.php?option=com_yoshop&view=category&id={$query['category_id']}%\"");
-            $menu = $dbo->loadObject();
-            if ($menu) {
-                $query['Itemid'] = $menu->id;
-            } else {
-                // Create custom category route
+    /**
+     * Should create:
+     * <categoryAlias>
+     * <categoryAlias>/<itemAlias>
+     * <categoryAlias>/<itemAlias>/[add/edit]
+     * @param	array	A named array
+     * @return	array
+     */
+    public static function build(&$query)
+    {
+        $segments = array();
+
+        if (!empty($query['category_id'])) {
+
+            if(empty($query['Itemid'])) {
+                // Create category route
+                $dbo = JFactory::getDbo();
+                $dbo->setQuery("SELECT * FROM #__menu WHERE link LIKE \"index.php?option=com_yoshop&view=category&id={$query['category_id']}%\"");
+                $menu = $dbo->loadObject();
+                if ($menu) {
+                    $query['Itemid'] = $menu->id;
+                } else {
+                    // Create custom category route
+                }
+
+            }
+        }
+
+        if (!empty($query['product_id'])) {
+            $segments[] = $query['product_id'];
+        }
+
+        return $segments;
+    }
+
+    /**
+     * @param $segments
+     * @return array
+     */
+    public static function parse($segments)
+    {
+        $route = implode('/', $segments);
+
+        if (isset(self::$parsed[$route])) {
+            return self::$parsed[$route];
+        }
+
+        $routes = array(
+            'regexp' => array( // without "components/yoshop"
+                '([a-z]+)(?:/([0-9]+))?(?:/([a-z]+))?' => array(
+                    'view' => 'products',
+                    'id' => null,
+                    'layout' => 'default'
+                )
+            )
+        );
+
+        $vars = array();
+        $vars['option'] = 'com_yoshop';
+
+        foreach($routes['regexp'] as $pattern => $defaults) {
+            $matches = array();
+            if (!preg_match("|^$pattern$|", $route, $matches)) {
+                continue;
             }
 
+            $i=1;
+            foreach($defaults as $key => $defaultValue) {
+                $vars[$key] = !empty($matches[$i])? $matches[$i] : $defaultValue;
+                $i++;
+            }
+            self::$parsed[$route] = $vars;
+            return $vars;
         }
-    }
 
-    if (!empty($query['product_id'])) {
-        $segments[] = $query['product_id'];
-    }
 
-    return $segments;
-}
-
-/**
- * @param	array	A named array
- * @param	array
- *
- * Formats:
- *
- * index.php?/yoshop/task/id/Itemid
- *
- * index.php?/yoshop/id/Itemid
- */
-function YoshopParseRoute($segments)
-{
-    $vars = array();
-
-    // If $segment is just one then we assume that this is an product
-    if(count($segments) == 1) {
-        $vars['option'] = 'com_yoshop';
+        // Absolute defaults
         $vars['view'] = 'product';
         $vars['layout'] = 'default';
         $vars['id'] = $segments[0];
-    }
 
-	return $vars;
+        self::$parsed[$route] = $vars;
+        return $vars;
+    }
+}
+
+function YoshopBuildRoute(&$query) {
+    return YoshopRouter::build($query);
+}
+
+function YoshopParseRoute(&$query) {
+    return YoshopRouter::parse($query);
 }

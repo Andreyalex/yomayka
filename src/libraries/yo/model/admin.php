@@ -76,7 +76,13 @@ abstract class YoModelAdmin extends JModelAdmin
      */
     public function setItem($item)
     {
-        $this->data = (object) ($item instanceof JObject? $item->getProperties() : $item);
+        if ($item instanceof JTable) {
+            $this->data = $item;
+        } else {
+            $this->data = $this->getTable();
+            $this->data->_model = $this;
+            $item && $this->data->bind($item);
+        }
     }
 
     /**
@@ -88,14 +94,10 @@ abstract class YoModelAdmin extends JModelAdmin
      */
     public function save($data = null)
     {
-        $data || ($data = $this->data);
-        $table = $this->getTable();
-        if ($table->save((array)$data) !== true) {
+        $data && ($this->data->bind($data));
+        if ($this->data->store() !== true) {
             return false;
         }
-
-        $this->setItem($table->getProperties());
-
         return true;
     }
 
@@ -193,5 +195,10 @@ abstract class YoModelAdmin extends JModelAdmin
             $result[$key] = method_exists($item, 'toArray')? $item->toArray() : $item;
         }
         return $result;
+    }
+
+    public function getItemProperty()
+    {
+        return null;
     }
 }

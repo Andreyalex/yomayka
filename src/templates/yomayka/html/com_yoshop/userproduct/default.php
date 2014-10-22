@@ -82,4 +82,4 @@
 
 <?php
     $content = ob_get_clean();
-    include __DIR__.'/../panel.php';
+    include __DIR__.'/../../panel.php';

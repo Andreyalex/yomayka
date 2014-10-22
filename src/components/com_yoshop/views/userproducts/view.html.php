@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.6
  */
-class UsersViewProducts extends JViewLegacy
+class YoshopViewUserproducts extends YoView
 {
     protected $data;
 

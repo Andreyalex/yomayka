@@ -9,4 +9,4 @@
 // no direct access
 defined('_JEXEC') or die;
 
-include dirname(__DIR__).'/panel.php';
+include dirname(__DIR__).'/../panel.php';

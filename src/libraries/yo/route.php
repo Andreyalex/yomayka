@@ -9,14 +9,17 @@
 
 class YoRoute
 {
-    public static function _($path, $params = null)
+    public static function _($path, $params = array())
     {
         $exploded = explode(':', $path);
         $parts = array();
-        !empty($exploded[0]) && ($parts[] = "option=com_{$exploded[0]}");
-        !empty($exploded[1]) && ($parts[] = strpos($exploded[1], '.')===false? "view={$exploded[1]}" : "task={$exploded[1]}");
-        !empty($exploded[2]) && ($parts[] = "layout={$exploded[2]}");
+        !empty($exploded[0]) && ($parts['option'] = "com_{$exploded[0]}");
+        !empty($exploded[1]) && (strpos($exploded[1], '.')===false? ($parts['view'] = $exploded[1]) : ($parts['task'] = $exploded[1]));
+        !empty($exploded[2]) && ($parts['layout'] = $exploded[2]);
+        !empty($exploded[3]) && ($parts['id'] = $exploded[3]);
 
-        return JRoute::_('index.php?'.implode('&', $parts), false);
+        $paramsString = JUri::buildQuery(array_merge($parts, $params));
+
+        return JRoute::_('index.php?'.$paramsString, false);
     }
 }

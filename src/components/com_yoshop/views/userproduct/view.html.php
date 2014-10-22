@@ -15,12 +15,13 @@ jimport('joomla.application.component.view');
 /**
  * View to edit
  */
-class UsersViewProduct extends YoView {
+class YoshopViewUserproduct extends YoView {
 
-    protected $state;
-    protected $item;
     protected $form;
     protected $params;
+    protected $id;
+    protected $menuItem;
+    protected $product;
 
     /**
      * Display the view
@@ -30,10 +31,11 @@ class UsersViewProduct extends YoView {
 		$app  = JFactory::getApplication();
 
         YoDi::getInstance('Yoshop');
-        $this->id = $app->input->get('subId');
         $this->menuItem = $app->getMenu()->getActive();
         $this->params  = $app->getParams('com_yoshop');
         $this->product = new YoshopModelProduct();
+        $this->id = $app->input->get('subId');
+        $this->id || ($this->id = $app->getUserState('com_yoshop.edit.product.currentId'));
         $this->product->getItem($this->id);
 
         parent::display($tpl);

@@ -55,7 +55,7 @@
             <?php } ?>
         <?php } ?>
 
-        <?php echo YoViewHelperHtml::renderFormAssets('yoshop.product.save.'.$this->id); ?>
+        <?php echo YoViewHelperHtml::renderFormAssets('yoshop.product.apply.'.$this->id); ?>
 
     </form>
 
@@ -74,4 +74,4 @@
 
 <?php
     $content = ob_get_clean();
-    include __DIR__.'/../panel.php';
+    include __DIR__ . '/../../panel.php';

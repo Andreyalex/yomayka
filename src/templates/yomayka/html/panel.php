@@ -12,7 +12,9 @@ $input = JFactory::getApplication()->input;
 
 $tab = $input->get('view');
 $itemId = $input->get('subItem')? $input->get('subItem') : null;
-$pageUrl = JRoute::_('index.php?option=com_users', false);
+$profileUrl = JRoute::_('index.php?option=com_users&view=profile', false);
+$productsUrl = JRoute::_('index.php?option=com_yoshop&view=userproducts', false);
+$messagesUrl = JRoute::_('index.php?option=com_yoshop&view=usermessages', false);
 
 JHtml::stylesheet(JUri::base().'templates/yomayka/assets/css/com_users/user-panel.css');
 ?>
@@ -24,9 +26,9 @@ JHtml::stylesheet(JUri::base().'templates/yomayka/assets/css/com_users/user-pane
         <div class="panel-body user-panel">
 
             <ul class="nav nav-pills" style="float:left">
-                <li <?php echo $tab == 'profile'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'profile'; ?>"><?php echo JText::_("Профиль"); ?></a></li>
-                <li <?php echo in_array($tab, array('products', 'product'))? 'class="active"':'';?>><a href="<?php echo $pageUrl.'products'; ?>"><?php echo JText::_("Товарьі"); ?></a></li>
-                <li <?php echo $tab == 'messages'? 'class="active"':''; ?>><a href="<?php echo $pageUrl.'messages'; ?>"><?php echo JText::_("Сообщения"); ?></a></li>
+                <li <?php echo $tab == 'profile'? 'class="active"':''; ?>><a href="<?php echo $profileUrl; ?>"><?php echo JText::_("Профиль"); ?></a></li>
+                <li <?php echo in_array($tab, array('userproducts', 'product'))? 'class="active"':'';?>><a href="<?php echo $productsUrl; ?>"><?php echo JText::_("Товарьі"); ?></a></li>
+                <li <?php echo $tab == 'usermessages'? 'class="active"':''; ?>><a href="<?php echo $messagesUrl; ?>"><?php echo JText::_("Сообщения"); ?></a></li>
             </ul>
 
             <?php echo $content; ?>

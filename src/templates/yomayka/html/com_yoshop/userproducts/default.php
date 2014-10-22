@@ -8,7 +8,7 @@
     $listOrdering = $this->model->getState('list.direction');
     $filterSearch = $this->model->getState('filter.search');
 
-    $urlAdd = YoRoute::_('users:product:edit');
+    $urlAdd = YoRoute::_('yoshop:product:edit');
 
     YoViewHelperHtml::initJsApp();
 
@@ -107,4 +107,4 @@
 
 <?php
     $content = ob_get_clean();
-    include __DIR__.'/../panel.php';
+    include __DIR__.'/../../panel.php';

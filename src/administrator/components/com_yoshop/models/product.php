@@ -72,14 +72,20 @@ class YoshopModelProduct extends YoModelAdmin
         return true;
     }
 
-    public function setItem($data)
+    /**
+     * Implements lazy loading for relations
+     *
+     * @param $name
+     * @return null|void
+     */
+    public function getItemProperty($name)
     {
-        if (!empty($data->id)) {
-            $data->media = new YoCollection($this->getMedia($data->id), array('rowClass' => 'YoshopModelMedia'));
-            $data->link = YoshopHelperProduct::createUrl((object)$data);
+        switch ($name) {
+            case 'media':
+                return $this->data->id? new YoCollection($this->getMedia($this->data->id), array('rowClass' => 'YoshopModelMedia')) : null;
+            case 'link':
+                return $this->data->id? YoshopHelperProduct::createUrl((object)$this->data) : null;
         }
-
-        parent::setItem($data);
     }
 
     public function getTable($type = 'Product', $prefix = 'YoshopTable', $config = array())

@@ -18,7 +18,7 @@ class YoshopTableProductCategory extends JTable {
     /**
      * Constructor
      *
-     * @param JDatabase A database connector object
+     * @param &$db JDatabaseDriver A database connector object
      */
     public function __construct(&$db) {
         parent::__construct('#__yoshop_product_category', 'id', $db);
