@@ -16,6 +16,7 @@ class YoControllerAbstract extends JControllerAdmin
 {
     public $context;
 
+    public $view_item;
     /**
      * Constructor.
      *
@@ -39,6 +40,12 @@ class YoControllerAbstract extends JControllerAdmin
                 throw new Exception(JText::_('JLIB_APPLICATION_ERROR_CONTROLLER_GET_NAME'), 500);
             }
             $this->context = strtolower($r[2]);
+        }
+
+        // Guess the item view as the context.
+        if (empty($this->view_item))
+        {
+            $this->view_item = $this->context;
         }
     }
 

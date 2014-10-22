@@ -54,8 +54,6 @@
         window.requireJsAppInit = function(){
             require(['jquery', 'yo', 'messenger', 'preloader'], function($, yo, Messenger, Preloader) {
 
-                console.log(yo.Request)
-
                 /* Set common event system */
 
                 yo.enableEvents()
@@ -88,7 +86,7 @@
 
                 yo.on('ordering', function(event){
                     yo.request(
-                        'post html|users:products:list:component',
+                        'post html|yoshop:userproducts:list:partial',
                         {data:{'filter_order_Dir': event.params.value}},
                         jQuery('#yoshop-products-list')
                     )
@@ -96,7 +94,7 @@
 
                 yo.on('filter', function(event){
                     yo.request(
-                        'post html|users:products:list:component',
+                        'post html|yoshop:userproducts:list:partial',
                         {data:{ 'filter': {search: event.params.value}}},
                         jQuery('#yoshop-products-list')
                     )
