@@ -17,17 +17,29 @@ class YoshopRouter {
     public static $built = array();
 
     public static $routes = array( // without "components/yoshop"
-        ':view:/:id:/:layout:' =>  // product/16/edit
-            array(),
-        ':view:/:id:' =>  // product/16
-            array(
-                'layout' => 'default'
-            ),
-        ':view:' =>  // product/16
-            array(
-                'view' => 'products',
-                'layout' => 'default'
-            )
+
+        'user/products' => array(
+            'view' => 'userproducts'
+        ),
+
+        'user/product/:id:/:layout:' => array(
+            'view' => 'userproduct'
+        ),
+
+        'user/product/:id:' => array(
+            'view' => 'userproduct'
+        ),
+
+        ':view:/:id:/:layout:' => array(), // product/16/edit
+
+        ':view:/:id:' => array( // product/16
+            'layout' => 'default'
+        ),
+
+        ':view:' => array( // product/16
+            'view' => 'products',
+            'layout' => 'default'
+        )
     );
 
 
@@ -71,30 +83,39 @@ class YoshopRouter {
             $segments[] = $query['product_id'];
         }
 
-        foreach(self::$routes as $pattern => $sequence) {
+        $preserved = $query;
+
+        foreach(self::$routes as $pattern => $predefined) {
+
+            $query = $preserved;
 
             $matches = array();
             preg_match_all("|(?::([^/:]+))|", $pattern, $matches);
-            $sequence = !empty($matches[1])? $matches[1] : array();
+            $sequence = $matches[1];
 
-            $matched = true;
-            $preserved = $query;
+            // #1 Check if query has all route's values (predefined or not)
+            $required = array_merge(
+                array_fill_keys($sequence, null),
+                $predefined
+            );
+
             $segments = array();
-            foreach($sequence as $key) {
-                if (!isset($query[$key])) {
-                    $matched = false;
-                    break;
+
+            foreach ($required as $key => $val) {
+                if (!isset($query[$key]) || ($val !== null && $query[$key] != $val)) {
+                    continue 2;
                 }
-                $segments[] = $query[$key];
                 unset($query[$key]);
             }
 
-            if ($matched) {
-                break;
-            } else {
-                $query = $preserved;
-            }
+            $combined = str_replace(
+                array(':view:', ':id:', ':layout:'),
+                array($required['view'], $required['id'], $required['layout']),
+                $pattern
+            );
 
+            $segments = explode('/', $combined);
+            break;
         }
 
         self::$built[$sig] = $segments;
