@@ -9,12 +9,10 @@
  */
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
-
 /**
  * Methods supporting a list of Yoshop records.
  */
-class YoshopModelConversations extends YoModelList
+class YoshopModelConversation extends YoModelList
 {
     public $rowClassName = 'YoshopModelMessage';
 
@@ -28,7 +26,7 @@ class YoshopModelConversations extends YoModelList
     public function __construct($config = array()) {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
-                'm.updated_date',
+                'a.updated_date',
                 'a.id', 'id',
                 'a.user_1_id', 'user_1_id',
                 'a.user_2_id', 'user_2_id'
@@ -44,10 +42,10 @@ class YoshopModelConversations extends YoModelList
      *
      * @since   12.2
      */
-    public function getItems($userId = null)
+    public function getItems($conversationId = null)
     {
-        if ($userId) {
-            $this->state->set('userId', $userId);
+        if ($conversationId) {
+            $this->state->set('conversationId', $conversationId);
         }
         return parent::getItems();
     }
@@ -63,14 +61,13 @@ class YoshopModelConversations extends YoModelList
         $db = $this->getDbo();
         $query = $db->getQuery(true);
 
-        $uid = (int)$this->state->get('userId');
+        $cid = (int)$this->state->get('conversationId');
         // Select the required fields from the table.
-        $query->select('m.*, u.username as user_username');
-        $query->from('`#__yoshop_conversation` AS a');
-        $query->join('', '#__yoshop_message AS m ON a.last_message_id=m.id');
-        $query->join('', "#__users AS u ON m.created_by = u.id");
+        $query->select('a.*, u.username as user_username');
+        $query->from('`#__yoshop_message` AS a');
+        $query->join('', "#__users AS u ON a.created_by = u.id");
 
-        $query->where("a.user_1_id = {$uid} OR a.user_2_id = {$uid}");
+        $query->where("a.conversation_id = {$cid}");
 
         // Add the list ordering clause.
         $orderCol = $this->state->get('list.ordering');

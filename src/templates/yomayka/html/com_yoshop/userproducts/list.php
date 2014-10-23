@@ -7,7 +7,7 @@ if (count($this->products) > 0) {
         $productData = $row->data;
         $media = $productData->media[0]->data->path_prev;
         $acive = $productData->state == 1? 1:0;
-        $editUrl = YoRoute::_("yoshop:product.edit", array('id' => $productData->id)) ;
+        $editUrl = YoRoute::_('yoshop:product.edit:'.$productData->id);
         ?>
         <div class="item grid-2col-item<?php echo $i % 2; ?> grid-3col-item<?php echo $i % 3; ?>  grid-4col-item<?php echo $i % 4; ?>" data-id="<?php echo $productData->id; ?>">
             <div class="inner">

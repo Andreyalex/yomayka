@@ -7,7 +7,6 @@ if (count($this->items) > 0) {
         $editUrl = YoRoute::_('yoshop:product.edit:'.$data->id);
         $isMy = $data->created_by == $this->user->id
         ?>
-
         <div class="item panel panel-default<?=($isMy? ' my':'')?>">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-comment"></span>
@@ -15,7 +14,7 @@ if (count($this->items) > 0) {
                 <span><?=$data->user_username;?></span>
             </div>
             <div class="panel-body user-pane">
-                <a href="<?php echo YoRoute::_('yoshop:conversation:'.$data->id);?>"><?=$data->content;?></a>
+                <span><?=$data->content;?></span>
             </div>
         </div>
 <?php

@@ -13,18 +13,17 @@ defined('_JEXEC') or die;
 /**
  * product Table class
  */
-class YoshopTableMessage extends YoTable {
-
-    public $_columns = array(
-        'id',
-        'state',
-        'created_by',
-        'user_to',
-        'content',
-        'created_date',
-        'updated_date',
-        'conversation_id'
-    );
+class YoshopTableMessage extends YoTable
+{
+    public $id;
+    public $state;
+    public $created_by;
+    public $user_to;
+    public $content;
+    public $created_date;
+    public $updated_date;
+    public $conversation_id;
+    public $user_username;
 
     /**
      * Constructor

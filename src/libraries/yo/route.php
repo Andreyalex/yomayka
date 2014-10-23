@@ -15,8 +15,8 @@ class YoRoute
         $parts = array();
         !empty($exploded[0]) && ($parts['option'] = "com_{$exploded[0]}");
         !empty($exploded[1]) && (strpos($exploded[1], '.')===false? ($parts['view'] = $exploded[1]) : ($parts['task'] = $exploded[1]));
-        !empty($exploded[2]) && ($parts['layout'] = $exploded[2]);
-        !empty($exploded[3]) && ($parts['id'] = $exploded[3]);
+        !empty($exploded[2]) && ($parts['id'] = $exploded[2]);
+        !empty($exploded[3]) && ($parts['layout'] = $exploded[3]);
 
         $paramsString = JUri::buildQuery(array_merge($parts, $params));
 
