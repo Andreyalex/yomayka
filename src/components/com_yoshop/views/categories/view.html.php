@@ -27,7 +27,7 @@ class YoshopViewCategories extends YoView
 	 */
 	public function display($tpl = null)
 	{
-        $app                = $this->di->app;
+        $app                = JFactory::getApplication();
         
         $this->state		= $this->get('State');
         
@@ -49,7 +49,7 @@ class YoshopViewCategories extends YoView
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= $this->di->app;
+		$app	= JFactory::getApplication();
 		$menus	= $app->getMenu();
 		$title	= null;
 

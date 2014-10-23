@@ -21,10 +21,11 @@
     YoshopBootstrap::init();
 
     // Execute the task.
+    $app = JFactory::getApplication();
     $di = YoDi::getInstance('Yoshop');
     jimport('joomla.application.component.controller');
     $controller	= JControllerLegacy::getInstance('Yoshop');
     $controller->di = $di;
-    $controller->execute($di->app->input->get('task'));
+    $controller->execute($app->input->get('task'));
     $controller->redirect();
 

@@ -33,11 +33,11 @@ class YoshopModelCategory extends YoModelAdmin
 		$app = JFactory::getApplication('com_yoshop');
 
 		// Load state from the request userState on edit or from the passed variable on default
-        if ($this->di->app->input->get('layout') == 'edit') {
-            $id = $this->di->app->getUserState('com_yoshop.edit.category.id');
+        if (JFactory::getApplication()->input->get('layout') == 'edit') {
+            $id = JFactory::getApplication()->getUserState('com_yoshop.edit.category.id');
         } else {
-            $id = $this->di->app->input->get('id');
-            $this->di->app->setUserState('com_yoshop.edit.category.id', $id);
+            $id = JFactory::getApplication()->input->get('id');
+            JFactory::getApplication()->setUserState('com_yoshop.edit.category.id', $id);
         }
 		$this->setState('category.id', $id);
 
@@ -51,6 +51,10 @@ class YoshopModelCategory extends YoModelAdmin
 
 	}
 
+    public function setItem($item)
+    {
+        return;
+    }
 
 	/**
 	 * Method to get an ojbect.

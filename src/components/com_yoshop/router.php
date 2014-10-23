@@ -172,10 +172,10 @@ class YoshopRouter {
     }
 }
 
-function YoshopBuildRoute(&$query) {
+function yoshopBuildRoute(&$query) {
     return YoshopRouter::build($query);
 }
 
-function YoshopParseRoute(&$query) {
+function yoshopParseRoute(&$query) {
     return YoshopRouter::parse($query);
 }

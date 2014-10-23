@@ -18,7 +18,7 @@ class YoshopControllerCart extends YoControllerJson
     public function addProduct()
     {
         // Initialise variables.
-        $app   = $this->di->app;
+        $app   = JFactory::getApplication();
         $model = $this->getModel('Cart', 'YoshopModel');
 
         // Get the user data.
@@ -38,7 +38,7 @@ class YoshopControllerCart extends YoControllerJson
     public function removeProduct()
     {
         // Initialise variables.
-        $app   = $this->di->app;
+        $app   = JFactory::getApplication();
         /** @var YoshopModelCart $model */
         $model = $this->createModel('cart');
 

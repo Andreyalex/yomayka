@@ -23,7 +23,7 @@ class YoshopViewCart extends YoView {
      */
     public function display($tpl = null)
     {
-        $app = $this->di->app;
+        $app = JFactory::getApplication();
 
          /** @var YoshopModelCart $model */
         $model = $this->di->createModel('cart');

@@ -23,11 +23,11 @@ class YoshopControllerCategory extends YoControllerAbstract
 	 */
 	public function edit()
 	{
-		$app			= $this->di->app;
+		$app			= JFactory::getApplication();
 
 		// Get the previous edit id (if any) and the current edit id.
 		$previousId = (int) $app->getUserState('com_yoshop.edit.category.id');
-		$editId	= $this->di->app->input->getInt('id', null, 'array');
+		$editId	= JFactory::getApplication()->input->getInt('id', null, 'array');
 
 		// Set the user id for the user to edit in the session.
 		$app->setUserState('com_yoshop.edit.category.id', $editId);
@@ -61,11 +61,11 @@ class YoshopControllerCategory extends YoControllerAbstract
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
-		$app	= $this->di->app;
+		$app	= JFactory::getApplication();
 		$model = $this->getModel('Category', 'YoshopModel');
 
 		// Get the user data.
-		$data = $this->di->app->input->get('jform', array(), 'array');
+		$data = JFactory::getApplication()->input->get('jform', array(), 'array');
 
 		// Validate the posted data.
 		$form = $model->getForm();
@@ -147,11 +147,11 @@ class YoshopControllerCategory extends YoControllerAbstract
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
-		$app	= $this->di->app;
+		$app	= JFactory::getApplication();
 		$model = $this->getModel('Category', 'YoshopModel');
 
 		// Get the user data.
-		$data = $this->di->app->input->get('jform', array(), 'array');
+		$data = JFactory::getApplication()->input->get('jform', array(), 'array');
 
 		// Validate the posted data.
 		$form = $model->getForm();

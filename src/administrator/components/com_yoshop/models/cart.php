@@ -28,6 +28,11 @@ class YoshopModelCart extends YoModelAdmin
         $this->_collection = new YoCollection($items, array('rowClass' => 'YoshopModelCartitem'));
     }
 
+    public function setItem($item)
+    {
+        return;
+    }
+
     public function getTable($type = 'Media', $prefix = 'YoshopTable', $config = array())
     {
         throw new Exception('Model cart does not have a table');

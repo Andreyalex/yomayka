@@ -27,18 +27,17 @@ class YoshopViewCategory extends YoView {
      */
     public function display($tpl = null) {
         
-		$app	= $this->di->app;
-        $user	= JFactory::getUser();
+		$app	= JFactory::getApplication();
 
         $this->params = $app->getParams('com_yoshop');
 
         $cid = $app->input->get('id');
 
-        $cart = $this->di->createModel('cart');
+        $cart = new YoshopModelCart;
         $this->cartState = $cart->getState();
         $this->cartIds = JArrayHelper::getColumn($this->cartState['products'], 'id');
 
-        $model = $this->di->createModel('category');
+        $model = new YoshopModelCategory;
         $this->category = $model->getItem($cid);
         $this->products = $model->getProducts($cid);
 
@@ -58,7 +57,7 @@ class YoshopViewCategory extends YoView {
 	 */
 	protected function _prepareDocument()
 	{
-		$app	= $this->di->app;
+		$app	= JFactory::getApplication();
 		$menus	= $app->getMenu();
 		$title	= null;
 
