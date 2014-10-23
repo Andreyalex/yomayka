@@ -1,16 +1,17 @@
-requirejs.config({
+;(function(){
 
-    //By default load any module IDs from js/lib
-    baseUrl: window.siteBaseUrl+'templates/yomayka/assets/yo',
+  var library =  window.siteBaseUrl+'templates/yomayka/assets/yo/'
 
-    //except, if the module ID starts with "app",
-    //load it from the js/app directory. paths
-    //config is relative to the baseUrl, and
-    //never includes a ".js" extension since
-    //the paths config could be for a directory.
-    paths: {
-        jquery: window.siteBaseUrl+'media/jui/js/jquery.min'
-    }
-});
-
-window['requireJsAppInit'] && requireJsAppInit()
+  requirejs.config({
+      baseUrl: window.siteBaseUrl+'templates/yomayka/html/com_yoshop',
+      paths: {
+          jquery: window.siteBaseUrl+'media/jui/js/jquery.min',
+          messenger: library+'messenger',
+          preloader: library+'preloader',
+          wizard: library+'wizard',
+          cart: library+'cart',
+          yo: library+'yo'
+      }
+  });
+  window['requireJsAppInit'] && window.requireJsAppInit()
+})()

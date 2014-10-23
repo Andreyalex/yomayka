@@ -123,22 +123,6 @@ class YoshopHelperHtml
         );
     }
 
-    public static function initJsApp($route, $data = array())
-    {
-        $document = JFactory::getDocument();
-
-        if (!isset($document->customAssets)) {
-            $document->customAssets = array();
-        }
-        $document->customAssets[] =
-            '<script type="text/javascript">'.
-                "window.yoshopJsRoute='$route'\n".
-                "window.yoshopJsData=".json_encode($data)."\n".
-            '</script>';
-        $document->customAssets[] =
-            '<script type="text/javascript" src="'.YOSHOP_ASSETS_BASEURL.'/require.js" data-main="'.YOSHOP_ASSETS_BASEURL.'/main"></script>';
-    }
-
     public static function addStylesheet($url)
     {
         $base = YOSHOP_ASSETS_BASEURL;

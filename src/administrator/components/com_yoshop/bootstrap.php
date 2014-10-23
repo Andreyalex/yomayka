@@ -12,14 +12,13 @@ class YoshopBootstrap
     {
         define('YOSHOP_MEDIA_TYPE_IMAGE', 1);
 
-        define('YOSHOP_MEDIA_BASEURL', JUri::root().'media/com_yoshop');
+        define('YOSHOP_MEDIA_BASEURL', JUri::base().'media/com_yoshop');
 
+        define('YOSHOP_CONTENT_BASEURL', YOSHOP_MEDIA_BASEURL.'/content');
         define('YOSHOP_PRODUCT_MEDIA_PATH', JPATH_ROOT . '/media/com_yoshop/content/product/images');
         define('YOSHOP_PRODUCT_MEDIA_BASEURL', YOSHOP_MEDIA_BASEURL.'/content/product/images');
 
-        define('YOSHOP_ASSETS_BASEURL', YOSHOP_MEDIA_BASEURL.'/assets');
-
-        define('YOSHOP_CONTENT_BASEURL', YOSHOP_MEDIA_BASEURL.'/content');
+        define('YOSHOP_ASSETS_BASEURL', JUri::base().'templates/yomayka/html/com_yoshop');
 
         define('YOSHOP_ORDER_STATUS_CREATED', 1);
         define('YOSHOP_ORDER_STATUS_IN_PROGRESS', 2);

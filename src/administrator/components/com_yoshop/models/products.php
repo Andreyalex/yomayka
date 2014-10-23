@@ -139,7 +139,7 @@ class YoshopModelProducts extends YoModelList
         // Filter by categories
         $cats = $this->getState('filter.categories');
         if (!empty($cats)) {
-            $query->where('( a.category IN ('.implode(',',$cats).')');
+            $query->where('( a.category IN ('.implode(',',$cats).'))');
         }
 
 

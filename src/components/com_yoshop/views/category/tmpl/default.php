@@ -11,10 +11,10 @@ defined('_JEXEC') or die;
 
 //JHTML::script('templates/lady/assets/js/yo.js');
 
-YoshopHelperHtml::addStylesheet('category/category.css');
+YoViewHelperHtml::addStylesheet('category/category.css');
 
-YoshopHelperHtml::initJsApp(
-    'category/default',
+YoViewHelperHtml::initJsApp(
+    '/templates/yomayka/html/com_yoshop/category/default.js',
     $this->cartState
 );
 
@@ -33,7 +33,9 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_yoshop')) 
 <div id="yoshop-products-list" class="tiles">
     <?php if (count($this->products) > 0) {
         $i=0;
-        foreach ($this->products as $k=>$product){ ?>
+        foreach ($this->products as $k=>$row){
+            $product = $row->data
+            ?>
             <div class="item <?php echo in_array($product->id, $this->cartIds)? 'in-cart':''; ?> grid-2col-item<?php echo $i % 2; ?> grid-3col-item<?php echo $i % 3; ?>  grid-4col-item<?php echo $i % 4; ?>" data-id="<?php echo $product->id; ?>">
 
                 <div class="inner">

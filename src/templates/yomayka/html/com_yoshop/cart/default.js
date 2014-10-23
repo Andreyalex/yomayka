@@ -33,7 +33,7 @@ require(['jquery', 'yo', 'wizard', 'messenger', 'cart/cart', 'modal'], function(
 
         $('.step2 .submit').click(function(ev){
             ev.preventDefault()
-            isValid = document.formvalidator.isValid(this.form);
+            var isValid = document.formvalidator.isValid(this.form);
             if (isValid) {
                 $.ajax({
                     type: 'post',
