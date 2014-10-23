@@ -32,14 +32,9 @@ class YoshopRouter {
 
         ':view:/:id:/:layout:' => array(), // product/16/edit
 
-        ':view:/:id:' => array( // product/16
-            'layout' => 'default'
-        ),
+        ':view:/:id:' => array(), // product/16
 
-        ':view:' => array( // product/16
-            'view' => 'products',
-            'layout' => 'default'
-        )
+        ':view:' => array() // product/16
     );
 
 
@@ -105,6 +100,8 @@ class YoshopRouter {
                 if (!isset($query[$key]) || ($val !== null && $query[$key] != $val)) {
                     continue 2;
                 }
+
+                $required[$key] = $query[$key];
                 unset($query[$key]);
             }
 

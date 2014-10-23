@@ -18,11 +18,9 @@ jimport('joomla.event.dispatcher');
  */
 abstract class YoModelList extends JModelList
 {
-    public $text_prefix = 'COM_YO';
+    public $rowClassName;
 
-    public $rowClassName = null;
-
-    public $data = null;
+    public $data;
 
     /**
      * Constructor
@@ -64,5 +62,44 @@ abstract class YoModelList extends JModelList
     {
         $this->setData(parent::getItems());
         return $this->data;
+    }
+
+    /**
+     * Method to auto-populate the model state.
+     *
+     * Note. Calling getState in this method will result in recursion.
+     */
+    protected function populateState($ordering = null, $direction = null) {
+        // Initialise variables.
+        $app = JFactory::getApplication();
+
+        // Load the filter state.
+        $search = $app->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
+        $this->setState('filter.search', $search);
+
+        $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
+        $this->setState('filter.state', $published);
+
+        // List state information.
+        parent::populateState($this->filter_fields[0], 'asc');
+    }
+
+    /**
+     * Method to get a store id based on model configuration state.
+     *
+     * This is necessary because the model is used by the component and
+     * different modules that might need different sets of data or different
+     * ordering requirements.
+     *
+     * @param	string		$id	A prefix for the store id.
+     * @return	string		A store id.
+     * @since	1.6
+     */
+    protected function getStoreId($id = '') {
+        // Compile the store id.
+        $id.= ':' . $this->getState('filter.search');
+        $id.= ':' . $this->getState('filter.state');
+
+        return parent::getStoreId($id);
     }
 }

@@ -17,10 +17,9 @@ class YoshopTableConversation extends YoTable {
 
     public $_columns = array(
         'id',
-        'user_from',
-        'user_to',
-        'ordering',
-        'updated_date'
+        'user_1_id',
+        'user_2_id',
+        'last_message_id'
     );
 
     /**

@@ -32,6 +32,6 @@ class YoshopTableMessage extends YoTable {
      * @param &$db JDatabaseDriver A database connector object
      */
     public function __construct(&$db) {
-        parent::__construct('#__yoshop_conversation', 'id', $db);
+        parent::__construct('#__yoshop_message', 'id', $db);
     }
 }

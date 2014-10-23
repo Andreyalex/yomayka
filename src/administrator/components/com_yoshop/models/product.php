@@ -20,10 +20,6 @@ require_once JPATH_ADMINISTRATOR . '/components/com_yoshop/helpers/product.php';
  */
 class YoshopModelProduct extends YoModelAdmin
 {
-    public $name = 'product';
-
-    public $prefix = 'yoshop';
-
     protected $text_prefix = 'COM_YOSHOP';
 
     /**
@@ -86,12 +82,6 @@ class YoshopModelProduct extends YoModelAdmin
             case 'link':
                 return $this->data->id? YoshopHelperProduct::createUrl((object)$this->data) : null;
         }
-    }
-
-    public function getTable($type = 'Product', $prefix = 'YoshopTable', $config = array())
-    {
-        $this->addTablePath(JPATH_COMPONENT_ADMINISTRATOR.'/tables');
-        return JTable::getInstance($type, $prefix, $config);
     }
 
     function getCategoryName($id){

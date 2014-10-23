@@ -18,11 +18,13 @@ jimport('joomla.event.dispatcher');
  */
 abstract class YoModelAdmin extends JModelAdmin
 {
-    public $data = null;
+    public $data;
 
-    public $prefix = null; // [yoshop] from [Yoshop]ModelProduct
+    public $prefix; // [yoshop] from [Yoshop]ModelProduct
 
-    protected $text_prefix = 'COM_YO';
+    public $tableName; // [product] from YoshopTable[Product]
+
+    protected $text_prefix;
 
     /**
      * Constructor
@@ -34,6 +36,12 @@ abstract class YoModelAdmin extends JModelAdmin
      */
     public function __construct($config = array())
     {
+        if (empty($this->prefix) || empty($this->tableName)) {
+            list($prefix, $tableName) = explode('Model', get_class($this));
+            empty($this->prefix) && ($this->prefix = strtolower($prefix));
+            empty($this->tableName) && ($this->tableName = strtolower($tableName));
+        }
+
         // Able to receive entity's id
         if (is_numeric($config)) {
             $id = (int) $config;
@@ -116,8 +124,16 @@ abstract class YoModelAdmin extends JModelAdmin
         return $id;
     }
 
-    public function getTable($type = null, $prefix = 'YoTable', $config = array())
+    public function getTable($type = null, $prefix = null, $config = array())
     {
+        if (!$type && $this->tableName) {
+            $type = ucfirst($this->tableName);
+        }
+
+        if (!$prefix && $this->prefix) {
+            $prefix = ucfirst($this->prefix).'Table';
+        }
+
         return parent::getTable($type, $prefix, $config);
     }
 

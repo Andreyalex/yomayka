@@ -16,7 +16,7 @@ jimport('joomla.application.component.modellist');
  */
 class YoshopModelConversations extends YoModelList
 {
-    public $rowClassName = 'YoshopModelMessasge';
+    public $rowClassName = 'YoshopModelMessage';
 
     /**
      * Constructor.
@@ -28,60 +28,28 @@ class YoshopModelConversations extends YoModelList
     public function __construct($config = array()) {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
-                'id', 'a.id',
-                'ordering', 'a.ordering',
-                'state', 'a.state',
-                'created_by', 'a.created_by',
-                'name', 'a.name',
-                'description', 'a.description',
-
+                'm.updated_date',
+                'a.id', 'id',
+                'a.user_1_id', 'user_1_id',
+                'a.user_2_id', 'user_2_id'
             );
         }
-
         parent::__construct($config);
     }
 
     /**
-     * Method to auto-populate the model state.
+     * Method to get an array of data items.
      *
-     * Note. Calling getState in this method will result in recursion.
+     * @return  mixed  An array of data items on success, false on failure.
+     *
+     * @since   12.2
      */
-    protected function populateState($ordering = null, $direction = null) {
-        // Initialise variables.
-        $app = JFactory::getApplication();
-
-        // Load the filter state.
-        $search = $app->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
-        $this->setState('filter.search', $search);
-
-        $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
-        $this->setState('filter.state', $published);
-
-        // Load the parameters.
-        $params = JComponentHelper::getParams('com_yoshop');
-        $this->setState('params', $params);
-
-        // List state information.
-        parent::populateState('a.name', 'asc');
-    }
-
-    /**
-     * Method to get a store id based on model configuration state.
-     *
-     * This is necessary because the model is used by the component and
-     * different modules that might need different sets of data or different
-     * ordering requirements.
-     *
-     * @param	string		$id	A prefix for the store id.
-     * @return	string		A store id.
-     * @since	1.6
-     */
-    protected function getStoreId($id = '') {
-        // Compile the store id.
-        $id.= ':' . $this->getState('filter.search');
-        $id.= ':' . $this->getState('filter.state');
-
-        return parent::getStoreId($id);
+    public function getItems($userId = null)
+    {
+        if ($userId) {
+            $this->state->set('userId', $userId);
+        }
+        return parent::getItems();
     }
 
     /**
@@ -95,59 +63,20 @@ class YoshopModelConversations extends YoModelList
         $db = $this->getDbo();
         $query = $db->getQuery(true);
 
+        $uid = (int)$this->state->get('userId');
         // Select the required fields from the table.
-        $query->select(
-                $this->getState(
-                        'list.select', 'a.*'
-                )
-        );
-        $query->from('`#__yoshop_product` AS a');
+        $query->select('m.*, u.login as user_2_login');
+        $query->from('`#__yoshop_conversation` AS a');
+        $query->join('', '#__yoshop_message AS m ON a.last_message_id=m.id');
+        $query->join('', "#__users AS u ON (a.user_1_id != {$uid} AND a.user_1_id = u.id) OR a.user_2_id = u.id");
 
-        
-        // Join over the users for the checked out user.
-//        $query->select('uc.name AS editor');
-//        $query->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
-    
-		// Join over the user field 'created_by'
-		$query->select('created_by.name AS created_by');
-		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
-
-        // Join over the user field 'created_by'
-        $query->select('m.path as image');
-        $query->join('LEFT', '#__yoshop_media AS m ON a.id=m.parent_id AND m.is_title>0');
-
-        // Filter by published state
-        $published = $this->getState('filter.state');
-        if (is_numeric($published)) {
-            $query->where('a.state = '.(int) $published);
-        } else if ($published === '') {
-            $query->where('(a.state IN (0, 1))');
-        }
-    
-
-        // Filter by search in title
-        $search = $this->getState('filter.search');
-        if (!empty($search)) {
-            if (stripos($search, 'id:') === 0) {
-                $query->where('a.id = ' . (int) substr($search, 3));
-            } else {
-                $search = $db->Quote('%' . $db->escape($search, true) . '%');
-                $query->where('( a.name LIKE '.$search.' )');
-            }
-        }
-
-        // Filter by categories
-        $cats = $this->getState('filter.categories');
-        if (!empty($cats)) {
-            $query->where('( a.category IN ('.implode(',',$cats).')');
-        }
-
+        $query->where("a.user_1_id = {$uid} OR a.user_2_id = {$uid}");
 
         // Add the list ordering clause.
         $orderCol = $this->state->get('list.ordering');
         $orderDirn = $this->state->get('list.direction');
         if ($orderCol && $orderDirn) {
-            $query->order($db->escape($orderCol . ' ' . $orderDirn . ', id ' . $orderDirn));
+            $query->order($db->escape($orderCol . ' ' . $orderDirn));
         }
 
         return $query;

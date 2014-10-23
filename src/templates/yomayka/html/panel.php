@@ -14,7 +14,7 @@ $tab = $input->get('view');
 $itemId = $input->get('subItem')? $input->get('subItem') : null;
 $profileUrl = JRoute::_('index.php?option=com_users&view=profile', false);
 $productsUrl = JRoute::_('index.php?option=com_yoshop&view=userproducts', false);
-$messagesUrl = JRoute::_('index.php?option=com_yoshop&view=usermessages', false);
+$messagesUrl = JRoute::_('index.php?option=com_yoshop&view=conversations', false);
 
 JHtml::stylesheet(JUri::base().'templates/yomayka/assets/css/com_users/user-panel.css');
 ?>
