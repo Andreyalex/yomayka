@@ -15,6 +15,17 @@ defined('_JEXEC') or die;
  */
 class YoshopTableProduct extends YoTable {
 
+    public $id;
+    public $ordering;
+    public $state;
+    public $created_by;
+    public $name;
+    public $description;
+    public $price_base;
+    public $count;
+    public $category;
+    public $image_prev;
+
     /**
      * Constructor
      *

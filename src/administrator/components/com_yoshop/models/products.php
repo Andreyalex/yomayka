@@ -113,7 +113,7 @@ class YoshopModelProducts extends YoModelList
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
 
         // Join over the user field 'created_by'
-        $query->select('m.path as image');
+        $query->select('m.path_prev as image_prev');
         $query->join('LEFT', '#__yoshop_media AS m ON a.id=m.parent_id AND m.is_title>0');
 
         // Filter by published state

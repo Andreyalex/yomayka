@@ -78,9 +78,11 @@ class YoshopModelProduct extends YoModelAdmin
     {
         switch ($name) {
             case 'media':
-                return $this->data->id? new YoCollection($this->getMedia($this->data->id), array('rowClass' => 'YoshopModelMedia')) : null;
+                $this->data->media = $this->data->id? new YoCollection($this->getMedia($this->data->id), array('rowClass' => 'YoshopModelMedia')) : null;
+                return $this->data->media;
             case 'link':
-                return $this->data->id? YoshopHelperProduct::createUrl((object)$this->data) : null;
+                $this->data->link = $this->data->id? YoshopHelperProduct::createUrl((object)$this->data) : null;
+                return $this->data->link;
         }
     }
 

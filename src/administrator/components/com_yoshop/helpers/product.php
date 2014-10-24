@@ -14,7 +14,9 @@ require_once JPATH_SITE . '/components/com_yoshop/router.php';
 class YoshopHelperProduct
 {
     /**
-     * @param $item stdClass
+     * @param $item
+     * @param null $base
+     * @return string
      */
     public static function createUrl($item, $base = null)
     {
