@@ -30,7 +30,10 @@ class YoshopViewUserproducts extends YoView
      */
     public function display($tpl = null)
     {
-        YoDi::getInstance('Yoshop');
+        $app = JFactory::getApplication();
+        if ($app->input->get('layout') != 'list') {
+            $app->input->set('limitstart', 0);
+        }
 
         /** @var YoshopModelProducts $this->model */
         $model = new YoshopModelProducts;

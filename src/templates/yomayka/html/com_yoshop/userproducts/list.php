@@ -1,15 +1,13 @@
 <?php defined('_JEXEC') or die;
 
 if (count($this->products) > 0) {
-
-    $i=0;
     foreach ($this->products as $k => $row) {
         $productData = $row->data;
         $media = $productData->media[0]->data->path_prev;
         $acive = $productData->state == 1? 1:0;
         $editUrl = YoRoute::_('yoshop:product.edit:'.$productData->id);
         ?>
-        <div class="item grid-2col-item<?php echo $i % 2; ?> grid-3col-item<?php echo $i % 3; ?>  grid-4col-item<?php echo $i % 4; ?>" data-id="<?php echo $productData->id; ?>">
+        <div class="item" data-id="<?php echo $productData->id; ?>">
             <div class="inner">
                 <div class="title">
                     <a class="nonlink" href="<?php echo $editUrl ?>">
@@ -49,13 +47,5 @@ if (count($this->products) > 0) {
             </div>
         </div>
         <?php
-        $i++;
     }
-
-    echo YoshopHelperHtml::renderPagination($this->pagination);
-
-} else { ?>
-    <h3 style="text-align:center;display: block;">
-        <?php echo JText::_('COM_YOSHOP_CATEGORY_IS_EMPTY'); ?>
-    </h3>
-<?php } ?>
+}

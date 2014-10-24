@@ -55,7 +55,7 @@
             <?php } ?>
         <?php } ?>
 
-        <?php echo YoViewHelperHtml::renderFormAssets('yoshop.product.apply.'.$this->id); ?>
+        <?php echo YoViewHelperHtml::renderFormAssets('yoshop.product.save.'.$this->id); ?>
 
     </form>
 

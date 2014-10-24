@@ -2,17 +2,8 @@
 
     defined('_JEXEC') or die;
 
-
     YoshopHelperHtml::addStylesheet('product/default.css');
     YoshopHelperHtml::initJsApp('product/default');
-
-    //Load admin language file
-    $lang = JFactory::getLanguage();
-    $lang->load('com_yoshop', JPATH_ADMINISTRATOR);
-    $canEdit = JFactory::getUser()->authorise('core.edit', 'com_yoshop');
-    if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_yoshop')) {
-        $canEdit = JFactory::getUser()->id == $this->item->created_by;
-    }
 
     $product = $this->product->data;
 

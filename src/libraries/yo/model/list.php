@@ -102,4 +102,9 @@ abstract class YoModelList extends JModelList
 
         return parent::getStoreId($id);
     }
+
+    public function getStart()
+    {
+        return $this->getState('list.start');
+    }
 }

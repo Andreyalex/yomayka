@@ -13,42 +13,59 @@
     YoViewHelperHtml::initJsApp();
 
     ob_start();
+
+    if (count($this->products) > 0) {
 ?>
+        <div class="cpanel" style="float:right">
+            <div class="pull-right" style="margin-left:40px">
+                <button class="btn btn-info glyphicon glyphicon-th"></button>
+            </div>
+            <div class="col-xs-6 pull-right" style="padding-top:1px;padding-left:4px">
+                <input
+                    class="form-control col-xs-1"
+                    type="search"
+                    placeholder="<?php echo JText::_("Поиск"); ?>"
+                    data-event="change:filter"
+                    value="<?php echo $filterSearch; ?>"
+                >
+            </div>
+            <div class="pull-right">
 
-    <div class="cpanel" style="float:right">
-        <div class="pull-right" style="margin-left:40px">
-            <button class="btn btn-info glyphicon glyphicon-th"></button>
+                <a class="btn btn-success glyphicon glyphicon-plus" href="<?=$urlAdd?>"></a>
+
+                <button
+                    class="btn btn-default glyphicon glyphicon-sort"
+                    data-event="click:ordering"
+                    data-behavior="toggle:asc,desc:<?=$listOrdering?>"
+                >
+                </button>
+
+                <button class="btn btn-default glyphicon glyphicon-arrow-up"></button>
+
+            </div>
         </div>
-        <div class="col-xs-6 pull-right" style="padding-top:1px;padding-left:4px">
-            <input
-                class="form-control col-xs-1"
-                type="search"
-                placeholder="<?php echo JText::_("Поиск"); ?>"
-                data-event="change:filter"
-                value="<?php echo $filterSearch; ?>"
-            >
+
+        <div class="clearfix"></div>
+
+        <div id="yoshop-products-list" class="smoothed">
+            <?php include 'list.php'; ?>
         </div>
-        <div class="pull-right">
 
-            <a class="btn btn-success glyphicon glyphicon-plus" href="<?=$urlAdd?>"></a>
+<?php } else { ?>
 
-            <button
-                class="btn btn-default glyphicon glyphicon-sort"
-                data-event="click:ordering"
-                data-behavior="toggle:asc,desc:<?=$listOrdering?>"
-            >
-            </button>
+    <h3 style="text-align:center;display: block;">
+        <?php echo JText::_('COM_YOSHOP_CATEGORY_IS_EMPTY'); ?>
+    </h3>
 
-            <button class="btn btn-default glyphicon glyphicon-arrow-up"></button>
+<?php } ?>
 
-        </div>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div id="yoshop-products-list" class="smoothed">
-        <?php include 'list.php'; ?>
-    </div>
+    <?php echo YoshopHelperHtml::renderFeedPagination(
+        $this->pagination,
+        'post html|yoshop:userproducts:list:partial',
+        '#yoshop-products-list',
+        '[role="paginator"]',
+        $this->model
+    ); ?>
 
     <script>
         window.requireJsAppInit = function(){

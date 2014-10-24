@@ -148,6 +148,29 @@ class YoshopHelperHtml
         return $tpl;
 
     }
+
+    public static function renderFeedPagination($pagination, $url, $container, $control, $model)
+    {
+        if ($pagination->get('pages.total') > 1) {
+
+            ob_start(); ?>
+            <div class="pagination">
+                <button class="btn btn-info" role="paginator"><?=JText::_("Больше")."..."?></button>
+            </div>
+            <script>
+                jQuery(function(){
+                    new yo.Pagination({
+                        url: '<?=$url?>',
+                        container: jQuery('<?=$container?>'),
+                        control: jQuery('<?=$control?>'),
+                        limit: '<?=$model->getState('list.limit')?>'
+                    })
+                })
+            </script>
+            <?php
+            return ob_get_clean();
+        }
+    }
 }
 
 

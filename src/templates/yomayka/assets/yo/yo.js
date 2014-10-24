@@ -361,4 +361,29 @@
     window.yo = yo;
   }
 
+  var Pagination = function(options) {
+    this.url = options.url
+    this.container = options.container
+    this.control = options.control
+    this.limit = parseInt(options.limit)
+    this.limitstart = 0
+
+    var $this = this
+    this.control.on('click', function(event){
+
+      yo.request(
+        $this.url,
+        { data:{ 'limitstart': $this.limitstart + $this.limit } },
+        null,
+        function (res) {
+          $this.container.append(res);
+          $this.limitstart += $this.limit
+        }
+      )
+
+    })
+  }
+
+  yo.Pagination = Pagination
+
 })()
