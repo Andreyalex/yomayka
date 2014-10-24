@@ -25,6 +25,17 @@ class YoshopTableProduct extends YoTable {
     public $count;
     public $category;
     public $image_prev;
+    public $favorites_count;
+    public $favorites_day_count;
+
+    /**
+     * Just for doc
+     * @var array
+     */
+    public $_relations = array(
+        'link',
+        'media'
+    );
 
     /**
      * Constructor

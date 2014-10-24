@@ -116,6 +116,16 @@ class YoshopModelProducts extends YoModelList
         $query->select('m.path_prev as image_prev');
         $query->join('LEFT', '#__yoshop_media AS m ON a.id=m.parent_id AND m.is_title>0');
 
+        if ($this->getState('favorites')) {
+            $query->select('f.cnt as favorites_count, fd.cnt as favorites_day_count');
+            $query->join(
+                'LEFT',
+                '(select item_id, count(*) as cnt from #__yoshop_favorites where item_type=1 GROUP BY item_id) as f ON f.item_id = a.id');
+            $query->join(
+                'LEFT',
+                '(select item_id, count(*) as cnt from #__yoshop_favorites where item_type=1 and created_date > '.strtotime(date('Y-m-d 00:00:00')).' GROUP BY item_id) as fd ON fd.item_id = a.id');
+        }
+
         // Filter by published state
         $published = $this->getState('filter.state');
         if (is_numeric($published)) {

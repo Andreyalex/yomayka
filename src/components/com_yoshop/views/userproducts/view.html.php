@@ -18,13 +18,9 @@ defined('_JEXEC') or die;
  */
 class YoshopViewUserproducts extends YoView
 {
-    protected $data;
-
-    protected $form;
-
-    protected $params;
-
-    protected $state;
+    protected $model;
+    protected $products;
+    protected $pagination;
 
     /**
      * Execute and display a template script.
@@ -37,9 +33,11 @@ class YoshopViewUserproducts extends YoView
         YoDi::getInstance('Yoshop');
 
         /** @var YoshopModelProducts $this->model */
-        $this->model = new YoshopModelProducts;
-        $this->products = $this->model->getItems();
-        $this->pagination = $this->model->getPagination();
+        $model = new YoshopModelProducts;
+        $model->setState('favorites', true);
+        $this->products = $model->getItems();
+        $this->pagination = $model->getPagination();
+        $this->model = $model;
 
         return parent::display($tpl);
     }

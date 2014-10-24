@@ -38,9 +38,12 @@ if (count($this->products) > 0) {
                         data-id="<?php echo $productData->id;?>"
                     >
                     </button>
-                    <div class="stats">
+                    <div class="stats" style="color:#888888">
                         <span><?php echo YoshopHelperProduct::printViewsCount($productData); ?><span>
+                        &nbsp;&nbsp;
                         <span><?php echo YoshopHelperProduct::printMessagesCount($productData); ?><span>
+                        &nbsp;&nbsp;
+                        <span><?php echo YoshopHelperProduct::printFavoritesCount($productData); ?><span>
                     </div>
                 </div>
             </div>

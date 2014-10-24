@@ -35,12 +35,16 @@ class YoshopHelperProduct
 
     public static function printViewsCount($productData)
     {
-         return JText::_("Просмотров").':'.(int)$productData->stat->viewsPerDay.'/'.(int)$productData->stat->views;
+         return '<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span>'.(int)$productData->stat->viewsPerDay.'/'.(int)$productData->stat->views.'</span>';
     }
 
     public static function printMessagesCount($productData)
     {
-         return JText::_("Сообщений").':'.(int)$productData->stat->messagesNew.'/'.(int)$productData->stat->messages;
+         return '<span class="glyphicon glyphicon-comment"></span>&nbsp;<span>'.(int)$productData->stat->messagesNew.'/'.(int)$productData->stat->messages.'</span>';
+    }
+    public static function printFavoritesCount($productData)
+    {
+        return '<span class="glyphicon glyphicon-heart"></span>&nbsp;<span>'.(int)$productData->favorites_count.'/'.(int)$productData->favorites_day_count.'</span>';
     }
 }
 
