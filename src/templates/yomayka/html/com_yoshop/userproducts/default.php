@@ -59,14 +59,6 @@
 
 <?php } ?>
 
-    <?php echo YoshopHelperHtml::renderFeedPagination(
-        $this->pagination,
-        'post html|yoshop:userproducts:list:partial',
-        '#yoshop-products-list',
-        '[role="paginator"]',
-        $this->model
-    ); ?>
-
     <script>
         window.requireJsAppInit = function(){
             require(['jquery', 'yo', 'messenger', 'preloader'], function($, yo, Messenger, Preloader) {

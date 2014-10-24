@@ -30,11 +30,6 @@ class YoshopViewUserproducts extends YoView
      */
     public function display($tpl = null)
     {
-        $app = JFactory::getApplication();
-        if ($app->input->get('layout') != 'list') {
-            $app->input->set('limitstart', 0);
-        }
-
         /** @var YoshopModelProducts $this->model */
         $model = new YoshopModelProducts;
         $model->setState('favorites', true);
