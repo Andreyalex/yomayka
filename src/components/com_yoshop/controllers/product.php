@@ -15,6 +15,8 @@ defined('_JEXEC') or die;
  */
 class YoshopControllerProduct extends YoControllerAbstract
 {
+    protected $view_list = 'user/products';
+
     protected function allowAdd($data = array())
     {
         return true;
