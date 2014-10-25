@@ -151,7 +151,7 @@ class YoViewHelperHtml
     {
         return
             '<button '.
-                "onclick=\"Joomla.submitform('{$modelName}.cancel', document.getElementById('<?=$formId?>')); return false;\" ".
+                "onclick=\"Joomla.submitform('{$modelName}.cancel', document.getElementById('{$formId}')); return false;\" ".
                 'class="btn btn-danger"'.
             '>' . JText::_('JCANCEL') . '</button>';
     }
