@@ -8,7 +8,7 @@
     $listOrdering = $this->model->getState('list.direction');
     $filterSearch = $this->model->getState('filter.search');
 
-    $urlAdd = YoRoute::_('yoshop:product.add');
+    $urlAdd = YoRoute::_('yoshop:product.add', array('back'=>'1'));
 
     YoViewHelperHtml::initJsApp();
 

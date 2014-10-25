@@ -79,6 +79,7 @@ class YoControllerAbstract extends JControllerAdmin
     {
         $app = JFactory::getApplication();
         $context = "$this->option.edit.$this->context";
+        $returnUrl = ($app->input->get('back'))? $this->getReturnUrl() : null;
 
         // Access check.
         if (!$this->allowAdd())
@@ -88,6 +89,8 @@ class YoControllerAbstract extends JControllerAdmin
             $this->setMessage($this->getError(), 'error');
 
             $this->setRedirect(
+                !empty($returnUrl)?
+                $returnUrl :
                 JRoute::_(
                     'index.php?option=' . $this->option . '&view=' . $this->view_list
                     . $this->getRedirectToListAppend(), false
@@ -99,6 +102,7 @@ class YoControllerAbstract extends JControllerAdmin
 
         // Clear the record edit information from the session.
         $app->setUserState($context . '.data', null);
+        $app->setUserState($context.'.returnUrl', $returnUrl);
 
         // Redirect to the edit screen.
         $this->setRedirect(
@@ -268,13 +272,18 @@ class YoControllerAbstract extends JControllerAdmin
         // Clean the session data and redirect.
         $this->releaseEditId($context, $recordId);
         $app->setUserState($context . '.data', null);
+        $returnUrl = $app->getUserState($context . '.returnUrl');
+        $app->setUserState($context . '.returnUrl', null);
 
         $this->setRedirect(
+            !empty($returnUrl)?
+                $returnUrl :
             JRoute::_(
                 'index.php?option=' . $this->option . '&view=' . $this->view_list
                 . $this->getRedirectToListAppend(), false
             )
         );
+
 
         return true;
     }
@@ -297,6 +306,8 @@ class YoControllerAbstract extends JControllerAdmin
         $table = $model->getTable();
         $cid   = $this->input->post->get('cid', array(), 'array');
         $context = "$this->option.edit.$this->context";
+        $returnUrl = ($app->input->get('back'))? $this->getReturnUrl() : null;
+
 
         // Determine the name of the primary key for the data.
         if (empty($key))
@@ -321,6 +332,8 @@ class YoControllerAbstract extends JControllerAdmin
             $this->setMessage($this->getError(), 'error');
 
             $this->setRedirect(
+                !empty($returnUrl)?
+                    $returnUrl :
                 JRoute::_(
                     'index.php?option=' . $this->option . '&view=' . $this->view_list
                     . $this->getRedirectToListAppend(), false
@@ -329,6 +342,8 @@ class YoControllerAbstract extends JControllerAdmin
 
             return false;
         }
+
+        $app->setUserState($context . '.returnUrl', $returnUrl);
 
         // Attempt to check-out the new record for editing and redirect.
         if ($checkin && !$model->checkout($recordId))
@@ -435,80 +450,6 @@ class YoControllerAbstract extends JControllerAdmin
     }
 
     /**
-     * Method to load a row from version history
-     *
-     * @return  mixed  True if the record can be added, a error object if not.
-     *
-     * @since   3.2
-     */
-    public function loadhistory()
-    {
-        $app = JFactory::getApplication();
-        $lang  = JFactory::getLanguage();
-        $model = $this->getModel();
-        $table = $model->getTable();
-        $historyId = $app->input->get('version_id', null, 'integer');
-        $context = "$this->option.edit.$this->context";
-
-        if (!$model->loadhistory($historyId, $table))
-        {
-            $this->setMessage($model->getError(), 'error');
-
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_list
-                    . $this->getRedirectToListAppend(), false
-                )
-            );
-
-            return false;
-        }
-
-        // Determine the name of the primary key for the data.
-        if (empty($key))
-        {
-            $key = $table->getKeyName();
-        }
-
-        $recordId = $table->$key;
-
-        // To avoid data collisions the urlVar may be different from the primary key.
-        $urlVar = empty($this->urlVar) ? $key : $this->urlVar;
-
-        // Access check.
-        if (!$this->allowEdit(array($key => $recordId), $key))
-        {
-            $this->setError(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'));
-            $this->setMessage($this->getError(), 'error');
-
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_list
-                    . $this->getRedirectToListAppend(), false
-                )
-            );
-            $table->checkin();
-
-            return false;
-        }
-
-        $table->store();
-        $this->setRedirect(
-            JRoute::_(
-                'index.php?option=' . $this->option . '&view=' . $this->view_item
-                . $this->getRedirectToItemAppend($recordId, $urlVar), false
-            )
-        );
-
-        $this->setMessage(JText::sprintf('JLIB_APPLICATION_SUCCESS_LOAD_HISTORY', $model->getState('save_date'), $model->getState('version_note')));
-
-        // Invoke the postSave method to allow for the child class to access the model.
-        $this->postSaveHook($model);
-
-        return true;
-    }
-
-    /**
      * Method to save a record.
      *
      * @param   string  $key     The name of the primary key of the URL variable.
@@ -531,6 +472,8 @@ class YoControllerAbstract extends JControllerAdmin
         $checkin = property_exists($table, 'checked_out');
         $context = "$this->option.edit.$this->context";
         $task = $this->getTask();
+        $returnUrl = $app->getUserState($context . '.returnUrl');
+
 
         // Determine the name of the primary key for the data.
         if (empty($key))
@@ -579,8 +522,11 @@ class YoControllerAbstract extends JControllerAdmin
         {
             $this->setError(JText::_('JLIB_APPLICATION_ERROR_SAVE_NOT_PERMITTED'));
             $this->setMessage($this->getError(), 'error');
+            $app->setUserState($context . '.returnUrl', null);
 
             $this->setRedirect(
+                !empty($returnUrl)?
+                    $returnUrl :
                 JRoute::_(
                     'index.php?option=' . $this->option . '&view=' . $this->view_list
                     . $this->getRedirectToListAppend(), false
@@ -728,9 +674,12 @@ class YoControllerAbstract extends JControllerAdmin
                 // Clear the record id and data from the session.
                 $this->releaseEditId($context, $recordId);
                 $app->setUserState($context . '.data', null);
+                $app->setUserState($context . '.returnUrl', null);
 
                 // Redirect to the list screen.
                 $this->setRedirect(
+                    !empty($returnUrl)?
+                        $returnUrl :
                     JRoute::_(
                         'index.php?option=' . $this->option . '&view=' . $this->view_list
                         . $this->getRedirectToListAppend(), false
@@ -764,5 +713,18 @@ class YoControllerAbstract extends JControllerAdmin
         }
 
         return parent::getModel($name, $prefix, $config);
+    }
+
+    public function getReturnUrl()
+    {
+        $app = JFactory::getApplication();
+
+        $returnUrl = $app->input->get('returnUrl');
+        if (!empty($returnUrl)) {
+            return base64_decode($returnUrl);
+        }
+
+        $returnUrl = $_SERVER['HTTP_REFERER'];
+        return (strpos($returnUrl, JUri::base()) === 0)? $returnUrl : null;
     }
 }

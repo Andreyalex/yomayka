@@ -147,6 +147,30 @@ class YoViewHelperHtml
         return self::render($tpl, $options);
     }
 
+    public static function renderCancel($formId, $modelName)
+    {
+        return
+            '<button '.
+                "onclick=\"Joomla.submitform('{$modelName}.cancel', document.getElementById('<?=$formId?>')); return false;\" ".
+                'class="btn btn-danger"'.
+            '>' . JText::_('JCANCEL') . '</button>';
+    }
+
+    public static function renderSubmit($formId, $actionText)
+    {
+        ob_start();
+        ?><button type="submit" class="btn btn-success"><?=JText::_($actionText)?></button>
+        <script type="text/javascript">
+            Joomla.submitbutton = function(task) {
+                var form = document.getElementById('<?=$formId?>')
+                (document.formvalidator && !document.formvalidator.isValid(form))?
+                    alert('<?=JText::_('JGLOBAL_VALIDATION_FORM_FAILED')?>') :
+                    Joomla.submitform(task, form);
+                return false;
+            }
+        </script><?php
+        return ob_get_clean();
+    }
 
     public static function render($tpl, $data, $defaults = array())
     {
@@ -194,7 +218,6 @@ class YoViewHelperHtml
         if (!isset($document->customAssets)) {
             $document->customAssets = array();
         }
-
 
         $document->customAssets[] =
             '<script type="text/javascript">'.

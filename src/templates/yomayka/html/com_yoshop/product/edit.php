@@ -14,34 +14,11 @@
 
     ob_start();
 ?>
-    <script type="text/javascript">
-        jQuery(document).ready(function(){
 
-        });
-
-        Joomla.submitbutton = function(task)
-        {
-            if(task == 'product.cancel'){
-                Joomla.submitform(task, document.getElementById('product-form'));
-            }
-            else{
-
-                if (task != 'product.cancel' && document.formvalidator.isValid(document.id('product-form'))) {
-
-                    Joomla.submitform(task, document.getElementById('product-form'));
-                }
-                else {
-                    alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
-                }
-            }
-        }
-    </script>
-
-
-    <form class="form-horizontal form-validate" role="form" id="member-registration" action="<?php echo JRoute::_('index.php?option=com_yoshop'); ?>" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal form-validate" role="form" id="product-form" action="<?php echo JRoute::_('index.php?option=com_yoshop'); ?>" method="post" enctype="multipart/form-data">
         <div class="cpanel" style="float:right">
-            <button type="submit" class="btn btn-success"><?=$actionText?></button>
-            <a class="btn btn-danger" href="<?php echo YoRoute::_('yoshop:userproducts');?>"><?php echo JText::_('JCANCEL');?></a>
+            <?=YoViewHelperHtml::renderSubmit('product-form', $actionText)?>
+            <?=YoViewHelperHtml::renderCancel('product-form', 'product')?>
         </div>
 
         <div class="clearfix"></div>
@@ -49,13 +26,13 @@
         <?php $fields = (array) $this->form->getFieldset();?>
         <?php foreach ($fields as $field) {// Iterate through the fields in the set and display them.?>
             <?php if (!$field->hidden) {// If the field is hidden, just display the input.?>
-                <?php echo YoViewHelperHtml::renderFormElement($field); ?>
+                <?=YoViewHelperHtml::renderFormElement($field); ?>
             <?php } else { ?>
-                <?php echo $field->input;?>
+                <?=$field->input;?>
             <?php } ?>
         <?php } ?>
 
-        <?php echo YoViewHelperHtml::renderFormAssets('yoshop.product.save.'.$this->id); ?>
+        <?=YoViewHelperHtml::renderFormAssets('yoshop.product.save.'.$this->id); ?>
 
     </form>
 

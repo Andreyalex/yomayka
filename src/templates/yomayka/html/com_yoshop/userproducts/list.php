@@ -5,7 +5,7 @@ if (count($this->products) > 0) {
         $productData = $row->data;
         $media = $productData->media[0]->data->path_prev;
         $acive = $productData->state == 1? 1:0;
-        $editUrl = YoRoute::_('yoshop:product.edit:'.$productData->id);
+        $editUrl = YoRoute::_('yoshop:product.edit:'.$productData->id, array('back'=>'1'));
         ?>
         <div class="item" data-id="<?php echo $productData->id; ?>">
             <div class="inner">
