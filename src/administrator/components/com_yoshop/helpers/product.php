@@ -46,5 +46,25 @@ class YoshopHelperProduct
     {
         return '<span class="glyphicon glyphicon-heart"></span>&nbsp;<span>'.(int)$productData->favorites_count.'/'.(int)$productData->favorites_day_count.'</span>';
     }
+
+    public function renderField($item)
+    {
+        $element = new stdClass();
+        $element->name = $item->name;
+        $element->title = JText::_('COM_YOSHOP_PRODUCT_FIELD_'.strtoupper($item->name));
+
+        switch ($item->type) {
+            case '1': // integer
+            case '2': // string
+                return YoViewHelperHtml::renderFormElement($element);
+            case '4': // multi check
+                $options = array(
+                    'value' => $item->params,
+                    'name' => $item->name
+                );
+                $element->input = YoViewHelperHtml::renderMultiCheck($options);
+                return YoViewHelperHtml::renderFormElement($element);
+        }
+    }
 }
 

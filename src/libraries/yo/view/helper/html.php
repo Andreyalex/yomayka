@@ -96,55 +96,55 @@ class YoViewHelperHtml
                 $options['input'] = $fieldElement->input;
         }
 
-        return self::renderControl($options);
+        $req = $options['required']? ' <span class="text-danger">*</span>' : '';
+        $tpl =
+            '<div class="form-group">
+                <label class="col-sm-2 control-label" for="{{id}}">{{label}}'.$req.'</label>
+                <div class="col-sm-10">{{control}}</div>
+            </div>';
+
+
+        $options['control'] = self::renderControl($options);
+
+        return self::render($tpl, $options);
     }
 
     public static function renderDataAsControl($label, $value)
     {
-        $options = array(
+        $options = (object) array(
             'value'       => $value,
             'label'       => JText::_($label),
             'disabled'    => true
         );
 
-        return self::renderControl($options);
-    }
-
-    public static function renderBs2Control($options)
-    {
-        $input = isset($options['input'])? $options['input'] :
-             '<input name="{{name}}" type="{{type}}" id="{{id}}" placeholder="{{placeholder}}" value="{{value}}" {{required}} />';
-
-        $tpl = '
-            <div class="control-group">
-                <label class="control-label" for="{{id}}">{{label}}</label>
-                <div class="controls">'
-                .$input.
-                '</div>
-            </div>';
-
-        return self::render($tpl, $options);
+        return self::renderFormElement($options);
     }
 
     public static function renderControl($options)
     {
         $input = !isset($options['input'])? '<input class="form-control" name="{{name}}" type="{{type}}" id="{{id}}" placeholder="{{placeholder}}" value="{{value}}" {{required}} {{disabled}} />' : $options['input'];
 
-        $req = $options['required']? ' <span class="text-danger">*</span>' : '';
-
         if ($options['disabled'] === true) {
             $options['disabled'] = 'disabled="disabled"';
         }
 
-        $tpl = '
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="{{id}}">{{label}}'.$req.'</label>
-                <div class="col-sm-10">'
-                .$input.
-                '</div>
-            </div>';
+        return self::render($input, $options);
+    }
 
-        return self::render($tpl, $options);
+    /**
+     * @param $options ['name', value:[[id: value]]]
+     * @param $checked [ids]
+     */
+    public function renderMultiCheck($options)
+    {
+        $res = '<ul>';
+        $fieldName = $options['name'];
+        foreach($options['value'] as $id => $value) {
+            $checked = '';//in_array($id, $checked)? 'checked=" checked"' : '';
+            $res .= "<li><input type=\"checkbox\" name=\"jform[{$fieldName}][{$id}]\" value=\"1\"{$checked}><span>{$value}</span></li>";
+        }
+
+        return $res . '</ul>';
     }
 
     public static function renderCancel($formId, $modelName)

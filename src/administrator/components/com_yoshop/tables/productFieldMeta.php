@@ -13,31 +13,13 @@ defined('_JEXEC') or die;
 /**
  * product Table class
  */
-class YoshopTableProduct extends YoTable {
+class YoshopTableProductFieldMeta extends YoTable {
 
     public $id;
-    public $ordering;
-    public $state;
-    public $created_by;
+    public $product_id;
     public $name;
-    public $description;
-    public $price_base;
-    public $count;
-    public $category;
-    public $image_prev;
-    public $favorites_count;
-    public $favorites_day_count;
-
-    /**
-     * Just for doc
-     * @var array
-     */
-    public $_relations = array(
-        'link',
-        'media',
-        'fieldsMeta',
-        'fields'
-    );
+    public $default;
+    public $validation;
 
     /**
      * Constructor
@@ -45,6 +27,6 @@ class YoshopTableProduct extends YoTable {
      * @param &$db JDatabaseDriver A database connector object
      */
     public function __construct(&$db) {
-        parent::__construct('#__yoshop_product', 'id', $db);
+        parent::__construct('#__yoshop_product_field_meta', 'id', $db);
     }
 }

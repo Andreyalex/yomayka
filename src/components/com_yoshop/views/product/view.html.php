@@ -17,10 +17,13 @@ jimport('joomla.application.component.view');
  */
 class YoshopViewProduct extends YoView {
 
+    protected $id;
     protected $state;
     protected $item;
     protected $form;
     protected $product;
+    protected $fields;
+    protected $fieldsMeta;
     protected $menuItem;
     protected $isInCart;
 
@@ -31,7 +34,6 @@ class YoshopViewProduct extends YoView {
         
 		$app  = JFactory::getApplication();
 
-        /** @var YoDi $this->di */
         $this->product = new YoshopModelProduct;
         $this->menuItem = $app->getMenu()->getActive();
         $this->id = $app->input->get('id');
@@ -49,6 +51,20 @@ class YoshopViewProduct extends YoView {
     public function editHook()
     {
         $this->form = $this->product->getForm();
+
+//        $user = JFactory::getUser();
+//        $authorised = $user->authorise('core.create', 'com_yoshop');
+//        if ($authorised !== true) {
+//            throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
+//        }
+    }
+
+    public function fieldsHook()
+    {
+        $app  = JFactory::getApplication();
+        $catId = $app->input->get('categoryId');
+        $this->fieldsMeta = $this->product->getFieldsMeta($catId);
+        $this->fields = $this->product->getFields();
 
 //        $user = JFactory::getUser();
 //        $authorised = $user->authorise('core.create', 'com_yoshop');

@@ -32,6 +32,8 @@
             <?php } ?>
         <?php } ?>
 
+        <div id="jform-fields"></div>
+
         <?=YoViewHelperHtml::renderFormAssets('yoshop.product.save.'.$this->id); ?>
 
     </form>
@@ -45,6 +47,15 @@
 
                 var messenger = new Messenger;
                 messenger.initDefaultBehavior();
+
+                $('#jform_category').on('change', function(event){
+                    yo.request(
+                        'post html|yoshop:product:fields:partial',
+                        { data: { categoryId: $(this).val() } },
+                        $('#jform-fields')
+                    )
+                })
+
             })
         }
     </script>

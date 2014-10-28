@@ -14,12 +14,12 @@
                <!--filter="numeric"-->
                 <!--/>-->
 
-        <!--<field-->
-                <!--name="category"-->
-                <!--type="category" extension="com_yoshop"-->
-                <!--label="COM_YOSHOP_FORM_LBL_PRODUCT_CATEGORY"-->
-                <!--description="COM_YOSHOP_FORM_DESC_PRODUCT_CATEGORY"-->
-                <!--/>-->
+        <field
+                name="category"
+                type="category" extension="com_yoshop"
+                label="COM_YOSHOP_FORM_LBL_PRODUCT_CATEGORY"
+                description="COM_YOSHOP_FORM_DESC_PRODUCT_CATEGORY"
+                />
 
         <field
                 name="images"

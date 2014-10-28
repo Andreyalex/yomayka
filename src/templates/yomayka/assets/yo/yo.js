@@ -241,14 +241,14 @@
     this.errorEvent = 'error.notify'
     this.messageEvent = 'message.notify'
 
+    ajaxRequestObj || (ajaxRequestObj = {data:{}})
+    ajaxRequestObj.data || (ajaxRequestObj.data = {})
+
     this.ajaxRequestObj = ajaxRequestObj
     this.ajaxRequestObj.context = this
     this.container = container
     this.successCallback = successCallback
     this.errorCallback = errorCallback
-
-
-    ajaxRequestObj || (ajaxRequestObj = {data:{}})
 
     // Fill ajaxRequestObj with parsed "path" data
     var parts = path.match(/^((?:get)|(?:post))\s((?:html)|(?:json))(?:\|(.+))?$/);

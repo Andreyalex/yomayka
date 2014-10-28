@@ -23,10 +23,7 @@ class YoshopModelProduct extends YoModelAdmin
     protected $text_prefix = 'COM_YOSHOP';
 
     /**
-     * Method to get a single record.
-     *
      * @param	integer	The id of the primary key.
-     *
      * @return	mixed	Object on success, false on failure.
      * @since	1.6
      */
@@ -40,6 +37,39 @@ class YoshopModelProduct extends YoModelAdmin
         );
 
         return $dbo->loadObjectList();
+    }
+
+    /**
+     * @param	integer	The id of the primary key.
+     * @return	mixed	Object on success, false on failure.
+     * @since	1.6
+     */
+    public function getFields($pk = null)
+    {
+        $pk || ($pk = $this->data->id);
+        $dbo = JFactory::getDbo();
+        $dbo->setQuery(
+            ' SELECT * FROM `#__yoshop_product_field` WHERE `product_id`='.(int)$pk
+        );
+        return $dbo->loadObjectList();
+    }
+
+    /**
+     * @param	integer	The id of the primary key.
+     * @return	mixed	Object on success, false on failure.
+     * @since	1.6
+     */
+    public function getFieldsMeta($categoryId)
+    {
+        $dbo = JFactory::getDbo();
+        $dbo->setQuery(
+            ' SELECT * FROM `#__yoshop_product_field_meta` WHERE `category_id`='.(int)$categoryId
+        );
+        $data = $dbo->loadObjectList();
+        foreach($data as &$item) {
+            $item->params = json_decode($item->params);
+        }
+        return $data;
     }
 
     public function delete(&$pks = null)
@@ -83,6 +113,12 @@ class YoshopModelProduct extends YoModelAdmin
             case 'link':
                 $this->data->link = $this->data->id? YoshopHelperProduct::createUrl((object)$this->data) : null;
                 return $this->data->link;
+            case 'fields':
+                $this->data->fields = $this->getFields($this->data->id);
+                return $this->data->fields;
+            case 'fieldsMeta':
+                $this->data->fieldsMeta = $this->getFieldsMeta($this->data->id);
+                return $this->data->fieldsMeta;
         }
     }
 
