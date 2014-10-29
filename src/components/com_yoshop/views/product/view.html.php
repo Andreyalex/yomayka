@@ -18,6 +18,7 @@ jimport('joomla.application.component.view');
 class YoshopViewProduct extends YoView {
 
     protected $id;
+    protected $catId;
     protected $state;
     protected $item;
     protected $form;
@@ -30,10 +31,9 @@ class YoshopViewProduct extends YoView {
     /**
      * Display the view
      */
-    public function display($tpl = null) {
-        
-		$app  = JFactory::getApplication();
-
+    public function display($tpl = null)
+    {
+        $app  = JFactory::getApplication();
         $this->product = new YoshopModelProduct;
         $this->menuItem = $app->getMenu()->getActive();
         $this->id = $app->input->get('id');
@@ -51,25 +51,15 @@ class YoshopViewProduct extends YoView {
     public function editHook()
     {
         $this->form = $this->product->getForm();
-
-//        $user = JFactory::getUser();
-//        $authorised = $user->authorise('core.create', 'com_yoshop');
-//        if ($authorised !== true) {
-//            throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
-//        }
+        $this->catId = $this->product->data->category_id;
+        $this->fields = $this->product->getFields();
     }
 
     public function fieldsHook()
     {
         $app  = JFactory::getApplication();
-        $catId = $app->input->get('categoryId');
-        $this->fieldsMeta = $this->product->getFieldsMeta($catId);
+        $this->catId = $app->input->get('categoryId');
+        $this->fieldsMeta = $this->product->getFieldsMeta($this->catId);
         $this->fields = $this->product->getFields();
-
-//        $user = JFactory::getUser();
-//        $authorised = $user->authorise('core.create', 'com_yoshop');
-//        if ($authorised !== true) {
-//            throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
-//        }
     }
 }

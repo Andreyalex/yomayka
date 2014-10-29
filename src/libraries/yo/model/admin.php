@@ -20,6 +20,8 @@ abstract class YoModelAdmin extends JModelAdmin
 {
     public $data;
 
+    public $rawData;
+
     public $prefix; // [yoshop] from [Yoshop]ModelProduct
 
     public $tableName; // [product] from YoshopTable[Product]
@@ -106,6 +108,56 @@ abstract class YoModelAdmin extends JModelAdmin
         if ($this->data->store() !== true) {
             return false;
         }
+        return true;
+    }
+
+    /**
+     * @param $data [{id:'1', name:'name', value:'value'}, ... ]
+     * @param $existIds [1,2,3, ... ]
+     * @param $params [
+     *          table:'table_name',
+     *          name:'field_name',
+     *          value:'value',
+     *          insert:"INSERT INTO `#__table_name` (`{name}`) values('{value}')"
+     *        ]
+     * @return boolean
+     * @throws Exception
+     */
+    public function saveEav($data, $existIds, $params)
+    {
+        empty($data) && ($data = array());
+
+        $toDelete = $existIds;
+
+        $dbo = JFactory::getDbo();
+        foreach($data as $item) {
+            if (in_array($item->id, $existIds)) { // Update
+                $dbo->setQuery(
+                    "UPDATE `#__{$params['table']}` SET `{$params['name']}`='{$item->value}' WHERE `id`={$item->id}"
+                );
+                unset($toDelete[$item->id]);
+            } else {
+                $dbo->setQuery(
+                    str_replace(
+                        array('{name}', '{value}'),
+                        array($params['name'], $params['value']),
+                        $params['insert'])
+                );
+            }
+            if ($dbo->execute() === false) {
+                throw new Exception('Can not save eav item '.json_encode($item));
+            }
+        }
+
+        foreach($toDelete as $id) {
+            $dbo->setQuery(
+                "DELETE FROM `#__{$params['table']}` WHERE id=".(int)$id
+            );
+            if ($dbo->execute() === false) {
+                throw new Exception('Can not delete eav item '.json_encode($item));
+            }
+        }
+
         return true;
     }
 

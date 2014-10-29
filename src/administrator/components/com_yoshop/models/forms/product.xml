@@ -15,7 +15,7 @@
                 <!--/>-->
 
         <field
-                name="category"
+                name="category_id"
                 type="category" extension="com_yoshop"
                 label="COM_YOSHOP_FORM_LBL_PRODUCT_CATEGORY"
                 description="COM_YOSHOP_FORM_DESC_PRODUCT_CATEGORY"

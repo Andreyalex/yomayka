@@ -2,6 +2,6 @@
 
     defined('_JEXEC') or die;
 
-    foreach($this->fieldsMeta as $item) {
+    foreach($this->fields as $item) {
         echo YoshopHelperProduct::renderField($item);
     }

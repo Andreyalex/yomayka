@@ -589,6 +589,7 @@ class YoControllerAbstract extends JControllerAdmin
         }
 
         // Attempt to save the data.
+        $model->rawData = $data;
         if (!$model->save($validData))
         {
             // Save the data in the session.

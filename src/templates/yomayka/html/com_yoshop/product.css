@@ -107,3 +107,12 @@
         margin-top: 20px;
     }
 }
+
+
+/** Edit ----------------- */
+
+#jform-fields li {
+    float: left;
+    list-style: none;
+}
+

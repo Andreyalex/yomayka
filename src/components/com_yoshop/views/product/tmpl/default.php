@@ -9,7 +9,7 @@
 // no direct access
 defined('_JEXEC') or die;
 
-YoshopHelperHtml::addStylesheet('product/default.css');
+YoshopHelperHtml::addStylesheet('product.css');
 
 YoshopHelperHtml::initJsApp('product/default');
 

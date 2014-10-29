@@ -2,6 +2,8 @@
 
     defined('_JEXEC') or die;
 
+    YoshopHelperHtml::addStylesheet('product.css');
+
     JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
     JHtml::_('jquery.framework', false, null, false);
     JHtml::_('behavior.core');
@@ -23,16 +25,28 @@
 
         <div class="clearfix"></div>
 
-        <?php $fields = (array) $this->form->getFieldset();?>
-        <?php foreach ($fields as $field) {// Iterate through the fields in the set and display them.?>
-            <?php if (!$field->hidden) {// If the field is hidden, just display the input.?>
-                <?=YoViewHelperHtml::renderFormElement($field); ?>
-            <?php } else { ?>
-                <?=$field->input;?>
-            <?php } ?>
-        <?php } ?>
+        <?php
+            $fields = (array) $this->form->getFieldset();
+            foreach ($fields as $field) {// Iterate through the fields in the set and display them.
+                if (!$field->hidden) {// If the field is hidden, just display the input.
+                    echo YoViewHelperHtml::renderFormElement($field);
+                } else {
+                    echo $field->input;
+                }
 
-        <div id="jform-fields"></div>
+                if ($field->id == 'jform_category_id') {
+
+                    echo '<div id="jform-fields">';
+
+                    if (!empty($this->id)) {
+                        include 'fields.php';
+                    }
+
+                    echo '</div>';
+                }
+            }
+        ?>
+
 
         <?=YoViewHelperHtml::renderFormAssets('yoshop.product.save.'.$this->id); ?>
 
@@ -48,7 +62,7 @@
                 var messenger = new Messenger;
                 messenger.initDefaultBehavior();
 
-                $('#jform_category').on('change', function(event){
+                $('#jform_category_id').on('change', function(event){
                     yo.request(
                         'post html|yoshop:product:fields:partial',
                         { data: { categoryId: $(this).val() } },

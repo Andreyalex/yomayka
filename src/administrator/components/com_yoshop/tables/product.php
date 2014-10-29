@@ -23,7 +23,7 @@ class YoshopTableProduct extends YoTable {
     public $description;
     public $price_base;
     public $count;
-    public $category;
+    public $category_id;
     public $image_prev;
     public $favorites_count;
     public $favorites_day_count;

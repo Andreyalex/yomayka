@@ -11,94 +11,6 @@ defined('_JEXEC') or die;
 
 class YoshopHelperHtml
 {
-    /**
-     * @param $media stdClass
-     * @param $options array [size]
-     */
-    public static function renderMedia($media, $options = array())
-    {
-        $options = array_merge(array(
-            'size' => 'normal',
-            'link' => '#'
-        ), (array) $options);
-
-        switch($options['size']) {
-            case 'preview': $options['src'] = $media->path_prev; break;
-            case 'large'  : $options['src'] = $media->path; break;
-            case 'normal' :
-            default:
-                $options['src'] = $media->path; break;
-        }
-
-        $options['src']   = YOSHOP_PRODUCT_MEDIA_BASEURL.'/'.$options['src'];
-        $options['class'] = 'media-'.$options['size'];
-
-        $tpl = '<a href="{src}" class="image media-entity {class}"><img src="{src}" /></a>';
-
-        return self::render($tpl, $options);
-    }
-
-    public static function renderTitle($options)
-    {
-        $tpl = '
-            <div class="page-header">
-                <a href="{link}" class="alias-{alias}">
-                    <span class="icon icon-{icon}"></span>
-                    <span class="content">{title}</span>
-                </a>
-            </div>';
-
-        return self::render($tpl, $options);
-    }
-
-    public static function renderFormElement($fieldElement)
-    {
-        $options = array(
-            'id'          => $fieldElement->id,
-            'value'       => $fieldElement->value,
-            'label'       => $fieldElement->title,
-            'type'        => $fieldElement->type,
-            'input'       => str_replace('name=', "placeholder=\"{$fieldElement->title}\" name=", $fieldElement->input)
-        );
-
-        return self::renderControl($options);
-    }
-
-    public static function renderControl($options)
-    {
-        $options = array_merge(array(
-            'type' => 'text'
-        ), $options);
-
-        $input = $options['input']? $options['input'] :
-             '<input name="{name}" type="{type}" id="{id}" placeholder="{placeholder}" value="{value}"/>';
-        $tpl = '
-            <div class="control-group">
-                <label class="control-label" for="{id}">{label}</label>
-                <div class="controls">'
-                .$input.
-                '</div>
-            </div>';
-
-        return self::render($tpl, $options);
-    }
-
-
-    public static function render($tpl, $data, $defaults = array())
-    {
-        $data = array_merge($defaults, (array)$data);
-
-        $reps = array();
-        $matches = array();
-        preg_match_all('/{([^}]+)}/', $tpl, $matches);
-        foreach($matches[1] as $key) {
-            $reps["{{$key}}"] = isset($data[$key])? $data[$key] : '';
-        }
-
-        return str_replace(array_keys($reps), array_values($reps), $tpl);
-    }
-
-
     public static function renderPrice($value, $options = array())
     {
         $options['value'] = (int)$value;
@@ -133,43 +45,6 @@ class YoshopHelperHtml
     {
         $base = YOSHOP_ASSETS_BASEURL;
         JHtml::stylesheet($base.'/'.$url);
-    }
-
-    public static function renderPagination($pagination)
-    {
-        $tpl = '';
-        if ($pagination->get('pages.total') > 1) {
-            $tpl .= '
-              <div class="pagination">
-                <p class="counter pull-right">' . $pagination->getPagesCounter() . '</p>' .
-                $pagination->getPagesLinks() . '</div>';
-        }
-
-        return $tpl;
-
-    }
-
-    public static function renderFeedPagination($pagination, $url, $container, $control, $model)
-    {
-        if ($pagination->get('pages.total') > 1) {
-
-            ob_start(); ?>
-            <div class="pagination">
-                <button class="btn btn-info" role="paginator"><?=JText::_("Больше")."..."?></button>
-            </div>
-            <script>
-                jQuery(function(){
-                    new yo.Pagination({
-                        url: '<?=$url?>',
-                        container: jQuery('<?=$container?>'),
-                        control: jQuery('<?=$control?>'),
-                        limit: '<?=$model->getState('list.limit')?>'
-                    })
-                })
-            </script>
-            <?php
-            return ob_get_clean();
-        }
     }
 }
 

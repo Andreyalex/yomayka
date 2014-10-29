@@ -11,10 +11,6 @@ defined('_JEXEC') or die;
 
 class YoViewHelperHtml
 {
-    /**
-     * @param $media stdClass
-     * @param $options array [size]
-     */
     public static function renderMedia($media, $options = array())
     {
         $options = array_merge(array(
@@ -133,15 +129,16 @@ class YoViewHelperHtml
 
     /**
      * @param $options ['name', value:[[id: value]]]
-     * @param $checked [ids]
+     * @return string
      */
     public function renderMultiCheck($options)
     {
         $res = '<ul>';
         $fieldName = $options['name'];
-        foreach($options['value'] as $id => $value) {
-            $checked = '';//in_array($id, $checked)? 'checked=" checked"' : '';
-            $res .= "<li><input type=\"checkbox\" name=\"jform[{$fieldName}][{$id}]\" value=\"1\"{$checked}><span>{$value}</span></li>";
+        foreach($options['options'] as $id => $value) {
+            $checked = in_array($id, $options['values'])? 'checked=" checked"' : '';
+            $text = JText::_(strtoupper($value));
+            $res .= "<li><input type=\"checkbox\" name=\"jform[{$fieldName}][{$id}]\" value=\"1\"{$checked}><span>{$text}</span></li>";
         }
 
         return $res . '</ul>';
@@ -186,31 +183,6 @@ class YoViewHelperHtml
         return str_replace(array_keys($reps), array_values($reps), $tpl);
     }
 
-
-    public static function renderPrice($value, $options = array())
-    {
-        $options['value'] = (int)$value;
-        $defaults = array('currency' => JText::_('COM_YOSHOP_CURRENCY_UAH'));
-
-        return self::render(
-            '<span class="value">{{value}}</span>&nbsp;<span class="currency">{{currency}}</span>',
-            $options,
-            $defaults
-        );
-    }
-
-    public static function renderCount($value, $options = array())
-    {
-        $options['value'] = (int) $value;
-        $defaults = array('countItem' => JText::_('COM_YOSHOP_COUNT_ITEM'));
-
-        return self::render(
-            '<span class="value">{{value}}</span>&nbsp;<span class="countItem">{{countItem}}</span>',
-            $options,
-            $defaults
-        );
-    }
-
     public static function initJsApp($route = null, $data = array())
     {
         $document = JFactory::getDocument();
@@ -230,16 +202,41 @@ class YoViewHelperHtml
             '<script type="text/javascript" src="'.$base.'/require.js" data-main="'.$base.'/main"></script>';
     }
 
-    public static function addStylesheet($url)
+    public static function renderPagination($pagination)
     {
-        $base = YOSHOP_ASSETS_BASEURL;
-        JHtml::stylesheet($base.'/'.$url);
+        $tpl = '';
+        if ($pagination->get('pages.total') > 1) {
+            $tpl .= '
+              <div class="pagination">
+                <p class="counter pull-right">' . $pagination->getPagesCounter() . '</p>' .
+                $pagination->getPagesLinks() . '</div>';
+        }
+
+        return $tpl;
+
     }
 
-    public static function addScript($url)
+    public static function renderFeedPagination($pagination, $url, $container, $control, $model)
     {
-        $base = YOSHOP_ASSETS_BASEURL;
-        JHtml::stylesheet($base.'/'.$url);
+        if ($pagination->get('pages.total') > 1) {
+
+            ob_start(); ?>
+            <div class="pagination">
+                <button class="btn btn-info" role="paginator"><?=JText::_("Больше")."..."?></button>
+            </div>
+            <script>
+                jQuery(function(){
+                    new yo.Pagination({
+                        url: '<?=$url?>',
+                        container: jQuery('<?=$container?>'),
+                        control: jQuery('<?=$control?>'),
+                        limit: '<?=$model->getState('list.limit')?>'
+                    })
+                })
+            </script>
+            <?php
+            return ob_get_clean();
+        }
     }
 }
 
