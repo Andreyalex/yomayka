@@ -112,46 +112,64 @@ abstract class YoModelAdmin extends JModelAdmin
     }
 
     /**
-     * @param $data [{id:'1', name:'name', value:'value'}, ... ]
-     * @param $existIds [1,2,3, ... ]
+     * @param $formData
+     * @param $dbData
      * @param $params [
      *          table:'table_name',
-     *          name:'field_name',
-     *          value:'value',
+     *          valueField: 'value_string',
+     *          typeField: 'meta_id',
+     *          filter:['product_id', '12'],
+     *          match:['product_id']
      *          insert:"INSERT INTO `#__table_name` (`{name}`) values('{value}')"
      *        ]
-     * @return boolean
      * @throws Exception
+     * @internal param $data [{id:'1', name:'name', value:'value'}, ... ], ... ]
+     * @internal param $existIds [1,2,3, ... ]
+     * @return boolean
      */
-    public function saveEav($data, $existIds, $params)
+    public function saveEav($formData, $dbData, $params)
     {
-        empty($data) && ($data = array());
+        $data = $this->flatData($formData);
+        $exists = $this->flatData($dbData);
 
-        $toDelete = $existIds;
+        $toUpdate = array();
+        $toInsert = array();
 
         $dbo = JFactory::getDbo();
-        foreach($data as $item) {
-            if (in_array($item->id, $existIds)) { // Update
-                $dbo->setQuery(
-                    "UPDATE `#__{$params['table']}` SET `{$params['name']}`='{$item->value}' WHERE `id`={$item->id}"
-                );
-                unset($toDelete[$item->id]);
+        foreach($data as $hash => $item) {
+            if (isset($exists[$hash])) { // Update
+                $toUpdate[] = $exists[$hash];
+                unset($exists[$hash]);
             } else {
-                $dbo->setQuery(
-                    str_replace(
-                        array('{name}', '{value}'),
-                        array($params['name'], $params['value']),
-                        $params['insert'])
-                );
-            }
-            if ($dbo->execute() === false) {
-                throw new Exception('Can not save eav item '.json_encode($item));
+                $toInsert[] = $data[$hash];
             }
         }
 
-        foreach($toDelete as $id) {
+        $toDelete = $exists;
+
+        foreach($toUpdate as $item) {
             $dbo->setQuery(
-                "DELETE FROM `#__{$params['table']}` WHERE id=".(int)$id
+                "UPDATE `#__{$params['table']}` SET `{$params['valueField']}`='{$item->value}' WHERE `id`={$item->fieldId}"
+            );
+            if ($dbo->execute() === false) {
+                throw new Exception('Can not delete eav item '.json_encode($item));
+            }
+        }
+
+        foreach($toInsert as $item) {
+
+            $item->{$params['valueField']} = $item->value;
+            unset($item->value);
+            unset($item->fieldId);
+
+            if ($dbo->insertObject("#__{$params['table']}", $item) === false) {
+                throw new Exception('Can not delete eav item '.json_encode($item));
+            }
+        }
+
+        foreach($toDelete as $item) {
+            $dbo->setQuery(
+                "DELETE FROM `#__{$params['table']}` WHERE id=".(int)$item->fieldId
             );
             if ($dbo->execute() === false) {
                 throw new Exception('Can not delete eav item '.json_encode($item));
@@ -159,6 +177,35 @@ abstract class YoModelAdmin extends JModelAdmin
         }
 
         return true;
+    }
+
+    /**
+     * Creates several items from one if it has multi-value PROP property (array).
+     * If item has single-value PROP property then it will remain the same.
+     *
+     * @param $data
+     * @param string $prop Name of a property that will be examined to flat.
+     * @return array
+     */
+    protected function flatData($data, $prop = 'value')
+    {
+        // Create hashes
+        $result = array();
+        foreach($data as $hash => $item) {
+            if (is_array($item->$prop)) {
+                foreach($item->$prop as $idx => $val) {
+                    if ($val === null) {
+                        continue;
+                    }
+                    $result["$hash-$val"] = clone($item);
+                    $result["$hash-$val"]->$prop = $val;
+                    $result["$hash-$val"]->fieldId = $item->fieldId[$idx];
+                }
+            } else {
+                $result[$hash] = $item; // Do nothing
+            }
+        }
+        return $result;
     }
 
     function delete($data)

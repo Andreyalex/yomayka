@@ -59,7 +59,7 @@ class YoshopViewProduct extends YoView {
     {
         $app  = JFactory::getApplication();
         $this->catId = $app->input->get('categoryId');
-        $this->fieldsMeta = $this->product->getFieldsMeta($this->catId);
+        $this->product->data->category_id = $this->catId;
         $this->fields = $this->product->getFields();
     }
 }

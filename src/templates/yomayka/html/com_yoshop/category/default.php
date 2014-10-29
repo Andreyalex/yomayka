@@ -9,11 +9,11 @@
 // no direct access
 defined('_JEXEC') or die;
 
-YoViewHelperHtml::addStylesheet('category/category.css');
+YoshopHelperHtml::addStylesheet('category/category.css');
 YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/category/default.js');
 ?>
 
-<?php echo YoshopHelperHtml::renderTitle($this->category); ?>
+<?php echo YoViewHelperHtml::renderTitle($this->category); ?>
 
 <div id="yoshop-products-list" class="tiles">
     <?php if (count($this->products) > 0) {

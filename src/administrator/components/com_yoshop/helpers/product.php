@@ -60,7 +60,7 @@ class YoshopHelperProduct
             case '4': // multi check
                 $options = array(
                     'options' => $item->params,
-                    'name' => $item->name,
+                    'name' => 'field-'.$item->name,
                     'values' => (array) $item->value
                 );
                 $element->input = YoViewHelperHtml::renderMultiCheck($options);
