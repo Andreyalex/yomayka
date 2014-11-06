@@ -79,47 +79,12 @@
         width: 31.8%;
         margin: 0 0.75% 15px;
     }
-
-    /*#yoshop-products-list .item.grid-3col-item0 {*/
-        /*width: 31.3%;*/
-        /*margin-right:2%;*/
-    /*}*/
-
-    /*#yoshop-products-list .item.grid-3col-item1 {*/
-        /*width: 31.3%;*/
-        /*margin: 0 1%*/
-    /*}*/
-
-    /*#yoshop-products-list .item.grid-3col-item2 {*/
-        /*width: 31.3%;*/
-        /*margin-left: 2%;*/
-    /*}*/
 }
-
 
 @media (min-width: 480px) and (max-width: 639px) {
-
-    #yoshop-products-list .item.grid-2col-item0 {
-        width: 50%;
-    }
-
-    #yoshop-products-list .item.grid-2col-item1 {
-        width: 50%;
-    }
 }
 
-
 @media (max-width: 479px) {
-
-    #yoshop-products-list .item {
-        width: 100% !important;
-    }
-
-    #yoshop-products-list .item .inner {
-        width: 300px;
-        height: 300px;
-        line-height: 300px;
-    }
 }
 
 #yoshop-products-list .item .title {

@@ -131,17 +131,39 @@ class YoViewHelperHtml
      * @param $options ['name', value:[[id: value]]]
      * @return string
      */
-    public function renderMultiCheck($options)
+    public static function renderMultiCheck($options)
     {
         $res = '<ul>';
-        $fieldName = $options['name'];
+        $fieldName = !empty($options["form"])? "{$options["form"]}[{$options["name"]}]" : $options["name"];
         foreach($options['options'] as $id => $value) {
-            $checked = in_array($id, $options['values'])? 'checked=" checked"' : '';
+            $checked = in_array($id, $options['values'])? ' checked="checked"' : '';
             $text = JText::_(strtoupper($value));
-            $res .= "<li><input type=\"checkbox\" name=\"jform[{$fieldName}][{$id}]\" value=\"1\"{$checked}><span>{$text}</span></li>";
+            $res .= "<li><input type=\"checkbox\" name=\"{$fieldName}[{$id}]\" value=\"1\"{$checked}><span>{$text}</span></li>";
         }
 
         return $res . '</ul>';
+    }
+
+    /**
+     * @param $options ['name', value:[[id: value]]]
+     * @return string
+     */
+    public static function renderCategoryList($options)
+    {
+        $fieldName = !empty($options["form"])? "{$options["form"]}[{$options["name"]}]" : $options["name"];
+        $class = !empty($options["class"])? $options["class"] : 'form-control';
+        $list = JHtml::_('category.options', $options['extension']);
+        $res = '';
+        foreach($list as $item) {
+            $disabled = $item->disable? ' disabled="disabled"' : '';
+            $selected = (!empty($options['selected']) && $options['selected'] == $item->value)? ' selected="selected"' : '';
+            $res .= "<option value=\"{$item->value}\"{$disabled}{$selected}>{$item->text}</option>";
+        }
+
+        return
+            empty($options["optionsOnly"])?
+                "<select class=\"{$class}\" name=\"{$fieldName}\">{$res}</select>" :
+                $res;
     }
 
     public static function renderCancel($formId, $modelName)

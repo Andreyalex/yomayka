@@ -366,7 +366,8 @@ include('head.php');
         #main_place {
             opacity: 1;
         }
-    </style>
 
+
+    </style>
   </body>
 </html>

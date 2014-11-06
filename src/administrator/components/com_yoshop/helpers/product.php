@@ -47,7 +47,7 @@ class YoshopHelperProduct
         return '<span class="glyphicon glyphicon-heart"></span>&nbsp;<span>'.(int)$productData->favorites_count.'/'.(int)$productData->favorites_day_count.'</span>';
     }
 
-    public function renderField($item)
+    public function renderField($item, $options = array())
     {
         $element = new stdClass();
         $element->name = $item->name;
@@ -58,11 +58,11 @@ class YoshopHelperProduct
             case '2': // string
                 return YoViewHelperHtml::renderFormElement($element);
             case '4': // multi check
-                $options = array(
+                $options = array_merge($options, array(
                     'options' => $item->params,
                     'name' => 'field-'.$item->name,
                     'values' => (array) $item->value
-                );
+                ));
                 $element->input = YoViewHelperHtml::renderMultiCheck($options);
                 return YoViewHelperHtml::renderFormElement($element);
         }

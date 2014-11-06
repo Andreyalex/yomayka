@@ -50,6 +50,10 @@ class YoshopModelProducts extends YoModelList
         // Initialise variables.
         $app = JFactory::getApplication();
 
+        if ($app->input->get('filtering')) {
+            $this->setState('filter', null);
+        }
+
         // Load the filter state.
         $search = $app->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
         $this->setState('filter.search', $search);
@@ -147,17 +151,20 @@ class YoshopModelProducts extends YoModelList
         }
 
         // Filter by categories
-        $cats = $this->getState('filter.categories');
-        if (!empty($cats)) {
-            $query->where('( a.category IN ('.implode(',',$cats).'))');
+        $cat = $this->getState('filter.category_id');
+        if ($cat !== '*') {
+            $cats = (array) $this->getState('filter.categories');
+            !empty($cat) && $cats[] = $cat;
+            if (!empty($cats)) {
+                $query->where('a.category_id IN ('.implode(',',$cats).')');
+            }
         }
-
 
         // Add the list ordering clause.
         $orderCol = $this->state->get('list.ordering');
         $orderDirn = $this->state->get('list.direction');
         if ($orderCol && $orderDirn) {
-            $query->order($db->escape($orderCol . ' ' . $orderDirn . ', id ' . $orderDirn));
+            $query->order($db->escape($orderCol . ' ' . $orderDirn));
         }
 
         return $query;

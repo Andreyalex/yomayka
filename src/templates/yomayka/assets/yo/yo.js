@@ -94,7 +94,7 @@
     evt.params = data
     target && (evt.target = target)
     yo.debug('triggering event: ' + eventName, data);
-    jQuery('body').trigger(evt);
+    jQuery('body').trigger(evt, data);
   }
 
   yo.on = function (eventName, callback) {

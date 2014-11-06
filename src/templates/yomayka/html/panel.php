@@ -20,7 +20,7 @@ $profileClass = in_array($tab, array('profile'))? 'class="active"':'';
 $productsClass = in_array($tab, array('userproducts', 'userproduct'))? 'class="active"':'';
 $messagesClass = in_array($tab, array('conversations', 'conversation'))? 'class="active"':'';
 
-JHtml::stylesheet(JUri::base().'templates/yomayka/assets/css/com_users/user-panel.css');
+JHtml::stylesheet(JUri::base().'templates/yomayka/html/user-panel.css');
 ?>
 
 <div class="profile<?php echo $this->pageclass_sfx?> row-fluid">
