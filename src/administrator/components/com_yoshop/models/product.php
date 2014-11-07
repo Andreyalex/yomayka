@@ -72,7 +72,8 @@ class YoshopModelProduct extends YoModelAdmin
                     'type' => $item->type,
                     'params' => (array) json_decode($item->params),
                     'value' => ($item->type != 4)? $value : array($value),
-                    'fieldId' => ($item->type != 4)? $fieldId : array($fieldId)
+                    'fieldId' => ($item->type != 4)? $fieldId : array($fieldId),
+                    'metaId' => $id
                 );
             } else { // is multi-value only
                 $grouped[$id]->value[] = $value;

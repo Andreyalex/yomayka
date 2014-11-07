@@ -60,7 +60,7 @@ class YoshopHelperProduct
             case '4': // multi check
                 $options = array_merge($options, array(
                     'options' => $item->params,
-                    'name' => 'field-'.$item->name,
+                    'name' => 'field-'.$item->name.($item->metaId? '-'.$item->metaId : ''),
                     'values' => (array) $item->value
                 ));
                 $element->input = YoViewHelperHtml::renderMultiCheck($options);

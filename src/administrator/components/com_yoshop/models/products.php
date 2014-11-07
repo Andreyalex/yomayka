@@ -51,20 +51,9 @@ class YoshopModelProducts extends YoModelList
         $app = JFactory::getApplication();
 
         if ($app->input->get('filtering')) {
-            $this->setState('filter', null);
+            $filter = $app->getUserStateFromRequest($this->context . '.filter', 'filter', array(), 'array');
+            $this->setState('filter', $filter);
         }
-
-        // Load the filter state.
-        $search = $app->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
-        $this->setState('filter.search', $search);
-
-        $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
-        $this->setState('filter.state', $published);
-
-        // Load the parameters.
-        $params = JComponentHelper::getParams('com_yoshop');
-        $this->setState('params', $params);
-
         // List state information.
         parent::populateState('a.name', 'asc');
     }
@@ -101,6 +90,7 @@ class YoshopModelProducts extends YoModelList
 
         // Select the required fields from the table.
         $query->select(
+                'distinct '.
                 $this->getState(
                         'list.select', 'a.*'
                 )
@@ -137,10 +127,11 @@ class YoshopModelProducts extends YoModelList
         } else if ($published === '') {
             $query->where('(a.state IN (0, 1))');
         }
-    
+
+        $fields = $this->getState('filter');
 
         // Filter by search in title
-        $search = $this->getState('filter.search');
+        $search = $fields['search'];
         if (!empty($search)) {
             if (stripos($search, 'id:') === 0) {
                 $query->where('a.id = ' . (int) substr($search, 3));
@@ -149,14 +140,30 @@ class YoshopModelProducts extends YoModelList
                 $query->where('( a.name LIKE '.$search.' )');
             }
         }
+        unset($fields['search']);
 
         // Filter by categories
-        $cat = $this->getState('filter.category_id');
+        $cat = $fields['category_id'];
         if ($cat !== '*') {
             $cats = (array) $this->getState('filter.categories');
             !empty($cat) && $cats[] = $cat;
             if (!empty($cats)) {
                 $query->where('a.category_id IN ('.implode(',',$cats).')');
+            }
+        }
+        unset($fields['category_id']);
+
+        if (!empty($fields)) {
+            $query->join('', '#__yoshop_product_field as field ON field.product_id = a.id');
+
+            foreach($fields as $id => $item) {
+                list($null, $null, $metaId) = explode('-', $id);
+                $query->where('field.meta_id='.$db->quote($metaId));
+                if (is_array($item)) {
+                    $query->where('field.value_string IN ('.join(',', array_keys($item)).')');
+                } else {
+                    $query->where('field.value_string='.$db->escape($item));
+                }
             }
         }
 
