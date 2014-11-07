@@ -377,3 +377,11 @@ a.nonlink {
 .transparent {
     opacity: 0;
 }
+
+.first {
+    padding-left: 0;
+}
+
+.last {
+    padding-right: 0;
+}

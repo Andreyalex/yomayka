@@ -19,53 +19,67 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/products/default
 <div id="filter-panel" class="cpanel panel panel-default">
     <div class="panel-body">
         <form id="products-form">
-        <div class="col-xs-3 pull-left">
-            <input
-                name="filter[search]"
-                class="form-control"
-                type="search"
-                placeholder="<?php echo JText::_("Поиск"); ?>"
-                value="<?php echo $filterSearch; ?>"
+        <div class="col-xs-6 pull-right last">
+            <a class="btn btn-success pull-right" data-event="click:filter">
+                <span class="glyphicon glyphicon-search"></span>
+                <span><?= JText::_('Искать');?></span>
+            </a>
+            <div class="col-xs-6 pull-right">
+                <input
+                    name="filter[search]"
+                    class="form-control"
+                    type="search"
+                    placeholder="<?php echo JText::_("Поиск"); ?>"
+                    value="<?php echo $filterSearch; ?>"
                 >
+            </div>
+            <a
+                class="btn btn-info pull-right"
+                data-event="click:restyle"
+                data-behavior="toggle:tiles,list:<?=$listOrdering?>"
+            >
+                <span class="glyphicon glyphicon-th"></span>
+            </a>
+            <a
+                class="btn btn-default pull-right"
+                data-event="click:ordering"
+                data-behavior="toggle:asc,desc:<?=$listOrdering?>"
+            >
+                <span class="glyphicon glyphicon-sort"></span>
+            </a>
         </div>
-        <div class="col-xs-3 pull-left">
+        <div class="col-xs-3 pull-left first">
             <select name="filter[category_id]" class="form-control" data-event="change:fields.update">
                 <option value="*"><?= JText::_('Все категории')?></option>
                 <?= YoViewHelperHtml::renderCategoryList(array(
                     'extension' => 'com_yoshop',
-                    'optionsOnly' => true
+                    'optionsOnly' => true,
+                    'selected' => $this->model->getState('filter.category_id')
                 )); ?>
             </select>
         </div>
-        <div id="fields" class="col-xs-9"></div>
-        <div class="pull-right">
-            <button
-                class="btn btn-default glyphicon glyphicon-sort"
-                data-event="click:ordering"
-                data-behavior="toggle:asc,desc:<?=$listOrdering?>"
-                onclick="return false"
-            >
-            </button>
-            <button
-                class="btn btn-info glyphicon glyphicon-th"
-                onclick="return false"
-            >
-            </button>
+        <div id="fields" class="col-xs-9 first">
+            <?php if ($this->model->getState('filter.category_id')) {
+                include 'fields.php';
+            } ?>
         </div>
         <input type="hidden" name="filtering" value="1">
         </form>
-        <button class="btn btn-success" data-event="click:filter">
-            <span class="glyphicon glyphicon-search"></span>
-            <span><?= JText::_('Искать');?></span>
-        </button>
     </div>
 </div>
 
 <div class="clearfix"></div>
 
-<div id="yoshop-products-list" class="items tiles">
+<div id="yoshop-products-list" class="items">
     <?php include 'list.php'; ?>
 </div>
+<script>
+    (function(){
+        var el = document.getElementById('yoshop-products-list')
+        el.className = el.className + ' ' + (localStorage && localStorage.getItem('yoshop.products.collection.style') || 'tiles')
+    })()
+</script>
+
 
 <?php if (count($this->items) > 0) { ?>
 <div class="pagination">
@@ -96,7 +110,7 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/products/default
             yo.on('fields.update', function(event){
                 yo.request(
                     'post html|yoshop:products:fields:partial',
-                    { data: { categoryId: event.params.value } },
+                    { data: { filter: { category_id: event.params.value } } },
                     $('#fields')
                 )
             })
@@ -107,6 +121,15 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/products/default
                     {data:{'filter_order_Dir': event.params.value}},
                     jQuery('#yoshop-products-list')
                 )
+            })
+
+            yo.on('restyle', function(event){
+
+                var style = $('#yoshop-products-list').hasClass('tiles')? 'list':'tiles';
+                $('#yoshop-products-list')
+                    .removeClass('tiles list')
+                    .addClass(style)
+                localStorage.setItem('yoshop.products.collection.style', style);
             })
 
             yo.on('filter', function(event){

@@ -51,9 +51,11 @@ class YoshopModelProducts extends YoModelList
         $app = JFactory::getApplication();
 
         if ($app->input->get('filtering')) {
-            $filter = $app->getUserStateFromRequest($this->context . '.filter', 'filter', array(), 'array');
-            $this->setState('filter', $filter);
+            $app->setUserState($this->context . '.fields', null);
+            $filter = $app->getUserStateFromRequest($this->context . '.fields', 'fields', array(), 'array');
+            $this->setState('fields', $filter);
         }
+
         // List state information.
         parent::populateState('a.name', 'asc');
     }
@@ -128,10 +130,8 @@ class YoshopModelProducts extends YoModelList
             $query->where('(a.state IN (0, 1))');
         }
 
-        $fields = $this->getState('filter');
-
         // Filter by search in title
-        $search = $fields['search'];
+        $cat = $this->getState('filter.search');
         if (!empty($search)) {
             if (stripos($search, 'id:') === 0) {
                 $query->where('a.id = ' . (int) substr($search, 3));
@@ -140,10 +140,9 @@ class YoshopModelProducts extends YoModelList
                 $query->where('( a.name LIKE '.$search.' )');
             }
         }
-        unset($fields['search']);
 
         // Filter by categories
-        $cat = $fields['category_id'];
+        $cat = $this->getState('filter.category_id');
         if ($cat !== '*') {
             $cats = (array) $this->getState('filter.categories');
             !empty($cat) && $cats[] = $cat;
@@ -151,8 +150,8 @@ class YoshopModelProducts extends YoModelList
                 $query->where('a.category_id IN ('.implode(',',$cats).')');
             }
         }
-        unset($fields['category_id']);
 
+        $fields = $this->getState('fields');
         if (!empty($fields)) {
             $query->join('', '#__yoshop_product_field as field ON field.product_id = a.id');
 

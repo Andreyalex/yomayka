@@ -17,7 +17,6 @@ jimport('joomla.application.component.view');
  */
 class YoshopViewProducts extends YoView
 {
-	protected $catId;
 	protected $model;
 	protected $fields;
     protected $state;
@@ -33,16 +32,15 @@ class YoshopViewProducts extends YoView
         $this->state		= $this->model->getState();
         $this->items		= $this->model->getItems();
         $this->pagination	= $this->model->getPagination();
+        $this->fields       = array();
+
+        $catId = $this->state->get('filter.category_id');
+        if (!empty($catId)) {
+            $product = new YoshopModelProduct();
+            $product->data->category_id = $catId;
+            $this->fields = $product->getFields();
+        }
 
         parent::display($tpl);
 	}
-
-    public function fieldsHook()
-    {
-        $app  = JFactory::getApplication();
-        $this->catId = $app->input->get('categoryId');
-        $product = new YoshopModelProduct();
-        $product->data->category_id = $this->catId;
-        $this->fields = $product->getFields();
-    }
 }

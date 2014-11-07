@@ -217,14 +217,33 @@
 
 #filter-panel #fields {
     clear: both;
-    padding-top: 20px;
+    margin: 0 -15px;
 }
 
 #filter-panel #fields .thumbnail {
     overflow: hidden;
+    width: 25%;
+    margin: 15px 0 0 15px;
+    float: left;
 }
 
-#filter-panel #fields .thumbnail li {
-    list-style: none;
+#filter-panel #fields .thumbnail .form-group {
+    margin: 0 2px 2px;
+}
+
+#filter-panel #fields .thumbnail .form-group > label {
+    width: 100%;
+    padding: 2px 5px;
+    margin: 0;
+}
+
+#filter-panel #fields .thumbnail .form-group > div {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#filter-panel #fields .thumbnail .pane-item {
     float: left;
+    margin: 2px 5px;
 }

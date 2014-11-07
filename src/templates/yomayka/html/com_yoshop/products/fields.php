@@ -5,6 +5,6 @@
     foreach($this->fields as $item) {
 ?>
         <div class="thumbnail">
-        <?= YoshopHelperProduct::renderField($item, array('form' => 'filter')); ?>
+        <?= YoshopHelperProduct::renderField($item, array('form' => 'fields')); ?>
         </div>
 <?php } ?>

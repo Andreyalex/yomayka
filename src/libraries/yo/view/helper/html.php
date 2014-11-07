@@ -133,15 +133,15 @@ class YoViewHelperHtml
      */
     public static function renderMultiCheck($options)
     {
-        $res = '<ul>';
+        $res = '<div class="pane">';
         $fieldName = !empty($options["form"])? "{$options["form"]}[{$options["name"]}]" : $options["name"];
         foreach($options['options'] as $id => $value) {
             $checked = in_array($id, $options['values'])? ' checked="checked"' : '';
             $text = JText::_(strtoupper($value));
-            $res .= "<li><input type=\"checkbox\" name=\"{$fieldName}[{$id}]\" value=\"1\"{$checked}><span>{$text}</span></li>";
+            $res .= "<div class=\"pane-item\"><input type=\"checkbox\" name=\"{$fieldName}[{$id}]\" value=\"1\"{$checked}><span>{$text}</span></div>";
         }
 
-        return $res . '</ul>';
+        return $res . '</div>';
     }
 
     /**
