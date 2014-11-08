@@ -131,7 +131,7 @@ class YoshopModelProducts extends YoModelList
         }
 
         // Filter by search in title
-        $cat = $this->getState('filter.search');
+        $search = $this->getState('filter.search');
         if (!empty($search)) {
             if (stripos($search, 'id:') === 0) {
                 $query->where('a.id = ' . (int) substr($search, 3));
