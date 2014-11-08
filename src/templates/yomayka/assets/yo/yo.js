@@ -183,12 +183,10 @@
    *
    * @param path
    * @param ajaxRequestObj
-   * @param container - additional behavior to easely inject
-   * @param successCallback
-   * @param errorCallback
+   * @param options - additional options
    */
   yo.request = function() {
-    return new yo.Request(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4]);
+    return new yo.Request(arguments[0], arguments[1], arguments[2]);
   }
 
   /**
@@ -230,13 +228,17 @@
    * May easily inject data into DOM element on success
    * and notify process, error and message event.
    *
-   * @param path
-   * @param ajaxRequestObj
-   * @param container - additional behavior to easely inject
-   * @param successCallback
-   * @param errorCallback
+   * @param path - post html|yoshop:products:fields:partial
+   * @param ajaxRequestObj - jQuery ajax options
+   * @param options - options:
+   *  start - method
+   *  success - method
+   *  error - method
+   *  complete - method
+   *  notify - method || false
+   *  container - domElement
    */
-  var Request = function(path, ajaxRequestObj, container, successCallback, errorCallback) {
+  var Request = function(path, ajaxRequestObj, options) {
 
     this.errorEvent = 'error.notify'
     this.messageEvent = 'message.notify'
@@ -246,9 +248,8 @@
 
     this.ajaxRequestObj = ajaxRequestObj
     this.ajaxRequestObj.context = this
-    this.container = container
-    this.successCallback = successCallback
-    this.errorCallback = errorCallback
+
+    this.options = options
 
     // Fill ajaxRequestObj with parsed "path" data
     var parts = path.match(/^((?:get)|(?:post))\s((?:html)|(?:json))(?:\|(.+))?$/);
@@ -261,27 +262,20 @@
       rsc[1] && (rsc[1].indexOf('.') > -1 ? ajaxRequestObj.data.task = rsc[1] : ajaxRequestObj.data.view = rsc[1])
       rsc[2] && (ajaxRequestObj.data.layout = rsc[2])
       rsc[3] && (ajaxRequestObj.data.tmpl = rsc[3])
-      ajaxRequestObj.url = window.siteBaseUrl
+      ajaxRequestObj.url = window['siteBaseUrl']
     }
 
     // Set defaults if not set yet
     ajaxRequestObj.url || (ajaxRequestObj.url = window.location.href)
     ajaxRequestObj.method || (ajaxRequestObj.method = 'post')
 
-    // Default error handler
-    ajaxRequestObj.error || (ajaxRequestObj.error = this.errorHandler)
-
-    // Default error handler
-    ajaxRequestObj.success || (ajaxRequestObj.success = this.successHandler)
-
-    ajaxRequestObj.complete = function() {
-      yo.trigger('done.process')
-      this.behaviorOnComplete()
-    }
+    // Default handlers
+    ajaxRequestObj.beforeSend || (ajaxRequestObj.beforeSend = this.behaviorOnStart)
+    ajaxRequestObj.success    || (ajaxRequestObj.success = this.successHandler)
+    ajaxRequestObj.error      || (ajaxRequestObj.error = this.errorHandler)
+    ajaxRequestObj.complete   || (ajaxRequestObj.complete = this.behaviorOnComplete)
 
     jQuery.ajax(ajaxRequestObj)
-    yo.trigger('start.process')
-    this.behaviorOnStart()
   }
 
   /**
@@ -300,13 +294,13 @@
         return this.errorHandler(res)
       }
       res.messages && yo.trigger(this.messageEvent, res.messages.join(' '))
-      return this.successCallback && this.successCallback(res)
+      return this.options.success && this.options.success(res)
 
     } else {
 
       // html or any string response to inject
-      this.container && yo.inject(this.container, res)
-      return this.successCallback && this.successCallback(res)
+      this.options.container && yo.inject(this.options.container, res)
+      return this.options.success && this.options.success(res)
     }
   }
 
@@ -326,28 +320,42 @@
         status: res.status,
         messages: res.messages,
         data: res.data,
-        artefacts:res._artefacts
+        artifacts:res['_artifacts']
       }
     })
     var text = (res.errorCode && res.errorCode == 500 || !res.messages)?
       yo.texts.errors.general : res.messages.join(' ')
     yo.trigger(this.errorEvent, text)
 
-    return this.errorCallback && this.errorCallback(res)
+    return this.options.error && this.options.error(res)
   }
 
   /**
    * Default additional behavior
    */
   Request.prototype.behaviorOnStart = function() {
-    this.container && this.container.addClass('transparent')
+
+    this.options.notify === undefined && yo.trigger('start.process')
+    typeof(this.options.notify) == 'function' &&
+      this.options.notify('start')
+
+    this.options.container && this.options.container.addClass('transparent')
+
+    typeof(this.options.start) == 'function' && this.options.start()
   }
 
   /**
    * Default additional behavior
    */
   Request.prototype.behaviorOnComplete = function() {
-    this.container && this.container.removeClass('transparent')
+
+    this.options.notify === undefined && yo.trigger('done.process')
+    typeof(this.options.notify) == 'function' &&
+      this.options.notify('done')
+
+    this.options.container && this.options.container.removeClass('transparent')
+
+    typeof(this.options.complete) == 'function' && this.options.complete()
   }
 
 

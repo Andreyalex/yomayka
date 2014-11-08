@@ -38,9 +38,9 @@ class YoControllerJson extends YoControllerAbstract
         $this->_response['data'] = $data;
     }
 
-    public function setArtefacts($data)
+    public function setArtifacts($data)
     {
-        $this->_response['_artefacts'] = (string) $data;
+        $this->_response['_artifacts'] = (string) $data;
     }
 
     public function setError($code, $trace)
@@ -73,7 +73,7 @@ class YoControllerJson extends YoControllerAbstract
             $this->setMessages(array($e->getMessage()));
         }
         $content = ob_get_contents();
-        $this->setArtefacts($content);
+        $this->setArtifacts($content);
         ob_end_clean();
 
         echo $this->render();

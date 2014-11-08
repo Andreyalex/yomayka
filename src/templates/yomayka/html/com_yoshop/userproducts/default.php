@@ -76,7 +76,7 @@
                 yo.on('product.publish', function(event){
                     yo.request(
                         'post json|yoshop:product.publish',
-                        {data:{jform: event.params}}
+                        { data:{jform: event.params} }
                     )
                 })
 
@@ -85,10 +85,10 @@
                 yo.on('product.delete', function(event){
                     yo.request(
                         'post json|yoshop:product.delete',
-                        {data:{jform: event.params}},
-                        null,
-                        function(res){
+                        { data: { jform: event.params } },
+                        { success: function(res){
                             jQuery(event.target).parents('.item').remove()
+                          }
                         }
                     )
                 })
@@ -96,16 +96,16 @@
                 yo.on('ordering', function(event){
                     yo.request(
                         'post html|yoshop:userproducts:list:partial',
-                        {data:{'filter_order_Dir': event.params.value}},
-                        jQuery('#yoshop-products-list')
+                        { data: { 'filter_order_Dir': event.params.value } },
+                        { container: jQuery('#yoshop-products-list') }
                     )
                 })
 
                 yo.on('filter', function(event){
                     yo.request(
                         'post html|yoshop:userproducts:list:partial',
-                        {data:{ 'filter': {search: event.params.value}}},
-                        jQuery('#yoshop-products-list')
+                        { data: { 'filter': {search: event.params.value } } },
+                        { container: jQuery('#yoshop-products-list') }
                     )
                 })
             })

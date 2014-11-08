@@ -53,8 +53,8 @@
                 yo.on('filter', function(event){
                     yo.request(
                         'post html|yoshop:conversations:list:partial',
-                        {data:{ 'filter': {search: event.params.value}}},
-                        jQuery('#yoshop-conversations-list')
+                        { data:{ 'filter': {search: event.params.value} } },
+                        { container: jQuery('#yoshop-conversations-list') }
                     )
                 })
             })

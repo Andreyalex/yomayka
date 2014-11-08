@@ -49,7 +49,8 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/products/default
             </a>
         </div>
         <div class="col-xs-3 pull-left first">
-            <select name="filter[category_id]" class="form-control" data-event="change:fields.update">
+            <select
+                name="filter[category_id]" class="form-control" data-event="change:fields.update">
                 <option value="*"><?= JText::_('Все категории')?></option>
                 <?= YoViewHelperHtml::renderCategoryList(array(
                     'extension' => 'com_yoshop',
@@ -111,15 +112,15 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/products/default
                 yo.request(
                     'post html|yoshop:products:fields:partial',
                     { data: { filter: { category_id: event.params.value } } },
-                    $('#fields')
+                    { container: $('#fields') }
                 )
             })
 
             yo.on('ordering', function(event){
                 yo.request(
                     'post html|yoshop:products:list:partial',
-                    {data:{'filter_order_Dir': event.params.value}},
-                    jQuery('#yoshop-products-list')
+                    { data: { 'filter_order_Dir': event.params.value } },
+                    { container: jQuery('#yoshop-products-list') }
                 )
             })
 
@@ -144,8 +145,8 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/products/default
 
                 yo.request(
                     'post html|yoshop:products:list:partial',
-                    {data: assoc},
-                    jQuery('#yoshop-products-list')
+                    { data: assoc },
+                    { container: jQuery('#yoshop-products-list') }
                 )
             })
         })

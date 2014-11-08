@@ -66,7 +66,7 @@
                     yo.request(
                         'post html|yoshop:product:fields:partial',
                         { data: { categoryId: $(this).val() } },
-                        $('#jform-fields')
+                        { container: $('#jform-fields') }
                     )
                 })
 
