@@ -1,4 +1,4 @@
-<?php 
+<?php
 	JFactory::getLanguage()->load('tpl_lady');
     $imgPath = JUri::root() . 'media/com_yoshop/content/frontpage';
 
@@ -40,14 +40,22 @@
 
                     <div class="slogan">Бренд - ничто. Стиль - всё!</div>
 
-                    <div class="description">Первый интернет-сток эксклюзивных вещей!</div>
+                    <div class="description">
+                        <span>Первый интернет-сток эксклюзивных вещей!</span>
+                    </div>
+
+                    <div style="text-align:center;z-index:90;position:relative">
+                        <a href="/component/yoshop/products" class="btn btn-lg btn-success">
+                            Перейти к товарам
+                        </a>
+                    </div>
 
                 </div>
-            </div>            
-        </div>    
+            </div>
+        </div>
     </div>
 </div>
-            
+
 <style>
 
     #homepage {
@@ -125,25 +133,25 @@
         border-top: 1px solid #bed5e8;
         margin: 40px auto;
     }
-    
+
     #categories {
         /*margin-top: 20px;*/
     }
-    
+
     #categories .slideshow {
         /*-moz-box-shadow:    0 0 10px 10px #ffffff;*/
         /*-webkit-box-shadow: 0 0 10px 10px #ffffff;*/
         /*box-shadow: 0 0 10px 10px #ffffff;*/
         overflow: hidden;
     }
-    
+
     #categories .slideshow > .inner {
         position: relative;
         overflow: hidden;
         width: 100%;
         height: 500px;
-    }    
-        
+    }
+
     #categories .slideshow .item {
         position: absolute;
         top: 0px;
@@ -186,17 +194,17 @@
         text-shadow: 2px 2px 7px #88f, 2px -2px 7px #88f, -2px -2px 7px #88f, -2px 2px 7px #88f;
     }
 
-    #categories .slideshow .item .inner {    
+    #categories .slideshow .item .inner {
         vertical-align: middle;
         overflow: hidden;
         width: 100%;
         /*background: #fff;*/
     }
-    
+
     #categories .slideshow .item.prev {
         display: block;
         z-index: 1;
-    }    
+    }
 
     #categories .slideshow .item.preactive {
         display: block;
@@ -206,15 +214,15 @@
     #categories .slideshow .item.active {
         display: block;
         z-index: 2;
-    }    
+    }
 
     #categories .slideshow .item .img {
         width: 150px;
         text-align: center;
         float: left;
         line-height: 300px;
-    }    
-    
+    }
+
     #categories .slideshow .item .img img {
         width: 100%;
         vertical-align: middle;
@@ -260,7 +268,7 @@
         line-height: 60px;
         font-weight: 100;
         color: #bed5e8;
-        text-shadow: rgba(0,0,0,0.5) 1px 1px 2px;    
+        text-shadow: rgba(0,0,0,0.5) 1px 1px 2px;
     }
 
     #homepage .random_text {

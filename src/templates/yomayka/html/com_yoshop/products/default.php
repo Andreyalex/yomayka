@@ -58,13 +58,14 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/products/default
                     'selected' => $this->model->getState('filter.category_id')
                 )); ?>
             </select>
+            <div id="category-preloader" class="preloader-input"></div>
         </div>
         <div id="fields" class="col-xs-9 first">
             <?php if ($this->model->getState('filter.category_id')) {
                 include 'fields.php';
             } ?>
         </div>
-        <input type="hidden" name="filtering" value="1">
+        <input type="hidden" name="fieldsReset" value="1">
         </form>
     </div>
 </div>
@@ -112,7 +113,13 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/products/default
                 yo.request(
                     'post html|yoshop:products:fields:partial',
                     { data: { filter: { category_id: event.params.value } } },
-                    { container: $('#fields') }
+                    { container: $('#fields'),
+                      notify: function(action) {
+                        action=='start'?
+                            $('#category-preloader').addClass('visible') :
+                            $('#category-preloader').removeClass('visible')
+                      }
+                    }
                 )
             })
 

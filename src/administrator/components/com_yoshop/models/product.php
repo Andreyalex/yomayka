@@ -41,20 +41,34 @@ class YoshopModelProduct extends YoModelAdmin
 
     /**
      * We need 2 ids. Product id and cat id.
-     * @param	integer	The id of the primary key.
+     * @param	array	The values.
      * @return	mixed	Object on success, false on failure.
      * @since	1.6
      */
-    public function getFields()
+    public function getFields($requestValues = array())
     {
         $pk  = $this->data->id;
         $typeId  = $this->data->category_id;
+
+        $this->getFieldsForType($typeId, $pk);
+    }
+    /**
+     * We need 2 ids. Product id and cat id.
+     * @param	integer	The category id.
+     * @param	array|integer Array of data or id of a product.
+     * @return	mixed	Object on success, false on failure.
+     * @since	1.6
+     */
+    public static function getFieldsForType($typeId, $source)
+    {
+        $isProduct = is_numeric($source);
+
         $dbo = JFactory::getDbo();
-        $dbo->setQuery(
-            ' SELECT f.id, f.value_int, f.value_string, f.product_id, m.id as meta_id, m.name, m.type, m.params '.
+        $dbo->setQuery('SELECT m.id as meta_id, m.name, m.type, m.params '.
+            ($isProduct? ', f.id, f.value_int, f.value_string, f.product_id ' : '').
             ' FROM `#__yoshop_product_field_meta` AS m '.
             ' JOIN `#__yoshop_product_type` AS t ON t.meta_id = m.id '.
-            ' LEFT JOIN `#__yoshop_product_field` AS f ON (m.id = f.meta_id AND f.product_id='.(int)$pk.') '.
+            ($isProduct? ' LEFT JOIN `#__yoshop_product_field` AS f ON (m.id = f.meta_id AND f.product_id='.(int)$source.') ' : '').
             ' WHERE t.category_id = '.(int)$typeId
         );
         $items = $dbo->loadObjectList();
@@ -78,6 +92,14 @@ class YoshopModelProduct extends YoModelAdmin
             } else { // is multi-value only
                 $grouped[$id]->value[] = $value;
                 $grouped[$id]->fieldId[] = $fieldId;
+            }
+        }
+
+        if (is_array($source)) {
+            foreach($grouped as $id => &$item) {
+                if (!empty($source[$id])) {
+                    $item->value = $source[$id];
+                }
             }
         }
 

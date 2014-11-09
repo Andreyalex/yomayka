@@ -385,3 +385,18 @@ a.nonlink {
 .last {
     padding-right: 0;
 }
+
+.preloader-input {
+    display: none;
+    width: 80px;
+    height: 20px;
+    background: url('../img/preloader-input.gif');
+    top:7px;
+    left:7px;
+    position: absolute;
+    z-index: 10000;
+}
+
+.preloader-input.visible {
+    display: block;
+}

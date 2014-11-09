@@ -50,11 +50,17 @@ class YoshopModelProducts extends YoModelList
         // Initialise variables.
         $app = JFactory::getApplication();
 
-        if ($app->input->get('filtering')) {
+        if ($app->input->get('fieldsReset')) {
             $app->setUserState($this->context . '.fields', null);
-            $filter = $app->getUserStateFromRequest($this->context . '.fields', 'fields', array(), 'array');
-            $this->setState('fields', $filter);
         }
+
+        $tmp = $app->getUserStateFromRequest($this->context . '.fields', 'fields', array(), 'array');
+        $fields = array();
+        foreach($tmp as $id => $item) {
+            list($null, $null, $metaId) = explode('-', $id);
+            $fields[$metaId] = is_array($item)? array_keys($item) : $item;
+        }
+        $this->setState('fields', $fields);
 
         // List state information.
         parent::populateState('a.name', 'asc');
@@ -155,11 +161,10 @@ class YoshopModelProducts extends YoModelList
         if (!empty($fields)) {
             $query->join('', '#__yoshop_product_field as field ON field.product_id = a.id');
 
-            foreach($fields as $id => $item) {
-                list($null, $null, $metaId) = explode('-', $id);
+            foreach($fields as $metaId => $item) {
                 $query->where('field.meta_id='.$db->quote($metaId));
                 if (is_array($item)) {
-                    $query->where('field.value_string IN ('.join(',', array_keys($item)).')');
+                    $query->where('field.value_string IN ('.join(',', $item).')');
                 } else {
                     $query->where('field.value_string='.$db->escape($item));
                 }

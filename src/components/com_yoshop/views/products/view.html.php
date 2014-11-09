@@ -32,14 +32,11 @@ class YoshopViewProducts extends YoView
         $this->state		= $this->model->getState();
         $this->items		= $this->model->getItems();
         $this->pagination	= $this->model->getPagination();
-        $this->fields       = array();
 
         $catId = $this->state->get('filter.category_id');
-        if (!empty($catId)) {
-            $product = new YoshopModelProduct();
-            $product->data->category_id = $catId;
-            $this->fields = $product->getFields();
-        }
+        $this->fields = !empty($catId)?
+            YoshopModelProduct::getFieldsForType($catId, $this->state->get('fields')) :
+            array();
 
         parent::display($tpl);
 	}
