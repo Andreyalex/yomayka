@@ -47,8 +47,8 @@
         <field
                 name="state"
                 type="list"
-                label="YOSHOP_CONDITION_STATUS"
-                description="YOSHOP_CONDITION_STATUS_DESC"
+                label="COM_YOSHOP_CONDITION_STATUS"
+                description="COM_YOSHOP_CONDITION_STATUS_DESC"
                 class="inputbox"
                 size="1"
                 default="1">
@@ -58,18 +58,28 @@
         <field
                 name="condition"
                 type="list"
-                label="YOSHOP_CONDITION"
-                description="YOSHOP_CONDITION_DESC"
+                label="COM_YOSHOP_CONDITION"
+                description="COM_YOSHOP_CONDITION_DESC"
                 class="inputbox"
                 size="1"
                 default="4">
-            <option value="1">YOSHOP_CONDITION_1</option>
-            <option value="2">YOSHOP_CONDITION_2</option>
-            <option value="3">YOSHOP_CONDITION_3</option>
-            <option value="4">YOSHOP_CONDITION_4</option>
-            <option value="5">YOSHOP_CONDITION_5</option>
-            <option value="6">YOSHOP_CONDITION_NEW</option>
+            <option value="1">COM_YOSHOP_CONDITION_1</option>
+            <option value="2">COM_YOSHOP_CONDITION_2</option>
+            <option value="3">COM_YOSHOP_CONDITION_3</option>
+            <option value="4">COM_YOSHOP_CONDITION_4</option>
+            <option value="5">COM_YOSHOP_CONDITION_5</option>
+            <option value="6">COM_YOSHOP_CONDITION_NEW</option>
         </field>
+
+        <field
+                name="regions"
+                type="regions"
+                label="COM_YOSHOP_REGIONS"
+                description="COM_YOSHOP_REGIONS_DESC"
+                class="inputbox"
+                size="1"
+                default="4"
+        />
 
         <!--<field name="created_by" type="createdby" default=""-->
                <!--label="COM_YOSHOP_FORM_LBL_PRODUCT_CREATED_BY"-->

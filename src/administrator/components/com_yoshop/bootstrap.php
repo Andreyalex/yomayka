@@ -6,6 +6,7 @@ class YoshopBootstrap
     {
         self::initConstants();
         self::initAutoload();
+        self::initPaths();
     }
 
     public static function initConstants()
@@ -41,5 +42,12 @@ class YoshopBootstrap
         YoAutoloader::registerPrefix('YoshopModel',  $admin.$ds.'models');
         YoAutoloader::registerPrefix('YoshopTable',  $admin.$ds.'tables');
         YoAutoloader::registerPrefix('YoshopView',   $admin.$ds.'views', 'view');
+    }
+
+    public static function initPaths()
+    {
+        JFormHelper::addFieldPath(
+            JPATH_ADMINISTRATOR.'/components/com_yoshop/models/fields'
+        );
     }
 }

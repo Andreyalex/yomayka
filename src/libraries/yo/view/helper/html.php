@@ -88,6 +88,10 @@ class YoViewHelperHtml
             case 'Textarea':
                 $options['input'] = str_replace('<textarea', '<textarea class="form-control"', $fieldElement->input);
                 break;
+            case 'List':
+            case 'Category':
+                $options['input'] = str_replace('<select', '<select class="form-control"', $fieldElement->input);
+                break;
             default:
                 $options['input'] = $fieldElement->input;
         }
@@ -133,6 +137,7 @@ class YoViewHelperHtml
      */
     public static function renderMultiCheck($options)
     {
+        is_array($options['values']) || ($options['values'] = (array) $options['values']);
         $res = '<div class="pane">';
         $fieldName = !empty($options["form"])? "{$options["form"]}[{$options["name"]}]" : $options["name"];
         foreach($options['options'] as $id => $value) {

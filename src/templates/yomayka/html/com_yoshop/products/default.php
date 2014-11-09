@@ -19,53 +19,76 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/products/default
 <div id="filter-panel" class="cpanel panel panel-default">
     <div class="panel-body">
         <form id="products-form">
-        <div class="col-xs-6 pull-right last">
-            <a class="btn btn-success pull-right" data-event="click:filter">
-                <span class="glyphicon glyphicon-search"></span>
-                <span><?= JText::_('Искать');?></span>
-            </a>
-            <div class="col-xs-6 pull-right">
-                <input
-                    name="filter[search]"
-                    class="form-control"
-                    type="search"
-                    placeholder="<?php echo JText::_("Поиск"); ?>"
-                    value="<?php echo $filterSearch; ?>"
-                >
+            <div class="col-xs-2 pull-left first">
+                <select
+                    name="filter[category_id]" class="form-control" data-event="change:fields.update">
+                    <option value="*"><?= JText::_('Все категории')?></option>
+                    <?= YoViewHelperHtml::renderCategoryList(array(
+                        'extension' => 'com_yoshop',
+                        'optionsOnly' => true,
+                        'selected' => $this->model->getState('filter.category_id')
+                    )); ?>
+                </select>
+                <div id="category-preloader" class="preloader-input"></div>
             </div>
-            <a
-                class="btn btn-info pull-right"
-                data-event="click:restyle"
-                data-behavior="toggle:tiles,list:<?=$listOrdering?>"
-            >
-                <span class="glyphicon glyphicon-th"></span>
-            </a>
-            <a
-                class="btn btn-default pull-right"
-                data-event="click:ordering"
-                data-behavior="toggle:asc,desc:<?=$listOrdering?>"
-            >
-                <span class="glyphicon glyphicon-sort"></span>
-            </a>
-        </div>
-        <div class="col-xs-3 pull-left first">
-            <select
-                name="filter[category_id]" class="form-control" data-event="change:fields.update">
-                <option value="*"><?= JText::_('Все категории')?></option>
-                <?= YoViewHelperHtml::renderCategoryList(array(
-                    'extension' => 'com_yoshop',
-                    'optionsOnly' => true,
-                    'selected' => $this->model->getState('filter.category_id')
-                )); ?>
-            </select>
+            <div class="col-xs-2 pull-left">
+                <?php /* echo YoViewHelperHtml::renderMultiCheck(array(
+                    'options' => YoshopHelperProduct::getConditionsList(),
+                    'name' => 'filter[condition]',
+                    'values' => $this->model->getState('filter.condition')
+                )); */ ?>
+                <select name="filter[condition]" class="form-control">
+                    <?= YoshopHelperHtml::renderField('condition', array(
+                        'selected' => $this->model->getState('filter.condition'),
+                        'optionsOnly' => true,
+                        'rough' => true
+                    )); ?>
+                </select>
+            </div>
+            <div class="col-xs-2 pull-left">
+                <select name="filter[regions]" class="form-control">
+                    <?= YoshopHelperHtml::renderField('regions', array(
+                        'selected' => $this->model->getState('filter.regions'),
+                        'optionsOnly' => true
+                    )); ?>
+                </select>
+            </div>
             <div id="category-preloader" class="preloader-input"></div>
-        </div>
-        <div id="fields" class="col-xs-9 first">
-            <?php if ($this->model->getState('filter.category_id')) {
-                include 'fields.php';
-            } ?>
-        </div>
-        <input type="hidden" name="fieldsReset" value="1">
+            <div class="col-xs-6 pull-right last">
+                <a class="btn btn-success pull-right" data-event="click:filter">
+                    <span class="glyphicon glyphicon-search"></span>
+                    <span><?= JText::_('Искать');?></span>
+                </a>
+                <div class="col-xs-6 pull-right">
+                    <input
+                        name="filter[search]"
+                        class="form-control"
+                        type="search"
+                        placeholder="<?php echo JText::_("Поиск"); ?>"
+                        value="<?php echo $filterSearch; ?>"
+                    >
+                </div>
+                <a
+                    class="btn btn-info pull-right"
+                    data-event="click:restyle"
+                    data-behavior="toggle:tiles,list:<?=$listOrdering?>"
+                >
+                    <span class="glyphicon glyphicon-th"></span>
+                </a>
+                <a
+                    class="btn btn-default pull-right"
+                    data-event="click:ordering"
+                    data-behavior="toggle:asc,desc:<?=$listOrdering?>"
+                >
+                    <span class="glyphicon glyphicon-sort"></span>
+                </a>
+            </div>
+            <div id="fields" class="col-xs-9 first">
+                <?php if ($this->model->getState('filter.category_id')) {
+                    include 'fields.php';
+                } ?>
+            </div>
+            <input type="hidden" name="fieldsReset" value="1">
         </form>
     </div>
 </div>

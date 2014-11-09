@@ -46,6 +46,17 @@ class YoshopHelperHtml
         $base = YOSHOP_ASSETS_BASEURL;
         JHtml::stylesheet($base.'/'.$url);
     }
+
+    public static function renderField($name, $options)
+    {
+        $field = JFormHelper::loadFieldType($name);
+
+        foreach($options as $key => $val) {
+            $field->$key = $val;
+        }
+
+        return $field->input;
+    }
 }
 
 
