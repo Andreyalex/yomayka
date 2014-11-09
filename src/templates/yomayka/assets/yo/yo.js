@@ -249,7 +249,7 @@
     this.ajaxRequestObj = ajaxRequestObj
     this.ajaxRequestObj.context = this
 
-    this.options = options
+    this.options = options || {}
 
     // Fill ajaxRequestObj with parsed "path" data
     var parts = path.match(/^((?:get)|(?:post))\s((?:html)|(?:json))(?:\|(.+))?$/);

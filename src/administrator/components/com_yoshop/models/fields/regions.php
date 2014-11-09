@@ -33,9 +33,12 @@ class JFormFieldRegions extends JFormField
 		// Initialize variables.
 		$html = '';
 
-        $data = YoshopHelperProduct::getRegionsList();
-
         $this->optionsOnly || ($html .= '<select name="'.$this->name.'">');
+
+        $data = array_merge(
+            array('*' => JText::_('COM_YOSHOP_REGION_ANY')),
+            YoshopHelperProduct::getRegionsList()
+        );
 
         foreach($data as $id => $name) {
             $selected = $id == $this->selected? ' selected="selected"' : '';
