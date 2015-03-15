@@ -4,3 +4,4 @@ src/configuration.php
 /src/.idea
 src/cache/*
 src/tmp/*
+src/logs

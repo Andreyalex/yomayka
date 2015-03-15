@@ -34,7 +34,7 @@ class YoshopRouter {
 
         ':view:/:id:' => array(), // product/16
 
-        ':view:' => array() // product/16
+        ':view:' => array() // products
     );
 
 

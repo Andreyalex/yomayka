@@ -10,8 +10,6 @@
 // No direct access
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.view');
-
 /**
  * View to edit
  */
@@ -30,6 +28,7 @@ class YoshopViewProduct extends YoView {
 
     /**
      * Display the view
+     * @required [id]
      */
     public function display($tpl = null)
     {
@@ -44,8 +43,8 @@ class YoshopViewProduct extends YoView {
 
     public function defaultHook()
     {
-        $cart = new YoshopModelCart;
-        $this->isInCart = $cart->hasProduct($this->product->id);
+//        $cart = new YoshopModelCart;
+//        $this->isInCart = $cart->hasProduct($this->product->data->id);
     }
 
     public function editHook()

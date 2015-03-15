@@ -28,8 +28,9 @@ class YoViewHelperHtml
 
         $options['src']   = YOSHOP_PRODUCT_MEDIA_BASEURL.'/'.$options['src'];
         $options['class'] = 'media-'.$options['size'];
+        $options['target'] = $options['target'] == 'blank'? ' target="_blank"' : '';
 
-        $tpl = '<a href="{{src}}" class="image media-entity {{class}}"><img src="{{src}}" /></a>';
+        $tpl = '<a href="{{src}}" {{target}} class="image media-entity {{class}}"><img src="{{src}}" /></a>';
 
         return self::render($tpl, $options);
     }

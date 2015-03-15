@@ -26,13 +26,15 @@ class YoshopHelperProduct
     {
         $params = array(
             'category_id' => $item->category,
-            'product_id' => $item->id
+            'id'    => $item->id,
+            'view'  => 'product'
         );
+
         $segments = yoshopBuildRoute($params);
 
         $route = !empty($params['Itemid'])?
             $route = JRoute::_('index.php?Itemid='.$params['Itemid']) :
-            ($base? $base : '/component/yoshop/product');
+            ($base? $base : '/component/yoshop');
 
         return $route.'/'.implode('/', $segments);
     }
