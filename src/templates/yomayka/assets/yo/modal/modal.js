@@ -1,6 +1,6 @@
-define(['jquery', '../yo'], function($, yo)
+define(['jquery', 'yo'], function($, yo)
 {
-    yo.loadCss(window.siteBaseUrl+'media/com_yoshop/assets/modal.css');
+    yo.loadCss(window.siteBaseUrl+'templates/yomayka/assets/yo/modal/modal.css');
 
     /**
      * Cart constructor

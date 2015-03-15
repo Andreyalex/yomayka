@@ -7,10 +7,13 @@
       paths: {
           jquery: window.siteBaseUrl+'media/jui/js/jquery.min',
           messenger: library+'messenger',
+          message: library+'message',
           preloader: library+'preloader',
           wizard: library+'wizard',
           cart: library+'cart',
-          yo: library+'yo'
+          yo: library+'yo',
+          share: library+'share/share',
+          modal: library+'modal/modal'
       }
   });
   window['requireJsAppInit'] && window.requireJsAppInit()

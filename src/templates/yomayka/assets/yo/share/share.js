@@ -1,6 +1,6 @@
 define(['jquery', 'yo'], function($, Yo){
 
-    Yo.loadCss(siteBaseUrl+'media/com_yoshop/assets/share/share.css');
+    Yo.loadCss(siteBaseUrl+'templates/yomayka/assets/yo/share/share.css');
 
 /* share.com | 10.11.2013 | (c) Dimox */
     return function(){

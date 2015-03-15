@@ -81,7 +81,7 @@ if(!empty($product->name)) {
 
 <script>
     window.requireJsAppInit = function(){
-        require(['jquery', 'yo', 'share/share', 'product/cart', 'modal', 'messenger', 'message'], function($, Yo, Share, Cart, Modal, Messenger, Message)
+        require(['jquery', 'yo', 'share', 'product/cart', 'modal', 'messenger', 'message'], function($, Yo, Share, Cart, Modal, Messenger, Message)
         {
             $(document).ready(function(){
 
