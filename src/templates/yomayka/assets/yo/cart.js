@@ -12,7 +12,6 @@ define(['jquery', 'yo', 'messenger'], function($, yo, messenger){
         options.domNode && ($this.domNode = $(options.domNode))
         options.products && ($this.products = $(options.products))
         options.data && ($this.data = $(options.data))
-        options.onSuccess && ($this.onSuccess = options.onSuccess)
       }
 
       if (options.products) {
@@ -52,13 +51,7 @@ define(['jquery', 'yo', 'messenger'], function($, yo, messenger){
             $this.messenger.show('Не удалось добавить товар в корзину', 'error')
             return
           }
-
-          if($this.onSuccess) {
-            $this.onSuccess('added')
-          } else {
-            control.parents('.item').addClass('in-cart')
-            $this.messenger.show(';-)', 'success')
-          }
+          $($this).trigger('added');
         }):
 
         $this.removeFromCart(id, 1, function(res){
@@ -67,13 +60,7 @@ define(['jquery', 'yo', 'messenger'], function($, yo, messenger){
             $this.messenger.show('Не удалось удалить товар из корзины', 'error')
             return
           }
-
-          if($this.onSuccess) {
-            $this.onSuccess('removed')
-          } else {
-            control.parents('.item').removeClass('in-cart')
-            $this.messenger.show(';-)', 'success')
-          }
+          $($this).trigger('removed')
         })
     },
 

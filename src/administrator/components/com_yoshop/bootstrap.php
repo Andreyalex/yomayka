@@ -2,11 +2,18 @@
 
 class YoshopBootstrap
 {
+    public static $isInitialized;
+
     public static function init()
     {
+        if (self::$isInitialized) {
+            return;
+        }
         self::initConstants();
         self::initAutoload();
         self::initPaths();
+
+        self::$isInitialized = true;
     }
 
     public static function initConstants()

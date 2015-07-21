@@ -90,6 +90,8 @@ if(!empty($product->name)) {
         {
             $(document).ready(function(){
 
+                var entityContainer = $('#yoshop-product');
+
                 new Message({
                     'appendToBottom': '#conversation',
                     'url': 'post json'
@@ -104,19 +106,24 @@ if(!empty($product->name)) {
                     itemsContainer: '#myCarousel'
                 });
 
-
-
                 var cart = new Cart({
                     domNode:  '#apex .modrole-cart .count',
                     products: '#yoshop-products-list .item',
-                    data:     window.yoshopJsData,
-                    onSuccess: function (action){
-                        action == 'added'?
-                            $('#yoshop-product .cart-add').hide() + $('#yoshop-product .cart-remove').show() :
-                            $('#yoshop-product .cart-add').show() + $('#yoshop-product .cart-remove').hide();
-                    }
+                    data:     window.yoshopJsData
                 });
 
+                $(cart)
+                    .on('added', function(){
+                        $('#yoshop-product .cart-add').hide() + $('#yoshop-product .cart-remove').show()
+                        entityContainer.addClass('in-cart')
+                        Yo.getShared('messenger').show(';-)', 'success')
+                    })
+                    .on('removed', function(){
+                        $('#yoshop-product .cart-add').show() + $('#yoshop-product .cart-remove').hide()
+                        entityContainer.removeClass('in-cart')
+                        Yo.getShared('messenger').show(';-)', 'success')
+
+                    });
             })
         })
     }

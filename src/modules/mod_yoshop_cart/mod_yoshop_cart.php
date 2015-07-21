@@ -12,8 +12,8 @@ defined('_JEXEC') or die;
 //require_once __DIR__ . '/helper.php';
 //$params = ModWrapperHelper::getParams($params);
 
-require_once JPATH_ADMINISTRATOR . '/components/com_yoshop/classes/autoload.php';
-YoshopAutoload::setup();
+require_once JPATH_ADMINISTRATOR . '/components/com_yoshop/bootstrap.php';
+YoshopBootstrap::initAutoload();
 
 $model = JModelLegacy::getInstance('Cart', 'YoshopModel');
 $count = $model->getCount();
