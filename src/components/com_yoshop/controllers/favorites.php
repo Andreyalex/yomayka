@@ -13,13 +13,13 @@ defined('_JEXEC') or die;
 /**
  * Products list controller class.
  */
-class YoshopControllerFavorites extends YoControllerAbstract
+class YoshopControllerProducts extends YoControllerAbstract
 {
 	/**
 	 * Proxy for getModel.
 	 * @since	1.6
 	 */
-	public function &getModel($name = 'Favorites', $prefix = 'YoshopModel')
+	public function &getModel($name = 'Products', $prefix = 'YoshopModel')
 	{
 		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
 		return $model;

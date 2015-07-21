@@ -55,6 +55,11 @@ if(!empty($product->name)) {
                 <div class="description"><?php echo $this->escape($product->description); ?></div>
             <?php } ?>
 
+            <span class="pull-left btn btn-large btn-success cart cart-add" data-cart-action="add" data-id="<?php echo $product->id; ?>" style="<?php echo $this->isInCart? 'display:none;':''?>" >
+                <i class="icon-star"></i>&nbsp;
+                <?php echo JText::_('COM_YOSHOP_ADD_TO_FAVORITES');?>
+            </span>
+
             <?php if(!empty($product->price_base)) { ?>
                 <div class="price">
                     <span class="pull-left btn btn-large btn-success cart cart-add" data-cart-action="add" data-id="<?php echo $product->id; ?>" style="<?php echo $this->isInCart? 'display:none;':''?>" >
