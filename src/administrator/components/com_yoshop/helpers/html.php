@@ -16,8 +16,8 @@ class YoshopHelperHtml
         $options['value'] = (int)$value;
         $defaults = array('currency' => JText::_('COM_YOSHOP_CURRENCY_UAH'));
 
-        return self::render(
-            '<span class="value">{value}</span>&nbsp;<span class="currency">{currency}</span>',
+        return YoViewHelperHtml::render(
+            '<span class="value">{{value}}</span>&nbsp;<span class="currency">{{currency}}</span>',
             $options,
             $defaults
         );
@@ -28,8 +28,8 @@ class YoshopHelperHtml
         $options['value'] = (int) $value;
         $defaults = array('countItem' => JText::_('COM_YOSHOP_COUNT_ITEM'));
 
-        return self::render(
-            '<span class="value">{value}</span>&nbsp;<span class="countItem">{countItem}</span>',
+        return YoViewHelperHtml::render(
+            '<span class="value">{{value}}</span>&nbsp;<span class="countItem">{{countItem}}</span>',
             $options,
             $defaults
         );

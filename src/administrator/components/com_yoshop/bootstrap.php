@@ -49,12 +49,12 @@ class YoshopBootstrap
         YoAutoloader::registerPrefix('YoshopModel',  $admin.$ds.'models');
         YoAutoloader::registerPrefix('YoshopTable',  $admin.$ds.'tables');
         YoAutoloader::registerPrefix('YoshopView',   $admin.$ds.'views', 'view');
+
+        YoDi::$defaultContext = 'Yoshop';
     }
 
     public static function initPaths()
     {
-        YoDi::$defaultContext = 'Yoshop';
-
         JFormHelper::addFieldPath(
             JPATH_ADMINISTRATOR.'/components/com_yoshop/models/fields'
         );

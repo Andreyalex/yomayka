@@ -61,3 +61,24 @@ YoViewHelperHtml::initJsApp('/templates/yomayka/html/com_yoshop/category/default
     <?php } ?>
 
 </div>
+
+<script>
+    require(['jquery','yo', 'cart', 'modal', 'messenger'], function($, Yo, Cart, Modal, Messenger)
+    {
+        $(document).ready(function(){
+
+            Yo.setShared('messenger', new Messenger())
+
+            var modal = new Modal({
+                domNode: '#modal-fullscreen',
+                itemsContainer: '#yoshop-products-list'
+            });
+
+            var cart = new Cart({
+                domNode:  '#apex .modrole-cart .count',
+                products: '#yoshop-products-list .item',
+                data:     window.yoshopJsData
+            });
+        })
+    })
+</script>
