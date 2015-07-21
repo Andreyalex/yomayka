@@ -17,15 +17,15 @@ class YoshopControllerOrder extends YoControllerJson
 {
     public function create()
     {
-        if (!$this->di->session->checkToken()) {
+        if (!YoDi::getInstance()->session->checkToken()) {
             throw new InvalidArgumentException('Invalid token');
         }
 
         /** @var YoshopModelCart $cart */
-        $cart = $this->createModel('cart');
+        $cart = YoDi::getInstance()->createModel('cart');
 
         /** @var YoshopModelOrder $order */
-        $order = $this->createModel('order');
+        $order = YoDi::getInstance()->createModel('order');
 
         $details = $this->input->post->get('jform', array(), 'array');
 
@@ -49,10 +49,10 @@ class YoshopControllerOrder extends YoControllerJson
         $this->setMessages('Order created successfully', true);
         $this->setData(array('id' => $order->id));
 
-        $config = $this->di->config;
+        $config = YoDi::getInstance()->config;
 
         /** @var YoshopMail $mailer */
-        $mailer = $this->di->get('mail');
+        $mailer = YoDi::getInstance()->get('mail');
         $mailer->setupWithDefaults();
         /** @var YoshopMailLetter $mail */
         $mail = $mailer->createLetter('Order created');

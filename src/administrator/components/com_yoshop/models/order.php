@@ -45,8 +45,8 @@ class YoshopModelOrder extends YoModelAdmin
             };
 
             foreach($data['items'] as $item) {
-                $modelProduct = $this->createModel('product');
-                $modelOrderProduct = $this->createModel('orderproduct');
+                $modelProduct = YoDi::getInstance()->createModel('product');
+                $modelOrderProduct = YoDi::getInstance()->createModel('orderproduct');
                 $product = $modelProduct->getItem($item['productId']);
                 $product->product_id = $product->id;
                 $product->order_id = $this->data->id;

@@ -46,6 +46,8 @@ class YoshopBootstrap
 
     public static function initPaths()
     {
+        YoDi::$defaultContext = 'Yoshop';
+
         JFormHelper::addFieldPath(
             JPATH_ADMINISTRATOR.'/components/com_yoshop/models/fields'
         );

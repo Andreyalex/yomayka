@@ -40,7 +40,7 @@ class YoshopControllerCart extends YoControllerJson
         // Initialise variables.
         $app   = JFactory::getApplication();
         /** @var YoshopModelCart $model */
-        $model = $this->createModel('cart');
+        $model = YoDi::getInstance()->createModel('cart');
 
         // Get the user data.
         $id = $app->input->get('id');

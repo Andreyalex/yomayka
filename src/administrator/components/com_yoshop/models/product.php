@@ -167,7 +167,7 @@ class YoshopModelProduct extends YoModelAdmin
     public function isInCart()
     {
         /** @var YoshopModelCart $cart */
-        $cart = $this->createModel('cart');
+        $cart = YoDi::getInstance()->createModel('cart');
         $cart->getProduct($this->data->id);
     }
 

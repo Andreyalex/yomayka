@@ -32,7 +32,7 @@ class YoshopViewSearch extends YoView {
         // Get some data from the model
 
         /** @var YoshopModelSearch $model */
-        $model = $this->di->createModel('search');
+        $model = YoDi::getInstance()->createModel('search');
 
         $state      = $model->getState();
         $this->searchword = $state->get('keyword');
@@ -50,7 +50,7 @@ class YoshopViewSearch extends YoView {
         $this->total      = $model->getTotal();
         $this->pagination = $model->getPagination();
 
-        $cart = $this->di->createModel('cart');
+        $cart = YoDi::getInstance()->createModel('cart');
         $this->cartState = $cart->getState();
         $this->cartIds = JArrayHelper::getColumn($this->cartState['products'], 'id');
 

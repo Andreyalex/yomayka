@@ -26,7 +26,7 @@ class YoshopViewCart extends YoView {
         $app = JFactory::getApplication();
 
          /** @var YoshopModelCart $model */
-        $model = $this->di->createModel('cart');
+        $model = YoDi::getInstance()->createModel('cart');
 
         $this->products = $model->getProducts();
         $this->count = $model->getCount();

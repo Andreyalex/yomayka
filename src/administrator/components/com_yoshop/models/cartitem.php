@@ -22,10 +22,9 @@ class YoshopModelCartitem extends YoModelAdmin
         parent::__construct($config);
 
         /** @var YoshopModelProduct $product */
-        $product = $this->createModel('product');
-        $this->product = $product->getItem($config['state']->id);
-
-        $this->count = $config['state']->count;
+        $product = YoDi::getInstance()->createModel('Product');
+        $this->product = $product->getItem($config['data']['id']);
+        $this->count = $config['data']['count'];
     }
 
     public function getTotalPrice()
@@ -48,4 +47,16 @@ class YoshopModelCartitem extends YoModelAdmin
     }
 
     public function getForm($data = array(), $loadData = true) {}
+
+    /**
+     * Method to get an ojbect.
+     *
+     * @param	integer	The id of the object to get.
+     *
+     * @return	mixed	Object on success, false on failure.
+     */
+    public function setItem($item)
+    {
+        $this->data = $item;
+    }
 }

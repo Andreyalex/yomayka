@@ -31,14 +31,14 @@ class YoshopViewOrder extends YoView
         $id = $app->input->get('id');
 
         /** @var YoshopModelOrderform $order */
-        $orderForm = $this->createModel('orderform');
+        $orderForm = YoDi::getInstance()->createModel('orderform');
         $orderForm->getItem($id);
         $orderForm->getState();
         $this->form = $orderForm->getForm();
 
 
         /** @var YoshopModelOrder $order */
-        $order = $this->createModel('order');
+        $order = YoDi::getInstance()->createModel('order');
 
 		$this->state = $this->get('State');
 		$this->item = $order->getItem($id);
@@ -47,7 +47,7 @@ class YoshopViewOrder extends YoView
 
         $this->products = array();
         foreach($order->getProducts() as $item) {
-            $product = $this->createModel('product');
+            $product = YoDi::getInstance()->createModel('product');
             $product->getItem($item->product_id);
             $this->products[] = (object) array(
                 'item' => $item,

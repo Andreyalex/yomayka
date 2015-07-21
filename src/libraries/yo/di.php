@@ -11,10 +11,14 @@ class YoDi
 {
     protected static $instance;
 
+    public static $defaultContext = 'Yo';
+
     protected $context;
 
-    public function getInstance($context = 'Yo', $options = array())
+    public static function getInstance($context = null, $options = array())
     {
+        $context || $context = self::$defaultContext;
+
         if (!self::$instance[$context]) {
             $di = new self($options);
             $di->setContext($context);
@@ -51,21 +55,21 @@ class YoDi
     public function createModel($type, $prefix = null, $config = array())
     {
         $prefix || $prefix = ucfirst($this->context) . 'Model';
-
-        if (!isset($config['di'])) {
-            $config['di'] = $this;
+        $result = JModelLegacy::getInstance($type, $prefix, $config);
+        if ($result === false) {
+            throw new \Exception('Model not found:'.$prefix.$type);
         }
-        return JModelLegacy::getInstance($type, $prefix, $config);
+        return $result;
     }
 
     public function createTable($type, $prefix = null, $config = array())
     {
         $prefix || $prefix = ucfirst($this->context) . 'Table';
-
-        if (!isset($config['di'])) {
-            $config['di'] = $this;
+        $result = JTable::getInstance($type, $prefix, $config);
+        if ($result === false) {
+            throw new \Exception('Table not found:'.$prefix.$type);
         }
-        return JTable::getInstance($type, $prefix, $config);
+        return $result;
     }
 
     public function get($name, $config = array())

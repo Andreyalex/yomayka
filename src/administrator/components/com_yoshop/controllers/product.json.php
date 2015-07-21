@@ -38,7 +38,7 @@ class YoshopControllerProduct extends YoControllerJson
                 foreach($files as $file) {
 
                     /** @var YoshopModelMedia $model */
-                    $model = $this->createModel('media');
+                    $model = YoDi::getInstance()->createModel('media');
                     if (
                         !$model->save(array(
                             'parent_id' => $id,
@@ -86,7 +86,7 @@ class YoshopControllerProduct extends YoControllerJson
                 throw new Exception('No ID found.');
 
             /** @var YoshopModelMedia $model */
-            $model = $this->createModel('media');
+            $model = YoDi::getInstance()->createModel('media');
 
             if (!$model->delete($id))
                 throw new Exception('Cannot delete media');
@@ -115,7 +115,7 @@ class YoshopControllerProduct extends YoControllerJson
             throw new Exception('No ID found.');
 
         /** @var YoshopModelMedia $model */
-        $model = $this->createModel('media');
+        $model = YoDi::getInstance()->createModel('media');
 
         if (!$model->title($id))
             throw new Exception('Cannot make media titled');
@@ -143,7 +143,7 @@ class YoshopControllerProduct extends YoControllerJson
                 throw new Exception('No ID found.');
 
             /** @var YoshopModelProduct $model */
-            $model = $this->createModel('product');
+            $model = YoDi::getInstance()->createModel('product');
             $collection = $model->getImages();
             $res->messages = array('done');
             $res->data = $collection;

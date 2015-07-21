@@ -222,7 +222,7 @@ class YoshopModelCategory extends YoModelAdmin
      function delete($data)
     {
         $id = (!empty($data['id'])) ? $data['id'] : (int)$this->getState('category.id');
-        if($this->di->user->authorise('core.delete', 'com_yoshop') !== true){
+        if(YoDi::getInstance()->user->authorise('core.delete', 'com_yoshop') !== true){
             JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
             return false;
         }
@@ -237,7 +237,7 @@ class YoshopModelCategory extends YoModelAdmin
     }
 
     function getCategoryName($id){
-        $db = $this->di->dbo;
+        $db = YoDi::getInstance()->dbo;
         $query = $db->getQuery(true);
         $query
             ->select('title')

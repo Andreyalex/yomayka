@@ -86,7 +86,7 @@ if(!empty($product->name)) {
 
 <script>
     window.requireJsAppInit = function(){
-        require(['jquery', 'yo', 'share', 'product/cart', 'modal', 'messenger', 'message'], function($, Yo, Share, Cart, Modal, Messenger, Message)
+        require(['jquery', 'yo', 'share', 'cart', 'modal', 'messenger', 'message'], function($, Yo, Share, Cart, Modal, Messenger, Message)
         {
             $(document).ready(function(){
 
@@ -95,27 +95,27 @@ if(!empty($product->name)) {
                     'url': 'post json'
                 })
 
-//                Yo.setShared('messenger', new Messenger())
+                Yo.setShared('messenger', new Messenger())
 
-//                Share();
+                Share();
 
-//                var modal = new Modal({
-//                    domNode: '#modal-fullscreen',
-//                    itemsContainer: '#myCarousel'
-//                });
+                var modal = new Modal({
+                    domNode: '#modal-fullscreen',
+                    itemsContainer: '#myCarousel'
+                });
 
 
 
-//                var cart = new Cart({
-//                    domNode:  '#apex .modrole-cart .count',
-//                    products: '#yoshop-products-list .item',
-//                    data:     window.yoshopJsData,
-//                    onSuccess: function (action){
-//                        action == 'added'?
-//                            $('#yoshop-product .cart-add').hide() + $('#yoshop-product .cart-remove').show() :
-//                            $('#yoshop-product .cart-add').show() + $('#yoshop-product .cart-remove').hide();
-//                    }
-//                });
+                var cart = new Cart({
+                    domNode:  '#apex .modrole-cart .count',
+                    products: '#yoshop-products-list .item',
+                    data:     window.yoshopJsData,
+                    onSuccess: function (action){
+                        action == 'added'?
+                            $('#yoshop-product .cart-add').hide() + $('#yoshop-product .cart-remove').show() :
+                            $('#yoshop-product .cart-add').show() + $('#yoshop-product .cart-remove').hide();
+                    }
+                });
 
             })
         })

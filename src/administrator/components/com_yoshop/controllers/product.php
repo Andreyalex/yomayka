@@ -30,7 +30,7 @@ class YoshopControllerProduct extends JControllerForm
     public function add()
     {
         /** @var YoshopModelProduct $product */
-        $product = $this->createModel('productform');
+        $product = YoDi::getInstance()->createModel('productform');
         $id = $product->createDraft();
 
         $this->input->set('id', $id);

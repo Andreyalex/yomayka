@@ -27,7 +27,7 @@ class YoshopViewProduct extends YoView
     public function display($tpl = null)
     {
         /** @var YoshopModelProduct $model */
-        $model = $this->createModel('product');
+        $model = YoDi::getInstance()->createModel('product');
 
         $id = JFactory::getApplication()->input->get('id');
 
